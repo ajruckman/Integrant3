@@ -1,0 +1,85 @@
+﻿@using Fundament.Component
+@using Microsoft.AspNetCore.Components
+
+@page "/"
+
+<StructureContainer T="User" Structure="@_structure" Value="@_testUser">
+    <table>
+        <tr>
+            <td>
+                <MemberKey TS="User" TM="bool" ID="Boolean"/>
+            </td>
+            <td>
+                <MemberValue TS="User" TM="bool" ID="Boolean"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <MemberKey TS="User" TM="int" ID="UserID"/>
+            </td>
+            <td>
+                <MemberValue TS="User" TM="int" ID="UserID"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <MemberKey TS="User" TM="string" ID="Name"/>
+            </td>
+            <td>
+                <MemberValue TS="User" TM="string" ID="Name"/>
+                
+                <input type="text" @oninput="@(args => _structure.Get<string>(nameof(User.Name)).UpdateValue(args.Value.ToString()))"/>
+                <MemberInput TS="User" TM="string" ID="Name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <MemberKey TS="User" TM="string" ID="PhoneNumber"/>
+            </td>
+            <td>
+                <MemberValue TS="User" TM="string" ID="PhoneNumber"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <MemberKey TS="User" TM="string" ID="Email"/>
+            </td>
+            <td>
+                <MemberValue TS="User" TM="string" ID="Email"/>
+                
+                <MemberInput TS="User" TM="string" ID="Email"/>
+            </td>
+        </tr>
+
+        @* <MemberKey TS="User" TM="bool" ID="Boolean"> *@
+        @*     <tr> *@
+        @*         <td>Boolean</td> *@
+        @*         <td>@_testUser.Boolean</td> *@
+        @*     </tr> *@
+        @* </MemberKey> *@
+        @* <MemberKey TS="User" TM="int" ID="UserID"> *@
+        @*     <tr> *@
+        @*         <td>User ID</td> *@
+        @*         <td>@_testUser.UserID</td> *@
+        @*     </tr> *@
+        @* </MemberKey> *@
+        @* <MemberKey TS="User" TM="string" ID="Name"> *@
+        @*     <tr> *@
+        @*         <td>Name</td> *@
+        @*         <td>@_testUser.Name</td> *@
+        @*     </tr> *@
+        @* </MemberKey> *@
+        @* <MemberKey TS="User" TM="string" ID="PhoneNumber"> *@
+        @*     <tr> *@
+        @*         <td>Phone number</td> *@
+        @*         <td>@_testUser.PhoneNumber</td> *@
+        @*     </tr> *@
+        @* </MemberKey> *@
+        @* <MemberKey TS="User" TM="string" ID="Email"> *@
+        @*     <tr> *@
+        @*         <td>Email</td> *@
+        @*         <td>@_testUser.Email</td> *@
+        @*     </tr> *@
+        @* </MemberKey> *@
+    </table>
+</StructureContainer>
