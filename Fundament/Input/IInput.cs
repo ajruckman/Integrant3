@@ -6,9 +6,10 @@ namespace Fundament.Input
 {
     public interface IInput<TStructure, TMember>
     {
-        public event Action<TMember> OnInput;
+        public event Action<TStructure, TMember> OnInput;
 
-        public RenderFragment Render(
+        public RenderFragment Render
+        (
             Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member
         );
     }
@@ -28,7 +29,8 @@ namespace Fundament.Input
         public readonly bool TextArea;
         public readonly bool Monospace;
 
-        public RenderFragment Render(
+        public RenderFragment Render
+        (
             Structure<TStructure> structure, TStructure value, Member<TStructure, string> member
         ) => builder =>
         {
@@ -44,7 +46,7 @@ namespace Fundament.Input
                 builder.OpenElement(++seq, "textarea");
             }
 
-            builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(OnChange));
+            builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
 
             //
 
@@ -75,11 +77,11 @@ namespace Fundament.Input
             builder.CloseElement();
         };
 
-        private void OnChange(ChangeEventArgs obj)
+        private void OnChange(TStructure value, ChangeEventArgs obj)
         {
-            OnInput?.Invoke(obj.Value.ToString());
+            OnInput?.Invoke(value, obj.Value.ToString());
         }
 
-        public event Action<string>? OnInput;
+        public event Action<TStructure, string>? OnInput;
     }
 }

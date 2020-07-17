@@ -9,7 +9,7 @@ namespace Fundament
 
         public delegate bool StructureIsVisible<T>
             (Structure<T> structure, T value);
-        
+
         public delegate List<Validation> StructureValidations<T>
             (Structure<T> structure, T value);
 

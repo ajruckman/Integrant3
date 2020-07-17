@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Superset.Utilities;
 
 namespace Fundament
 {
@@ -9,10 +12,16 @@ namespace Fundament
         public readonly ValidationResultType ResultType;
         public readonly string               Message;
 
+        public Validation(ValidationResultType resultType, string message)
+        {
+            ResultType = resultType;
+            Message    = message;
+        }
+
         internal RenderFragment Render() => builder =>
         {
             int          seq     = -1;
-            List<string> classes = new List<string> {"Validation"};
+            List<string> classes = new List<string> {"Fundament.Validation"};
 
             switch (ResultType)
             {
@@ -50,6 +59,153 @@ namespace Fundament
 
             builder.CloseElement();
         };
+
+        public static List<Validation> One(ValidationResultType resultType, string message) =>
+            new List<Validation> {new Validation(resultType, message)};
+    }
+
+    public class ValidationState<TStructure>
+    {
+        public List<Validation>?                     StructureValidationCache;
+        public Dictionary<string, List<Validation>>? MemberValidationCache;
+
+        public bool IsValidatingStructure { get; private set; }
+        
+        // private readonly HashSet<string> _membersBeingValidated = new HashSet<string>();
+
+        private readonly Structure<TStructure> _structure;
+
+        public ValidationState(Structure<TStructure> structure)
+        {
+            _structure = structure;
+
+            // _debouncer = new Debouncer<TStructure>(BeginValidations, default!);
+            // _tokenSource = new CancellationTokenSource();
+        }
+
+        private readonly object _cacheLock = new object();
+
+        private CancellationTokenSource? _tokenSource;
+
+        private static (List<Validation>, Dictionary<string, List<Validation>>) Validate
+        (
+            Structure<TStructure> structure,
+            TStructure            value,
+            CancellationToken     token
+        )
+        {
+            token.ThrowIfCancellationRequested();
+
+            var structureValidations = new List<Validation>();
+            var memberValidations    = new Dictionary<string, List<Validation>>();
+
+            if (structure.StructureValidator != null)
+                structureValidations = structure.StructureValidator.Invoke(structure, value);
+
+            token.ThrowIfCancellationRequested();
+
+            memberValidations ??= new Dictionary<string, List<Validation>>();
+
+            var allMembers = structure.AllMembers();
+            
+            foreach (IMember<TStructure> member in structure.AllMembers())
+            {
+                token.ThrowIfCancellationRequested();
+
+                List<Validation>? validations = member.Validations(structure, value);
+                if (validations == null) continue;
+
+                token.ThrowIfCancellationRequested();
+
+                if (!memberValidations.ContainsKey(member.ID))
+                    memberValidations[member.ID] = new List<Validation>();
+
+                memberValidations[member.ID].AddRange(validations);
+            }
+
+            return (structureValidations, memberValidations);
+        }
+
+        // private readonly Debouncer<TStructure> _debouncer;
+
+        private void BeginValidations(TStructure value)
+        {
+            IsValidatingStructure = true;
+            OnBeginValidating?.Invoke();
+            _tokenSource?.Cancel();
+            _tokenSource = new CancellationTokenSource();
+            CancellationToken token = _tokenSource.Token;
+
+            Task.Run(() =>
+            {
+                Console.WriteLine("Validating task: STARTED");
+
+                var (structure, members) = Validate(_structure, value, token);
+
+                Console.WriteLine("Validating task: FINISHED");
+
+                lock (_cacheLock)
+                {
+                    StructureValidationCache = structure;
+                    MemberValidationCache    = members;
+                }
+
+                IsValidatingStructure = false;
+                OnFinishValidatingStructure?.Invoke();
+            }, token);
+        }
+
+        public event Action? OnInvalidation;
+        public event Action? OnBeginValidating;
+        public event Action? OnFinishValidatingStructure;
+        // public event Action? OnFinishValidatingMember;
+
+        internal void ValidateStructure(TStructure value)
+        {
+            lock (_cacheLock)
+            {
+                StructureValidationCache = null;
+                MemberValidationCache    = null;
+                OnInvalidation?.Invoke();
+            }
+
+            BeginValidations(value);
+
+            // _debouncer.Reset(value);
+        }
+
+        internal List<Validation>? GetMemberValidations(string id)
+        {
+            lock (_cacheLock)
+            {
+                if (MemberValidationCache?.ContainsKey(id) == true)
+                    return MemberValidationCache[id];
+                return null;
+            }
+        }
+
+        // internal void InvalidateStructure()
+        // {
+        //     lock (_cacheLock)
+        //     {
+        //         IsValidating = false;
+        //         
+        //         _debouncer.Reset();
+        //
+        //         StructureValidationCache = null;
+        //     }
+        // }
+        //
+        // internal void InvalidateAll()
+        // {
+        //     lock (_cacheLock)
+        //     {
+        //         IsValidating = false;
+        //
+        //         StructureValidationCache = null;
+        //         MemberValidationCache    = null;
+        //     }
+        // }
     }
 
     public enum ValidationResultType

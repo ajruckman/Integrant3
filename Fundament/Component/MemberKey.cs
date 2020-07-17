@@ -27,7 +27,7 @@ namespace Fundament.Component
         {
             List<string> classes = new List<string> {"Fundament." + nameof(MemberKey<TS, TM>)};
 
-            Member<TS, TM> member = Structure.Get<TM>(ID!);
+            Member<TS, TM> member = Structure.GetMember<TM>(ID!);
 
             if (member.MemberClasses != null)
                 classes.AddRange(member.MemberClasses.Invoke(Structure, Value, member));

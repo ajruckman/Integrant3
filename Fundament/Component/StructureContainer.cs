@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -35,23 +34,19 @@ namespace Fundament.Component
             builder.AddAttribute(++seq, "IsFixed", true);
             builder.AddAttribute(++seq, "ChildContent", new RenderFragment(builder2 =>
             {
-                int seq2 = -1;
-
-                builder2.OpenComponent<CascadingValue<T>>(++seq2);
+                builder2.OpenComponent<CascadingValue<T>>(++seq);
                 builder2.AddAttribute(++seq, "Name",  "Fundament.Value");
                 builder2.AddAttribute(++seq, "Value", Value);
                 builder2.AddAttribute(++seq, "IsFixed", false);
                 builder2.AddAttribute(++seq, "ChildContent", new RenderFragment(builder3 =>
                 {
-                    int seq3 = -1;
-
-                    builder3.OpenElement(++seq3, "div");
-                    builder3.AddAttribute(++seq3, "class", string.Join(' ', classes));
+                    builder3.OpenElement(++seq, "div");
+                    builder3.AddAttribute(++seq, "class", string.Join(' ', classes));
 
                     if (!shown)
-                        builder3.AddAttribute(++seq3, "hidden", "hidden");
+                        builder3.AddAttribute(++seq, "hidden", "hidden");
 
-                    builder3.AddContent(++seq3, ChildContent);
+                    builder3.AddContent(++seq, ChildContent);
 
                     builder3.CloseElement();
                 }));

@@ -27,7 +27,7 @@ namespace Fundament.Component
         {
             List<string> classes = new List<string> {"Fundament." + nameof(MemberInput<TS, TM>)};
 
-            Member<TS, TM> member = Structure.Get<TM>(ID!);
+            Member<TS, TM> member = Structure.GetMember<TM>(ID!);
 
             if (member.Input == null)
                 throw new ArgumentNullException();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Fundament.Input;
 using Superset.Utilities;
 
@@ -7,23 +8,26 @@ namespace Fundament
     // ReSharper disable once UnusedTypeParameter
     public interface IMember<TStructure>
     {
-        public string ID { get; }
+        public string            ID { get; }
+        public List<Validation>? Validations(Structure<TStructure> structure, TStructure value);
     }
 
     public class Member<TStructure, TMember> : IMember<TStructure>
     {
-        public Member(
-            string                                               id,
-            Getters.MemberFormatValue<TStructure, TMember>       memberFormatValue,
-            IInput<TStructure, TMember>?                         input                  = null,
-            Getters.MemberClasses<TStructure, TMember>?          memberClasses          = null,
-            Getters.MemberIsEnabled<TStructure, TMember>?        memberIsEnabled        = null,
-            Getters.MemberIsVisible<TStructure, TMember>?        memberIsVisible        = null,
-            Getters.MemberFormatKey<TStructure, TMember>?        memberFormatKey        = null,
-            Getters.MemberDefaultValue<TStructure, TMember>?     memberDefaultValue     = null,
-            Getters.MemberInputIsRequired<TStructure, TMember>?  memberInputIsRequired  = null,
-            Getters.MemberInputPlaceholder<TStructure, TMember>? memberInputPlaceholder = null,
-            Getters.MemberValidator<TStructure, TMember>?        memberValidator        = null
+        public Member
+        (
+            string                                                    id,
+            Getters.MemberFormatValue<TStructure, TMember>            memberFormatValue,
+            IInput<TStructure, TMember>?                              input                  = null,
+            Getters.MemberClasses<TStructure, TMember>?               memberClasses          = null,
+            Getters.MemberIsEnabled<TStructure, TMember>?             memberIsEnabled        = null,
+            Getters.MemberIsVisible<TStructure, TMember>?             memberIsVisible        = null,
+            Getters.MemberFormatKey<TStructure, TMember>?             memberFormatKey        = null,
+            Getters.MemberDefaultValue<TStructure, TMember>?          memberDefaultValue     = null,
+            Getters.MemberInputIsRequired<TStructure, TMember>?       memberInputIsRequired  = null,
+            Getters.MemberInputPlaceholder<TStructure, TMember>?      memberInputPlaceholder = null,
+            Getters.MemberValidator<TStructure, TMember>?             memberValidator        = null,
+            Action<TStructure, Member<TStructure, TMember>, TMember>? onValueUpdate          = null
         )
         {
             ID = id;
@@ -46,9 +50,13 @@ namespace Fundament
             MemberInputPlaceholder = memberInputPlaceholder;
             MemberValidator        = memberValidator;
 
+            if (onValueUpdate != null)
+                OnValueUpdate += onValueUpdate;
+
             //
 
-            _debouncer = new Debouncer<TMember>(newValue => { OnValueUpdate?.Invoke(newValue); }, default!, 200);
+            _debouncer = new Debouncer<(TStructure, TMember)>(newValue =>
+                OnValueUpdate?.Invoke(newValue.Item1, this, newValue.Item2), default!, 200);
         }
 
         public string ID { get; }
@@ -75,13 +83,20 @@ namespace Fundament
 
         //
 
-        private readonly Debouncer<TMember> _debouncer;
+        private readonly Debouncer<(TStructure, TMember)> _debouncer;
 
-        public event Action<TMember>? OnValueUpdate;
+        public event Action<TStructure, Member<TStructure, TMember>, TMember>? OnValueUpdate;
 
-        public void UpdateValue(TMember newValue)
+        public void UpdateValue(TStructure value, TMember newValue)
         {
-            _debouncer.Reset(newValue);
+            _debouncer.Reset((value, newValue));
+        }
+
+        //
+
+        public List<Validation>? Validations(Structure<TStructure> structure, TStructure value)
+        {
+            return MemberValidator?.Invoke(structure, value, this);
         }
     }
 }

@@ -28,7 +28,7 @@
             <td>
                 <MemberValue TS="User" TM="string" ID="Name"/>
                 
-                <input type="text" @oninput="@(args => _structure.Get<string>(nameof(User.Name)).UpdateValue(args.Value.ToString()))"/>
+                <input type="text" @oninput="@(args => _structure.GetMember<string>(nameof(User.Name)).UpdateValue(_testUser, args.Value.ToString()))"/>
                 <MemberInput TS="User" TM="string" ID="Name"/>
             </td>
         </tr>
@@ -48,6 +48,8 @@
                 <MemberValue TS="User" TM="string" ID="Email"/>
                 
                 <MemberInput TS="User" TM="string" ID="Email"/>
+                
+                <MemberValidations TS="User" TM="string" ID="Email"/>
             </td>
         </tr>
 

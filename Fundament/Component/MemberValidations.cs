@@ -21,13 +21,19 @@ namespace Fundament.Component
             if (ID == null)
                 throw new ArgumentNullException(nameof(ID),
                     "No ID parameter was passed to " + nameof(MemberValidations<TS, TM>) + " component.");
+
+            Structure.ValidationState.OnFinishValidatingStructure += () =>
+            {
+                Console.WriteLine("! State");
+                InvokeAsync(StateHasChanged);
+            };
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             List<string> classes = new List<string> {"Fundament." + nameof(MemberValidations<TS, TM>)};
 
-            Member<TS, TM> member = Structure.Get<TM>(ID!);
+            Member<TS, TM> member = Structure.GetMember<TM>(ID!);
 
             if (member.MemberValidator == null)
                 throw new ArgumentNullException(nameof(member.MemberValidator),
@@ -39,10 +45,10 @@ namespace Fundament.Component
 
             bool shown = member.MemberIsVisible?.Invoke(Structure, Value, member) ?? true;
 
-            List<Validation> validations = member.MemberValidator.Invoke(Structure, Value, member);
-            
-            //
+            // List<Validation> validations = member.MemberValidator.Invoke(Structure, Value, member);
 
+
+            //
             int seq = -1;
 
             builder.OpenElement(++seq, "div");
@@ -52,12 +58,39 @@ namespace Fundament.Component
             if (!shown)
                 builder.AddAttribute(++seq, "hidden", "hidden");
 
-            foreach (Validation validation in validations)
+            if (Structure.ValidationState.IsValidatingStructure)
             {
-                builder.AddContent(++seq, validation.Render());
+                builder.OpenElement(++seq, "div");
+                builder.AddAttribute(++seq, "class", "Fundament.ValidationNotice.Validating");
+                builder.OpenElement(++seq, "span");
+                builder.AddAttribute(++seq, "class", "Fundament.ValidationNotice.Validating.Background");
+                builder.CloseElement();
+                builder.CloseElement();
             }
+            else
+            {
+                List<Validation>? validations = Structure.ValidationState.GetMemberValidations(ID!);
+                
+                if (validations == null)
+                {
+                    Console.WriteLine("Would this happen?");
+                }
+                else
+                {
+                    Console.WriteLine("Exists");
+                    foreach (Validation validation in validations)
+                    {
+                        builder.AddContent(++seq, validation.Render());
+                    }
+                }
+            }
+
+            //
+
 
             builder.CloseElement();
         }
+
+        // public event Action
     }
 }
