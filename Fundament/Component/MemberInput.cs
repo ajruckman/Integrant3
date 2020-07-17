@@ -30,7 +30,8 @@ namespace Fundament.Component
             Member<TS, TM> member = Structure.GetMember<TM>(ID!);
 
             if (member.Input == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(member.Input),
+                    "MemberInput component was used on a Member with no Input.");
 
             if (member.MemberClasses != null)
                 classes.AddRange(member.MemberClasses.Invoke(Structure, Value, member));

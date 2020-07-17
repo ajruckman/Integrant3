@@ -11,11 +11,12 @@ namespace Web.Pages
     {
         public class User
         {
-            public bool   Boolean     { get; set; }
-            public int    UserID      { get; set; }
-            public string Name        { get; set; }
-            public string PhoneNumber { get; set; }
-            public string Email       { get; set; }
+            public bool     Boolean     { get; set; }
+            public int      UserID      { get; set; }
+            public string   Name        { get; set; }
+            public string   PhoneNumber { get; set; }
+            public string   Email       { get; set; }
+            public DateTime StartDate   { get; set; }
         }
 
         private Structure<User> _structure = null!;
@@ -65,7 +66,7 @@ namespace Web.Pages
 
             _structure.Register(new Member<User, string>(
                 nameof(User.Email),
-                (s, v, m) => v.Email,
+                (s, m, v) => m.Email,
                 input: new StringInput<User>(textArea: true, monospace: true),
                 onValueUpdate: (s, m, v) => s.Email = v,
                 memberValidator: (s, m, v) =>
@@ -78,8 +79,19 @@ namespace Web.Pages
                             : Validation.One(ValidationResultType.Invalid, "Invalid");
                 }));
 
+            _structure.Register(new Member<User, DateTime>(
+                nameof(User.StartDate),
+                (s,                m, v) => m.StartDate,
+                onValueUpdate: (s, m, v) => s.StartDate = v,
+                memberValidator: (s, m, v) =>
+                    m.StartDate > DateTime.Now
+                        ? Validation.One(ValidationResultType.Invalid, "Start date is in the future.")
+                        : Validation.One(ValidationResultType.Valid,   "Valid"),
+                input: new DateInput<User>()
+            ));
+
             //
-            
+
             _structure.GetMember<string>("Name").OnValueUpdate +=
                 (s, m, v) => Console.WriteLine($"Structure<User>." + m.ID + " -> " + v);
 
