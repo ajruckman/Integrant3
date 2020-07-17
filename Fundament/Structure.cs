@@ -37,8 +37,12 @@ namespace Fundament
                 throw new ArgumentException($"Member with ID '{member.ID}' has already been registered.");
 
             Members[member.ID] = member;
+
+            member.OnInput += ValidationState.Invalidate;
+            
             member.OnValueUpdate += (value, member, memberValue) =>
                 OnMemberValueUpdate?.Invoke(value, member, memberValue);
+
             member.OnValueUpdate += (value, member, memberValue) => ValidationState.ValidateStructure(value);
         }
 

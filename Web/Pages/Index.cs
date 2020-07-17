@@ -68,11 +68,15 @@ namespace Web.Pages
                 (s, v, m) => v.Email,
                 input: new StringInput<User>(textArea: true, monospace: true),
                 onValueUpdate: (s, m, v) => s.Email = v,
-                memberValidator: (s, m, v) => string.IsNullOrEmpty(m.Email)
-                    ? Validation.One(ValidationResultType.Warning, "Email is recommended.")
-                    : m.Email.Contains("@")
-                        ? Validation.One(ValidationResultType.Valid,   "Valid")
-                        : Validation.One(ValidationResultType.Invalid, "Invalid")));
+                memberValidator: (s, m, v) =>
+                {
+                    Thread.Sleep(250);
+                    return string.IsNullOrEmpty(m.Email)
+                        ? Validation.One(ValidationResultType.Warning, "Email is recommended.")
+                        : m.Email.Contains("@")
+                            ? Validation.One(ValidationResultType.Valid,   "Valid")
+                            : Validation.One(ValidationResultType.Invalid, "Invalid");
+                }));
 
             // var m = new Member<User, string>(nameof(User.Name));
 

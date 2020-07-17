@@ -22,9 +22,19 @@ namespace Fundament.Component
                 throw new ArgumentNullException(nameof(ID),
                     "No ID parameter was passed to " + nameof(MemberValidations<TS, TM>) + " component.");
 
+            Structure.ValidationState.OnInvalidation += () =>
+            {
+                Console.WriteLine("! OnInvalidation");
+                InvokeAsync(StateHasChanged);
+            };
+            Structure.ValidationState.OnBeginValidating += () =>
+            {
+                Console.WriteLine("! OnBeginValidating");
+                InvokeAsync(StateHasChanged);
+            };
             Structure.ValidationState.OnFinishValidatingStructure += () =>
             {
-                Console.WriteLine("! State");
+                Console.WriteLine("! OnFinishValidatingStructure");
                 InvokeAsync(StateHasChanged);
             };
         }
@@ -58,19 +68,20 @@ namespace Fundament.Component
             if (!shown)
                 builder.AddAttribute(++seq, "hidden", "hidden");
 
-            if (Structure.ValidationState.IsValidatingStructure)
+            if (Structure.ValidationState.IsValidating)
             {
                 builder.OpenElement(++seq, "div");
                 builder.AddAttribute(++seq, "class", "Fundament.ValidationNotice.Validating");
                 builder.OpenElement(++seq, "span");
                 builder.AddAttribute(++seq, "class", "Fundament.ValidationNotice.Validating.Background");
+                builder.AddContent(++seq, "Validating...");
                 builder.CloseElement();
                 builder.CloseElement();
             }
             else
             {
                 List<Validation>? validations = Structure.ValidationState.GetMemberValidations(ID!);
-                
+
                 if (validations == null)
                 {
                     Console.WriteLine("Would this happen?");

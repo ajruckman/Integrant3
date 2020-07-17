@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Superset.Utilities;
 
 namespace Fundament
 {
@@ -69,18 +68,13 @@ namespace Fundament
         public List<Validation>?                     StructureValidationCache;
         public Dictionary<string, List<Validation>>? MemberValidationCache;
 
-        public bool IsValidatingStructure { get; private set; }
+        public bool IsValidating { get; private set; }
         
-        // private readonly HashSet<string> _membersBeingValidated = new HashSet<string>();
-
         private readonly Structure<TStructure> _structure;
 
         public ValidationState(Structure<TStructure> structure)
         {
             _structure = structure;
-
-            // _debouncer = new Debouncer<TStructure>(BeginValidations, default!);
-            // _tokenSource = new CancellationTokenSource();
         }
 
         private readonly object _cacheLock = new object();
@@ -106,8 +100,6 @@ namespace Fundament
 
             memberValidations ??= new Dictionary<string, List<Validation>>();
 
-            var allMembers = structure.AllMembers();
-            
             foreach (IMember<TStructure> member in structure.AllMembers())
             {
                 token.ThrowIfCancellationRequested();
@@ -126,11 +118,9 @@ namespace Fundament
             return (structureValidations, memberValidations);
         }
 
-        // private readonly Debouncer<TStructure> _debouncer;
-
         private void BeginValidations(TStructure value)
         {
-            IsValidatingStructure = true;
+            IsValidating = true;
             OnBeginValidating?.Invoke();
             _tokenSource?.Cancel();
             _tokenSource = new CancellationTokenSource();
@@ -150,7 +140,7 @@ namespace Fundament
                     MemberValidationCache    = members;
                 }
 
-                IsValidatingStructure = false;
+                IsValidating = false;
                 OnFinishValidatingStructure?.Invoke();
             }, token);
         }
@@ -158,9 +148,9 @@ namespace Fundament
         public event Action? OnInvalidation;
         public event Action? OnBeginValidating;
         public event Action? OnFinishValidatingStructure;
-        // public event Action? OnFinishValidatingMember;
+        public event Action? OnFinishValidatingMember;
 
-        internal void ValidateStructure(TStructure value)
+        internal void Invalidate()
         {
             lock (_cacheLock)
             {
@@ -168,7 +158,10 @@ namespace Fundament
                 MemberValidationCache    = null;
                 OnInvalidation?.Invoke();
             }
-
+        }
+        
+        internal void ValidateStructure(TStructure value)
+        {
             BeginValidations(value);
 
             // _debouncer.Reset(value);

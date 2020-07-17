@@ -85,10 +85,13 @@ namespace Fundament
 
         private readonly Debouncer<(TStructure, TMember)> _debouncer;
 
+        internal event Action? OnInput;
+
         public event Action<TStructure, Member<TStructure, TMember>, TMember>? OnValueUpdate;
 
         public void UpdateValue(TStructure value, TMember newValue)
         {
+            OnInput?.Invoke();
             _debouncer.Reset((value, newValue));
         }
 
