@@ -55,10 +55,8 @@ namespace Fundament.Component
 
             bool shown = member.MemberIsVisible?.Invoke(Structure, Value, member) ?? true;
 
-            // List<Validation> validations = member.MemberValidator.Invoke(Structure, Value, member);
-
-
             //
+
             int seq = -1;
 
             builder.OpenElement(++seq, "div");
@@ -96,12 +94,7 @@ namespace Fundament.Component
                 }
             }
 
-            //
-
-
             builder.CloseElement();
         }
-
-        // public event Action
     }
 }

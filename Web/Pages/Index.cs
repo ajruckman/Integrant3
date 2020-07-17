@@ -50,7 +50,7 @@ namespace Web.Pages
 
             _structure.Register(new Member<User, string>(
                 nameof(User.Name),
-                (s, v, m) => v.Name,
+                (s, m, v) => m.Name,
                 input: new StringInput<User>(),
                 onValueUpdate: (s, m, v) => s.Name = v
             ));
@@ -78,8 +78,8 @@ namespace Web.Pages
                             : Validation.One(ValidationResultType.Invalid, "Invalid");
                 }));
 
-            // var m = new Member<User, string>(nameof(User.Name));
-
+            //
+            
             _structure.GetMember<string>("Name").OnValueUpdate +=
                 (s, m, v) => Console.WriteLine($"Structure<User>." + m.ID + " -> " + v);
 
@@ -91,21 +91,6 @@ namespace Web.Pages
                 Console.WriteLine($"Structure<User>." + m.ID + " -> " + v);
                 InvokeAsync(StateHasChanged);
             };
-
-            // _structure.OnMemberValueUpdate += (s, m, v) =>
-            // {
-            //     switch (m.ID)
-            //     {
-            //         case nameof(User.Boolean):
-            //             altUser.Boolean = (bool) v;
-            //             break;
-            //         
-            //         case nameof(User.UserID):
-            //         case nameof(User.Name):
-            //         case nameof(User.PhoneNumber):
-            //         case nameof(User.Email):
-            //     }
-            // };
 
             //
 

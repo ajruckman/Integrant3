@@ -52,19 +52,5 @@ namespace Fundament
         {
             return member.ID;
         }
-
-        /*
-        public static string FormatMemberValue<TStructure, TMember>
-            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
-        {
-            return value?.ToString() ?? "";
-        }
-        */
-
-        // public static string FormatDefaultValue<TStructure, TMember>
-        //     (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
-        // {
-        //     return value?.ToString() ?? "";
-        // }
     }
 }

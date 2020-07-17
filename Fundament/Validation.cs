@@ -33,23 +33,12 @@ namespace Fundament
                 case ValidationResultType.Valid:
                     classes.Add("Valid");
                     break;
-                // case ValidationResultType.Validating:
-                // classes.Add("Validating");
-                // break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
             builder.OpenElement(++seq, "div");
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
-
-            // if (Result == ValidationResultType.Validating)
-            // {
-            //     builder.OpenElement(seq  + 1, "span");
-            //     builder.AddAttribute(seq + 2, "class", "Background");
-            //     builder.CloseElement();
-            // }
-            // seq += 2;
 
             builder.OpenElement(++seq, "span");
             builder.AddAttribute(++seq, "class", "ValidationText");
@@ -148,7 +137,6 @@ namespace Fundament
         public event Action? OnInvalidation;
         public event Action? OnBeginValidating;
         public event Action? OnFinishValidatingStructure;
-        public event Action? OnFinishValidatingMember;
 
         internal void Invalidate()
         {
@@ -163,8 +151,6 @@ namespace Fundament
         internal void ValidateStructure(TStructure value)
         {
             BeginValidations(value);
-
-            // _debouncer.Reset(value);
         }
 
         internal List<Validation>? GetMemberValidations(string id)
@@ -176,29 +162,6 @@ namespace Fundament
                 return null;
             }
         }
-
-        // internal void InvalidateStructure()
-        // {
-        //     lock (_cacheLock)
-        //     {
-        //         IsValidating = false;
-        //         
-        //         _debouncer.Reset();
-        //
-        //         StructureValidationCache = null;
-        //     }
-        // }
-        //
-        // internal void InvalidateAll()
-        // {
-        //     lock (_cacheLock)
-        //     {
-        //         IsValidating = false;
-        //
-        //         StructureValidationCache = null;
-        //         MemberValidationCache    = null;
-        //     }
-        // }
     }
 
     public enum ValidationResultType
