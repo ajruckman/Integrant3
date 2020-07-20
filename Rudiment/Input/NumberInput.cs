@@ -7,7 +7,7 @@ namespace Rudiment.Input
 {
     public class NumberInput<TStructure> : IInput<TStructure, int>
     {
-        public event Action<TStructure, int> OnInput;
+        public event Action<TStructure, int>? OnInput;
 
         public RenderFragment Render(
             Structure<TStructure> structure, TStructure value, Member<TStructure, int> member
@@ -20,7 +20,7 @@ namespace Rudiment.Input
 
             builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
 
-            var classes = new List<string> {"Fundament.Input", "Fundament.Input." + nameof(NumberInput<TStructure>),};
+            var classes = new List<string> {"Rudiment.Input", "Rudiment.Input." + nameof(NumberInput<TStructure>),};
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
 
             if (member.MemberInputIsRequired?.Invoke(structure, value, member) == true)

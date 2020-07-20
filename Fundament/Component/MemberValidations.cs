@@ -13,15 +13,11 @@ namespace Fundament.Component
         [CascadingParameter(Name = "Fundament.Value")]
         public TS Value { get; set; } = default!;
 
-        [Parameter]
-        public string? ID { get; set; }
+        [CascadingParameter(Name = "Fundament.Member.ID")]
+        public string ID { get; set; } = null!;
 
         protected override void OnInitialized()
         {
-            if (ID == null)
-                throw new ArgumentNullException(nameof(ID),
-                    "No ID parameter was passed to " + nameof(MemberValidations<TS, TM>) + " component.");
-
             Structure.ValidationState.OnInvalidation += () =>
             {
                 Console.WriteLine($"! MemberValidations @ {ID} -> OnInvalidation");
@@ -41,19 +37,15 @@ namespace Fundament.Component
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            List<string> classes = new List<string> {"Fundament.Component." + nameof(MemberValidations<TS, TM>)};
-
-            Member<TS, TM> member = Structure.GetMember<TM>(ID!);
+            Member<TS, TM> member = Structure.GetMember<TM>(ID);
 
             if (member.MemberValidator == null)
                 throw new ArgumentNullException(nameof(member.MemberValidator),
                     "Member passed to " + nameof(MemberValidations<TS, TM>) + " component does not have a " +
-                    nameof(Getters.MemberValidations<TS, TM>) + ".");
+                    nameof(MemberGetters.MemberValidations<TS, TM>) + ".");
 
-            if (member.MemberClasses != null)
-                classes.AddRange(member.MemberClasses.Invoke(Structure, Value, member));
-
-            bool shown = member.MemberIsVisible?.Invoke(Structure, Value, member) ?? true;
+            ClassSet classes = ClassSet.FromMember(Structure, Value, member,
+                "Fundament.Component." + nameof(MemberValidations<TS, TM>));
 
             //
 
@@ -61,24 +53,21 @@ namespace Fundament.Component
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", string.Join(' ', classes));
-
-            if (!shown)
-                builder.AddAttribute(++seq, "hidden", "hidden");
+            builder.AddAttribute(++seq, "class", classes.ToString());
 
             if (Structure.ValidationState.IsValidating)
             {
                 builder.OpenElement(++seq, "div");
-                builder.AddAttribute(++seq, "class", "Fundament.ValidationNotice.Validating");
+                builder.AddAttribute(++seq, "class", "Fundament.Validation.Notice Fundament.Validation.Notice:Validating");
                 builder.OpenElement(++seq, "span");
-                builder.AddAttribute(++seq, "class", "Fundament.ValidationNotice.Validating.Background");
+                builder.AddAttribute(++seq, "class", "Fundament.Validation.Notice Fundament.Validation.Notice.Background");
                 builder.AddContent(++seq, "Validating...");
                 builder.CloseElement();
                 builder.CloseElement();
             }
             else
             {
-                List<Validation>? validations = Structure.ValidationState.GetMemberValidations(ID!);
+                List<Validation>? validations = Structure.ValidationState.GetMemberValidations(ID);
 
                 if (validations != null)
                 {

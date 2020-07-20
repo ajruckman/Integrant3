@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Fundament.Component
 {
-    public class MemberInput<TS, TM> : ComponentBase
+    public class MemberInput<TS, TM> : ComponentBase, IDisposable
     {
         [CascadingParameter(Name = "Fundament.Structure")]
         public Structure<TS> Structure { get; set; } = null!;
@@ -13,30 +13,26 @@ namespace Fundament.Component
         [CascadingParameter(Name = "Fundament.Value")]
         public TS Value { get; set; } = default!;
 
-        [Parameter]
-        public string? ID { get; set; }
+        [CascadingParameter(Name = "Fundament.Member.ID")]
+        public string ID { get; set; } = null!;
+
+        private Member<TS, TM> _member = null!;
 
         protected override void OnInitialized()
         {
-            if (ID == null)
-                throw new ArgumentNullException(nameof(ID),
-                    "No ID parameter was passed to " + nameof(MemberInput<TS, TM>) + " component.");
+            _member = Structure.GetMember<TM>(ID);
+
+            if (_member.Input == null)
+                throw new ArgumentNullException(nameof(_member.Input),
+                    "MemberInput component was used on a Member with no Input.");
+
+            _member.OnResetInputs += ResetInput;
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            List<string> classes = new List<string> {"Fundament.Component." + nameof(MemberInput<TS, TM>)};
-
-            Member<TS, TM> member = Structure.GetMember<TM>(ID!);
-
-            if (member.Input == null)
-                throw new ArgumentNullException(nameof(member.Input),
-                    "MemberInput component was used on a Member with no Input.");
-
-            if (member.MemberClasses != null)
-                classes.AddRange(member.MemberClasses.Invoke(Structure, Value, member));
-
-            bool shown = member.MemberIsVisible?.Invoke(Structure, Value, member) ?? true;
+            ClassSet classSet = ClassSet.FromMember(Structure, Value, _member,
+                "Fundament.Component." + nameof(MemberInput<TS, TM>));
 
             //
 
@@ -44,19 +40,42 @@ namespace Fundament.Component
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", string.Join(' ', classes));
+            builder.AddAttribute(++seq, "class", classSet.ToString());
 
-            if (!shown)
-                builder.AddAttribute(++seq, "hidden", "hidden");
-
-            builder.AddContent(++seq, member.Input.Render(Structure, Value, member));
+            builder.AddContent(++seq, _member.Input!.Render(Structure, Value, _member));
 
             builder.CloseElement();
         }
-        
+
         protected override bool ShouldRender()
         {
-            return false;
+            return _canRender;
+        }
+
+        private bool _canRender = false;
+
+        private void ResetInput()
+        {
+            _canRender = true;
+
+            try
+            {
+                InvokeAsync(StateHasChanged).Wait();
+            }
+            catch
+            {
+                // ignored
+            }
+
+            _canRender = false;
+            
+            _member.UpdateValue(Value, _member.MemberDefaultValue.Invoke(Structure, Value, _member));
+        }
+
+        public void Dispose()
+        {
+            Console.WriteLine(new string('-', 50) + " Disposed: " + _member.ID);
+            _member.OnResetInputs -= ResetInput;
         }
     }
 }

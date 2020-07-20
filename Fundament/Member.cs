@@ -9,24 +9,27 @@ namespace Fundament
     {
         public string            ID { get; }
         public List<Validation>? Validations(Structure<TStructure> structure, TStructure value);
+        public event Action?     OnResetInputs;
+        public void              ResetInputs();
     }
 
     public class Member<TStructure, TMember> : IMember<TStructure>
     {
         public Member
         (
-            string                                                    id,
-            Getters.MemberFormatValue<TStructure, TMember>            memberFormatValue,
-            IInput<TStructure, TMember>?                              input                  = null,
-            Getters.MemberClasses<TStructure, TMember>?               memberClasses          = null,
-            Getters.MemberIsEnabled<TStructure, TMember>?             memberIsEnabled        = null,
-            Getters.MemberIsVisible<TStructure, TMember>?             memberIsVisible        = null,
-            Getters.MemberFormatKey<TStructure, TMember>?             memberFormatKey        = null,
-            Getters.MemberDefaultValue<TStructure, TMember>?          memberDefaultValue     = null,
-            Getters.MemberInputIsRequired<TStructure, TMember>?       memberInputIsRequired  = null,
-            Getters.MemberInputPlaceholder<TStructure, TMember>?      memberInputPlaceholder = null,
-            Getters.MemberValidations<TStructure, TMember>?           memberValidator        = null,
-            Action<TStructure, Member<TStructure, TMember>, TMember>? onValueUpdate          = null
+            string                                                     id,
+            MemberGetters.MemberFormatValue<TStructure, TMember>       formatValue,
+            IInput<TStructure, TMember>?                               input            = null,
+            MemberGetters.MemberClasses<TStructure, TMember>?          classes          = null,
+            MemberGetters.MemberIsEnabled<TStructure, TMember>?        isEnabled        = null,
+            MemberGetters.MemberIsVisible<TStructure, TMember>?        isVisible        = null,
+            MemberGetters.MemberFormatKey<TStructure, TMember>?        formatKey        = null,
+            MemberGetters.MemberDefaultValue<TStructure, TMember>?     defaultValue     = null,
+            MemberGetters.MemberFormatDefaultValue<TStructure, TMember>?     formatDefaultValue     = null,
+            MemberGetters.MemberInputIsRequired<TStructure, TMember>?  inputIsRequired  = null,
+            MemberGetters.MemberInputPlaceholder<TStructure, TMember>? inputPlaceholder = null,
+            MemberGetters.MemberValidations<TStructure, TMember>?      validator        = null,
+            Action<TStructure, Member<TStructure, TMember>, TMember>?  onValueUpdate    = null
         )
         {
             ID = id;
@@ -37,17 +40,21 @@ namespace Fundament
                 Input.OnInput += UpdateValue;
             }
 
-            MemberFormatValue = memberFormatValue;
+            MemberFormatValue = formatValue;
 
-            MemberFormatKey    = memberFormatKey    ?? DefaultGetters.FormatMemberKey;
-            MemberDefaultValue = memberDefaultValue ?? ((s, v, m) => MemberFormatValue.Invoke(s, v, m));
+            MemberFormatKey          = formatKey          ?? DefaultGetters.FormatMemberKey;
+            MemberDefaultValue       = defaultValue       ?? ((s, v, m) => default!);
+            MemberFormatDefaultValue = formatDefaultValue ?? ((s, v, m) =>
+            {
+                return MemberFormatValue.Invoke(s, v, m);
+            });
 
-            MemberClasses          = memberClasses;
-            MemberIsEnabled        = memberIsEnabled;
-            MemberIsVisible        = memberIsVisible;
-            MemberInputIsRequired  = memberInputIsRequired;
-            MemberInputPlaceholder = memberInputPlaceholder;
-            MemberValidator        = memberValidator;
+            MemberClasses          = classes;
+            MemberIsEnabled        = isEnabled;
+            MemberIsVisible        = isVisible;
+            MemberInputIsRequired  = inputIsRequired;
+            MemberInputPlaceholder = inputPlaceholder;
+            MemberValidator        = validator;
 
             if (onValueUpdate != null)
                 OnValueUpdate += onValueUpdate;
@@ -64,21 +71,22 @@ namespace Fundament
 
         // Required delegates
 
-        public readonly Getters.MemberFormatValue<TStructure, TMember> MemberFormatValue;
+        public readonly MemberGetters.MemberFormatValue<TStructure, TMember> MemberFormatValue;
 
         // Required delegates with fallback default implementations
 
-        public readonly Getters.MemberFormatKey<TStructure, TMember>    MemberFormatKey;
-        public readonly   Getters.MemberDefaultValue<TStructure, TMember> MemberDefaultValue;
+        public readonly MemberGetters.MemberFormatKey<TStructure, TMember>          MemberFormatKey;
+        public readonly MemberGetters.MemberDefaultValue<TStructure, TMember>       MemberDefaultValue;
+        public readonly MemberGetters.MemberFormatDefaultValue<TStructure, TMember> MemberFormatDefaultValue;
 
         // Unrequired delegates 
 
-        public readonly Getters.MemberClasses<TStructure, TMember>?          MemberClasses;
-        public readonly Getters.MemberIsEnabled<TStructure, TMember>?        MemberIsEnabled;
-        public readonly Getters.MemberIsVisible<TStructure, TMember>?        MemberIsVisible;
-        public readonly Getters.MemberInputIsRequired<TStructure, TMember>?  MemberInputIsRequired;
-        public readonly Getters.MemberInputPlaceholder<TStructure, TMember>? MemberInputPlaceholder;
-        public readonly Getters.MemberValidations<TStructure, TMember>?      MemberValidator;
+        public readonly MemberGetters.MemberClasses<TStructure, TMember>?          MemberClasses;
+        public readonly MemberGetters.MemberIsEnabled<TStructure, TMember>?        MemberIsEnabled;
+        public readonly MemberGetters.MemberIsVisible<TStructure, TMember>?        MemberIsVisible;
+        public readonly MemberGetters.MemberInputIsRequired<TStructure, TMember>?  MemberInputIsRequired;
+        public readonly MemberGetters.MemberInputPlaceholder<TStructure, TMember>? MemberInputPlaceholder;
+        public readonly MemberGetters.MemberValidations<TStructure, TMember>?      MemberValidator;
 
         //
 
@@ -99,6 +107,15 @@ namespace Fundament
         public List<Validation>? Validations(Structure<TStructure> structure, TStructure value)
         {
             return MemberValidator?.Invoke(structure, value, this);
+        }
+
+        //
+
+        public event Action? OnResetInputs;
+
+        public void ResetInputs()
+        {
+            OnResetInputs?.Invoke();
         }
     }
 }

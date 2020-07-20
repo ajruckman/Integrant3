@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Fundament
 {
-    public static class Getters
+    public static class StructureGetters
     {
         public delegate List<string> StructureClasses<T>
             (Structure<T> structure, T value);
@@ -12,16 +12,20 @@ namespace Fundament
 
         public delegate List<Validation> StructureValidations<T>
             (Structure<T> structure, T value);
+    }
 
-        //
-
+    public static class MemberGetters
+    {
         public delegate object MemberFormatValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
         public delegate object MemberFormatKey<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
-        public delegate object MemberDefaultValue<TStructure, TMember>
+        public delegate TMember MemberDefaultValue<TStructure, TMember>
+            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
+        
+        public delegate object MemberFormatDefaultValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
         //

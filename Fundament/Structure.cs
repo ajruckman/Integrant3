@@ -7,9 +7,9 @@ namespace Fundament
     {
         public Structure
         (
-            Getters.StructureClasses<T>?     classes   = null,
-            Getters.StructureIsVisible<T>?   isVisible = null,
-            Getters.StructureValidations<T>? validator = null
+            StructureGetters.StructureClasses<T>?     classes   = null,
+            StructureGetters.StructureIsVisible<T>?   isVisible = null,
+            StructureGetters.StructureValidations<T>? validator = null
         )
         {
             Members = new Dictionary<string, IMember<T>>();
@@ -21,9 +21,9 @@ namespace Fundament
             ValidationState = new ValidationState<T>(this);
         }
 
-        internal readonly Getters.StructureClasses<T>?     StructureClasses;
-        internal readonly Getters.StructureIsVisible<T>?   StructureIsVisible;
-        internal readonly Getters.StructureValidations<T>? StructureValidator;
+        internal readonly StructureGetters.StructureClasses<T>?     StructureClasses;
+        internal readonly StructureGetters.StructureIsVisible<T>?   StructureIsVisible;
+        internal readonly StructureGetters.StructureValidations<T>? StructureValidator;
 
         internal readonly ValidationState<T> ValidationState;
 
@@ -79,6 +79,12 @@ namespace Fundament
                     _hasValidatedInitial = true;
                 }
             }
+        }
+
+        public void Revalidate(T value)
+        {
+            ValidationState.Invalidate();
+            ValidationState.ValidateStructure(value);
         }
     }
 }

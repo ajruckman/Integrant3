@@ -3,86 +3,119 @@
 
 @page "/"
 
-<StructureContainer T="User" Structure="@_structure" Value="@_testUser">
+
+<StructureContainer TS="User" Structure="@_structure" Value="@_testUser">
     <table>
+        <thead>
         <tr>
             <td>
-                <MemberKey TS="User" TM="bool" ID="Boolean"/>
-            </td>
-            <td>
-                <MemberValue TS="User" TM="bool" ID="Boolean"/>
+                <button @onclick="@ResetAll">Reset all inputs</button>
             </td>
         </tr>
+        </thead>
         <tr>
-            <td>
-                <MemberKey TS="User" TM="string" ID="CreatedBy"/>
-            </td>
-            <td>
-                <MemberValue TS="User" TM="string" ID="CreatedBy"/>
-                <MemberInput TS="User" TM="string" ID="CreatedBy"/>
+            <MemberContainer TS="User" TM="bool" ID="Boolean">
+                <td>
+                    <MemberKey TS="User" TM="bool"/>
                 </td>
+                <td>
+                    <MemberValue TS="User" TM="bool"/>
+                    <MemberInput TS="User" TM="bool"/>
+                </td>
+            </MemberContainer>
         </tr>
         <tr>
-            <td>
-                <MemberKey TS="User" TM="int" ID="UserID"/>
-            </td>
-            <td>
-                <MemberValue TS="User" TM="int" ID="UserID"/>
-            </td>
+            <MemberContainer TS="User" TM="string" ID="CreatedBy">
+                <td>
+                    <MemberKey TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="string"/>
+                    <MemberInput TS="User" TM="string"/>
+                </td>
+            </MemberContainer>
         </tr>
         <tr>
-            <td>
-                <MemberKey TS="User" TM="string" ID="Name"/>
-            </td>
-            <td>
-                <MemberValue TS="User" TM="string" ID="Name"/>
+            <MemberContainer TS="User" TM="int" ID="UserID">
+                <td>
+                    <MemberKey TS="User" TM="int"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="int"/>
+                </td>
+            </MemberContainer>
 
-                <input type="text" @oninput="@(args => _structure.GetMember<string>(nameof(User.Name)).UpdateValue(_testUser, args.Value.ToString()))"/>
-                <MemberInput TS="User" TM="string" ID="Name"/>
-            </td>
         </tr>
         <tr>
-            <td>
-                <MemberKey TS="User" TM="string" ID="PhoneNumber"/>
-            </td>
-            <td>
-                <MemberValue TS="User" TM="string" ID="PhoneNumber"/>
-            </td>
+            <MemberContainer TS="User" TM="string" ID="Name">
+                <td>
+                    <MemberKey TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="string"/>
+
+                    <input type="text" @oninput="@(args => _structure.GetMember<string>(nameof(User.Name)).UpdateValue(_testUser, args.Value.ToString()))"/>
+                    <MemberInput TS="User" TM="string"/>
+                </td>
+            </MemberContainer>
+
         </tr>
         <tr>
-            <td>
-                <MemberKey TS="User" TM="string" ID="Email"/>
-            </td>
-            <td>
-                <MemberValue TS="User" TM="string" ID="Email"/>
+            <MemberContainer TS="User" TM="string" ID="PhoneNumber">
+                <td>
+                    <MemberKey TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="string"/>
+                </td>
+            </MemberContainer>
 
-                <MemberInput TS="User" TM="string" ID="Email"/>
-
-                <MemberValidations TS="User" TM="string" ID="Email"/>
-            </td>
         </tr>
         <tr>
-            <td>
-                <MemberKey TS="User" TM="DateTime" ID="StartDate"/>
-            </td>
-            <td>
-                <MemberValue TS="User" TM="DateTime" ID="StartDate"/>
+            <MemberContainer TS="User" TM="string" ID="Email">
+                <td>
+                    <MemberKey TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="string"/>
 
-                <MemberInput TS="User" TM="DateTime" ID="StartDate"/>
+                    <MemberInput TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberValidations TS="User" TM="string"/>
+                </td>
+            </MemberContainer>
 
-                <MemberValidations TS="User" TM="DateTime" ID="StartDate"/>
-            </td>
         </tr>
-        
         <tr>
-            <td>
-                <MemberKey TS="User" TM="DateTime" ID="StartTime"/>
-            </td>
-            <td>
-                <MemberValue TS="User" TM="DateTime" ID="StartTime"/>
+            <MemberContainer TS="User" TM="DateTime" ID="StartDate">
+                <td>
+                    <MemberKey TS="User" TM="DateTime"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="DateTime"/>
 
-                <MemberInput TS="User" TM="DateTime" ID="StartTime"/>
-            </td>
+                    <MemberInput TS="User" TM="DateTime"/>
+                </td>
+                <td>
+                    <MemberValidations TS="User" TM="DateTime"/>
+                </td>
+            </MemberContainer>
+
+        </tr>
+
+        <tr>
+            <MemberContainer TS="User" TM="DateTime" ID="StartTime">
+                <td>
+                    <MemberKey TS="User" TM="DateTime"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="DateTime"/>
+
+                    <MemberInput TS="User" TM="DateTime"/>
+                </td>
+            </MemberContainer>
+
         </tr>
 
         <tfoot>

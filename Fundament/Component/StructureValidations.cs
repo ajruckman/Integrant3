@@ -34,15 +34,13 @@ namespace Fundament.Component
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            List<string> classes = new List<string> {"Fundament.Component." + nameof(StructureValidations<TS>)};
-
             if (Structure.StructureValidator == null)
                 throw new ArgumentNullException(nameof(Structure.StructureValidator),
                     "Structure passed to " + nameof(StructureValidations<TS>) + " component does not have a " +
-                    nameof(Getters.StructureValidations<TS>) + ".");
-
-            if (Structure.StructureClasses != null)
-                classes.AddRange(Structure.StructureClasses.Invoke(Structure, Value));
+                    nameof(StructureGetters.StructureValidations<TS>) + ".");
+            
+            ClassSet classes = ClassSet.FromStructure(Structure, Value, 
+                "Fundament.Component." + nameof(StructureContainer<TS>));
 
             bool shown = Structure.StructureIsVisible?.Invoke(Structure, Value) ?? true;
 
@@ -52,7 +50,7 @@ namespace Fundament.Component
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", string.Join(' ', classes));
+            builder.AddAttribute(++seq, "class", classes.ToString());
 
             if (!shown)
                 builder.AddAttribute(++seq, "hidden", "hidden");

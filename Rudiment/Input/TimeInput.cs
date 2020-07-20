@@ -8,7 +8,7 @@ namespace Rudiment.Input
 {
     public class TimeInput<TStructure> : IInput<TStructure, DateTime>
     {
-        public event Action<TStructure, DateTime> OnInput;
+        public event Action<TStructure, DateTime>? OnInput;
 
         public RenderFragment Render(
             Structure<TStructure> structure, TStructure value, Member<TStructure, DateTime> member
@@ -21,7 +21,7 @@ namespace Rudiment.Input
 
             builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
 
-            var classes = new List<string> {"Fundament.Input", "Fundament.Input." + nameof(TimeInput<TStructure>),};
+            var classes = new List<string> {"Rudiment.Input", "Rudiment.Input." + nameof(TimeInput<TStructure>),};
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
 
             if (member.MemberInputIsRequired?.Invoke(structure, value, member) == true)

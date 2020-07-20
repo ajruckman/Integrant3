@@ -20,18 +20,18 @@ namespace Fundament
         internal RenderFragment Render() => builder =>
         {
             int          seq     = -1;
-            List<string> classes = new List<string> {"Fundament.Validation"};
+            List<string> classes = new List<string> {"Fundament.Validation.Result"};
 
             switch (ResultType)
             {
                 case ValidationResultType.Invalid:
-                    classes.Add("Invalid");
+                    classes.Add("Fundament.Validation.Result:Invalid");
                     break;
                 case ValidationResultType.Warning:
-                    classes.Add("Warning");
+                    classes.Add("Fundament.Validation.Result:Warning");
                     break;
                 case ValidationResultType.Valid:
-                    classes.Add("Valid");
+                    classes.Add("Fundament.Validation.Result:Valid");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -41,7 +41,7 @@ namespace Fundament
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
 
             builder.OpenElement(++seq, "span");
-            builder.AddAttribute(++seq, "class", "ValidationText");
+            builder.AddAttribute(++seq, "class", "Fundament.Validation.Result.Text");
             builder.AddContent(++seq, Message);
             builder.CloseElement();
 

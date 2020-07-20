@@ -24,62 +24,65 @@ namespace Web.Pages
         private Structure<User> _structure = null!;
         private User            _testUser  = null!;
 
+        public bool BindTestProp { get; set; }
+
         protected override void OnInitialized()
         {
             var altUser = new User();
 
-            _structure = new Structure<User>(validator: ((structure, value) =>
+            _structure = new Structure<User>(validator: (structure, value) =>
             {
-                Thread.Sleep(500);
+                Thread.Sleep(200);
                 return new List<Validation>
                 {
                     new Validation(ValidationResultType.Warning, "Overall validation"),
                 };
-            }));
+            });
 
             _structure.Register(new Member<User, bool>
             (
                 nameof(User.Boolean),
                 (s,                v, m) => v.Boolean,
-                onValueUpdate: (s, v, m) => s.Boolean = m
+                onValueUpdate: (s, v, m) => altUser.Boolean = m,
+                input: new CheckboxInput<User>()
             ));
 
             _structure.Register(new Member<User, string>(
                 nameof(User.CreatedBy),
-                (s,                  v, m) => v.CreatedBy,
-                onValueUpdate: (s,   v, m) => s.CreatedBy = m,
-                memberIsVisible: (s, v, m) => v.Boolean,
+                (s,                v, m) => v.CreatedBy,
+                onValueUpdate: (s, v, m) => altUser.CreatedBy = m,
+                isVisible: (s,     v, m) => altUser.Boolean,
                 input: new StringInput<User>()
             ));
 
             _structure.Register(new Member<User, int>(
                 nameof(User.UserID),
-                (s,                  v, m) => $"[{v.UserID}]",
-                memberFormatKey: (s, v, m) => "User ID",
-                onValueUpdate: (s,   v, m) => s.UserID = m
+                (s,                v, m) => $"[{v.UserID}]",
+                formatKey: (s,     v, m) => "User ID",
+                onValueUpdate: (s, v, m) => altUser.UserID = m
             ));
 
             _structure.Register(new Member<User, string>(
                 nameof(User.Name),
                 (s, v, m) => v.Name,
                 input: new StringInput<User>(),
-                onValueUpdate: (s, v, m) => s.Name = m
+                onValueUpdate: (s, v, m) => altUser.Name = m
             ));
 
             _structure.Register(new Member<User, string>(
                 nameof(User.PhoneNumber),
-                (s,                  v, m) => v.PhoneNumber,
-                memberFormatKey: (s, v, m) => "Phone number",
-                memberIsVisible: (s, v, m) => v.Name?.Length > 0,
-                onValueUpdate: (s,   v, m) => s.PhoneNumber = m
+                (s,                v, m) => v.PhoneNumber,
+                formatKey: (s,     v, m) => "Phone number",
+                isVisible: (s,     v, m) => altUser.Name?.Length > 0,
+                onValueUpdate: (s, v, m) => altUser.PhoneNumber = m
             ));
 
             _structure.Register(new Member<User, string>(
                 nameof(User.Email),
                 (s, v, m) => v.Email,
                 input: new StringInput<User>(textArea: true, monospace: true),
-                onValueUpdate: (s, v, m) => s.Email = m,
-                memberValidator: (s, v, m) =>
+                onValueUpdate: (s, v, m) => altUser.Email = m,
+                validator: (s, v, m) =>
                 {
                     Thread.Sleep(250);
                     return string.IsNullOrEmpty(v.Email)
@@ -92,8 +95,8 @@ namespace Web.Pages
             _structure.Register(new Member<User, DateTime>(
                 nameof(User.StartDate),
                 (s,                v, m) => v.StartDate,
-                onValueUpdate: (s, v, m) => s.StartDate = m,
-                memberValidator: (s, v, m) =>
+                onValueUpdate: (s, v, m) => altUser.StartDate = m,
+                validator: (s, v, m) =>
                     v.StartDate > DateTime.Now
                         ? Validation.One(ValidationResultType.Invalid, "Start date is in the future.")
                         : Validation.One(ValidationResultType.Valid,   "Valid"),
@@ -103,7 +106,7 @@ namespace Web.Pages
             _structure.Register(new Member<User, DateTime>(
                 nameof(User.StartTime),
                 (s,                v, m) => v.StartTime,
-                onValueUpdate: (s, v, m) => s.StartTime = m,
+                onValueUpdate: (s, v, m) => altUser.StartTime = m,
                 input: new TimeInput<User>()
             ));
 
@@ -134,16 +137,33 @@ namespace Web.Pages
 
             Task.Run(() =>
             {
-                Thread.Sleep(2000);
+                Thread.Sleep(500);
                 Console.WriteLine("Updating");
                 _testUser.Boolean = false;
+                _structure.GetMember<bool>(nameof(User.Boolean)).ResetInputs();
+                _structure.Revalidate(_testUser);
                 InvokeAsync(StateHasChanged);
+
+                Task.Run(() =>
+                {
+                    Thread.Sleep(500);
+                    BindTestProp = true;
+                });
             });
         }
 
         protected override void OnAfterRender(bool firstRender)
         {
             if (!firstRender) { }
+        }
+
+        private void ResetAll()
+        {
+            foreach (IMember<User> member in _structure.AllMembers())
+            {
+                member.ResetInputs();
+            }
+            StateHasChanged();
         }
     }
 }

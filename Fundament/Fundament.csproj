@@ -8,7 +8,7 @@
     <ItemGroup>
       <PackageReference Include="FlareSelect" Version="3.6.5-alpha" />
       <PackageReference Include="FlareTables" Version="3.7.1-alpha" />
-      <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.6" />
+      <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.0-preview.6.20312.15" />
       <PackageReference Include="Superset" Version="1.15.6-alpha" />
     </ItemGroup>
 

@@ -17,6 +17,8 @@ namespace Rudiment.Input
             Monospace = monospace;
         }
 
+        public event Action<TStructure, string>? OnInput;
+
         public readonly bool TextArea;
         public readonly bool Monospace;
 
@@ -37,13 +39,13 @@ namespace Rudiment.Input
                 builder.OpenElement(++seq, "textarea");
             }
 
-            builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
+            // builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
 
             //
 
-            var classes = new List<string> {"Fundament.Input", "Fundament.Input." + nameof(StringInput<TStructure>),};
-            if (TextArea) classes.Add("Fundament.Input:TextArea");
-            if (Monospace) classes.Add("Fundament.Input:Monospace");
+            var classes = new List<string> {"Rudiment.Input", "Rudiment.Input." + nameof(StringInput<TStructure>),};
+            if (TextArea) classes.Add("Rudiment.Input:TextArea");
+            if (Monospace) classes.Add("Rudiment.Input:Monospace");
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
 
             //
@@ -57,21 +59,34 @@ namespace Rudiment.Input
 
             //
 
-            if (!TextArea)
+            // if (!TextArea)
+            // {
+            // string d = (string) member.MemberDefaultValue.Invoke(structure, value, member);
                 builder.AddAttribute(++seq, "value", member.MemberDefaultValue.Invoke(structure, value, member));
-            else
-                builder.AddContent(++seq, member.MemberDefaultValue.Invoke(structure, value, member));
+                // builder.AddAttribute(++seq, "oninput", EventCallback.Factory.CreateBinder(this, v => OnInput?.Invoke(value, v), d));
+                builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
+                builder.SetUpdatesAttributeName("value");
+            // }
+            // else
+            // {
+            //     builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
+            //     builder.AddContent(++seq, member.MemberDefaultValue.Invoke(structure, value, member));
+            // }
+
+            //
+
+
 
             //
 
             builder.CloseElement();
         };
+        
+        
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
             OnInput?.Invoke(value, args.Value.ToString());
         }
-
-        public event Action<TStructure, string>? OnInput;
     }
 }
