@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Fundament.Input;
 using Superset.Utilities;
 
 namespace Fundament
@@ -26,7 +25,7 @@ namespace Fundament
             Getters.MemberDefaultValue<TStructure, TMember>?          memberDefaultValue     = null,
             Getters.MemberInputIsRequired<TStructure, TMember>?       memberInputIsRequired  = null,
             Getters.MemberInputPlaceholder<TStructure, TMember>?      memberInputPlaceholder = null,
-            Getters.MemberValidator<TStructure, TMember>?             memberValidator        = null,
+            Getters.MemberValidations<TStructure, TMember>?           memberValidator        = null,
             Action<TStructure, Member<TStructure, TMember>, TMember>? onValueUpdate          = null
         )
         {
@@ -65,21 +64,21 @@ namespace Fundament
 
         // Required delegates
 
-        internal readonly Getters.MemberFormatValue<TStructure, TMember> MemberFormatValue;
+        public readonly Getters.MemberFormatValue<TStructure, TMember> MemberFormatValue;
 
         // Required delegates with fallback default implementations
 
-        internal readonly Getters.MemberFormatKey<TStructure, TMember>    MemberFormatKey;
-        internal readonly Getters.MemberDefaultValue<TStructure, TMember> MemberDefaultValue;
+        public readonly Getters.MemberFormatKey<TStructure, TMember>    MemberFormatKey;
+        public readonly   Getters.MemberDefaultValue<TStructure, TMember> MemberDefaultValue;
 
         // Unrequired delegates 
 
-        internal readonly Getters.MemberClasses<TStructure, TMember>?          MemberClasses;
-        internal readonly Getters.MemberIsEnabled<TStructure, TMember>?        MemberIsEnabled;
-        internal readonly Getters.MemberIsVisible<TStructure, TMember>?        MemberIsVisible;
-        internal readonly Getters.MemberInputIsRequired<TStructure, TMember>?  MemberInputIsRequired;
-        internal readonly Getters.MemberInputPlaceholder<TStructure, TMember>? MemberInputPlaceholder;
-        internal readonly Getters.MemberValidator<TStructure, TMember>?        MemberValidator;
+        public readonly Getters.MemberClasses<TStructure, TMember>?          MemberClasses;
+        public readonly Getters.MemberIsEnabled<TStructure, TMember>?        MemberIsEnabled;
+        public readonly Getters.MemberIsVisible<TStructure, TMember>?        MemberIsVisible;
+        public readonly Getters.MemberInputIsRequired<TStructure, TMember>?  MemberInputIsRequired;
+        public readonly Getters.MemberInputPlaceholder<TStructure, TMember>? MemberInputPlaceholder;
+        public readonly Getters.MemberValidations<TStructure, TMember>?      MemberValidator;
 
         //
 

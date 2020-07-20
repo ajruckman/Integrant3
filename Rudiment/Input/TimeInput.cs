@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Fundament;
 using Microsoft.AspNetCore.Components;
 
-namespace Fundament.Input
+namespace Rudiment.Input
 {
-    public class DateInput<TStructure> : IInput<TStructure, DateTime>
+    public class TimeInput<TStructure> : IInput<TStructure, DateTime>
     {
         public event Action<TStructure, DateTime> OnInput;
 
@@ -16,11 +17,11 @@ namespace Fundament.Input
             int seq = -1;
 
             builder.OpenElement(++seq, "input");
-            builder.AddAttribute(++seq, "type", "date");
+            builder.AddAttribute(++seq, "type", "time");
 
             builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
 
-            var classes = new List<string> {"Fundament.Input", "Fundament.Input." + nameof(DateInput<TStructure>),};
+            var classes = new List<string> {"Fundament.Input", "Fundament.Input." + nameof(TimeInput<TStructure>),};
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
 
             if (member.MemberInputIsRequired?.Invoke(structure, value, member) == true)
@@ -37,7 +38,8 @@ namespace Fundament.Input
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
-            OnInput?.Invoke(value, DateTime.ParseExact(args.Value.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture));
+            Console.WriteLine(args.Value);
+            OnInput.Invoke(value, DateTime.ParseExact(args.Value.ToString(), "HH:mm:ss", CultureInfo.InvariantCulture));
         }
     }
 }

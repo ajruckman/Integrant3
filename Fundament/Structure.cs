@@ -38,7 +38,7 @@ namespace Fundament
             Members[member.ID] = member;
 
             member.OnInput += ValidationState.Invalidate;
-            
+
             member.OnValueUpdate += (value, member, memberValue) =>
                 OnMemberValueUpdate?.Invoke(value, member, memberValue);
 
@@ -63,5 +63,22 @@ namespace Fundament
         public IEnumerable<IMember<T>> AllMembers() => Members.Values;
 
         public event Action<T, IMember<T>, object>? OnMemberValueUpdate;
+
+        //
+
+        private readonly object _validatedInitialLock = new object();
+        private          bool   _hasValidatedInitial;
+
+        internal void ValidateInitial(T value)
+        {
+            lock (_validatedInitialLock)
+            {
+                if (!_hasValidatedInitial)
+                {
+                    ValidationState.ValidateStructure(value);
+                    _hasValidatedInitial = true;
+                }
+            }
+        }
     }
 }

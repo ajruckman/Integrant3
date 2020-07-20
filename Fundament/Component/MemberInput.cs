@@ -25,7 +25,7 @@ namespace Fundament.Component
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            List<string> classes = new List<string> {"Fundament." + nameof(MemberInput<TS, TM>)};
+            List<string> classes = new List<string> {"Fundament.Component." + nameof(MemberInput<TS, TM>)};
 
             Member<TS, TM> member = Structure.GetMember<TM>(ID!);
 
@@ -52,6 +52,11 @@ namespace Fundament.Component
             builder.AddContent(++seq, member.Input.Render(Structure, Value, member));
 
             builder.CloseElement();
+        }
+        
+        protected override bool ShouldRender()
+        {
+            return false;
         }
     }
 }

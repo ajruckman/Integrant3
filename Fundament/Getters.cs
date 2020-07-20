@@ -41,7 +41,7 @@ namespace Fundament
         public delegate string MemberInputPlaceholder<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
-        public delegate List<Validation> MemberValidator<TStructure, TMember>
+        public delegate List<Validation> MemberValidations<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
     }
 

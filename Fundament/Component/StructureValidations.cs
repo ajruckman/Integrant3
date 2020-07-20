@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Fundament.Component
 {
-    public class MemberValidations<TS, TM> : ComponentBase
+    public class StructureValidations<TS> : ComponentBase
     {
         [CascadingParameter(Name = "Fundament.Structure")]
         public Structure<TS> Structure { get; set; } = null!;
@@ -13,47 +13,38 @@ namespace Fundament.Component
         [CascadingParameter(Name = "Fundament.Value")]
         public TS Value { get; set; } = default!;
 
-        [Parameter]
-        public string? ID { get; set; }
-
         protected override void OnInitialized()
         {
-            if (ID == null)
-                throw new ArgumentNullException(nameof(ID),
-                    "No ID parameter was passed to " + nameof(MemberValidations<TS, TM>) + " component.");
-
             Structure.ValidationState.OnInvalidation += () =>
             {
-                Console.WriteLine($"! MemberValidations @ {ID} -> OnInvalidation");
+                Console.WriteLine("! StructureValidations -> OnInvalidation");
                 InvokeAsync(StateHasChanged);
             };
             Structure.ValidationState.OnBeginValidating += () =>
             {
-                Console.WriteLine($"! MemberValidations @ {ID} -> OnBeginValidating");
+                Console.WriteLine("! StructureValidations -> OnBeginValidating");
                 InvokeAsync(StateHasChanged);
             };
             Structure.ValidationState.OnFinishValidatingStructure += () =>
             {
-                Console.WriteLine($"! MemberValidations @ {ID} -> OnFinishValidatingStructure");
+                Console.WriteLine("! StructureValidations -> OnFinishValidatingStructure");
                 InvokeAsync(StateHasChanged);
             };
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            List<string> classes = new List<string> {"Fundament.Component." + nameof(MemberValidations<TS, TM>)};
+            List<string> classes = new List<string> {"Fundament.Component." + nameof(StructureValidations<TS>)};
 
-            Member<TS, TM> member = Structure.GetMember<TM>(ID!);
+            if (Structure.StructureValidator == null)
+                throw new ArgumentNullException(nameof(Structure.StructureValidator),
+                    "Structure passed to " + nameof(StructureValidations<TS>) + " component does not have a " +
+                    nameof(Getters.StructureValidations<TS>) + ".");
 
-            if (member.MemberValidator == null)
-                throw new ArgumentNullException(nameof(member.MemberValidator),
-                    "Member passed to " + nameof(MemberValidations<TS, TM>) + " component does not have a " +
-                    nameof(Getters.MemberValidations<TS, TM>) + ".");
+            if (Structure.StructureClasses != null)
+                classes.AddRange(Structure.StructureClasses.Invoke(Structure, Value));
 
-            if (member.MemberClasses != null)
-                classes.AddRange(member.MemberClasses.Invoke(Structure, Value, member));
-
-            bool shown = member.MemberIsVisible?.Invoke(Structure, Value, member) ?? true;
+            bool shown = Structure.StructureIsVisible?.Invoke(Structure, Value) ?? true;
 
             //
 
@@ -78,7 +69,7 @@ namespace Fundament.Component
             }
             else
             {
-                List<Validation>? validations = Structure.ValidationState.GetMemberValidations(ID!);
+                List<Validation>? validations = Structure.ValidationState.GetStructureValidations();
 
                 if (validations != null)
                 {

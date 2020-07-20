@@ -17,7 +17,7 @@ namespace Fundament.Component
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            var classes = new List<string> {"Fundament.StructureContainer"};
+            var classes = new List<string> {"Fundament.Component." + nameof(StructureContainer<T>)};
 
             if (Structure.StructureClasses != null)
                 classes.AddRange(Structure.StructureClasses.Invoke(Structure, Value));
@@ -35,8 +35,8 @@ namespace Fundament.Component
             builder.AddAttribute(++seq, "ChildContent", new RenderFragment(builder2 =>
             {
                 builder2.OpenComponent<CascadingValue<T>>(++seq);
-                builder2.AddAttribute(++seq, "Name",  "Fundament.Value");
-                builder2.AddAttribute(++seq, "Value", Value);
+                builder2.AddAttribute(++seq, "Name",    "Fundament.Value");
+                builder2.AddAttribute(++seq, "Value",   Value);
                 builder2.AddAttribute(++seq, "IsFixed", false);
                 builder2.AddAttribute(++seq, "ChildContent", new RenderFragment(builder3 =>
                 {
@@ -54,6 +54,12 @@ namespace Fundament.Component
                 builder2.CloseComponent();
             }));
             builder.CloseComponent();
+        }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (firstRender)
+                Structure.ValidateInitial(Value);
         }
     }
 }

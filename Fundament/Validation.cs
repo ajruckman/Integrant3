@@ -58,7 +58,7 @@ namespace Fundament
         public Dictionary<string, List<Validation>>? MemberValidationCache;
 
         public bool IsValidating { get; private set; }
-        
+
         private readonly Structure<TStructure> _structure;
 
         public ValidationState(Structure<TStructure> structure)
@@ -147,19 +147,28 @@ namespace Fundament
                 OnInvalidation?.Invoke();
             }
         }
-        
+
         internal void ValidateStructure(TStructure value)
         {
             BeginValidations(value);
+        }
+
+        internal List<Validation>? GetStructureValidations()
+        {
+            lock (_cacheLock)
+            {
+                return StructureValidationCache;
+            }
         }
 
         internal List<Validation>? GetMemberValidations(string id)
         {
             lock (_cacheLock)
             {
-                if (MemberValidationCache?.ContainsKey(id) == true)
-                    return MemberValidationCache[id];
-                return null;
+                if (MemberValidationCache == null) return null;
+
+                MemberValidationCache.TryGetValue(id, out List<Validation>? result);
+                return result;
             }
         }
     }

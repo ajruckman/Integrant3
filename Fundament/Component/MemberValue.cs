@@ -25,7 +25,7 @@ namespace Fundament.Component
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            List<string> classes = new List<string> {"Fundament." + nameof(MemberValue<TS, TM>)};
+            List<string> classes = new List<string> {"Fundament.Component." + nameof(MemberValue<TS, TM>)};
 
             Member<TS, TM> member = Structure.GetMember<TM>(ID!);
 

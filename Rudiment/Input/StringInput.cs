@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Fundament;
 using Microsoft.AspNetCore.Components;
 
-namespace Fundament.Input
+namespace Rudiment.Input
 {
     public class StringInput<TStructure> : IInput<TStructure, string>
     {
