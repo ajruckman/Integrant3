@@ -1,29 +1,29 @@
-div[class~="Fundament.Validation.Result"] {
+div[class~="Integrant.Fundament.Validation.Result"] {
 
-    &[class~="Fundament.Validation.Result:Invalid"] {
+    &[class~="Integrant.Fundament.Validation.Result:Invalid"] {
         background-color: #c80000;
         color:            white;
     }
 
-    &[class~="Fundament.Validation.Result:Warning"] {
+    &[class~="Integrant.Fundament.Validation.Result:Warning"] {
         background-color: #ffff00;
         color:            black;
     }
 
-    &[class~="Fundament.Validation.Result:Valid"] {
+    &[class~="Integrant.Fundament.Validation.Result:Valid"] {
         background-color: #008000;
         color:            white;
     }
 
 }
 
-div[class~="Fundament.Validation.Notice"] {
+div[class~="Integrant.Fundament.Validation.Notice"] {
 
-    &[class~="Fundament.Validation.Notice:Validating"] {
+    &[class~="Integrant.Fundament.Validation.Notice:Validating"] {
         background-color: blue;
         color:            white;
 
-        div[class~="Fundament.Validation.Notice.Background"] {
+        div[class~="Integrant.Fundament.Validation.Notice.Background"] {
             bottom:   1px;
             left:     1px;
             overflow: hidden;

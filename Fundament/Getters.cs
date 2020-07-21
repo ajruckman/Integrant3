@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 
-namespace Fundament
+// ReSharper disable InconsistentNaming
+
+namespace Integrant.Fundament
 {
     public static class StructureGetters
     {
@@ -16,15 +18,18 @@ namespace Fundament
 
     public static class MemberGetters
     {
-        public delegate object MemberFormatValue<TStructure, TMember>
+        public delegate TMember MemberValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
-        public delegate object MemberFormatKey<TStructure, TMember>
+        public delegate string MemberFormatKey<TStructure, TMember>
+            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
+
+        public delegate object MemberFormatValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
         public delegate TMember MemberDefaultValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
-        
+
         public delegate object MemberFormatDefaultValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
@@ -49,12 +54,32 @@ namespace Fundament
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
     }
 
-    public static class DefaultGetters
+    internal static class DefaultGetters
     {
-        public static string FormatMemberKey<TStructure, TMember>
+        internal static string FormatMemberKey<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
         {
             return member.ID;
+        }
+        
+        internal static object MemberFormatValue<TStructure, TMember>
+            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
+        {
+            TMember v = member.MemberValue.Invoke(structure, value, member);
+            return v == null ? (object) "" : v;
+        }
+
+        internal static TMember MemberDefaultValue<TStructure, TMember>
+            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
+        {
+            return member.MemberValue.Invoke(structure, value, member);
+        }
+        
+        internal static object MemberFormatDefaultValue<TStructure, TMember>
+            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
+        {
+            TMember v = member.MemberDefaultValue.Invoke(structure, value, member);
+            return v == null ? (object) "" : v;
         }
     }
 }

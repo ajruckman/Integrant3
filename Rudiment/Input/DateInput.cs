@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Fundament;
+using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 
-namespace Rudiment.Input
+namespace Integrant.Rudiment.Input
 {
     public class DateInput<TStructure> : IInput<TStructure, DateTime>
     {
@@ -19,9 +19,8 @@ namespace Rudiment.Input
             builder.OpenElement(++seq, "input");
             builder.AddAttribute(++seq, "type", "date");
 
-            builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
 
-            var classes = new List<string> {"Rudiment.Input", "Rudiment.Input." + nameof(DateInput<TStructure>),};
+            var classes = new List<string> {"Integrant.Rudiment.Input", "Integrant.Rudiment.Input." + nameof(DateInput<TStructure>),};
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
 
             if (member.MemberInputIsRequired?.Invoke(structure, value, member) == true)
@@ -31,7 +30,9 @@ namespace Rudiment.Input
                 builder.AddAttribute(++seq, "placeholder",
                     member.MemberInputPlaceholder.Invoke(structure, value, member));
 
-            builder.AddAttribute(++seq, "value", member.MemberDefaultValue.Invoke(structure, value, member));
+            builder.AddAttribute(++seq, "value",   member.MemberDefaultValue.Invoke(structure, value, member));
+            builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
+            builder.SetUpdatesAttributeName("value");
 
             builder.CloseElement();
         };

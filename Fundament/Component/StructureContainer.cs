@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Fundament.Component
+namespace Integrant.Fundament.Component
 {
     public class StructureContainer<TS> : ComponentBase
     {
@@ -18,7 +17,7 @@ namespace Fundament.Component
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             ClassSet classes = ClassSet.FromStructure(Structure, Value,
-                "Fundament.Component." + nameof(StructureContainer<TS>));
+                "Integrant.Fundament.Component." + nameof(StructureContainer<TS>));
 
             bool shown = Structure.StructureIsVisible?.Invoke(Structure, Value) ?? true;
 
@@ -27,13 +26,13 @@ namespace Fundament.Component
             int seq = -1;
 
             builder.OpenComponent<CascadingValue<Structure<TS>>>(++seq);
-            builder.AddAttribute(++seq, "Name",    "Fundament.Structure");
+            builder.AddAttribute(++seq, "Name",    "Integrant.Fundament.Structure");
             builder.AddAttribute(++seq, "Value",   Structure);
             builder.AddAttribute(++seq, "IsFixed", true);
             builder.AddAttribute(++seq, "ChildContent", new RenderFragment(builder2 =>
             {
                 builder2.OpenComponent<CascadingValue<TS>>(++seq);
-                builder2.AddAttribute(++seq, "Name",    "Fundament.Value");
+                builder2.AddAttribute(++seq, "Name",    "Integrant.Fundament.Value");
                 builder2.AddAttribute(++seq, "Value",   Value);
                 builder2.AddAttribute(++seq, "IsFixed", false);
                 builder2.AddAttribute(++seq, "ChildContent", new RenderFragment(builder3 =>

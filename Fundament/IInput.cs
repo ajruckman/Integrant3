@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Components;
 
-namespace Fundament
+namespace Integrant.Fundament
 {
     public interface IInput<TStructure, TMember>
     {

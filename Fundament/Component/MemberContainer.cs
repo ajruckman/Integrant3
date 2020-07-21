@@ -2,14 +2,14 @@ using System;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Fundament.Component
+namespace Integrant.Fundament.Component
 {
     public class MemberContainer<TS, TM> : ComponentBase
     {
-        [CascadingParameter(Name = "Fundament.Structure")]
+        [CascadingParameter(Name = "Integrant.Fundament.Structure")]
         public Structure<TS> Structure { get; set; } = null!;
 
-        [CascadingParameter(Name = "Fundament.Value")]
+        [CascadingParameter(Name = "Integrant.Fundament.Value")]
         public TS Value { get; set; } = default!;
 
         [Parameter]
@@ -30,7 +30,7 @@ namespace Fundament.Component
             Member<TS, TM> member = Structure.GetMember<TM>(ID!);
 
             ClassSet classes = ClassSet.FromMember(Structure, Value, member,
-                "Fundament.Component." + nameof(MemberContainer<TS, TM>));
+                "Integrant.Fundament.Component." + nameof(MemberContainer<TS, TM>));
 
             bool shown = member.MemberIsVisible?.Invoke(Structure, Value, member) ?? true;
 
@@ -46,7 +46,7 @@ namespace Fundament.Component
                 builder.AddAttribute(++seq, "hidden", "hidden");
 
             builder.OpenComponent<CascadingValue<string>>(++seq);
-            builder.AddAttribute(++seq, "Name",         "Fundament.Member.ID");
+            builder.AddAttribute(++seq, "Name",         "Integrant.Fundament.Member.ID");
             builder.AddAttribute(++seq, "Value",        ID);
             builder.AddAttribute(++seq, "IsFixed",      true);
             builder.AddAttribute(++seq, "ChildContent", ChildContent);

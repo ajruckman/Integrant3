@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Superset.Utilities;
 
-namespace Fundament
+namespace Integrant.Fundament
 {
     // ReSharper disable once UnusedTypeParameter
     public interface IMember<TStructure>
@@ -17,19 +17,20 @@ namespace Fundament
     {
         public Member
         (
-            string                                                     id,
-            MemberGetters.MemberFormatValue<TStructure, TMember>       formatValue,
-            IInput<TStructure, TMember>?                               input            = null,
-            MemberGetters.MemberClasses<TStructure, TMember>?          classes          = null,
-            MemberGetters.MemberIsEnabled<TStructure, TMember>?        isEnabled        = null,
-            MemberGetters.MemberIsVisible<TStructure, TMember>?        isVisible        = null,
-            MemberGetters.MemberFormatKey<TStructure, TMember>?        formatKey        = null,
-            MemberGetters.MemberDefaultValue<TStructure, TMember>?     defaultValue     = null,
-            MemberGetters.MemberFormatDefaultValue<TStructure, TMember>?     formatDefaultValue     = null,
-            MemberGetters.MemberInputIsRequired<TStructure, TMember>?  inputIsRequired  = null,
-            MemberGetters.MemberInputPlaceholder<TStructure, TMember>? inputPlaceholder = null,
-            MemberGetters.MemberValidations<TStructure, TMember>?      validator        = null,
-            Action<TStructure, Member<TStructure, TMember>, TMember>?  onValueUpdate    = null
+            string                                                       id,
+            MemberGetters.MemberValue<TStructure, TMember>               value,
+            IInput<TStructure, TMember>?                                 input              = null,
+            MemberGetters.MemberFormatKey<TStructure, TMember>?          formatKey          = null,
+            MemberGetters.MemberFormatValue<TStructure, TMember>?        formatValue        = null,
+            MemberGetters.MemberDefaultValue<TStructure, TMember>?       defaultValue       = null,
+            MemberGetters.MemberFormatDefaultValue<TStructure, TMember>? formatDefaultValue = null,
+            MemberGetters.MemberClasses<TStructure, TMember>?            classes            = null,
+            MemberGetters.MemberIsEnabled<TStructure, TMember>?          isEnabled          = null,
+            MemberGetters.MemberIsVisible<TStructure, TMember>?          isVisible          = null,
+            MemberGetters.MemberInputIsRequired<TStructure, TMember>?    inputIsRequired    = null,
+            MemberGetters.MemberInputPlaceholder<TStructure, TMember>?   inputPlaceholder   = null,
+            MemberGetters.MemberValidations<TStructure, TMember>?        validator          = null,
+            Action<TStructure, Member<TStructure, TMember>, TMember>?    onValueUpdate      = null
         )
         {
             ID = id;
@@ -40,14 +41,18 @@ namespace Fundament
                 Input.OnInput += UpdateValue;
             }
 
-            MemberFormatValue = formatValue;
+            //
+
+            MemberValue = value;
+
+            //
 
             MemberFormatKey          = formatKey          ?? DefaultGetters.FormatMemberKey;
-            MemberDefaultValue       = defaultValue       ?? ((s, v, m) => default!);
-            MemberFormatDefaultValue = formatDefaultValue ?? ((s, v, m) =>
-            {
-                return MemberFormatValue.Invoke(s, v, m);
-            });
+            MemberFormatValue        = formatValue        ?? DefaultGetters.MemberFormatValue;
+            MemberDefaultValue       = defaultValue       ?? DefaultGetters.MemberDefaultValue;
+            MemberFormatDefaultValue = formatDefaultValue ?? DefaultGetters.MemberFormatDefaultValue;
+
+            //
 
             MemberClasses          = classes;
             MemberIsEnabled        = isEnabled;
@@ -56,10 +61,10 @@ namespace Fundament
             MemberInputPlaceholder = inputPlaceholder;
             MemberValidator        = validator;
 
+            //
+
             if (onValueUpdate != null)
                 OnValueUpdate += onValueUpdate;
-
-            //
 
             _debouncer = new Debouncer<(TStructure, TMember)>(newValue =>
                 OnValueUpdate?.Invoke(newValue.Item1, this, newValue.Item2), default!, 200);
@@ -71,11 +76,12 @@ namespace Fundament
 
         // Required delegates
 
-        public readonly MemberGetters.MemberFormatValue<TStructure, TMember> MemberFormatValue;
+        public readonly MemberGetters.MemberValue<TStructure, TMember> MemberValue;
 
         // Required delegates with fallback default implementations
 
         public readonly MemberGetters.MemberFormatKey<TStructure, TMember>          MemberFormatKey;
+        public readonly MemberGetters.MemberFormatValue<TStructure, TMember>        MemberFormatValue;
         public readonly MemberGetters.MemberDefaultValue<TStructure, TMember>       MemberDefaultValue;
         public readonly MemberGetters.MemberFormatDefaultValue<TStructure, TMember> MemberFormatDefaultValue;
 
@@ -100,6 +106,11 @@ namespace Fundament
         {
             OnInput?.Invoke();
             _debouncer.Reset((value, newValue));
+        }
+
+        public void UpdateValueImmediately(TStructure value, TMember newValue)
+        {
+            OnValueUpdate?.Invoke(value, this, newValue);
         }
 
         //

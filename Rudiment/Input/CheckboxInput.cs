@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Fundament;
+using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 
-namespace Rudiment.Input
+namespace Integrant.Rudiment.Input
 {
     public class CheckboxInput<TStructure> : IInput<TStructure, bool>
     {
@@ -19,20 +19,19 @@ namespace Rudiment.Input
             builder.OpenElement(++seq, "input");
             builder.AddAttribute(++seq, "type", "checkbox");
 
-            var classes = new List<string> {"Rudiment.Input", "Rudiment.Input." + nameof(CheckboxInput<TStructure>),};
+            var classes = new List<string> {"Integrant.Rudiment.Input", "Integrant.Rudiment.Input." + nameof(CheckboxInput<TStructure>),};
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
 
             if (member.MemberInputIsRequired?.Invoke(structure, value, member) == true)
                 builder.AddAttribute(++seq, "required", "required");
-            
+
             //
 
-            builder.AddAttribute(++seq, "checked", (bool) member.MemberDefaultValue.Invoke(structure, value, member));
-
+            builder.AddAttribute(++seq, "checked",
+                (bool) member.MemberFormatDefaultValue.Invoke(structure, value, member));
             builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
-            
             builder.SetUpdatesAttributeName("checked");
-            
+
             //
 
             builder.CloseElement();

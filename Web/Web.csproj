@@ -21,7 +21,7 @@
     <ItemGroup>
       <PackageReference Include="FlareSelect" Version="3.6.5-alpha" />
       <PackageReference Include="FlareTables" Version="3.7.1-alpha" />
-      <PackageReference Include="Superset" Version="1.15.6-alpha" />
+      <PackageReference Include="Superset" Version="1.16.0-alpha" />
     </ItemGroup>
 
 </Project>

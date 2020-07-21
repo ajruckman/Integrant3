@@ -1,5 +1,5 @@
-﻿@using Fundament.Component
-@using Microsoft.AspNetCore.Components
+﻿@using Microsoft.AspNetCore.Components
+@using Integrant.Fundament.Component
 
 @page "/"
 
@@ -115,7 +115,19 @@
                     <MemberInput TS="User" TM="DateTime"/>
                 </td>
             </MemberContainer>
+        </tr>
 
+        <tr>
+            <MemberContainer TS="User" TM="List<string>" ID="Tags">
+                <td>
+                    <MemberKey TS="User" TM="List<string>"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="List<string>"/>
+
+                    @_tagsSelector.Render()
+                </td>
+            </MemberContainer>
         </tr>
 
         <tfoot>

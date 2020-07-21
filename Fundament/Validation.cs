@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
-namespace Fundament
+namespace Integrant.Fundament
 {
     public class Validation
     {
@@ -20,18 +20,18 @@ namespace Fundament
         internal RenderFragment Render() => builder =>
         {
             int          seq     = -1;
-            List<string> classes = new List<string> {"Fundament.Validation.Result"};
+            List<string> classes = new List<string> {"Integrant.Fundament.Validation.Result"};
 
             switch (ResultType)
             {
                 case ValidationResultType.Invalid:
-                    classes.Add("Fundament.Validation.Result:Invalid");
+                    classes.Add("Integrant.Fundament.Validation.Result:Invalid");
                     break;
                 case ValidationResultType.Warning:
-                    classes.Add("Fundament.Validation.Result:Warning");
+                    classes.Add("Integrant.Fundament.Validation.Result:Warning");
                     break;
                 case ValidationResultType.Valid:
-                    classes.Add("Fundament.Validation.Result:Valid");
+                    classes.Add("Integrant.Fundament.Validation.Result:Valid");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -41,7 +41,7 @@ namespace Fundament
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
 
             builder.OpenElement(++seq, "span");
-            builder.AddAttribute(++seq, "class", "Fundament.Validation.Result.Text");
+            builder.AddAttribute(++seq, "class", "Integrant.Fundament.Validation.Result.Text");
             builder.AddContent(++seq, Message);
             builder.CloseElement();
 

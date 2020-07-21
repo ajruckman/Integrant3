@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Fundament.Component
+namespace Integrant.Fundament.Component
 {
     public class StructureValidations<TS> : ComponentBase
     {
-        [CascadingParameter(Name = "Fundament.Structure")]
+        [CascadingParameter(Name = "Integrant.Fundament.Structure")]
         public Structure<TS> Structure { get; set; } = null!;
 
-        [CascadingParameter(Name = "Fundament.Value")]
+        [CascadingParameter(Name = "Integrant.Fundament.Value")]
         public TS Value { get; set; } = default!;
 
         protected override void OnInitialized()
@@ -40,7 +40,7 @@ namespace Fundament.Component
                     nameof(StructureGetters.StructureValidations<TS>) + ".");
             
             ClassSet classes = ClassSet.FromStructure(Structure, Value, 
-                "Fundament.Component." + nameof(StructureContainer<TS>));
+                "Integrant.Fundament.Component." + nameof(StructureContainer<TS>));
 
             bool shown = Structure.StructureIsVisible?.Invoke(Structure, Value) ?? true;
 
@@ -58,9 +58,9 @@ namespace Fundament.Component
             if (Structure.ValidationState.IsValidating)
             {
                 builder.OpenElement(++seq, "div");
-                builder.AddAttribute(++seq, "class", "Fundament.ValidationNotice.Validating");
+                builder.AddAttribute(++seq, "class", "Integrant.Fundament.ValidationNotice.Validating");
                 builder.OpenElement(++seq, "span");
-                builder.AddAttribute(++seq, "class", "Fundament.ValidationNotice.Validating.Background");
+                builder.AddAttribute(++seq, "class", "Integrant.Fundament.ValidationNotice.Validating.Background");
                 builder.AddContent(++seq, "Validating...");
                 builder.CloseElement();
                 builder.CloseElement();

@@ -1,19 +1,19 @@
-div[class~="Fundament.Validation.Result"][class~="Fundament.Validation.Result:Invalid"] {
+div[class~="Integrant.Fundament.Validation.Result"][class~="Integrant.Fundament.Validation.Result:Invalid"] {
   background-color: #c80000;
   color: white; }
 
-div[class~="Fundament.Validation.Result"][class~="Fundament.Validation.Result:Warning"] {
+div[class~="Integrant.Fundament.Validation.Result"][class~="Integrant.Fundament.Validation.Result:Warning"] {
   background-color: #ffff00;
   color: black; }
 
-div[class~="Fundament.Validation.Result"][class~="Fundament.Validation.Result:Valid"] {
+div[class~="Integrant.Fundament.Validation.Result"][class~="Integrant.Fundament.Validation.Result:Valid"] {
   background-color: #008000;
   color: white; }
 
-div[class~="Fundament.Validation.Notice"][class~="Fundament.Validation.Notice:Validating"] {
+div[class~="Integrant.Fundament.Validation.Notice"][class~="Integrant.Fundament.Validation.Notice:Validating"] {
   background-color: blue;
   color: white; }
-  div[class~="Fundament.Validation.Notice"][class~="Fundament.Validation.Notice:Validating"] div[class~="Fundament.Validation.Notice.Background"] {
+  div[class~="Integrant.Fundament.Validation.Notice"][class~="Integrant.Fundament.Validation.Notice:Validating"] div[class~="Integrant.Fundament.Validation.Notice.Background"] {
     bottom: 1px;
     left: 1px;
     overflow: hidden;
@@ -21,7 +21,7 @@ div[class~="Fundament.Validation.Notice"][class~="Fundament.Validation.Notice:Va
     right: 1px;
     top: 1px;
     z-index: -1; }
-    div[class~="Fundament.Validation.Notice"][class~="Fundament.Validation.Notice:Validating"] div[class~="Fundament.Validation.Notice.Background"]::before {
+    div[class~="Integrant.Fundament.Validation.Notice"][class~="Integrant.Fundament.Validation.Notice:Validating"] div[class~="Integrant.Fundament.Validation.Notice.Background"]::before {
       animation: stripes 0.5s linear infinite;
       background-image: repeating-linear-gradient(to right, blue 0, blue 8px, #0000d9 8px, #0000d9 16px);
       background-repeat: repeat;

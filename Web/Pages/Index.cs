@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Fundament;
-using Rudiment.Input;
+using FlareSelect;
+using Integrant.Fundament;
+using Integrant.Rudiment.Input;
+using Superset.Common;
 
 namespace Web.Pages
 {
@@ -11,25 +14,27 @@ namespace Web.Pages
     {
         public class User
         {
-            public bool     Boolean     { get; set; }
-            public string   CreatedBy   { get; set; }
-            public int      UserID      { get; set; }
-            public string   Name        { get; set; }
-            public string   PhoneNumber { get; set; }
-            public string   Email       { get; set; }
-            public DateTime StartDate   { get; set; }
-            public DateTime StartTime   { get; set; }
+            public bool         Boolean     { get; set; }
+            public string       CreatedBy   { get; set; }
+            public int          UserID      { get; set; }
+            public string       Name        { get; set; }
+            public string       PhoneNumber { get; set; }
+            public string       Email       { get; set; }
+            public DateTime     StartDate   { get; set; }
+            public DateTime     StartTime   { get; set; }
+            public List<string> Tags        { get; set; }
         }
 
-        private Structure<User> _structure = null!;
-        private User            _testUser  = null!;
+        private Structure<User>       _structure    = null!;
+        private FlareSelector<string> _tagsSelector = null!;
+        private User                  _testUser     = null!;
 
         public bool BindTestProp { get; set; }
 
         protected override void OnInitialized()
         {
             var altUser = new User();
-
+            
             _structure = new Structure<User>(validator: (structure, value) =>
             {
                 Thread.Sleep(200);
@@ -57,7 +62,8 @@ namespace Web.Pages
 
             _structure.Register(new Member<User, int>(
                 nameof(User.UserID),
-                (s,                v, m) => $"[{v.UserID}]",
+                (s,                v, m) => v.UserID,
+                formatValue: (s,   v, m) => $"[{v.UserID}]",
                 formatKey: (s,     v, m) => "User ID",
                 onValueUpdate: (s, v, m) => altUser.UserID = m
             ));
@@ -66,14 +72,15 @@ namespace Web.Pages
                 nameof(User.Name),
                 (s, v, m) => v.Name,
                 input: new StringInput<User>(),
-                onValueUpdate: (s, v, m) => altUser.Name = m
+                onValueUpdate: (s, v, m) => altUser.Name = m,
+                defaultValue: (s,  v, m) => "A.J."
             ));
 
             _structure.Register(new Member<User, string>(
                 nameof(User.PhoneNumber),
                 (s,                v, m) => v.PhoneNumber,
                 formatKey: (s,     v, m) => "Phone number",
-                isVisible: (s,     v, m) => altUser.Name?.Length > 0,
+                isVisible: (s,     v, m) => v.Name?.Length > 0,
                 onValueUpdate: (s, v, m) => altUser.PhoneNumber = m
             ));
 
@@ -110,6 +117,13 @@ namespace Web.Pages
                 input: new TimeInput<User>()
             ));
 
+            _structure.Register(new Member<User, List<string>>(
+                nameof(User.Tags),
+                (s,                v, m) => v.Tags,
+                formatValue: (s,   v, m) => v.Tags != null ? string.Join(" + ", v.Tags) : "<null>",
+                onValueUpdate: (s, v, m) => altUser.Tags = m
+            ));
+
             //
 
             _structure.GetMember<string>("Name").OnValueUpdate +=
@@ -120,12 +134,30 @@ namespace Web.Pages
 
             _structure.OnMemberValueUpdate += (s, v, m) =>
             {
-                Console.WriteLine($"Structure<User>." + v.ID + " -> " + v);
+                Console.WriteLine($"Structure<User>." + v.ID + " -> " + m);
                 InvokeAsync(StateHasChanged);
             };
 
             //
 
+            // _structure.OnMemberValueUpdate += (s, m, v) => InvokeAsync(StateHasChanged);
+
+            _tagsSelector = new FlareSelector<string>
+            (() => new List<IOption<string>>
+                {
+                    new Option<string> {ID = "A", OptionText = "A",},
+                    new Option<string> {ID = "B", OptionText = "B",},
+                    new Option<string> {ID = "C", OptionText = "C",},
+                },
+                true
+            );
+
+            _tagsSelector.OnSelect += selected =>
+                _structure.GetMember<List<string>>(nameof(User.Tags))
+                          .UpdateValue(altUser, selected.Select(v => v.ID).ToList());
+
+            //
+            
             _testUser = new User
             {
                 Boolean     = true,
@@ -163,6 +195,7 @@ namespace Web.Pages
             {
                 member.ResetInputs();
             }
+
             StateHasChanged();
         }
     }

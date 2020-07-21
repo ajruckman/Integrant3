@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Fundament
+namespace Integrant.Fundament
 {
     public class Structure<T>
     {

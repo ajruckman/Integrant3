@@ -1,19 +1,18 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Fundament.Component
+namespace Integrant.Fundament.Component
 {
     public class MemberInput<TS, TM> : ComponentBase, IDisposable
     {
-        [CascadingParameter(Name = "Fundament.Structure")]
+        [CascadingParameter(Name = "Integrant.Fundament.Structure")]
         public Structure<TS> Structure { get; set; } = null!;
 
-        [CascadingParameter(Name = "Fundament.Value")]
+        [CascadingParameter(Name = "Integrant.Fundament.Value")]
         public TS Value { get; set; } = default!;
 
-        [CascadingParameter(Name = "Fundament.Member.ID")]
+        [CascadingParameter(Name = "Integrant.Fundament.Member.ID")]
         public string ID { get; set; } = null!;
 
         private Member<TS, TM> _member = null!;
@@ -32,7 +31,7 @@ namespace Fundament.Component
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             ClassSet classSet = ClassSet.FromMember(Structure, Value, _member,
-                "Fundament.Component." + nameof(MemberInput<TS, TM>));
+                "Integrant.Fundament.Component." + nameof(MemberInput<TS, TM>));
 
             //
 
@@ -69,7 +68,7 @@ namespace Fundament.Component
 
             _canRender = false;
             
-            _member.UpdateValue(Value, _member.MemberDefaultValue.Invoke(Structure, Value, _member));
+            _member.UpdateValueImmediately(Value, _member.MemberDefaultValue.Invoke(Structure, Value, _member));
         }
 
         public void Dispose()

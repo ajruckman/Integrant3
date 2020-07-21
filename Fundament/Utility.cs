@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Fundament
+namespace Integrant.Fundament
 {
     public static class Utility
     {
