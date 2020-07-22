@@ -34,17 +34,23 @@ namespace Integrant.Fundament
             MemberGetters.MemberValue<TStructure, TMember>?            defaultValue     = null,
             //
             Action<TStructure, Member<TStructure, TMember>, TMember>? onValueUpdate             = null,
-            int                                                       inputDebounceMilliseconds = 200
+            int                                                       inputDebounceMilliseconds = 200,
+            bool?                                                     considerDefaultNull       = null
         )
         {
-            ID    = id;
-            Value = value;
+            ID = id;
 
             if (input != null)
             {
                 Input         =  input;
                 Input.OnInput += UpdateValue;
             }
+
+            ConsiderDefaultNull = considerDefaultNull ?? typeof(TMember) == typeof(DateTime);
+
+            //
+
+            Value = value;
 
             //
 
@@ -76,9 +82,9 @@ namespace Integrant.Fundament
                 OnValueUpdate?.Invoke(newValue.Item1, this, newValue.Item2), default!, inputDebounceMilliseconds);
         }
 
-        public string ID { get; }
-
-        public IInput<TStructure, TMember>? Input { get; }
+        public string                       ID                        { get; }
+        public IInput<TStructure, TMember>? Input                     { get; }
+        public bool                         ConsiderDefaultNull { get; }
 
         // Required delegates
 

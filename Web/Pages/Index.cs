@@ -20,9 +20,9 @@ namespace Integrant.Web.Pages
             public string       Name              { get; set; }
             public string       PhoneNumber       { get; set; }
             public string       Email             { get; set; }
-            public DateTime     StartDate         { get; set; }
-            public DateTime     StartTime         { get; set; }
-            public DateTime     CompositeDateTime { get; set; }
+            public DateTime?    StartDate         { get; set; }
+            public DateTime    StartTime         { get; set; }
+            public DateTime?    CompositeDateTime { get; set; }
             public List<string> Tags              { get; set; }
         }
 
@@ -64,10 +64,11 @@ namespace Integrant.Web.Pages
             _structure.Register(new Member<User, int>(
                 nameof(User.UserID),
                 (s,                v, m) => v.UserID,
-                displayValue: (s,  v, m) => $"[{v.UserID}]",
+                // displayValue: (s,  v, m) => $"[{v.UserID}]",
                 key: (s,           v, m) => "User ID",
                 onValueUpdate: (s, v, m) => s.UserID = m,
-                input: new NumberInput<User>()
+                input: new NumberInput<User>(),
+                considerDefaultNull: true
             ));
 
             _structure.Register(new Member<User, string>(
@@ -106,8 +107,8 @@ namespace Integrant.Web.Pages
 
             _structure.Register(new Member<User, DateTime>(
                 nameof(User.StartDate),
-                (s,                v, m) => v.StartDate,
-                onValueUpdate: (s, v, m) => s.StartDate = m,
+                (s,                v, m) => v.StartDate ?? default,
+                onValueUpdate: (s, v, m) => s.StartDate = m == default ? new DateTime?() : m,
                 validator: (s, v, m) =>
                     v.StartDate > DateTime.Now
                         ? Validation.One(ValidationResultType.Invalid, "Start date is in the future.")
@@ -124,8 +125,8 @@ namespace Integrant.Web.Pages
 
             _structure.Register(new Member<User, DateTime>(
                 nameof(User.CompositeDateTime),
-                (s,                v, m) => v.CompositeDateTime,
-                onValueUpdate: (s, v, m) => s.CompositeDateTime = m,
+                (s,                v, m) => v.CompositeDateTime ?? default,
+                onValueUpdate: (s, v, m) => s.CompositeDateTime = m.Date == default ? new DateTime?() : m,
                 input: new DateTimeInput<User>()
             ));
 

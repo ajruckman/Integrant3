@@ -35,6 +35,7 @@ namespace Integrant.Rudiment.Input
             InputBuilder.Value
             (
                 builder, ref seq,
+                member,
                 "value", TransformValue(structure, value, member),
                 args => OnChange(value, args)
             );
@@ -45,8 +46,11 @@ namespace Integrant.Rudiment.Input
         private static string TransformValue
             (Structure<TStructure> structure, TStructure value, Member<TStructure, DateTime> member)
         {
-            object v = member.InputValue.Invoke(structure, value, member);
-            return ((DateTime?) v).Value.ToString("HH:mm:ss") ?? "";
+            var v = (DateTime) member.InputValue.Invoke(structure, value, member);
+            
+            return member.ConsiderDefaultNull
+                ? v == default ? "" : v.ToString("HH:mm:ss")
+                : v.ToString("HH:mm:ss");
         }
 
         private void OnChange(TStructure value, ChangeEventArgs args)

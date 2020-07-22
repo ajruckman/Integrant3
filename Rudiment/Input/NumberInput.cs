@@ -38,6 +38,7 @@ namespace Integrant.Rudiment.Input
             InputBuilder.Value
             (
                 builder, ref seq,
+                member,
                 "value", member.InputValue.Invoke(structure, value, member),
                 args => OnChange(value, args)
             );
@@ -47,7 +48,11 @@ namespace Integrant.Rudiment.Input
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
-            OnInput?.Invoke(value, int.Parse(args.Value?.ToString() ?? ""));
+            string v = args.Value?.ToString() ?? "";
+
+            OnInput?.Invoke(value, v == ""
+                ? default
+                : int.Parse(v));
         }
     }
 }

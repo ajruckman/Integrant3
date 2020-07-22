@@ -35,6 +35,7 @@ namespace Integrant.Rudiment.Input
             InputBuilder.Value
             (
                 builder, ref seq,
+                member,
                 "checked", member.InputValue.Invoke(structure, value, member),
                 args => OnChange(value, args)
             );
