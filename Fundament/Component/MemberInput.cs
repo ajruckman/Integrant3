@@ -17,6 +17,8 @@ namespace Integrant.Fundament.Component
 
         private Member<TS, TM> _member = null!;
 
+        private TM _initialValue = default!;
+
         protected override void OnInitialized()
         {
             _member = Structure.GetMember<TM>(ID);
@@ -25,7 +27,9 @@ namespace Integrant.Fundament.Component
                 throw new ArgumentNullException(nameof(_member.Input),
                     "MemberInput component was used on a Member with no Input.");
 
-            // _member.OnResetInputs += ResetInput;
+            _initialValue = _member.Value.Invoke(Structure, Value, _member);
+
+            _member.OnResetInputs += ResetInput;
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -50,31 +54,33 @@ namespace Integrant.Fundament.Component
         // {
         //     return _canRender;
         // }
-        //
-        // private bool _canRender = false;
-        //
-        // private void ResetInput()
-        // {
-        //     _canRender = true;
-        //
-        //     try
-        //     {
-        //         InvokeAsync(StateHasChanged).Wait();
-        //     }
-        //     catch
-        //     {
-        //         // ignored
-        //     }
-        //
-        //     _canRender = false;
-        //     
-        //     _member.UpdateValueImmediately(Value, _member.DefaultValue.Invoke(Structure, Value, _member));
-        // }
+
+        private bool _canRender = false;
+
+        private void ResetInput()
+        {
+            // _canRender = true;
+            //
+            // try
+            // {
+            //     InvokeAsync(StateHasChanged).Wait();
+            // }
+            // catch
+            // {
+            //     // ignored
+            // }
+            //
+            // _canRender = false;
+
+            _member.UpdateValueImmediately(Value, _member.DefaultValue == null
+                ? _initialValue
+                : _member.DefaultValue.Invoke(Structure, Value, _member));
+        }
 
         public void Dispose()
         {
             Console.WriteLine(new string('-', 50) + " Disposed: " + _member.ID);
-            // _member.OnResetInputs -= ResetInput;
+            _member.OnResetInputs -= ResetInput;
         }
     }
 }

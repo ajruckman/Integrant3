@@ -5,7 +5,7 @@ namespace Integrant.Fundament
 {
     public interface IInput<TStructure, TMember>
     {
-        public event Action<TStructure, TMember> OnInput;
+        public event Action<TStructure, TMember>? OnInput;
 
         public RenderFragment Render
         (

@@ -29,7 +29,7 @@ namespace Integrant.Fundament.Component
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            builder.AddContent(++seq, member.FormatKey.Invoke(Structure, Value, member));
+            builder.AddContent(++seq, member.Key.Invoke(Structure, Value, member));
 
             builder.CloseElement();
         }

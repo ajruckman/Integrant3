@@ -57,13 +57,18 @@ namespace Integrant.Rudiment.Input
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            //
-
             if (member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
                     member.InputPlaceholder.Invoke(structure, value, member));
 
-            InputBuilder.Value(builder, ref seq, structure, value, member, "value", args => OnChange(value, args));
+            //
+
+            InputBuilder.Value
+            (
+                builder, ref seq,
+                "value", member.InputValue.Invoke(structure, value, member),
+                args => OnChange(value, args)
+            );
 
             builder.CloseElement();
         };
@@ -82,7 +87,7 @@ namespace Integrant.Rudiment.Input
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
-            OnInput?.Invoke(value, args.Value.ToString());
+            OnInput?.Invoke(value, args.Value?.ToString() ?? "");
         }
     }
 }

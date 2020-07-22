@@ -35,14 +35,19 @@ namespace Integrant.Rudiment.Input
 
             //
 
-            InputBuilder.Value(builder, ref seq, structure, value, member, "value", args => OnChange(value, args));
+            InputBuilder.Value
+            (
+                builder, ref seq,
+                "value", member.InputValue.Invoke(structure, value, member),
+                args => OnChange(value, args)
+            );
 
             builder.CloseElement();
         };
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
-            OnInput?.Invoke(value, int.Parse(args.Value.ToString()));
+            OnInput?.Invoke(value, int.Parse(args.Value?.ToString() ?? ""));
         }
     }
 }

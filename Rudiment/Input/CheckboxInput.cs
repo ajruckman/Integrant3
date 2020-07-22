@@ -31,8 +31,13 @@ namespace Integrant.Rudiment.Input
             builder.AddAttribute(++seq, "class", classes.Format());
 
             //
-            
-            InputBuilder.Value(builder, ref seq, structure, value, member, "checked", args => OnChange(value, args));
+
+            InputBuilder.Value
+            (
+                builder, ref seq,
+                "checked", member.InputValue.Invoke(structure, value, member),
+                args => OnChange(value, args)
+            );
 
             //
 

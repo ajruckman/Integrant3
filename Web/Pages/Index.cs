@@ -14,22 +14,21 @@ namespace Integrant.Web.Pages
     {
         public class User
         {
-            public bool         Boolean     { get; set; }
-            public string       CreatedBy   { get; set; }
-            public int          UserID      { get; set; }
-            public string       Name        { get; set; }
-            public string       PhoneNumber { get; set; }
-            public string       Email       { get; set; }
-            public DateTime     StartDate   { get; set; }
-            public DateTime     StartTime   { get; set; }
-            public List<string> Tags        { get; set; }
+            public bool         Boolean           { get; set; }
+            public string       CreatedBy         { get; set; }
+            public int          UserID            { get; set; }
+            public string       Name              { get; set; }
+            public string       PhoneNumber       { get; set; }
+            public string       Email             { get; set; }
+            public DateTime     StartDate         { get; set; }
+            public DateTime     StartTime         { get; set; }
+            public DateTime     CompositeDateTime { get; set; }
+            public List<string> Tags              { get; set; }
         }
 
         private Structure<User>       _structure    = null!;
         private FlareSelector<string> _tagsSelector = null!;
         private User                  _testUser     = null!;
-
-        public bool BindTestProp { get; set; }
 
         protected override void OnInitialized()
         {
@@ -65,8 +64,8 @@ namespace Integrant.Web.Pages
             _structure.Register(new Member<User, int>(
                 nameof(User.UserID),
                 (s,                v, m) => v.UserID,
-                formatValue: (s,   v, m) => $"[{v.UserID}]",
-                formatKey: (s,     v, m) => "User ID",
+                displayValue: (s,  v, m) => $"[{v.UserID}]",
+                key: (s,           v, m) => "User ID",
                 onValueUpdate: (s, v, m) => s.UserID = m,
                 input: new NumberInput<User>()
             ));
@@ -76,7 +75,7 @@ namespace Integrant.Web.Pages
                 (s, v, m) => v.Name,
                 input: new StringInput<User>(),
                 onValueUpdate: (s,         v, m) => s.Name = m,
-                defaultValue: (s,          v, m) => "A.J.",
+                defaultValue: (s,          v, m) => "A.J. <default>",
                 inputIsRequired: (s,       v, m) => true,
                 inputMeetsRequirement: (s, v, m) => v.Name?.Length > 3
             ));
@@ -84,7 +83,7 @@ namespace Integrant.Web.Pages
             _structure.Register(new Member<User, string>(
                 nameof(User.PhoneNumber),
                 (s,                v, m) => v.PhoneNumber,
-                formatKey: (s,     v, m) => "Phone number",
+                key: (s,           v, m) => "Phone number",
                 isVisible: (s,     v, m) => v.Name?.Length > 0,
                 onValueUpdate: (s, v, m) => s.PhoneNumber = m
             ));
@@ -123,10 +122,17 @@ namespace Integrant.Web.Pages
                 input: new TimeInput<User>()
             ));
 
+            _structure.Register(new Member<User, DateTime>(
+                nameof(User.CompositeDateTime),
+                (s,                v, m) => v.CompositeDateTime,
+                onValueUpdate: (s, v, m) => s.CompositeDateTime = m,
+                input: new DateTimeInput<User>()
+            ));
+
             _structure.Register(new Member<User, List<string>>(
                 nameof(User.Tags),
                 (s,                v, m) => v.Tags,
-                formatValue: (s,   v, m) => v.Tags != null ? string.Join(" + ", v.Tags) : "<null>",
+                displayValue: (s,  v, m) => v.Tags != null ? string.Join(" + ", v.Tags) : "<null>",
                 onValueUpdate: (s, v, m) => s.Tags = m
             ));
 
@@ -162,6 +168,8 @@ namespace Integrant.Web.Pages
                 _structure.GetMember<List<string>>(nameof(User.Tags))
                           .UpdateValue(_testUser, selected.Select(v => v.ID).ToList());
 
+            _structure.OnResetAllMemberInputs += () => _tagsSelector.Deselect();
+
             //
 
             _testUser = new User
@@ -171,6 +179,8 @@ namespace Integrant.Web.Pages
                 Name        = "A.J.",
                 PhoneNumber = "111.222.3344",
                 Email       = "aj@example.com",
+                StartDate   = DateTime.Now,
+                StartTime   = DateTime.Now,
             };
 
             Task.Run(() =>
@@ -181,12 +191,6 @@ namespace Integrant.Web.Pages
                 _structure.GetMember<bool>(nameof(User.Boolean)).ResetInputs();
                 _structure.Revalidate(_testUser);
                 InvokeAsync(StateHasChanged);
-
-                Task.Run(() =>
-                {
-                    Thread.Sleep(500);
-                    BindTestProp = true;
-                });
             });
         }
 
@@ -197,12 +201,7 @@ namespace Integrant.Web.Pages
 
         private void ResetAll()
         {
-            foreach (IMember<User> member in _structure.AllMembers())
-            {
-                member.ResetInputs();
-            }
-
-            StateHasChanged();
+            _structure.ResetAllMemberInputs();
         }
     }
 }

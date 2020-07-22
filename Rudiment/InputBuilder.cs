@@ -29,18 +29,18 @@ namespace Integrant.Rudiment
             }
         }
 
-        public static void Value<TStructure, TMember>
+        public static void Value
         (
-            RenderTreeBuilder     builder,        ref int                 seq,
-            Structure<TStructure> structure,      TStructure              value, Member<TStructure, TMember> member,
-            string                valueAttribute, Action<ChangeEventArgs> onInput
+            RenderTreeBuilder       builder,        ref int seq,
+            string                  valueAttribute, object  value,
+            Action<ChangeEventArgs> onInput
         )
         {
-            builder.AddAttribute(++seq, valueAttribute, member.FormatDefaultValue.Invoke(structure, value, member));
+            builder.AddAttribute(++seq, valueAttribute, value);
             builder.AddAttribute(++seq, "oninput",      onInput);
             builder.SetUpdatesAttributeName(valueAttribute);
         }
-        
+
         // public static void OpenContainer
         // (
         //     RenderTreeBuilder builder, ref int seq

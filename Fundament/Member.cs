@@ -16,25 +16,29 @@ namespace Integrant.Fundament
     {
         public Member
         (
-            string                                                          id,
-            MemberGetters.MemberValue<TStructure, TMember>                  value,
-            IInput<TStructure, TMember>?                                    input                     = null,
-            MemberGetters.MemberFormatKey<TStructure, TMember>?             formatKey                 = null,
-            MemberGetters.MemberFormatValue<TStructure, TMember>?           formatValue               = null,
-            MemberGetters.MemberDefaultValue<TStructure, TMember>?          defaultValue              = null,
-            MemberGetters.MemberFormatDefaultValue<TStructure, TMember>?    formatDefaultValue        = null,
-            MemberGetters.MemberClasses<TStructure, TMember>?               classes                   = null,
-            MemberGetters.MemberIsVisible<TStructure, TMember>?             isVisible                 = null,
-            MemberGetters.MemberInputIsEnabled<TStructure, TMember>?        inputIsEnabled            = null,
-            MemberGetters.MemberInputIsRequired<TStructure, TMember>?       inputIsRequired           = null,
-            MemberGetters.MemberInputMeetsRequirement<TStructure, TMember>? inputMeetsRequirement     = null,
-            MemberGetters.MemberInputPlaceholder<TStructure, TMember>?      inputPlaceholder          = null,
-            MemberGetters.MemberValidations<TStructure, TMember>?           validator                 = null,
-            Action<TStructure, Member<TStructure, TMember>, TMember>?       onValueUpdate             = null,
-            int                                                             inputDebounceMilliseconds = 200
+            string                                         id,
+            MemberGetters.MemberValue<TStructure, TMember> value,
+            IInput<TStructure, TMember>?                   input = null,
+            //
+            MemberGetters.MemberKey<TStructure, TMember>?                   key                   = null,
+            MemberGetters.MemberFormattedValue<TStructure, TMember>?        displayValue          = null,
+            MemberGetters.MemberFormattedValue<TStructure, TMember>?        inputValue            = null,
+            MemberGetters.MemberInputMeetsRequirement<TStructure, TMember>? inputMeetsRequirement = null,
+            //
+            MemberGetters.MemberClasses<TStructure, TMember>?          classes          = null,
+            MemberGetters.MemberIsVisible<TStructure, TMember>?        isVisible        = null,
+            MemberGetters.MemberInputIsEnabled<TStructure, TMember>?   inputIsEnabled   = null,
+            MemberGetters.MemberInputIsRequired<TStructure, TMember>?  inputIsRequired  = null,
+            MemberGetters.MemberInputPlaceholder<TStructure, TMember>? inputPlaceholder = null,
+            MemberGetters.MemberValidations<TStructure, TMember>?      validator        = null,
+            MemberGetters.MemberValue<TStructure, TMember>?            defaultValue     = null,
+            //
+            Action<TStructure, Member<TStructure, TMember>, TMember>? onValueUpdate             = null,
+            int                                                       inputDebounceMilliseconds = 200
         )
         {
-            ID = id;
+            ID    = id;
+            Value = value;
 
             if (input != null)
             {
@@ -44,14 +48,9 @@ namespace Integrant.Fundament
 
             //
 
-            Value = value;
-
-            //
-
-            FormatKey          = formatKey          ?? DefaultGetters.FormatMemberKey;
-            FormatValue        = formatValue        ?? DefaultGetters.MemberFormatValue;
-            DefaultValue       = defaultValue       ?? DefaultGetters.MemberDefaultValue;
-            FormatDefaultValue = formatDefaultValue ?? DefaultGetters.MemberFormatDefaultValue;
+            Key          = key          ?? DefaultGetters.MemberKey;
+            DisplayValue = displayValue ?? DefaultGetters.MemberFormattedValue;
+            InputValue   = inputValue   ?? DefaultGetters.MemberFormattedValue;
 
             if (inputIsRequired != null)
             {
@@ -66,6 +65,7 @@ namespace Integrant.Fundament
             InputIsRequired  = inputIsRequired;
             InputPlaceholder = inputPlaceholder;
             Validator        = validator;
+            DefaultValue     = defaultValue;
 
             //
 
@@ -84,12 +84,11 @@ namespace Integrant.Fundament
 
         public readonly MemberGetters.MemberValue<TStructure, TMember> Value;
 
-        // Required delegates with fallback default implementations
+        // Required delegates with default fallback implementations
 
-        public readonly MemberGetters.MemberFormatKey<TStructure, TMember>              FormatKey;
-        public readonly MemberGetters.MemberFormatValue<TStructure, TMember>            FormatValue;
-        public readonly MemberGetters.MemberDefaultValue<TStructure, TMember>           DefaultValue;
-        public readonly MemberGetters.MemberFormatDefaultValue<TStructure, TMember>     FormatDefaultValue;
+        public readonly MemberGetters.MemberKey<TStructure, TMember>                    Key;
+        public readonly MemberGetters.MemberFormattedValue<TStructure, TMember>         DisplayValue;
+        public readonly MemberGetters.MemberFormattedValue<TStructure, TMember>         InputValue;
         public readonly MemberGetters.MemberInputMeetsRequirement<TStructure, TMember>? InputMeetsRequirement;
 
         // Unrequired delegates 
@@ -100,6 +99,28 @@ namespace Integrant.Fundament
         public readonly MemberGetters.MemberInputIsRequired<TStructure, TMember>?  InputIsRequired;
         public readonly MemberGetters.MemberInputPlaceholder<TStructure, TMember>? InputPlaceholder;
         public readonly MemberGetters.MemberValidations<TStructure, TMember>?      Validator;
+        public readonly MemberGetters.MemberValue<TStructure, TMember>?            DefaultValue;
+
+        // // Required delegates
+        //
+        // public readonly MemberGetters.MemberValue<TStructure, TMember> Value;
+        //
+        // // Required delegates with fallback default implementations
+        //
+        // public readonly MemberGetters.MemberFormatKey<TStructure, TMember>              FormatKey;
+        // public readonly MemberGetters.MemberFormatValue<TStructure, TMember>            FormatValue;
+        // public readonly MemberGetters.MemberDefaultValue<TStructure, TMember>           DefaultValue;
+        // public readonly MemberGetters.MemberFormatDefaultValue<TStructure, TMember>     FormatDefaultValue;
+        // public readonly MemberGetters.MemberInputMeetsRequirement<TStructure, TMember>? InputMeetsRequirement;
+        //
+        // // Unrequired delegates 
+        //
+        // public readonly MemberGetters.MemberClasses<TStructure, TMember>?          Classes;
+        // public readonly MemberGetters.MemberIsVisible<TStructure, TMember>?        IsVisible;
+        // public readonly MemberGetters.MemberInputIsEnabled<TStructure, TMember>?   InputIsEnabled;
+        // public readonly MemberGetters.MemberInputIsRequired<TStructure, TMember>?  InputIsRequired;
+        // public readonly MemberGetters.MemberInputPlaceholder<TStructure, TMember>? InputPlaceholder;
+        // public readonly MemberGetters.MemberValidations<TStructure, TMember>?      Validator;
 
         //
 

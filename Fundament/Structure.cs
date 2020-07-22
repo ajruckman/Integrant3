@@ -86,5 +86,19 @@ namespace Integrant.Fundament
             ValidationState.Invalidate();
             ValidationState.ValidateStructure(value);
         }
+        
+        //
+
+        public event Action? OnResetAllMemberInputs;
+
+        public void ResetAllMemberInputs()
+        {
+            foreach (IMember<T> member in Members.Values)
+            {
+                member.ResetInputs();
+            }
+            
+            OnResetAllMemberInputs?.Invoke();
+        }
     }
 }
