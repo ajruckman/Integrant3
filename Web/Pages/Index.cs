@@ -34,7 +34,7 @@ namespace Integrant.Web.Pages
         protected override void OnInitialized()
         {
             var altUser = new User();
-            
+
             _structure = new Structure<User>(validator: (structure, value) =>
             {
                 Thread.Sleep(200);
@@ -48,7 +48,7 @@ namespace Integrant.Web.Pages
             (
                 nameof(User.Boolean),
                 (s,                v, m) => v.Boolean,
-                onValueUpdate: (s, v, m) => altUser.Boolean = m,
+                onValueUpdate: (s, v, m) => s.Boolean = m,
                 input: new CheckboxInput<User>(),
                 inputIsRequired: (s, v, m) => true
             ));
@@ -56,8 +56,8 @@ namespace Integrant.Web.Pages
             _structure.Register(new Member<User, string>(
                 nameof(User.CreatedBy),
                 (s,                v, m) => v.CreatedBy,
-                onValueUpdate: (s, v, m) => altUser.CreatedBy = m,
-                isVisible: (s,     v, m) => altUser.Boolean,
+                onValueUpdate: (s, v, m) => s.CreatedBy = m,
+                isVisible: (s,     v, m) => v.Boolean,
                 input: new StringInput<User>(),
                 inputIsRequired: (s, v, m) => true
             ));
@@ -67,17 +67,18 @@ namespace Integrant.Web.Pages
                 (s,                v, m) => v.UserID,
                 formatValue: (s,   v, m) => $"[{v.UserID}]",
                 formatKey: (s,     v, m) => "User ID",
-                onValueUpdate: (s, v, m) => altUser.UserID = m
+                onValueUpdate: (s, v, m) => s.UserID = m,
+                input: new NumberInput<User>()
             ));
 
             _structure.Register(new Member<User, string>(
                 nameof(User.Name),
                 (s, v, m) => v.Name,
                 input: new StringInput<User>(),
-                onValueUpdate: (s,         v, m) => altUser.Name = m,
+                onValueUpdate: (s,         v, m) => s.Name = m,
                 defaultValue: (s,          v, m) => "A.J.",
                 inputIsRequired: (s,       v, m) => true,
-                inputMeetsRequirement: (s, v, m) => altUser.Name?.Length > 3
+                inputMeetsRequirement: (s, v, m) => v.Name?.Length > 3
             ));
 
             _structure.Register(new Member<User, string>(
@@ -85,14 +86,15 @@ namespace Integrant.Web.Pages
                 (s,                v, m) => v.PhoneNumber,
                 formatKey: (s,     v, m) => "Phone number",
                 isVisible: (s,     v, m) => v.Name?.Length > 0,
-                onValueUpdate: (s, v, m) => altUser.PhoneNumber = m
+                onValueUpdate: (s, v, m) => s.PhoneNumber = m
             ));
 
             _structure.Register(new Member<User, string>(
                 nameof(User.Email),
                 (s, v, m) => v.Email,
                 input: new StringInput<User>(textArea: true, monospace: true),
-                onValueUpdate: (s, v, m) => altUser.Email = m,
+                onValueUpdate: (s, v, m) => s.Email = m.TrimEnd('!') + "!",
+                inputDebounceMilliseconds: 500,
                 validator: (s, v, m) =>
                 {
                     Thread.Sleep(250);
@@ -106,7 +108,7 @@ namespace Integrant.Web.Pages
             _structure.Register(new Member<User, DateTime>(
                 nameof(User.StartDate),
                 (s,                v, m) => v.StartDate,
-                onValueUpdate: (s, v, m) => altUser.StartDate = m,
+                onValueUpdate: (s, v, m) => s.StartDate = m,
                 validator: (s, v, m) =>
                     v.StartDate > DateTime.Now
                         ? Validation.One(ValidationResultType.Invalid, "Start date is in the future.")
@@ -117,7 +119,7 @@ namespace Integrant.Web.Pages
             _structure.Register(new Member<User, DateTime>(
                 nameof(User.StartTime),
                 (s,                v, m) => v.StartTime,
-                onValueUpdate: (s, v, m) => altUser.StartTime = m,
+                onValueUpdate: (s, v, m) => s.StartTime = m,
                 input: new TimeInput<User>()
             ));
 
@@ -125,7 +127,7 @@ namespace Integrant.Web.Pages
                 nameof(User.Tags),
                 (s,                v, m) => v.Tags,
                 formatValue: (s,   v, m) => v.Tags != null ? string.Join(" + ", v.Tags) : "<null>",
-                onValueUpdate: (s, v, m) => altUser.Tags = m
+                onValueUpdate: (s, v, m) => s.Tags = m
             ));
 
             //
@@ -158,10 +160,10 @@ namespace Integrant.Web.Pages
 
             _tagsSelector.OnSelect += selected =>
                 _structure.GetMember<List<string>>(nameof(User.Tags))
-                          .UpdateValue(altUser, selected.Select(v => v.ID).ToList());
+                          .UpdateValue(_testUser, selected.Select(v => v.ID).ToList());
 
             //
-            
+
             _testUser = new User
             {
                 Boolean     = true,

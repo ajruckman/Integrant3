@@ -1,12 +1,14 @@
 using System;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
-using Superset.Web.State;
 
 namespace Integrant.Rudiment.Input
 {
     public class StringInput<TStructure> : IInput<TStructure, string>
     {
+        public readonly bool TextArea;
+        public readonly bool Monospace;
+
         public StringInput
         (
             bool textArea  = false,
@@ -19,34 +21,26 @@ namespace Integrant.Rudiment.Input
 
         public event Action<TStructure, string>? OnInput;
 
-        public readonly bool TextArea;
-        public readonly bool Monospace;
-
         public RenderFragment Render
         (
-            Structure<TStructure>      structure,
-            TStructure                 value,
-            Member<TStructure, string> member,
-            UpdateTrigger              resetInput
+            Structure<TStructure> structure, TStructure value, Member<TStructure, string> member
         ) => builder =>
         {
             int seq = -1;
-            
-            InputBuilder.OpenContainer(builder, ref seq);
-
 
             // builder.OpenElement(++seq, "section");
             // builder.AddAttribute(++seq, "style", "display: contents;");
             //
-            // if (!TextArea)
-            // {
-            //     builder.OpenElement(++seq, "input");
-            //     builder.AddAttribute(++seq, "type", "text");
-            // }
-            // else
-            // {
-            //     builder.OpenElement(++seq, "textarea");
-            // }
+
+            if (!TextArea)
+            {
+                builder.OpenElement(++seq, "input");
+                builder.AddAttribute(++seq, "type", "text");
+            }
+            else
+            {
+                builder.OpenElement(++seq, "textarea");
+            }
 
             //
 
@@ -69,25 +63,22 @@ namespace Integrant.Rudiment.Input
                 builder.AddAttribute(++seq, "placeholder",
                     member.InputPlaceholder.Invoke(structure, value, member));
 
-            if (!TextArea)
-            {
-                InputBuilder.ProtectedInput(
-                    builder, ref seq, structure, value, member, "input", "text", "value",
-                    resetInput, args => OnChange(value, args)
-                );
-            }
-            else
-            {
-                InputBuilder.ProtectedInput(
-                    builder, ref seq, structure, value, member, "textarea", null, "value",
-                    resetInput, args => OnChange(value, args)
-                );
-            }
-            
-            //
+            InputBuilder.Value(builder, ref seq, structure, value, member, "value", args => OnChange(value, args));
 
-            InputBuilder.CloseContainer(builder);
+            builder.CloseElement();
         };
+
+        // private string Bound
+        // {
+        //     get
+        //     {
+        //         
+        //     }
+        //     set
+        //     {
+        //         
+        //     }
+        // }
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {

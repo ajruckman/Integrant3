@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Superset.Utilities;
 
 namespace Integrant.Fundament
 {
@@ -19,19 +18,20 @@ namespace Integrant.Fundament
         (
             string                                                          id,
             MemberGetters.MemberValue<TStructure, TMember>                  value,
-            IInput<TStructure, TMember>?                                    input                 = null,
-            MemberGetters.MemberFormatKey<TStructure, TMember>?             formatKey             = null,
-            MemberGetters.MemberFormatValue<TStructure, TMember>?           formatValue           = null,
-            MemberGetters.MemberDefaultValue<TStructure, TMember>?          defaultValue          = null,
-            MemberGetters.MemberFormatDefaultValue<TStructure, TMember>?    formatDefaultValue    = null,
-            MemberGetters.MemberClasses<TStructure, TMember>?               classes               = null,
-            MemberGetters.MemberIsVisible<TStructure, TMember>?             isVisible             = null,
-            MemberGetters.MemberInputIsEnabled<TStructure, TMember>?        inputIsEnabled        = null,
-            MemberGetters.MemberInputIsRequired<TStructure, TMember>?       inputIsRequired       = null,
-            MemberGetters.MemberInputMeetsRequirement<TStructure, TMember>? inputMeetsRequirement = null,
-            MemberGetters.MemberInputPlaceholder<TStructure, TMember>?      inputPlaceholder      = null,
-            MemberGetters.MemberValidations<TStructure, TMember>?           validator             = null,
-            Action<TStructure, Member<TStructure, TMember>, TMember>?       onValueUpdate         = null
+            IInput<TStructure, TMember>?                                    input                     = null,
+            MemberGetters.MemberFormatKey<TStructure, TMember>?             formatKey                 = null,
+            MemberGetters.MemberFormatValue<TStructure, TMember>?           formatValue               = null,
+            MemberGetters.MemberDefaultValue<TStructure, TMember>?          defaultValue              = null,
+            MemberGetters.MemberFormatDefaultValue<TStructure, TMember>?    formatDefaultValue        = null,
+            MemberGetters.MemberClasses<TStructure, TMember>?               classes                   = null,
+            MemberGetters.MemberIsVisible<TStructure, TMember>?             isVisible                 = null,
+            MemberGetters.MemberInputIsEnabled<TStructure, TMember>?        inputIsEnabled            = null,
+            MemberGetters.MemberInputIsRequired<TStructure, TMember>?       inputIsRequired           = null,
+            MemberGetters.MemberInputMeetsRequirement<TStructure, TMember>? inputMeetsRequirement     = null,
+            MemberGetters.MemberInputPlaceholder<TStructure, TMember>?      inputPlaceholder          = null,
+            MemberGetters.MemberValidations<TStructure, TMember>?           validator                 = null,
+            Action<TStructure, Member<TStructure, TMember>, TMember>?       onValueUpdate             = null,
+            int                                                             inputDebounceMilliseconds = 200
         )
         {
             ID = id;
@@ -44,7 +44,7 @@ namespace Integrant.Fundament
 
             //
 
-            MemberValue = value;
+            Value = value;
 
             //
 
@@ -72,8 +72,8 @@ namespace Integrant.Fundament
             if (onValueUpdate != null)
                 OnValueUpdate += onValueUpdate;
 
-            _debouncer = new Debouncer<(TStructure, TMember)>(newValue =>
-                OnValueUpdate?.Invoke(newValue.Item1, this, newValue.Item2), default!, 200);
+            _debouncer = new Utility.Debouncer<(TStructure, TMember)>(newValue =>
+                OnValueUpdate?.Invoke(newValue.Item1, this, newValue.Item2), default!, inputDebounceMilliseconds);
         }
 
         public string ID { get; }
@@ -82,7 +82,7 @@ namespace Integrant.Fundament
 
         // Required delegates
 
-        public readonly MemberGetters.MemberValue<TStructure, TMember> MemberValue;
+        public readonly MemberGetters.MemberValue<TStructure, TMember> Value;
 
         // Required delegates with fallback default implementations
 
@@ -103,7 +103,7 @@ namespace Integrant.Fundament
 
         //
 
-        private readonly Debouncer<(TStructure, TMember)> _debouncer;
+        private readonly Utility.Debouncer<(TStructure, TMember)> _debouncer;
 
         internal event Action? OnInput;
 

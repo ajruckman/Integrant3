@@ -68,16 +68,16 @@ namespace Integrant.Fundament
         internal static object MemberFormatValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
         {
-            TMember v = member.MemberValue.Invoke(structure, value, member);
+            TMember v = member.Value.Invoke(structure, value, member);
             return v == null ? (object) "" : v;
         }
 
         internal static TMember MemberDefaultValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
         {
-            return member.MemberValue.Invoke(structure, value, member);
+            return member.Value.Invoke(structure, value, member);
         }
-
+        
         internal static object MemberFormatDefaultValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
         {
@@ -88,7 +88,7 @@ namespace Integrant.Fundament
         internal static bool MemberInputMeetsRequirement<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
         {
-            bool isDefaultOrNull = member.MemberValue.Invoke(structure, value, member)?.Equals(default(TMember)) ?? true;
+            bool isDefaultOrNull = member.Value.Invoke(structure, value, member)?.Equals(default(TMember)) ?? true;
             return !isDefaultOrNull;
         }
     }

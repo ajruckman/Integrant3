@@ -2,7 +2,6 @@ using System;
 using System.Globalization;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
-using Superset.Web.State;
 
 namespace Integrant.Rudiment.Input
 {
@@ -12,15 +11,13 @@ namespace Integrant.Rudiment.Input
 
         public RenderFragment Render
         (
-            Structure<TStructure>        structure,
-            TStructure                   value,
-            Member<TStructure, DateTime> member,
-            UpdateTrigger                resetInput
+            Structure<TStructure> structure, TStructure value, Member<TStructure, DateTime> member
         ) => builder =>
         {
             int seq = -1;
 
-            InputBuilder.OpenContainer(builder, ref seq);
+            builder.OpenElement(++seq, "input");
+            builder.AddAttribute(++seq, "type", "time");
 
             //
 
@@ -39,14 +36,9 @@ namespace Integrant.Rudiment.Input
 
             //
 
-            InputBuilder.ProtectedInput(
-                builder, ref seq, structure, value, member, "input", "time", "value",
-                resetInput, args => OnChange(value, args)
-            );
-            
-            //
+            InputBuilder.Value(builder, ref seq, structure, value, member, "value", args => OnChange(value, args));
 
-            InputBuilder.CloseContainer(builder);
+            builder.CloseElement();
         };
 
         private void OnChange(TStructure value, ChangeEventArgs args)

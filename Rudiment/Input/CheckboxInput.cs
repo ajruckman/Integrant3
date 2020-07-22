@@ -1,7 +1,6 @@
 using System;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
-using Superset.Web.State;
 
 namespace Integrant.Rudiment.Input
 {
@@ -11,15 +10,13 @@ namespace Integrant.Rudiment.Input
 
         public RenderFragment Render
         (
-            Structure<TStructure>    structure,
-            TStructure               value,
-            Member<TStructure, bool> member,
-            UpdateTrigger            resetInput
+            Structure<TStructure> structure, TStructure value, Member<TStructure, bool> member
         ) => builder =>
         {
             int seq = -1;
 
-            InputBuilder.OpenContainer(builder, ref seq);
+            builder.OpenElement(++seq, "input");
+            builder.AddAttribute(++seq, "type", "checkbox");
 
             //
 
@@ -34,15 +31,12 @@ namespace Integrant.Rudiment.Input
             builder.AddAttribute(++seq, "class", classes.Format());
 
             //
-
-            InputBuilder.ProtectedInput(
-                builder, ref seq, structure, value, member, "input", "checkbox", "checked",
-                resetInput, args => OnChange(value, args)
-            );
             
+            InputBuilder.Value(builder, ref seq, structure, value, member, "checked", args => OnChange(value, args));
+
             //
 
-            InputBuilder.CloseContainer(builder);
+            builder.CloseElement();
         };
 
         private void OnChange(TStructure value, ChangeEventArgs args)

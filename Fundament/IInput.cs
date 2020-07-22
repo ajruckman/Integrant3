@@ -1,6 +1,5 @@
 using System;
 using Microsoft.AspNetCore.Components;
-using Superset.Web.State;
 
 namespace Integrant.Fundament
 {
@@ -12,8 +11,7 @@ namespace Integrant.Fundament
         (
             Structure<TStructure>       structure,
             TStructure                  value,
-            Member<TStructure, TMember> member,
-            UpdateTrigger               resetInput
+            Member<TStructure, TMember> member
         );
     }
 }

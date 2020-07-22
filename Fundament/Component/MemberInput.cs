@@ -1,7 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Superset.Web.State;
 
 namespace Integrant.Fundament.Component
 {
@@ -26,7 +25,7 @@ namespace Integrant.Fundament.Component
                 throw new ArgumentNullException(nameof(_member.Input),
                     "MemberInput component was used on a Member with no Input.");
 
-            _member.OnResetInputs += ResetInput.Trigger;
+            // _member.OnResetInputs += ResetInput;
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -42,14 +41,14 @@ namespace Integrant.Fundament.Component
 
             builder.AddAttribute(++seq, "class", classSet.Format());
 
-            builder.AddContent(++seq, _member.Input!.Render(Structure, Value, _member, ResetInput));
+            builder.AddContent(++seq, _member.Input!.Render(Structure, Value, _member));
 
             builder.CloseElement();
         }
 
         // protected override bool ShouldRender()
         // {
-        //     return true;
+        //     return _canRender;
         // }
         //
         // private bool _canRender = false;
@@ -72,12 +71,10 @@ namespace Integrant.Fundament.Component
         //     _member.UpdateValueImmediately(Value, _member.DefaultValue.Invoke(Structure, Value, _member));
         // }
 
-        public readonly UpdateTrigger ResetInput = new UpdateTrigger();
-
         public void Dispose()
         {
             Console.WriteLine(new string('-', 50) + " Disposed: " + _member.ID);
-            _member.OnResetInputs -= ResetInput.Trigger;
+            // _member.OnResetInputs -= ResetInput;
         }
     }
 }
