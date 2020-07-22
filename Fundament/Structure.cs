@@ -14,16 +14,16 @@ namespace Integrant.Fundament
         {
             Members = new Dictionary<string, IMember<T>>();
 
-            StructureClasses   = classes;
-            StructureIsVisible = isVisible;
-            StructureValidator = validator;
+            Classes   = classes;
+            IsVisible = isVisible;
+            Validator = validator;
 
             ValidationState = new ValidationState<T>(this);
         }
 
-        internal readonly StructureGetters.StructureClasses<T>?     StructureClasses;
-        internal readonly StructureGetters.StructureIsVisible<T>?   StructureIsVisible;
-        internal readonly StructureGetters.StructureValidations<T>? StructureValidator;
+        internal readonly StructureGetters.StructureClasses<T>?     Classes;
+        internal readonly StructureGetters.StructureIsVisible<T>?   IsVisible;
+        internal readonly StructureGetters.StructureValidations<T>? Validator;
 
         internal readonly ValidationState<T> ValidationState;
 

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Superset.Web.State;
 
 namespace Integrant.Fundament.Component
 {
@@ -25,7 +26,7 @@ namespace Integrant.Fundament.Component
                 throw new ArgumentNullException(nameof(_member.Input),
                     "MemberInput component was used on a Member with no Input.");
 
-            _member.OnResetInputs += ResetInput;
+            _member.OnResetInputs += ResetInput.Trigger;
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -39,42 +40,44 @@ namespace Integrant.Fundament.Component
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", classSet.ToString());
+            builder.AddAttribute(++seq, "class", classSet.Format());
 
-            builder.AddContent(++seq, _member.Input!.Render(Structure, Value, _member));
+            builder.AddContent(++seq, _member.Input!.Render(Structure, Value, _member, ResetInput));
 
             builder.CloseElement();
         }
 
-        protected override bool ShouldRender()
-        {
-            return _canRender;
-        }
+        // protected override bool ShouldRender()
+        // {
+        //     return true;
+        // }
+        //
+        // private bool _canRender = false;
+        //
+        // private void ResetInput()
+        // {
+        //     _canRender = true;
+        //
+        //     try
+        //     {
+        //         InvokeAsync(StateHasChanged).Wait();
+        //     }
+        //     catch
+        //     {
+        //         // ignored
+        //     }
+        //
+        //     _canRender = false;
+        //     
+        //     _member.UpdateValueImmediately(Value, _member.DefaultValue.Invoke(Structure, Value, _member));
+        // }
 
-        private bool _canRender = false;
-
-        private void ResetInput()
-        {
-            _canRender = true;
-
-            try
-            {
-                InvokeAsync(StateHasChanged).Wait();
-            }
-            catch
-            {
-                // ignored
-            }
-
-            _canRender = false;
-            
-            _member.UpdateValueImmediately(Value, _member.MemberDefaultValue.Invoke(Structure, Value, _member));
-        }
+        public readonly UpdateTrigger ResetInput = new UpdateTrigger();
 
         public void Dispose()
         {
             Console.WriteLine(new string('-', 50) + " Disposed: " + _member.ID);
-            _member.OnResetInputs -= ResetInput;
+            _member.OnResetInputs -= ResetInput.Trigger;
         }
     }
 }

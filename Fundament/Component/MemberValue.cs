@@ -27,9 +27,9 @@ namespace Integrant.Fundament.Component
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", string.Join(' ', classes));
+            builder.AddAttribute(++seq, "class", classes.Format());
 
-            builder.AddContent(++seq, member.MemberFormatValue.Invoke(Structure, Value, member));
+            builder.AddContent(++seq, member.FormatValue.Invoke(Structure, Value, member));
 
             builder.CloseElement();
         }

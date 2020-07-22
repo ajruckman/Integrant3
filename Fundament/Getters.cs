@@ -38,13 +38,16 @@ namespace Integrant.Fundament
         public delegate List<string> MemberClasses<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
-        public delegate bool MemberIsEnabled<TStructure, TMember>
-            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
-
         public delegate bool MemberIsVisible<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
+        public delegate bool MemberInputIsEnabled<TStructure, TMember>
+            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
+
         public delegate bool MemberInputIsRequired<TStructure, TMember>
+            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
+
+        public delegate bool MemberInputMeetsRequirement<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
         public delegate string MemberInputPlaceholder<TStructure, TMember>
@@ -61,7 +64,7 @@ namespace Integrant.Fundament
         {
             return member.ID;
         }
-        
+
         internal static object MemberFormatValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
         {
@@ -74,12 +77,19 @@ namespace Integrant.Fundament
         {
             return member.MemberValue.Invoke(structure, value, member);
         }
-        
+
         internal static object MemberFormatDefaultValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
         {
-            TMember v = member.MemberDefaultValue.Invoke(structure, value, member);
+            TMember v = member.DefaultValue.Invoke(structure, value, member);
             return v == null ? (object) "" : v;
+        }
+
+        internal static bool MemberInputMeetsRequirement<TStructure, TMember>
+            (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
+        {
+            bool isDefaultOrNull = member.MemberValue.Invoke(structure, value, member)?.Equals(default(TMember)) ?? true;
+            return !isDefaultOrNull;
         }
     }
 }

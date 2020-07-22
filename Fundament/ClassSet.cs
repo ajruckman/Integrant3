@@ -1,10 +1,18 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Integrant.Fundament
 {
     public class ClassSet
     {
         private List<string> _classes;
+
+        public ClassSet(params string[] classes)
+        {
+            _classes = classes.ToList();
+        }
+
+        public void Add(string c) => _classes.Add(c);
 
         public static ClassSet FromStructure<TS>
             (Structure<TS> structure, TS value, string primary, params string[] additional)
@@ -17,8 +25,8 @@ namespace Integrant.Fundament
 
             classes.AddRange(additional);
 
-            if (structure.StructureClasses != null)
-                classes.AddRange(structure.StructureClasses.Invoke(structure, value));
+            if (structure.Classes != null)
+                classes.AddRange(structure.Classes.Invoke(structure, value));
 
             return new ClassSet {_classes = classes};
         }
@@ -34,13 +42,13 @@ namespace Integrant.Fundament
 
             classes.AddRange(additional);
 
-            if (member.MemberClasses != null)
-                classes.AddRange(member.MemberClasses.Invoke(structure, value, member));
+            if (member.Classes != null)
+                classes.AddRange(member.Classes.Invoke(structure, value, member));
 
             return new ClassSet {_classes = classes};
         }
 
-        public override string ToString()
+        public string Format()
         {
             return string.Join(' ', _classes);
         }

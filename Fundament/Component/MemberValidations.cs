@@ -39,8 +39,8 @@ namespace Integrant.Fundament.Component
         {
             Member<TS, TM> member = Structure.GetMember<TM>(ID);
 
-            if (member.MemberValidator == null)
-                throw new ArgumentNullException(nameof(member.MemberValidator),
+            if (member.Validator == null)
+                throw new ArgumentNullException(nameof(member.Validator),
                     "Member passed to " + nameof(MemberValidations<TS, TM>) + " component does not have a " +
                     nameof(MemberGetters.MemberValidations<TS, TM>) + ".");
 
@@ -53,7 +53,7 @@ namespace Integrant.Fundament.Component
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", classes.ToString());
+            builder.AddAttribute(++seq, "class", classes.Format());
 
             if (Structure.ValidationState.IsValidating)
             {

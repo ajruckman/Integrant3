@@ -49,7 +49,8 @@ namespace Integrant.Web.Pages
                 nameof(User.Boolean),
                 (s,                v, m) => v.Boolean,
                 onValueUpdate: (s, v, m) => altUser.Boolean = m,
-                input: new CheckboxInput<User>()
+                input: new CheckboxInput<User>(),
+                inputIsRequired: (s, v, m) => true
             ));
 
             _structure.Register(new Member<User, string>(
@@ -57,7 +58,8 @@ namespace Integrant.Web.Pages
                 (s,                v, m) => v.CreatedBy,
                 onValueUpdate: (s, v, m) => altUser.CreatedBy = m,
                 isVisible: (s,     v, m) => altUser.Boolean,
-                input: new StringInput<User>()
+                input: new StringInput<User>(),
+                inputIsRequired: (s, v, m) => true
             ));
 
             _structure.Register(new Member<User, int>(
@@ -72,8 +74,10 @@ namespace Integrant.Web.Pages
                 nameof(User.Name),
                 (s, v, m) => v.Name,
                 input: new StringInput<User>(),
-                onValueUpdate: (s, v, m) => altUser.Name = m,
-                defaultValue: (s,  v, m) => "A.J."
+                onValueUpdate: (s,         v, m) => altUser.Name = m,
+                defaultValue: (s,          v, m) => "A.J.",
+                inputIsRequired: (s,       v, m) => true,
+                inputMeetsRequirement: (s, v, m) => altUser.Name?.Length > 3
             ));
 
             _structure.Register(new Member<User, string>(

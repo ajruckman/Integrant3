@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
+using Superset.Web.State;
 
 namespace Integrant.Rudiment.Input
 {
@@ -24,42 +24,69 @@ namespace Integrant.Rudiment.Input
 
         public RenderFragment Render
         (
-            Structure<TStructure> structure, TStructure value, Member<TStructure, string> member
+            Structure<TStructure>      structure,
+            TStructure                 value,
+            Member<TStructure, string> member,
+            UpdateTrigger              resetInput
         ) => builder =>
         {
             int seq = -1;
+            
+            InputBuilder.OpenContainer(builder, ref seq);
+
+
+            // builder.OpenElement(++seq, "section");
+            // builder.AddAttribute(++seq, "style", "display: contents;");
+            //
+            // if (!TextArea)
+            // {
+            //     builder.OpenElement(++seq, "input");
+            //     builder.AddAttribute(++seq, "type", "text");
+            // }
+            // else
+            // {
+            //     builder.OpenElement(++seq, "textarea");
+            // }
+
+            //
+
+            ClassSet classes = new ClassSet
+            (
+                "Integrant.Rudiment.Input",
+                "Integrant.Rudiment.Input." + nameof(StringInput<TStructure>)
+            );
+
+            if (TextArea) classes.Add("Integrant.Rudiment.Input:TextArea");
+            if (Monospace) classes.Add("Integrant.Rudiment.Input:Monospace");
+
+            InputBuilder.Required(builder, ref seq, structure, value, member, classes);
+
+            builder.AddAttribute(++seq, "class", classes.Format());
+
+            //
+
+            if (member.InputPlaceholder != null)
+                builder.AddAttribute(++seq, "placeholder",
+                    member.InputPlaceholder.Invoke(structure, value, member));
 
             if (!TextArea)
             {
-                builder.OpenElement(++seq, "input");
-                builder.AddAttribute(++seq, "type", "text");
+                InputBuilder.ProtectedInput(
+                    builder, ref seq, structure, value, member, "input", "text", "value",
+                    resetInput, args => OnChange(value, args)
+                );
             }
             else
             {
-                builder.OpenElement(++seq, "textarea");
+                InputBuilder.ProtectedInput(
+                    builder, ref seq, structure, value, member, "textarea", null, "value",
+                    resetInput, args => OnChange(value, args)
+                );
             }
-
+            
             //
 
-            var classes = new List<string> {"Integrant.Rudiment.Input", "Integrant.Rudiment.Input." + nameof(StringInput<TStructure>),};
-            if (TextArea) classes.Add("Integrant.Rudiment.Input:TextArea");
-            if (Monospace) classes.Add("Integrant.Rudiment.Input:Monospace");
-            builder.AddAttribute(++seq, "class", string.Join(' ', classes));
-
-            //
-
-            if (member.MemberInputIsRequired?.Invoke(structure, value, member) == true)
-                builder.AddAttribute(++seq, "required", "required");
-
-            if (member.MemberInputPlaceholder != null)
-                builder.AddAttribute(++seq, "placeholder",
-                    member.MemberInputPlaceholder.Invoke(structure, value, member));
-
-            builder.AddAttribute(++seq, "value",   member.MemberDefaultValue.Invoke(structure, value, member));
-            builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
-            builder.SetUpdatesAttributeName("value");
-
-            builder.CloseElement();
+            InputBuilder.CloseContainer(builder);
         };
 
         private void OnChange(TStructure value, ChangeEventArgs args)

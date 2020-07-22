@@ -34,15 +34,15 @@ namespace Integrant.Fundament.Component
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            if (Structure.StructureValidator == null)
-                throw new ArgumentNullException(nameof(Structure.StructureValidator),
+            if (Structure.Validator == null)
+                throw new ArgumentNullException(nameof(Structure.Validator),
                     "Structure passed to " + nameof(StructureValidations<TS>) + " component does not have a " +
                     nameof(StructureGetters.StructureValidations<TS>) + ".");
             
             ClassSet classes = ClassSet.FromStructure(Structure, Value, 
                 "Integrant.Fundament.Component." + nameof(StructureContainer<TS>));
 
-            bool shown = Structure.StructureIsVisible?.Invoke(Structure, Value) ?? true;
+            bool shown = Structure.IsVisible?.Invoke(Structure, Value) ?? true;
 
             //
 
@@ -50,7 +50,7 @@ namespace Integrant.Fundament.Component
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", classes.ToString());
+            builder.AddAttribute(++seq, "class", classes.Format());
 
             if (!shown)
                 builder.AddAttribute(++seq, "hidden", "hidden");

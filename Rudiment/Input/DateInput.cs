@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
+using Superset.Web.State;
 
 namespace Integrant.Rudiment.Input
 {
@@ -10,36 +10,49 @@ namespace Integrant.Rudiment.Input
     {
         public event Action<TStructure, DateTime>? OnInput;
 
-        public RenderFragment Render(
-            Structure<TStructure> structure, TStructure value, Member<TStructure, DateTime> member
+        public RenderFragment Render
+        (
+            Structure<TStructure>        structure,
+            TStructure                   value,
+            Member<TStructure, DateTime> member,
+            UpdateTrigger                resetInput
         ) => builder =>
         {
             int seq = -1;
 
-            builder.OpenElement(++seq, "input");
-            builder.AddAttribute(++seq, "type", "date");
+            InputBuilder.OpenContainer(builder, ref seq);
 
+            //
 
-            var classes = new List<string> {"Integrant.Rudiment.Input", "Integrant.Rudiment.Input." + nameof(DateInput<TStructure>),};
-            builder.AddAttribute(++seq, "class", string.Join(' ', classes));
+            var classes = new ClassSet(
+                "Integrant.Rudiment.Input",
+                "Integrant.Rudiment.Input." + nameof(DateInput<TStructure>)
+            );
 
-            if (member.MemberInputIsRequired?.Invoke(structure, value, member) == true)
-                builder.AddAttribute(++seq, "required", "required");
+            InputBuilder.Required(builder, ref seq, structure, value, member, classes);
 
-            if (member.MemberInputPlaceholder != null)
+            if (member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
-                    member.MemberInputPlaceholder.Invoke(structure, value, member));
+                    member.InputPlaceholder.Invoke(structure, value, member));
 
-            builder.AddAttribute(++seq, "value",   member.MemberDefaultValue.Invoke(structure, value, member));
-            builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
-            builder.SetUpdatesAttributeName("value");
+            builder.AddAttribute(++seq, "class", classes.Format());
 
-            builder.CloseElement();
+            //
+
+            InputBuilder.ProtectedInput(
+                builder, ref seq, structure, value, member, "input", "date", "value",
+                resetInput, args => OnChange(value, args)
+            );
+
+            //
+
+            InputBuilder.CloseContainer(builder);
         };
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
-            OnInput?.Invoke(value, DateTime.ParseExact(args.Value.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture));
+            OnInput?.Invoke(value,
+                DateTime.ParseExact(args.Value.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture));
         }
     }
 }

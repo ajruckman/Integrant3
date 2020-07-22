@@ -82,8 +82,8 @@ namespace Integrant.Fundament
             var structureValidations = new List<Validation>();
             var memberValidations    = new Dictionary<string, List<Validation>>();
 
-            if (structure.StructureValidator != null)
-                structureValidations = structure.StructureValidator.Invoke(structure, value);
+            if (structure.Validator != null)
+                structureValidations = structure.Validator.Invoke(structure, value);
 
             token.ThrowIfCancellationRequested();
 

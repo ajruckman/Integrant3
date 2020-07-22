@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Components;
+using Superset.Web.State;
 
 namespace Integrant.Fundament
 {
@@ -9,7 +10,10 @@ namespace Integrant.Fundament
 
         public RenderFragment Render
         (
-            Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member
+            Structure<TStructure>       structure,
+            TStructure                  value,
+            Member<TStructure, TMember> member,
+            UpdateTrigger               resetInput
         );
     }
 }
