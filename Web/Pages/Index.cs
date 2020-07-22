@@ -8,7 +8,7 @@ using Integrant.Fundament;
 using Integrant.Rudiment.Input;
 using Superset.Common;
 
-namespace Web.Pages
+namespace Integrant.Web.Pages
 {
     public partial class Index
     {
