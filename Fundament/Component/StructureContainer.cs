@@ -19,7 +19,7 @@ namespace Integrant.Fundament.Component
             ClassSet classes = ClassSet.FromStructure(Structure, Value,
                 "Integrant.Fundament.Component." + nameof(StructureContainer<TS>));
 
-            bool shown = Structure.StructureIsVisible?.Invoke(Structure, Value) ?? true;
+            bool shown = Structure.IsVisible?.Invoke(Structure, Value) ?? true;
 
             //
 
@@ -38,7 +38,7 @@ namespace Integrant.Fundament.Component
                 builder2.AddAttribute(++seq, "ChildContent", new RenderFragment(builder3 =>
                 {
                     builder3.OpenElement(++seq, "div");
-                    builder3.AddAttribute(++seq, "class", classes.ToString());
+                    builder3.AddAttribute(++seq, "class", classes.Format());
 
                     if (!shown)
                         builder3.AddAttribute(++seq, "hidden", "hidden");

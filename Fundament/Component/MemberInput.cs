@@ -17,6 +17,8 @@ namespace Integrant.Fundament.Component
 
         private Member<TS, TM> _member = null!;
 
+        private TM _initialValue = default!;
+
         protected override void OnInitialized()
         {
             _member = Structure.GetMember<TM>(ID);
@@ -24,6 +26,8 @@ namespace Integrant.Fundament.Component
             if (_member.Input == null)
                 throw new ArgumentNullException(nameof(_member.Input),
                     "MemberInput component was used on a Member with no Input.");
+
+            _initialValue = _member.Value.Invoke(Structure, Value, _member);
 
             _member.OnResetInputs += ResetInput;
         }
@@ -39,36 +43,38 @@ namespace Integrant.Fundament.Component
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", classSet.ToString());
+            builder.AddAttribute(++seq, "class", classSet.Format());
 
             builder.AddContent(++seq, _member.Input!.Render(Structure, Value, _member));
 
             builder.CloseElement();
         }
 
-        protected override bool ShouldRender()
-        {
-            return _canRender;
-        }
+        // protected override bool ShouldRender()
+        // {
+        //     return _canRender;
+        // }
 
         private bool _canRender = false;
 
         private void ResetInput()
         {
-            _canRender = true;
+            // _canRender = true;
+            //
+            // try
+            // {
+            //     InvokeAsync(StateHasChanged).Wait();
+            // }
+            // catch
+            // {
+            //     // ignored
+            // }
+            //
+            // _canRender = false;
 
-            try
-            {
-                InvokeAsync(StateHasChanged).Wait();
-            }
-            catch
-            {
-                // ignored
-            }
-
-            _canRender = false;
-            
-            _member.UpdateValueImmediately(Value, _member.MemberDefaultValue.Invoke(Structure, Value, _member));
+            _member.UpdateValueImmediately(Value, _member.DefaultValue == null
+                ? _initialValue
+                : _member.DefaultValue.Invoke(Structure, Value, _member));
         }
 
         public void Dispose()

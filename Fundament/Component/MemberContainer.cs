@@ -32,7 +32,7 @@ namespace Integrant.Fundament.Component
             ClassSet classes = ClassSet.FromMember(Structure, Value, member,
                 "Integrant.Fundament.Component." + nameof(MemberContainer<TS, TM>));
 
-            bool shown = member.MemberIsVisible?.Invoke(Structure, Value, member) ?? true;
+            bool shown = member.IsVisible?.Invoke(Structure, Value, member) ?? true;
 
             //
 
@@ -40,7 +40,7 @@ namespace Integrant.Fundament.Component
             
             builder.OpenElement(++seq, "div");
             
-            builder.AddAttribute(++seq, "class", classes.ToString());
+            builder.AddAttribute(++seq, "class", classes.Format());
             
             if (!shown)
                 builder.AddAttribute(++seq, "hidden", "hidden");

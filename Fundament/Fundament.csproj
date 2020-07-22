@@ -23,9 +23,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="FlareSelect" Version="3.7.2-alpha" />
-      <PackageReference Include="FlareTables" Version="3.8.1-alpha" />
-      <PackageReference Include="Superset" Version="1.16.0-alpha" />
+      <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.0-preview.6.20312.15" />
     </ItemGroup>
 
 </Project>

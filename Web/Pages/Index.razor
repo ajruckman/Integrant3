@@ -3,7 +3,6 @@
 
 @page "/"
 
-
 <StructureContainer TS="User" Structure="@_structure" Value="@_testUser">
     <table>
         <thead>
@@ -42,6 +41,7 @@
                 </td>
                 <td>
                     <MemberValue TS="User" TM="int"/>
+                    <MemberInput TS="User" TM="int"/>
                 </td>
             </MemberContainer>
 
@@ -106,6 +106,19 @@
 
         <tr>
             <MemberContainer TS="User" TM="DateTime" ID="StartTime">
+                <td>
+                    <MemberKey TS="User" TM="DateTime"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="DateTime"/>
+
+                    <MemberInput TS="User" TM="DateTime"/>
+                </td>
+            </MemberContainer>
+        </tr>
+
+        <tr>
+            <MemberContainer TS="User" TM="DateTime" ID="CompositeDateTime">
                 <td>
                     <MemberKey TS="User" TM="DateTime"/>
                 </td>

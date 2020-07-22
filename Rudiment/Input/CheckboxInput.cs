@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 
@@ -19,18 +18,26 @@ namespace Integrant.Rudiment.Input
             builder.OpenElement(++seq, "input");
             builder.AddAttribute(++seq, "type", "checkbox");
 
-            var classes = new List<string> {"Integrant.Rudiment.Input", "Integrant.Rudiment.Input." + nameof(CheckboxInput<TStructure>),};
-            builder.AddAttribute(++seq, "class", string.Join(' ', classes));
+            //
 
-            if (member.MemberInputIsRequired?.Invoke(structure, value, member) == true)
-                builder.AddAttribute(++seq, "required", "required");
+            ClassSet classes = new ClassSet
+            (
+                "Integrant.Rudiment.Input",
+                "Integrant.Rudiment.Input." + nameof(CheckboxInput<TStructure>)
+            );
+
+            InputBuilder.Required(builder, ref seq, structure, value, member, classes);
+
+            builder.AddAttribute(++seq, "class", classes.Format());
 
             //
 
-            builder.AddAttribute(++seq, "checked",
-                (bool) member.MemberFormatDefaultValue.Invoke(structure, value, member));
-            builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
-            builder.SetUpdatesAttributeName("checked");
+            InputBuilder.Value
+            (
+                builder, ref seq,
+                "checked", member.InputValue.Invoke(structure, value, member),
+                args => OnChange(value, args)
+            );
 
             //
 

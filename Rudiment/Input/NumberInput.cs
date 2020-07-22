@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 
@@ -19,26 +18,36 @@ namespace Integrant.Rudiment.Input
             builder.OpenElement(++seq, "input");
             builder.AddAttribute(++seq, "type", "number");
 
-            var classes = new List<string> {"Integrant.Rudiment.Input", "Integrant.Rudiment.Input." + nameof(NumberInput<TStructure>),};
-            builder.AddAttribute(++seq, "class", string.Join(' ', classes));
+            //
 
-            if (member.MemberInputIsRequired?.Invoke(structure, value, member) == true)
-                builder.AddAttribute(++seq, "required", "required");
+            var classes = new ClassSet(
+                "Integrant.Rudiment.Input",
+                "Integrant.Rudiment.Input." + nameof(NumberInput<TStructure>)
+            );
 
-            if (member.MemberInputPlaceholder != null)
+            InputBuilder.Required(builder, ref seq, structure, value, member, classes);
+
+            if (member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
-                    member.MemberInputPlaceholder.Invoke(structure, value, member));
+                    member.InputPlaceholder.Invoke(structure, value, member));
 
-            builder.AddAttribute(++seq, "value",   member.MemberDefaultValue.Invoke(structure, value, member));
-            builder.AddAttribute(++seq, "oninput", new Action<ChangeEventArgs>(args => OnChange(value, args)));
-            builder.SetUpdatesAttributeName("value");
+            builder.AddAttribute(++seq, "class", classes.Format());
+
+            //
+
+            InputBuilder.Value
+            (
+                builder, ref seq,
+                "value", member.InputValue.Invoke(structure, value, member),
+                args => OnChange(value, args)
+            );
 
             builder.CloseElement();
         };
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
-            OnInput?.Invoke(value, int.Parse(args.Value.ToString()));
+            OnInput?.Invoke(value, int.Parse(args.Value?.ToString() ?? ""));
         }
     }
 }
