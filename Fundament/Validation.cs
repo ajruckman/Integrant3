@@ -28,9 +28,9 @@ namespace Integrant.Fundament
 
         public bool IsValidating { get; private set; }
 
-        private readonly Structure<TStructure> _structure;
+        private readonly StructureState<TStructure> _structure;
 
-        public ValidationState(Structure<TStructure> structure)
+        public ValidationState(StructureState<TStructure> structure)
         {
             _structure = structure;
         }
@@ -41,9 +41,9 @@ namespace Integrant.Fundament
 
         private static (List<Validation>, Dictionary<string, List<Validation>>) Validate
         (
-            Structure<TStructure> structure,
-            TStructure            value,
-            CancellationToken     token
+            StructureState<TStructure> state,
+            TStructure                 value,
+            CancellationToken          token
         )
         {
             token.ThrowIfCancellationRequested();
@@ -51,18 +51,18 @@ namespace Integrant.Fundament
             var structureValidations = new List<Validation>();
             var memberValidations    = new Dictionary<string, List<Validation>>();
 
-            if (structure.Validator != null)
-                structureValidations = structure.Validator.Invoke(structure, value);
+            if (state.Structure.Validator != null)
+                structureValidations = state.Structure.Validator.Invoke(state.Structure, value);
 
             token.ThrowIfCancellationRequested();
 
             memberValidations ??= new Dictionary<string, List<Validation>>();
 
-            foreach (IMember<TStructure> member in structure.AllMembers())
+            foreach (IMember<TStructure> member in state.Structure.AllMembers())
             {
                 token.ThrowIfCancellationRequested();
 
-                List<Validation>? validations = member.Validations(structure, value);
+                List<Validation>? validations = member.Validations(state.Structure, value);
                 if (validations == null) continue;
 
                 token.ThrowIfCancellationRequested();

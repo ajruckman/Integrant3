@@ -7,7 +7,7 @@ namespace Integrant.Rudiment.Component
     public class StructureContainer<TS> : ComponentBase
     {
         [Parameter]
-        public Structure<TS> Structure { get; set; } = null!;
+        public StructureState<TS> StructureState { get; set; } = null!;
 
         [Parameter]
         public TS Value { get; set; } = default!;
@@ -17,18 +17,18 @@ namespace Integrant.Rudiment.Component
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            ClassSet classes = ClassSet.FromStructure(Structure, Value,
+            ClassSet classes = ClassSet.FromStructure(StructureState.Structure, Value,
                 "Integrant.Rudiment.Component." + nameof(StructureContainer<TS>));
 
-            bool shown = Structure.IsVisible?.Invoke(Structure, Value) ?? true;
+            bool shown = StructureState.Structure.IsVisible?.Invoke(StructureState.Structure, Value) ?? true;
 
             //
 
             int seq = -1;
 
-            builder.OpenComponent<CascadingValue<Structure<TS>>>(++seq);
-            builder.AddAttribute(++seq, "Name",    "Integrant.Rudiment.Structure");
-            builder.AddAttribute(++seq, "Value",   Structure);
+            builder.OpenComponent<CascadingValue<StructureState<TS>>>(++seq);
+            builder.AddAttribute(++seq, "Name",    "Integrant.Rudiment.StructureState");
+            builder.AddAttribute(++seq, "Value",   StructureState);
             builder.AddAttribute(++seq, "IsFixed", true);
             builder.AddAttribute(++seq, "ChildContent", new RenderFragment(builder2 =>
             {
@@ -57,7 +57,7 @@ namespace Integrant.Rudiment.Component
         protected override void OnAfterRender(bool firstRender)
         {
             if (firstRender)
-                Structure.ValidateInitial(Value);
+                StructureState.ValidateInitial(Value);
         }
     }
 }

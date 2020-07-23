@@ -6,13 +6,59 @@ namespace Integrant.Fundament
     // ReSharper disable once UnusedTypeParameter
     public interface IMember<TStructure>
     {
-        public string            ID { get; }
-        public List<Validation>? Validations(Structure<TStructure> structure, TStructure value);
-        public event Action?     OnResetInputs;
-        public void              ResetInputs();
+        public string                    ID { get; }
+        public List<Validation>?         Validations(Structure<TStructure> structure, TStructure value);
+        public event Action<TStructure>? OnResetInputs;
+        public event Action<TStructure>? OnInput;
+        public event Action<TStructure>? OnInputDebounced;
+        public void                      ResetInputs(TStructure value);
     }
 
-    public class Member<TStructure, TMember> : IMember<TStructure>
+    public class MemberState<TStructure> : IMember<TStructure>
+    {
+        public string ID { get; }
+        
+        private readonly Utility.Debouncer<(TStructure, TMember)> _debouncer;
+
+        public event Action<TStructure>? OnInput;
+
+        public event Action<TStructure>? OnInputDebounced;
+
+        public event Action<TStructure, Member<TStructure, TMember>, TMember>? OnInputDebouncedValue;
+
+        // public event Action<TStructure, Member<TStructure, TMember>, TMember>? OnValueUpdate;
+
+        public void UpdateValue(TStructure value, TMember newValue)
+        {
+            OnInput?.Invoke(value);
+            _debouncer.Reset((value, newValue));
+        }
+
+        public void UpdateValueImmediately(TStructure value, TMember newValue)
+        {
+            OnInputDebounced?.Invoke(value);
+            OnInputDebouncedValue?.Invoke(value, this, newValue);
+        }
+
+        //
+
+        public List<Validation>? Validations(Structure<TStructure> structure, TStructure value)
+        {
+            return Validator?.Invoke(structure, value, this);
+        }
+
+        //
+
+        public event Action<TStructure>? OnResetInputs;
+
+        public void ResetInputs(TStructure value)
+        {
+            OnResetInputs?.Invoke(value);
+        }
+    }
+
+
+    public class Member<TStructure, TMember>
     {
         public Member
         (
@@ -76,10 +122,18 @@ namespace Integrant.Fundament
             //
 
             if (onValueUpdate != null)
-                OnValueUpdate += onValueUpdate;
+                OnInputDebouncedValue += onValueUpdate;
 
             _debouncer = new Utility.Debouncer<(TStructure, TMember)>(newValue =>
-                OnValueUpdate?.Invoke(newValue.Item1, this, newValue.Item2), default!, inputDebounceMilliseconds);
+                OnInputDebounced?.Invoke(newValue.Item1), default!, inputDebounceMilliseconds);
+            // OnValueUpdate?.Invoke(newValue.Item1, this, newValue.Item2), default!, inputDebounceMilliseconds);
+        }
+
+        public MemberState<TStructure> NewState()
+        {
+            var v = new MemberState<TStructure>();
+            
+            
         }
 
         public string                       ID                  { get; }
@@ -108,38 +162,6 @@ namespace Integrant.Fundament
         public readonly MemberGetters.MemberValue<TStructure, TMember>?            DefaultValue;
 
         //
-
-        private readonly Utility.Debouncer<(TStructure, TMember)> _debouncer;
-
-        internal event Action? OnInput;
-
-        public event Action<TStructure, Member<TStructure, TMember>, TMember>? OnValueUpdate;
-
-        public void UpdateValue(TStructure value, TMember newValue)
-        {
-            OnInput?.Invoke();
-            _debouncer.Reset((value, newValue));
-        }
-
-        public void UpdateValueImmediately(TStructure value, TMember newValue)
-        {
-            OnValueUpdate?.Invoke(value, this, newValue);
-        }
-
-        //
-
-        public List<Validation>? Validations(Structure<TStructure> structure, TStructure value)
-        {
-            return Validator?.Invoke(structure, value, this);
-        }
-
-        //
-
-        public event Action? OnResetInputs;
-
-        public void ResetInputs()
-        {
-            OnResetInputs?.Invoke();
-        }
     }
+
 }

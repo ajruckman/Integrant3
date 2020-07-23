@@ -3,7 +3,7 @@
 
 @page "/"
 
-<StructureContainer TS="User" Structure="@_structure" Value="@_testUser">
+<StructureContainer TS="User" StructureState="@_structureState" Value="@_testUser">
     <table>
         <thead>
         <tr>
@@ -57,7 +57,7 @@
                 <td>
                     <MemberValue TS="User" TM="string"/>
 
-                    <input type="text" @oninput="@(args => _structure.GetMember<string>(nameof(User.Name)).UpdateValue(_testUser, args.Value.ToString()))"/>
+                    <input type="text" @oninput="@(args => Common.UserStructure.GetMember<string>(nameof(User.Name)).UpdateValue(_testUser, args.Value.ToString()))"/>
                     <MemberInput TS="User" TM="string"/>
                 </td>
                 <td>

@@ -18,14 +18,19 @@ namespace Integrant.Fundament
             IsVisible = isVisible;
             Validator = validator;
 
-            ValidationState = new ValidationState<T>(this);
+            // ValidationState = new ValidationState<T>(this);
+        }
+
+        public StructureState<T> NewState()
+        {
+            return new StructureState<T>(this);
         }
 
         public readonly StructureGetters.StructureClasses<T>?     Classes;
         public readonly StructureGetters.StructureIsVisible<T>?   IsVisible;
         public readonly StructureGetters.StructureValidations<T>? Validator;
 
-        public readonly ValidationState<T> ValidationState;
+        // public readonly ValidationState<T> ValidationState;
 
         public void Register<TMember>(Member<T, TMember> member)
         {
@@ -37,12 +42,12 @@ namespace Integrant.Fundament
 
             Members[member.ID] = member;
 
-            member.OnInput += ValidationState.Invalidate;
+            // member.OnInput += ValidationState.Invalidate;
 
-            member.OnValueUpdate += (s, m, v) =>
-                OnMemberValueUpdate?.Invoke(s, m, v);
+            // member.OnValueUpdate += (s, m, v) =>
+            //     OnMemberValueUpdate?.Invoke(s, m, v);
 
-            member.OnValueUpdate += (s, m, v) => ValidationState.ValidateStructure(s);
+            // member.OnValueUpdate += (s, m, v) => ValidationState.ValidateStructure(s);
         }
 
         private Dictionary<string, IMember<T>> Members { get; }
@@ -62,43 +67,43 @@ namespace Integrant.Fundament
 
         public IEnumerable<IMember<T>> AllMembers() => Members.Values;
 
-        public event Action<T, IMember<T>, object>? OnMemberValueUpdate;
-
+        // public event Action<T, IMember<T>, object>? OnMemberValueUpdate;
+        // //
+        // // //
+        // //
+        // // private readonly object _validatedInitialLock = new object();
+        // // private          bool   _hasValidatedInitial;
+        // //
+        // // public void ValidateInitial(T value)
+        // // {
+        // //     lock (_validatedInitialLock)
+        // //     {
+        // //         if (!_hasValidatedInitial)
+        // //         {
+        // //             ValidationState.ValidateStructure(value);
+        // //             _hasValidatedInitial = true;
+        // //         }
+        // //     }
+        // // }
+        // //
+        // // public void Revalidate(T value)
+        // // {
+        // //     ValidationState.Invalidate();
+        // //     ValidationState.ValidateStructure(value);
+        // // }
         //
-
-        private readonly object _validatedInitialLock = new object();
-        private          bool   _hasValidatedInitial;
-
-        public void ValidateInitial(T value)
-        {
-            lock (_validatedInitialLock)
-            {
-                if (!_hasValidatedInitial)
-                {
-                    ValidationState.ValidateStructure(value);
-                    _hasValidatedInitial = true;
-                }
-            }
-        }
-
-        public void Revalidate(T value)
-        {
-            ValidationState.Invalidate();
-            ValidationState.ValidateStructure(value);
-        }
-        
+        // //
         //
-
-        public event Action? OnResetAllMemberInputs;
-
-        public void ResetAllMemberInputs()
-        {
-            foreach (IMember<T> member in Members.Values)
-            {
-                member.ResetInputs();
-            }
-            
-            OnResetAllMemberInputs?.Invoke();
-        }
+        // public event Action? OnResetAllMemberInputs;
+        //
+        // public void ResetAllMemberInputs()
+        // {
+        //     foreach (IMember<T> member in Members.Values)
+        //     {
+        //         member.ResetInputs();
+        //     }
+        //
+        //     OnResetAllMemberInputs?.Invoke();
+        // }
     }
 }
