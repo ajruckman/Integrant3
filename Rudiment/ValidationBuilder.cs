@@ -52,7 +52,7 @@ namespace Integrant.Rudiment
             switch (validation.ResultType)
             {
                 case ValidationResultType.Invalid:
-                    builder.AddAttribute(++seq, "data-icon", "close");
+                    builder.AddAttribute(++seq, "data-icon", "error");
                     break;
                 case ValidationResultType.Warning:
                     builder.AddAttribute(++seq, "data-icon", "warning");

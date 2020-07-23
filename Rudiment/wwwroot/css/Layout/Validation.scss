@@ -10,6 +10,7 @@ div[class~="Integrant.Rudiment.Validation.Result"] {
     align-items:   center;
     border-radius: 4px;
     display:       inline-flex;
+    margin:        1px;
     padding:       0 3px;
 
     &:not(:first-child) {
@@ -43,12 +44,14 @@ div[class~="Integrant.Rudiment.Validation.Result"] {
     }
 
     div[class~="Integrant.Rudiment.Validation.Result.Text"] {
-        display: inline;
+        display:       inline;
+        overflow-wrap: break-word;
     }
 }
 
 
 div[class~="Integrant.Rudiment.Validation.Notice"] {
+    margin: 1px;
 
     &[class~="Integrant.Rudiment.Validation.Notice:Validating"] {
 
@@ -56,8 +59,9 @@ div[class~="Integrant.Rudiment.Validation.Notice"] {
 
         div[class~="Integrant.Rudiment.Validation.Notice.Text"] {
             //background-color: blue;
-            color:   white;
-            padding: 0 3px;
+            color:         white;
+            overflow-wrap: break-word;
+            padding:       0 3px;
         }
 
         div[class~="Integrant.Rudiment.Validation.Notice.Background"] {

@@ -1,5 +1,14 @@
-﻿@inherits LayoutComponentBase
+﻿@using Blazored.LocalStorage
 
-@(new Configuration().ResourceSet.Render())
+@inherits LayoutComponentBase
 
-@Body
+@inject ILocalStorageService StorageService
+
+@(new Configuration().ResourceSet.Render(scripts: true, stylesheets: false))
+
+@if (_themeLoader.Complete)
+{
+    @_themeLoader.RenderLink()
+    @Body
+    @_themeLoader.RenderDropdown()
+}

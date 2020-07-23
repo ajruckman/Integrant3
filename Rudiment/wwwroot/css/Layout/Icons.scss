@@ -1,5 +1,5 @@
-@import '../vendor/material-design-icons/sprites/svg-sprite-navigation';
-@import '../vendor/material-design-icons/iconfont/material-icons';
+@import '../../vendor/material-design-icons/sprites/svg-sprite-navigation';
+@import '../../vendor/material-design-icons/iconfont/material-icons';
 
 // https://css-tricks.com/ligature-icons/
 [data-icon]::before {
@@ -7,6 +7,9 @@
 
     content: attr(data-icon);
     //font-size: unset !important;
+}
+
+[data-icon]::after {
 }
 
 //.CheckMark {

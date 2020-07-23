@@ -15,8 +15,7 @@ namespace Integrant.Rudiment.Input
         {
             int seq = -1;
 
-            builder.OpenElement(++seq, "input");
-            builder.AddAttribute(++seq, "type", "checkbox");
+            builder.OpenElement(++seq, "div");
 
             //
 
@@ -26,20 +25,23 @@ namespace Integrant.Rudiment.Input
                 "Integrant.Rudiment.Input." + nameof(CheckboxInput<TStructure>)
             );
 
-            InputBuilder.Required(builder, ref seq, structure, value, member, classes);
-            InputBuilder.Disabled(builder, ref seq, structure, value, member, classes);
+            bool required = InputBuilder.Required(builder, ref seq, structure, value, member, classes);
+            bool disabled = InputBuilder.Disabled(builder, ref seq, structure, value, member, classes);
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
             //
 
-            InputBuilder.Value
+            InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
                 member,
+                "input", "checkbox",
                 "checked", member.InputValue.Invoke(structure, value, member),
-                args => OnChange(value, args)
+                required, disabled, args => OnChange(value, args)
             );
+            
+            InputBuilder.CloseInnerInput(builder, ref seq);
 
             //
 

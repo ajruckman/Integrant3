@@ -1,0 +1,64 @@
+div[class~="Integrant.Rudiment.Component.MemberValidations"], div[class~="Integrant.Rudiment.Component.StructureValidations"] {
+  display: inline-flex;
+  flex-wrap: wrap; }
+
+div[class~="Integrant.Rudiment.Validation.Result"] {
+  align-items: center;
+  border-radius: 4px;
+  display: inline-flex;
+  margin: 1px;
+  padding: 0 3px; }
+  div[class~="Integrant.Rudiment.Validation.Result"]:not(:first-child) {
+    margin-left: 3px; }
+  div[class~="Integrant.Rudiment.Validation.Result"][class~="Integrant.Rudiment.Validation.Result:Invalid"] {
+    background-color: #c80000;
+    color: white; }
+  div[class~="Integrant.Rudiment.Validation.Result"][class~="Integrant.Rudiment.Validation.Result:Warning"] {
+    background-color: #ffff00;
+    color: black; }
+  div[class~="Integrant.Rudiment.Validation.Result"][class~="Integrant.Rudiment.Validation.Result:Valid"] {
+    background-color: #008000;
+    color: white; }
+  div[class~="Integrant.Rudiment.Validation.Result"] div[class~="Integrant.Rudiment.Validation.Result.Icon"] {
+    padding-right: 3px; }
+    div[class~="Integrant.Rudiment.Validation.Result"] div[class~="Integrant.Rudiment.Validation.Result.Icon"]::before {
+      align-items: center;
+      display: flex;
+      font-size: 15px !important;
+      height: 100% !important; }
+  div[class~="Integrant.Rudiment.Validation.Result"] div[class~="Integrant.Rudiment.Validation.Result.Text"] {
+    display: inline;
+    overflow-wrap: break-word; }
+
+div[class~="Integrant.Rudiment.Validation.Notice"] {
+  margin: 1px; }
+  div[class~="Integrant.Rudiment.Validation.Notice"][class~="Integrant.Rudiment.Validation.Notice:Validating"] {
+    position: relative; }
+    div[class~="Integrant.Rudiment.Validation.Notice"][class~="Integrant.Rudiment.Validation.Notice:Validating"] div[class~="Integrant.Rudiment.Validation.Notice.Text"] {
+      color: white;
+      overflow-wrap: break-word;
+      padding: 0 3px; }
+    div[class~="Integrant.Rudiment.Validation.Notice"][class~="Integrant.Rudiment.Validation.Notice:Validating"] div[class~="Integrant.Rudiment.Validation.Notice.Background"] {
+      border-radius: 4px;
+      bottom: 0;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: -1; }
+      div[class~="Integrant.Rudiment.Validation.Notice"][class~="Integrant.Rudiment.Validation.Notice:Validating"] div[class~="Integrant.Rudiment.Validation.Notice.Background"]::before {
+        animation: stripes 0.5s linear infinite;
+        background-image: repeating-linear-gradient(to right, blue 0, blue 8px, #0000d9 8px, #0000d9 16px);
+        background-repeat: repeat;
+        background-size: 16px;
+        content: '';
+        display: block;
+        height: 100%;
+        width: calc(100% + 16px); }
+
+@keyframes stripes {
+  from {
+    transform: translateX(-16px); }
+  to {
+    transform: translateX(0); } }

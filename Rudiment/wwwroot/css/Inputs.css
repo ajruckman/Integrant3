@@ -1,5 +1,0 @@
-input:required {
-  box-shadow: none; }
-
-input[class~="Integrant.Rudiment.Input:FailsRequirement"] {
-  border: 1px solid red; }

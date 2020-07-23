@@ -21,7 +21,7 @@ namespace Integrant.Web.Pages
             public string       PhoneNumber       { get; set; }
             public string       Email             { get; set; }
             public DateTime?    StartDate         { get; set; }
-            public DateTime    StartTime         { get; set; }
+            public DateTime     StartTime         { get; set; }
             public DateTime?    CompositeDateTime { get; set; }
             public List<string> Tags              { get; set; }
         }
@@ -31,7 +31,7 @@ namespace Integrant.Web.Pages
         private User                  _testUser     = null!;
 
         private const bool DoSlow = false;
-        
+
         protected override void OnInitialized()
         {
             var altUser = new User();
@@ -51,7 +51,8 @@ namespace Integrant.Web.Pages
                 (s,                v, m) => v.Boolean,
                 onValueUpdate: (s, v, m) => s.Boolean = m,
                 input: new CheckboxInput<User>(),
-                inputIsRequired: (s, v, m) => true
+                inputIsRequired: (s, v, m) => true,
+                inputDebounceMilliseconds: 1
             ));
 
             _structure.Register(new Member<User, string>(
@@ -65,17 +66,19 @@ namespace Integrant.Web.Pages
 
             _structure.Register(new Member<User, int>(
                 nameof(User.UserID),
-                (s,                v, m) => v.UserID,
+                (s, v, m) => v.UserID,
                 // displayValue: (s,  v, m) => $"[{v.UserID}]",
                 key: (s,           v, m) => "User ID",
                 onValueUpdate: (s, v, m) => s.UserID = m,
                 input: new NumberInput<User>(),
-                considerDefaultNull: true, validator: (s, v, m) => new List<Validation>
+                considerDefaultNull: true,
+                validator: (s, v, m) => new List<Validation>
                 {
                     new Validation(ValidationResultType.Warning, "Warning"),
-                    new Validation(ValidationResultType.Valid, "Is valid"),
+                    new Validation(ValidationResultType.Valid,   "Is valid"),
                     new Validation(ValidationResultType.Invalid, "Is invalid"),
-                    new Validation(ValidationResultType.Warning, "Some kinda long validation text with type ValidationResultType.Warning"),
+                    new Validation(ValidationResultType.Warning,
+                        "Some kinda long validation text with type ValidationResultType.Warning"),
                 }
             ));
 
@@ -87,7 +90,7 @@ namespace Integrant.Web.Pages
                 defaultValue: (s,          v, m) => "A.J. <default>",
                 inputIsRequired: (s,       v, m) => true,
                 inputMeetsRequirement: (s, v, m) => v.Name?.Length > 3,
-                validator: (s, v, m) => Validation.One(ValidationResultType.Warning, "Warning")
+                validator: (s,             v, m) => Validation.One(ValidationResultType.Warning, "Warning")
             ));
 
             _structure.Register(new Member<User, string>(
@@ -101,7 +104,14 @@ namespace Integrant.Web.Pages
             _structure.Register(new Member<User, string>(
                 nameof(User.Email),
                 (s, v, m) => v.Email,
-                input: new StringInput<User>(textArea: true, monospace: true),
+                input: new StringInput<User>(textArea: true, monospace: true,
+                    textAreaCols: (s, v, m, i) =>
+                    {
+                        int[] lines = v.Email.Split('\n').Select(l => l.Length).ToArray();
+                        return Math.Min(lines.Max() + 5, 60);
+                    },
+                    textAreaRows: (s, v, m, i) => v.Email.Split('\n').Length + 1
+                ),
                 onValueUpdate: (s, v, m) => s.Email = m.TrimEnd('!') + "!",
                 inputDebounceMilliseconds: 500,
                 inputIsDisabled: (s, v, m) => v.UserID == 1,
@@ -191,9 +201,10 @@ namespace Integrant.Web.Pages
                 UserID      = 12345,
                 Name        = "A.J.",
                 PhoneNumber = "111.222.3344",
-                Email       = "aj@example.com",
-                StartDate   = DateTime.Now,
-                StartTime   = DateTime.Now,
+                Email =
+                    "aj@example.com9999999999999999999999999999999999!99999999999999999999999999999999999999999999999999999999999999999! spaced out words n stuff",
+                StartDate = DateTime.Now,
+                StartTime = DateTime.Now,
             };
 
             Task.Run(() =>

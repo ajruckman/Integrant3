@@ -56,11 +56,11 @@ namespace Integrant.Rudiment.Component
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            // if (Structure.ValidationState.IsValidating)
-            // {
+            if (Structure.ValidationState.IsValidating)
+            {
                 ValidationBuilder.RenderValidatingNotice(builder, ref seq);
-            // }
-            // else
+            }
+            else
             {
                 List<Validation>? validations = Structure.ValidationState.GetMemberValidations(ID);
 
