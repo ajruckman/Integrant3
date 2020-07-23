@@ -33,18 +33,6 @@ namespace Integrant.Fundament
             Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member
         );
 
-        // public delegate object MemberFormatValue<TStructure, TMember>
-
-        // (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
-
-        // public delegate TMember MemberDefaultValue<TStructure, TMember>
-
-        // (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
-
-        // public delegate object MemberFormatDefaultValue<TStructure, TMember>
-
-        // (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
-
         //
 
         public delegate List<string> MemberClasses<TStructure, TMember>
@@ -53,7 +41,7 @@ namespace Integrant.Fundament
         public delegate bool MemberIsVisible<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
-        public delegate bool MemberInputIsEnabled<TStructure, TMember>
+        public delegate bool MemberInputIsDisabled<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 
         public delegate bool MemberInputIsRequired<TStructure, TMember>
@@ -77,24 +65,9 @@ namespace Integrant.Fundament
             return member.ID;
         }
 
-        // internal static object MemberFormatValue<TStructure, TMember>
-        //     (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
-        // {
-        //     TMember v = member.Value.Invoke(structure, value, member);
-        //     return v == null ? (object) "" : v;
-        // }
-
-        // internal static TMember MemberDefaultValue<TStructure, TMember>
-        //     (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
-        // {
-        //     return default!;
-        //     // return member.Value.Invoke(structure, value, member);
-        // }
-
         internal static object MemberFormattedValue<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member)
         {
-            // return memberValue == null ? (object) "" : memberValue;
             TMember v = member.Value.Invoke(structure, value, member);
             return v == null ? (object) "" : v;
         }

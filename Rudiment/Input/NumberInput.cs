@@ -15,8 +15,7 @@ namespace Integrant.Rudiment.Input
         {
             int seq = -1;
 
-            builder.OpenElement(++seq, "input");
-            builder.AddAttribute(++seq, "type", "number");
+            builder.OpenElement(++seq, "div");
 
             //
 
@@ -25,7 +24,8 @@ namespace Integrant.Rudiment.Input
                 "Integrant.Rudiment.Input." + nameof(NumberInput<TStructure>)
             );
 
-            InputBuilder.Required(builder, ref seq, structure, value, member, classes);
+            bool required = InputBuilder.Required(builder, ref seq, structure, value, member, classes);
+            bool disabled = InputBuilder.Disabled(builder, ref seq, structure, value, member, classes);
 
             if (member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
@@ -35,13 +35,16 @@ namespace Integrant.Rudiment.Input
 
             //
 
-            InputBuilder.Value
+            InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
                 member,
+                "input", "number",
                 "value", member.InputValue.Invoke(structure, value, member),
+                required, disabled,
                 args => OnChange(value, args)
             );
+            InputBuilder.CloseInnerInput(builder, ref seq);
 
             builder.CloseElement();
         };

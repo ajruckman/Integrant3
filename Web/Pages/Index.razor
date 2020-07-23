@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Components
-@using Integrant.Fundament.Component
+@using Integrant.Rudiment.Component
 
 @page "/"
 
@@ -43,6 +43,9 @@
                     <MemberValue TS="User" TM="int"/>
                     <MemberInput TS="User" TM="int"/>
                 </td>
+                <td>
+                    <MemberValidations TS="User" TM="int"/>
+                </td>
             </MemberContainer>
 
         </tr>
@@ -56,6 +59,9 @@
 
                     <input type="text" @oninput="@(args => _structure.GetMember<string>(nameof(User.Name)).UpdateValue(_testUser, args.Value.ToString()))"/>
                     <MemberInput TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberValidations TS="User" TM="string"/>
                 </td>
             </MemberContainer>
 
@@ -145,7 +151,6 @@
 
         <tfoot>
         <tr>
-            <td></td>
             <td>
                 <StructureValidations TS="User"/>
             </td>

@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
+using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Integrant.Fundament.Component
+namespace Integrant.Rudiment.Component
 {
     public class StructureValidations<TS> : ComponentBase
     {
-        [CascadingParameter(Name = "Integrant.Fundament.Structure")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Structure")]
         public Structure<TS> Structure { get; set; } = null!;
 
-        [CascadingParameter(Name = "Integrant.Fundament.Value")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Value")]
         public TS Value { get; set; } = default!;
 
         protected override void OnInitialized()
@@ -38,9 +39,9 @@ namespace Integrant.Fundament.Component
                 throw new ArgumentNullException(nameof(Structure.Validator),
                     "Structure passed to " + nameof(StructureValidations<TS>) + " component does not have a " +
                     nameof(StructureGetters.StructureValidations<TS>) + ".");
-            
-            ClassSet classes = ClassSet.FromStructure(Structure, Value, 
-                "Integrant.Fundament.Component." + nameof(StructureContainer<TS>));
+
+            ClassSet classes = ClassSet.FromStructure(Structure, Value,
+                "Integrant.Rudiment.Component." + nameof(StructureContainer<TS>));
 
             bool shown = Structure.IsVisible?.Invoke(Structure, Value) ?? true;
 
@@ -57,13 +58,7 @@ namespace Integrant.Fundament.Component
 
             if (Structure.ValidationState.IsValidating)
             {
-                builder.OpenElement(++seq, "div");
-                builder.AddAttribute(++seq, "class", "Integrant.Fundament.ValidationNotice.Validating");
-                builder.OpenElement(++seq, "span");
-                builder.AddAttribute(++seq, "class", "Integrant.Fundament.ValidationNotice.Validating.Background");
-                builder.AddContent(++seq, "Validating...");
-                builder.CloseElement();
-                builder.CloseElement();
+                ValidationBuilder.RenderValidatingNotice(builder, ref seq);
             }
             else
             {
@@ -74,7 +69,7 @@ namespace Integrant.Fundament.Component
                     Console.WriteLine("Exists");
                     foreach (Validation validation in validations)
                     {
-                        builder.AddContent(++seq, validation.Render());
+                        ValidationBuilder.RenderResult(builder, ref seq, validation);
                     }
                 }
             }

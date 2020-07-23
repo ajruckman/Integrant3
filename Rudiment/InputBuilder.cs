@@ -7,7 +7,7 @@ namespace Integrant.Rudiment
 {
     public static class InputBuilder
     {
-        public static void Required<TStructure, TMember>
+        public static bool Required<TStructure, TMember>
         (
             RenderTreeBuilder     builder,   ref int    seq,
             Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member,
@@ -16,7 +16,6 @@ namespace Integrant.Rudiment
         {
             if (member.InputIsRequired?.Invoke(structure, value, member) == true)
             {
-                builder.AddAttribute(++seq, "required", "required");
                 classes.Add("Integrant.Rudiment.Input:Required");
 
                 // This should always be true
@@ -26,56 +25,69 @@ namespace Integrant.Rudiment
                         ? "Integrant.Rudiment.Input:MeetsRequirement"
                         : "Integrant.Rudiment.Input:FailsRequirement");
                 }
+
+                return true;
             }
+
+            return false;
         }
 
-        public static void Value<TStructure, TMember>
+        public static bool Disabled<TStructure, TMember>
+        (
+            RenderTreeBuilder     builder,   ref int    seq,
+            Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member,
+            ClassSet              classes
+        )
+        {
+            if (member.InputIsDisabled?.Invoke(structure, value, member) == true)
+            {
+                classes.Add("Integrant.Rudiment.Input:Disabled");
+                return true;
+            }
+
+            return false;
+        }
+
+        public static void OpenInnerInput<TStructure, TMember>
         (
             RenderTreeBuilder           builder, ref int seq,
             Member<TStructure, TMember> member,
-            string                      valueAttribute, object value,
+            string                      element,        string? type,
+            string                      valueAttribute, object  value,
+            bool                        required,       bool    disabled,
             Action<ChangeEventArgs>     onInput
         )
         {
+            builder.OpenElement(++seq, element);
+            if (type != null)
+            {
+                builder.AddAttribute(++seq, "type", type);
+            }
+
             builder.AddAttribute(++seq, valueAttribute, member.ConsiderDefaultNull
                 ? Equals(value, default(TMember)) ? "" : value
                 : value
             );
+
+            if (required)
+            {
+                builder.AddAttribute(++seq, "required", "required");
+            }
+
+            if (disabled)
+            {
+                builder.AddAttribute(++seq, "disabled", "disabled");
+            }
+
             builder.AddAttribute(++seq, "oninput", onInput);
             builder.SetUpdatesAttributeName(valueAttribute);
+            
+            // builder.CloseElement();
         }
 
-        // public static void OpenContainer
-        // (
-        //     RenderTreeBuilder builder, ref int seq
-        // )
-        // {
-        //     builder.OpenElement(++seq, "section");
-        //     builder.AddAttribute(++seq, "style", "display: contents;");
-        // }
-        //
-        // public static void CloseContainer
-        // (
-        //     RenderTreeBuilder builder
-        // )
-        // {
-        //     builder.CloseElement();
-        // }
-
-        // public static void ProtectedInput<TStructure, TMember>
-        // (
-        //     RenderTreeBuilder       builder,   ref int    seq,
-        //     Structure<TStructure>   structure, TStructure value, Member<TStructure, TMember> member,
-        //     string                  element,   string?    type,  string                      valueAttribute,
-        //     Action<ChangeEventArgs> onInput
-        // )
-        // {
-        //     builder.OpenElement(++seq, element);
-        //     if (type != null) builder.AddAttribute(++seq, "type", type);
-        //     builder.AddAttribute(++seq, valueAttribute, member.DefaultValue.Invoke(structure, value, member));
-        //     builder.AddAttribute(++seq, "oninput",      onInput);
-        //     builder.SetUpdatesAttributeName(valueAttribute);
-        //     // builder.CloseElement();
-        // }
+        public static void CloseInnerInput(RenderTreeBuilder builder, ref int seq)
+        {
+            builder.CloseElement();
+        }
     }
 }
