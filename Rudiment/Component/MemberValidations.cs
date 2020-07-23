@@ -1,19 +1,20 @@
 using System;
 using System.Collections.Generic;
+using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Integrant.Fundament.Component
+namespace Integrant.Rudiment.Component
 {
     public class MemberValidations<TS, TM> : ComponentBase
     {
-        [CascadingParameter(Name = "Integrant.Fundament.Structure")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Structure")]
         public Structure<TS> Structure { get; set; } = null!;
 
-        [CascadingParameter(Name = "Integrant.Fundament.Value")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Value")]
         public TS Value { get; set; } = default!;
 
-        [CascadingParameter(Name = "Integrant.Fundament.Member.ID")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Member.ID")]
         public string ID { get; set; } = null!;
 
         protected override void OnInitialized()
@@ -45,7 +46,7 @@ namespace Integrant.Fundament.Component
                     nameof(MemberGetters.MemberValidations<TS, TM>) + ".");
 
             ClassSet classes = ClassSet.FromMember(Structure, Value, member,
-                "Integrant.Fundament.Component." + nameof(MemberValidations<TS, TM>));
+                "Integrant.Rudiment.Component." + nameof(MemberValidations<TS, TM>));
 
             //
 
@@ -55,17 +56,11 @@ namespace Integrant.Fundament.Component
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            if (Structure.ValidationState.IsValidating)
-            {
-                builder.OpenElement(++seq, "div");
-                builder.AddAttribute(++seq, "class", "Integrant.Fundament.Validation.Notice Fundament.Validation.Notice:Validating");
-                builder.OpenElement(++seq, "span");
-                builder.AddAttribute(++seq, "class", "Integrant.Fundament.Validation.Notice Fundament.Validation.Notice.Background");
-                builder.AddContent(++seq, "Validating...");
-                builder.CloseElement();
-                builder.CloseElement();
-            }
-            else
+            // if (Structure.ValidationState.IsValidating)
+            // {
+                ValidationBuilder.RenderValidatingNotice(builder, ref seq);
+            // }
+            // else
             {
                 List<Validation>? validations = Structure.ValidationState.GetMemberValidations(ID);
 
@@ -74,7 +69,7 @@ namespace Integrant.Fundament.Component
                     Console.WriteLine("Exists");
                     foreach (Validation validation in validations)
                     {
-                        builder.AddContent(++seq, validation.Render());
+                        ValidationBuilder.RenderResult(builder, ref seq, validation);
                     }
                 }
             }

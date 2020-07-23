@@ -1,18 +1,19 @@
 using System;
+using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Integrant.Fundament.Component
+namespace Integrant.Rudiment.Component
 {
     public class MemberInput<TS, TM> : ComponentBase, IDisposable
     {
-        [CascadingParameter(Name = "Integrant.Fundament.Structure")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Structure")]
         public Structure<TS> Structure { get; set; } = null!;
 
-        [CascadingParameter(Name = "Integrant.Fundament.Value")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Value")]
         public TS Value { get; set; } = default!;
 
-        [CascadingParameter(Name = "Integrant.Fundament.Member.ID")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Member.ID")]
         public string ID { get; set; } = null!;
 
         private Member<TS, TM> _member = null!;
@@ -35,7 +36,7 @@ namespace Integrant.Fundament.Component
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             ClassSet classSet = ClassSet.FromMember(Structure, Value, _member,
-                "Integrant.Fundament.Component." + nameof(MemberInput<TS, TM>));
+                "Integrant.Rudiment.Component." + nameof(MemberInput<TS, TM>));
 
             //
 

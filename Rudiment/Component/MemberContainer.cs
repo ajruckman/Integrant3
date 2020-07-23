@@ -1,15 +1,16 @@
 using System;
+using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Integrant.Fundament.Component
+namespace Integrant.Rudiment.Component
 {
     public class MemberContainer<TS, TM> : ComponentBase
     {
-        [CascadingParameter(Name = "Integrant.Fundament.Structure")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Structure")]
         public Structure<TS> Structure { get; set; } = null!;
 
-        [CascadingParameter(Name = "Integrant.Fundament.Value")]
+        [CascadingParameter(Name = "Integrant.Rudiment.Value")]
         public TS Value { get; set; } = default!;
 
         [Parameter]
@@ -30,7 +31,7 @@ namespace Integrant.Fundament.Component
             Member<TS, TM> member = Structure.GetMember<TM>(ID!);
 
             ClassSet classes = ClassSet.FromMember(Structure, Value, member,
-                "Integrant.Fundament.Component." + nameof(MemberContainer<TS, TM>));
+                "Integrant.Rudiment.Component." + nameof(MemberContainer<TS, TM>));
 
             bool shown = member.IsVisible?.Invoke(Structure, Value, member) ?? true;
 
@@ -46,7 +47,7 @@ namespace Integrant.Fundament.Component
                 builder.AddAttribute(++seq, "hidden", "hidden");
 
             builder.OpenComponent<CascadingValue<string>>(++seq);
-            builder.AddAttribute(++seq, "Name",         "Integrant.Fundament.Member.ID");
+            builder.AddAttribute(++seq, "Name",         "Integrant.Rudiment.Member.ID");
             builder.AddAttribute(++seq, "Value",        ID);
             builder.AddAttribute(++seq, "IsFixed",      true);
             builder.AddAttribute(++seq, "ChildContent", ChildContent);

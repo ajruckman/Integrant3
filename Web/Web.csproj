@@ -11,10 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\css" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Fundament\Fundament.csproj" />
       <ProjectReference Include="..\Rudiment\Rudiment.csproj" />
     </ItemGroup>
@@ -23,6 +19,7 @@
       <PackageReference Include="FlareSelect" Version="3.7.2-alpha" />
       <PackageReference Include="FlareTables" Version="3.8.1-alpha" />
       <PackageReference Include="Superset" Version="1.16.0-alpha" />
+      <PackageReference Include="UISet.FontSet" Version="1.1.10-alpha" />
     </ItemGroup>
 
 </Project>

@@ -17,37 +17,6 @@ namespace Integrant.Fundament
             Message    = message;
         }
 
-        internal RenderFragment Render() => builder =>
-        {
-            int          seq     = -1;
-            List<string> classes = new List<string> {"Integrant.Fundament.Validation.Result"};
-
-            switch (ResultType)
-            {
-                case ValidationResultType.Invalid:
-                    classes.Add("Integrant.Fundament.Validation.Result:Invalid");
-                    break;
-                case ValidationResultType.Warning:
-                    classes.Add("Integrant.Fundament.Validation.Result:Warning");
-                    break;
-                case ValidationResultType.Valid:
-                    classes.Add("Integrant.Fundament.Validation.Result:Valid");
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            builder.OpenElement(++seq, "div");
-            builder.AddAttribute(++seq, "class", string.Join(' ', classes));
-
-            builder.OpenElement(++seq, "span");
-            builder.AddAttribute(++seq, "class", "Integrant.Fundament.Validation.Result.Text");
-            builder.AddContent(++seq, Message);
-            builder.CloseElement();
-
-            builder.CloseElement();
-        };
-
         public static List<Validation> One(ValidationResultType resultType, string message) =>
             new List<Validation> {new Validation(resultType, message)};
     }
@@ -153,7 +122,7 @@ namespace Integrant.Fundament
             BeginValidations(value);
         }
 
-        internal List<Validation>? GetStructureValidations()
+        public List<Validation>? GetStructureValidations()
         {
             lock (_cacheLock)
             {
@@ -161,7 +130,7 @@ namespace Integrant.Fundament
             }
         }
 
-        internal List<Validation>? GetMemberValidations(string id)
+        public List<Validation>? GetMemberValidations(string id)
         {
             lock (_cacheLock)
             {

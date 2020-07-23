@@ -29,6 +29,20 @@ namespace Integrant.Rudiment
             }
         }
 
+        public static void Disabled<TStructure, TMember>
+        (
+            RenderTreeBuilder     builder,   ref int    seq,
+            Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member,
+            ClassSet              classes
+        )
+        {
+            if (member.InputIsDisabled?.Invoke(structure, value, member) == true)
+            {
+                builder.AddAttribute(++seq, "disabled", "disabled");
+                classes.Add("Integrant.Rudiment.Input:Disabled");
+            }
+        }
+
         public static void Value<TStructure, TMember>
         (
             RenderTreeBuilder           builder, ref int seq,
@@ -44,38 +58,5 @@ namespace Integrant.Rudiment
             builder.AddAttribute(++seq, "oninput", onInput);
             builder.SetUpdatesAttributeName(valueAttribute);
         }
-
-        // public static void OpenContainer
-        // (
-        //     RenderTreeBuilder builder, ref int seq
-        // )
-        // {
-        //     builder.OpenElement(++seq, "section");
-        //     builder.AddAttribute(++seq, "style", "display: contents;");
-        // }
-        //
-        // public static void CloseContainer
-        // (
-        //     RenderTreeBuilder builder
-        // )
-        // {
-        //     builder.CloseElement();
-        // }
-
-        // public static void ProtectedInput<TStructure, TMember>
-        // (
-        //     RenderTreeBuilder       builder,   ref int    seq,
-        //     Structure<TStructure>   structure, TStructure value, Member<TStructure, TMember> member,
-        //     string                  element,   string?    type,  string                      valueAttribute,
-        //     Action<ChangeEventArgs> onInput
-        // )
-        // {
-        //     builder.OpenElement(++seq, element);
-        //     if (type != null) builder.AddAttribute(++seq, "type", type);
-        //     builder.AddAttribute(++seq, valueAttribute, member.DefaultValue.Invoke(structure, value, member));
-        //     builder.AddAttribute(++seq, "oninput",      onInput);
-        //     builder.SetUpdatesAttributeName(valueAttribute);
-        //     // builder.CloseElement();
-        // }
     }
 }

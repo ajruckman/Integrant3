@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Integrant.Fundament
 {
-    public class ClassSet
+    public sealed class ClassSet
     {
         private List<string> _classes;
 

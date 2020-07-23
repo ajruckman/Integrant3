@@ -21,11 +21,11 @@ namespace Integrant.Fundament
             ValidationState = new ValidationState<T>(this);
         }
 
-        internal readonly StructureGetters.StructureClasses<T>?     Classes;
-        internal readonly StructureGetters.StructureIsVisible<T>?   IsVisible;
-        internal readonly StructureGetters.StructureValidations<T>? Validator;
+        public readonly StructureGetters.StructureClasses<T>?     Classes;
+        public readonly StructureGetters.StructureIsVisible<T>?   IsVisible;
+        public readonly StructureGetters.StructureValidations<T>? Validator;
 
-        internal readonly ValidationState<T> ValidationState;
+        public readonly ValidationState<T> ValidationState;
 
         public void Register<TMember>(Member<T, TMember> member)
         {
@@ -39,10 +39,10 @@ namespace Integrant.Fundament
 
             member.OnInput += ValidationState.Invalidate;
 
-            member.OnValueUpdate += (value, member, memberValue) =>
-                OnMemberValueUpdate?.Invoke(value, member, memberValue);
+            member.OnValueUpdate += (s, m, v) =>
+                OnMemberValueUpdate?.Invoke(s, m, v);
 
-            member.OnValueUpdate += (value, member, memberValue) => ValidationState.ValidateStructure(value);
+            member.OnValueUpdate += (s, m, v) => ValidationState.ValidateStructure(s);
         }
 
         private Dictionary<string, IMember<T>> Members { get; }
@@ -69,7 +69,7 @@ namespace Integrant.Fundament
         private readonly object _validatedInitialLock = new object();
         private          bool   _hasValidatedInitial;
 
-        internal void ValidateInitial(T value)
+        public void ValidateInitial(T value)
         {
             lock (_validatedInitialLock)
             {

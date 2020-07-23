@@ -1,0 +1,33 @@
+@import '../vendor/material-design-icons/sprites/svg-sprite-navigation';
+@import '../vendor/material-design-icons/iconfont/material-icons';
+
+// https://css-tricks.com/ligature-icons/
+[data-icon]::before {
+    @extend .material-icons;
+
+    content: attr(data-icon);
+    //font-size: unset !important;
+}
+
+//.CheckMark {
+//    @extend .svg-ic_check_24px;
+//    //@extend .svg-ic_check_24px-dims;
+//
+//    color: green;
+//    //height: 10px;
+//    //width:  10px;
+//    font-size: 10px !important;
+//
+//    &::before {
+//        font-size: 10px !important;
+//        //width: inherit;
+//        //height: inherit;
+//        //font-size: unset !important;
+//    }
+//}
+
+//[data-icon="check"]::before, [data-icon="add"]::before {
+//    color:     white;
+//    
+//    font-size: 10px !important;
+//}

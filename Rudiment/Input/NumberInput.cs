@@ -26,6 +26,7 @@ namespace Integrant.Rudiment.Input
             );
 
             InputBuilder.Required(builder, ref seq, structure, value, member, classes);
+            InputBuilder.Disabled(builder, ref seq, structure, value, member, classes);
 
             if (member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
