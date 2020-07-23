@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FlareSelect;
-using Integrant.Fundament;
-using Integrant.Rudiment.Input;
+using Integrant.Fundaments;
+using Integrant.Rudiments.Input;
 using Superset.Common;
 
 namespace Integrant.Web.Pages
@@ -61,7 +61,8 @@ namespace Integrant.Web.Pages
                 onValueUpdate: (s, v, m) => s.CreatedBy = m,
                 isVisible: (s,     v, m) => v.Boolean,
                 input: new StringInput<User>(),
-                inputIsRequired: (s, v, m) => true
+                inputIsRequired: (s, v, m) => true,
+                considerDefaultNull: true
             ));
 
             _structure.Register(new Member<User, int>(
@@ -72,15 +73,20 @@ namespace Integrant.Web.Pages
                 onValueUpdate: (s, v, m) => s.UserID = m,
                 input: new NumberInput<User>(),
                 considerDefaultNull: true,
-                validator: (s, v, m) => new List<Validation>
+                validator: (s, v, m) =>
                 {
-                    new Validation(ValidationResultType.Warning, "Warning"),
-                    new Validation(ValidationResultType.Valid,   "Is valid"),
-                    new Validation(ValidationResultType.Invalid, "Is invalid"),
-                    new Validation(ValidationResultType.Warning,
-                        "Some kinda long validation text with type ValidationResultType.Warning"),
-                }
-            ));
+                    var result = new List<Validation>
+                    {
+                        new Validation(ValidationResultType.Warning, "Warning"),
+                        new Validation(ValidationResultType.Valid,   "Is valid"),
+                        new Validation(ValidationResultType.Warning,
+                            "Some kinda long validation text with type ValidationResultType.Warning"),
+                    };
+                    if (string.IsNullOrEmpty(v.Name) || v.Name == "A.J.")
+                        result.Add(new Validation(ValidationResultType.Invalid, "Is invalid"));
+
+                    return result;
+                }));
 
             _structure.Register(new Member<User, string>(
                 nameof(User.Name),
@@ -193,6 +199,8 @@ namespace Integrant.Web.Pages
 
             _structure.OnResetAllMemberInputs += () => _tagsSelector.Deselect();
 
+            _structure.ValidationState.OnFinishValidating += () => InvokeAsync(StateHasChanged);
+
             //
 
             _testUser = new User
@@ -226,6 +234,11 @@ namespace Integrant.Web.Pages
         private void ResetAll()
         {
             _structure.ResetAllMemberInputs();
+        }
+
+        private void Submit()
+        {
+            Console.WriteLine("Submit");
         }
     }
 }

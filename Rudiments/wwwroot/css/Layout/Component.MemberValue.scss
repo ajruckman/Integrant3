@@ -1,0 +1,6 @@
+div[class~="Integrant.Rudiments.Component.MemberValue"] {
+    //word-break: break-word;
+    //word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 500px;
+}

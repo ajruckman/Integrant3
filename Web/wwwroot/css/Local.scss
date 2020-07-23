@@ -1,3 +1,32 @@
 body {
-    font-family: var(--FontSet-SansSerifFont);
+    background-color: var(--ColorSet_Color_PageBG);
+
+    color:            var(--ColorSet_ThemeColor_Text_50);
+    font-family:      var(--FontSet-SansSerifFont);
+}
+
+div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.Index+User"] {
+    table {
+        border-collapse: collapse;
+        table-layout:    fixed;
+
+        tbody {
+            tr {
+                td {
+                    padding: 5px;
+                    &:nth-child(2) {
+                        div[class~="Integrant.Rudiment.Component.MemberInput"] {
+                            width: 400px;
+                            //overflow: hidden;
+                            
+                            textarea {
+                                max-width: 100%;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
 }

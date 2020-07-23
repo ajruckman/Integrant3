@@ -1,0 +1,127 @@
+$TransitionRestore: color linear 200ms, background-color linear 200ms, border linear 200ms, box-shadow linear 200ms;
+$TransitionHover:   color linear 25ms, background-color linear 25ms, border linear 25ms, box-shadow linear 25ms;
+$TransitionSnap:    color linear 0ms, background-color linear 0ms, border linear 0ms, box-shadow linear 0ms;
+
+@mixin _InputBase {
+    //border-radius:    3px;
+    outline:          none;
+    background-color: var(--ColorSet_ThemeColor_Background_60);
+    border:           1px solid var(--ColorSet_ThemeColor_Border_60);
+    color:            var(--ColorSet_ThemeColor_Text_60);
+    box-sizing:       border-box;
+    font-size:        1em;
+    transition:       $TransitionRestore;
+
+    &:not(:disabled) {
+        box-shadow: 0 0 3px 1px var(--ColorSet_ThemeColor_ElementShadow);
+    }
+
+    &:disabled {
+        background-color: var(--ColorSet_ThemeColor_Background_20);
+        border:           1px solid var(ColorSet_ThemeColor_Border_20);
+        color:            var(ColorSet_ThemeColor_Text_0);
+        cursor:           not-allowed;
+
+        &::placeholder {
+            color: var(--ColorSet_ThemeColor_Text_0);
+        }
+    }
+
+    &:hover:not(:disabled) {
+        background-color: var(--ColorSet_ThemeColor_Background_60_Hover);
+        transition:       $TransitionHover;
+        border-top:       1px solid var(--ColorSet_ThemeColor_Border_60_Hover);
+        border-left:      1px solid var(--ColorSet_ThemeColor_Border_60_Hover);
+        border-right:     1px solid var(--ColorSet_ThemeColor_Border_60_Hover);
+        border-bottom:    1px solid var(--ColorSet_ThemeColor_AccentBorder_60_Hover);
+    }
+
+    &:focus:not(:disabled), :active:not(:disabled) {
+        transition:       $TransitionSnap;
+        background-color: var(--ColorSet_ThemeColor_Background_60_Focus);
+        border-top:       1px solid var(--ColorSet_ThemeColor_Border_60_Focus);
+        border-left:      1px solid var(--ColorSet_ThemeColor_Border_60_Focus);
+        border-right:     1px solid var(--ColorSet_ThemeColor_Border_60_Focus);
+        border-bottom:    1px solid var(--ColorSet_ThemeColor_AccentBorder_60_Focus);
+    }
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+
+:-moz-placeholder {
+    font-style: italic;
+}
+
+::-moz-placeholder {
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+}
+
+div[class~="Integrant.Rudiment.Input"] {
+    input, textarea {
+        @include _InputBase;
+
+        &:not([type="date"]):not([type="time"]):not([type="datetime-local"]) {
+            width: 100%;
+        }
+    }
+
+    input:required {
+        box-shadow: none;
+    }
+
+    &[class~="Integrant.Rudiment.Input:FailsRequirement"] {
+        input, textarea {
+            border: 1px solid red;
+
+            &:hover:not(:disabled) {
+                border-left:  1px solid red;
+                border-right: 1px solid red;
+                border-top:   1px solid red;
+            }
+
+            &:focus:not(:disabled), :active:not(:disabled) {
+                border-left:  1px solid red;
+                border-right: 1px solid red;
+                border-top:   1px solid red;
+            }
+
+            // https://stackoverflow.com/a/52963366/9911189
+            //animation:           StripedBorder 1s infinite linear;
+            //background-image:    linear-gradient(90deg, red 50%, transparent 50%),
+            //                     linear-gradient(90deg, red 50%, transparent 50%),
+            //                     linear-gradient(0deg, red 50%, transparent 50%),
+            //                     linear-gradient(0deg, red 50%, transparent 50%);
+            //background-position: left top, right bottom, left bottom, right top;
+            //background-repeat:   repeat-x, repeat-x, repeat-y, repeat-y;
+            //background-size:     15px 1px, 15px 1px, 1px 15px, 1px 15px;
+        }
+    }
+
+    &[class~="Integrant.Rudiment.Input:Composite"] {
+        align-items: center;
+        display:     inline-flex;
+        flex-wrap:   wrap;
+
+        div[class~="Integrant.Rudiment.Input"]:not(:first-child) {
+            margin-left: 3px;
+        }
+    }
+
+    &[class~="Integrant.Rudiment.Input:Disabled"] {
+    }
+}
+
+@keyframes StripedBorder {
+    0% {
+        background-position: left top, right bottom, left bottom, right top;
+    }
+    100% {
+        background-position: left 15px top, right 15px bottom, left bottom 15px, right top 15px;
+    }
+}

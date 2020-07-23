@@ -1,0 +1,11 @@
+div[class~="Integrant.Rudiments.Input"][class~="Integrant.Rudiments.Input:FailsRequirement"] input, div[class~="Integrant.Rudiments.Input"][class~="Integrant.Rudiments.Input:FailsRequirement"] textarea {
+  border: 1px solid red; }
+
+div[class~="Integrant.Rudiments.Input"][class~="Integrant.Rudiments.Input:Disabled"] * {
+  cursor: not-allowed; }
+
+div[class~="Integrant.Rudiments.Input"]:not([class~="Integrant.Rudiments.Input:Monospace"]) input, div[class~="Integrant.Rudiments.Input"]:not([class~="Integrant.Rudiments.Input:Monospace"]) textarea {
+  font-family: var(--FontSet-SansSerifFont); }
+
+div[class~="Integrant.Rudiments.Input"][class~="Integrant.Rudiments.Input:Monospace"] input, div[class~="Integrant.Rudiments.Input"][class~="Integrant.Rudiments.Input:Monospace"] textarea {
+  font-family: var(--FontSet-MonospaceFont); }

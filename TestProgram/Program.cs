@@ -1,5 +1,5 @@
 ﻿using System;
-using Integrant.Fundament;
+using Integrant.Fundaments;
 
 namespace TestProgram
 {

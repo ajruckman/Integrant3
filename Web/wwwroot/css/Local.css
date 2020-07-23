@@ -1,2 +1,14 @@
 body {
+  background-color: var(--ColorSet_Color_PageBG);
+  color: var(--ColorSet_ThemeColor_Text_50);
   font-family: var(--FontSet-SansSerifFont); }
+
+div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.Index+User"] table {
+  border-collapse: collapse;
+  table-layout: fixed; }
+  div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.Index+User"] table tbody tr td {
+    padding: 5px; }
+    div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.Index+User"] table tbody tr td:nth-child(2) div[class~="Integrant.Rudiment.Component.MemberInput"] {
+      width: 400px; }
+      div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.Index+User"] table tbody tr td:nth-child(2) div[class~="Integrant.Rudiment.Component.MemberInput"] textarea {
+        max-width: 100%; }

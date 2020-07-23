@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Integrant.Rudiments;
 using Superset.Web.Resources;
 
 namespace Integrant.Web
@@ -16,12 +17,13 @@ namespace Integrant.Web
                     Superset.Web.ResourceSets.LocalCSS,
                     FlareSelect.ResourceSets.FlareSelect,
                     FlareTables.ResourceSets.FlareTables,
+                    ColorSet.ResourceSets.Globals,
                     FontSet.ResourceSets.Inter,
                     FontSet.ResourceSets.JetBrainsMono,
-                    Rudiment.ResourceSets.Layout.Validations,
-                    Rudiment.ResourceSets.Layout.Inputs,
-                    Rudiment.ResourceSets.Layout.Components,
-                    Rudiment.ResourceSets.Style.Inputs,
+                    ResourceSets.Layout.Validations,
+                    ResourceSets.Layout.Inputs,
+                    ResourceSets.Layout.Components,
+                    ResourceSets.Style.Inputs,
                 });
         }
     }
