@@ -14,10 +14,10 @@ namespace Integrant.Element.Bits
 
         public Chip
         (
-            Content content,
-            string? backgroundColor = null, string? textColor = null,
-            Size?   margin          = null, Size?   padding   = null,
-            double? rem             = null, ushort? weight    = null
+            Content content, string? backgroundColor = null,
+            string? textColor = null,
+            Size?   margin    = null, Size?   padding = null,
+            double? rem       = null, ushort? weight  = null
         )
         {
             _content = content;
@@ -35,21 +35,23 @@ namespace Integrant.Element.Bits
 
         public Chip
         (
-            BitGetters.BitIsVisible? isVisible  = null, BitGetters.BitBackgroundColor? backgroundColor = null,
-            BitGetters.BitTextColor? textColor  = null, BitGetters.BitMargin?          bitMargin       = null,
-            BitGetters.BitPadding?   bitPadding = null, BitGetters.BitREM?             bitRem          = null,
-            BitGetters.BitWeight?    bitWeight  = null
+            BitGetters.BitContent?         content,                BitGetters.BitIsVisible? isVisible  = null,
+            BitGetters.BitBackgroundColor? backgroundColor = null, BitGetters.BitTextColor? textColor  = null,
+            BitGetters.BitMargin?          bitMargin       = null, BitGetters.BitPadding?   bitPadding = null,
+            BitGetters.BitREM?             bitREM          = null, BitGetters.BitWeight?    bitWeight  = null
         )
         {
+            Content         = content;
             IsVisible       = isVisible;
             BackgroundColor = backgroundColor;
             TextColor       = textColor;
             BitMargin       = bitMargin;
             BitPadding      = bitPadding;
-            BitREM          = bitRem;
+            BitREM          = bitREM;
             BitWeight       = bitWeight;
         }
 
+        public readonly BitGetters.BitContent?         Content;
         public readonly BitGetters.BitIsVisible?       IsVisible;
         public readonly BitGetters.BitBackgroundColor? BackgroundColor;
         public readonly BitGetters.BitTextColor?       TextColor;

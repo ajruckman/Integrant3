@@ -2,6 +2,8 @@ namespace Integrant.Element
 {
     public static class BitGetters
     {
+        public delegate Content BitContent();
+        
         public delegate bool BitIsVisible();
 
         public delegate string BitBackgroundColor();

@@ -9,6 +9,8 @@
 @if (_themeLoader.Complete)
 {
     @_themeLoader.RenderLink()
-    @Body
+    <CascadingValue Value="@_rootLayer" Name="Layer">
+        @Body
+    </CascadingValue>
     @_themeLoader.RenderDropdown()
 }
