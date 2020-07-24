@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 // ReSharper disable InconsistentNaming
 
-namespace Integrant.Fundament
+namespace Integrant.Fundament.Structure
 {
     public static class StructureGetters
     {

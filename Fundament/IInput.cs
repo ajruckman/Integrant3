@@ -1,4 +1,5 @@
 using System;
+using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Fundament

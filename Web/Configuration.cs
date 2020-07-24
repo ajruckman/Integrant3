@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Integrant.Rudiment;
 using Superset.Web.Resources;
 
 namespace Integrant.Web
@@ -20,10 +19,12 @@ namespace Integrant.Web
                     ColorSet.ResourceSets.Globals,
                     FontSet.ResourceSets.Inter,
                     FontSet.ResourceSets.JetBrainsMono,
-                    ResourceSets.Layout.Validations,
-                    ResourceSets.Layout.Inputs,
-                    ResourceSets.Layout.Components,
-                    ResourceSets.Style.Inputs,
+                    Rudiment.ResourceSets.Layout.Validations,
+                    Rudiment.ResourceSets.Layout.Inputs,
+                    Rudiment.ResourceSets.Layout.Components,
+                    Rudiment.ResourceSets.Style.Inputs,
+                    Element.ResourceSets.Layout.Bits,
+                    Element.ResourceSets.Style.Bits,
                 });
         }
     }

@@ -24,6 +24,12 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.0-preview.6.20312.15" />
+        <PackageReference Include="Superset" Version="1.16.0-alpha" />
+        <PackageReference Include="UISet.ColorSet" Version="1.4.0-alpha" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Fundament\Fundament.csproj" />
     </ItemGroup>
 
 </Project>

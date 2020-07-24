@@ -1,9 +1,10 @@
 using System;
 using Integrant.Fundament;
+using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Integrant.Rudiment.Component
+namespace Integrant.Rudiment.Components
 {
     public class MemberContainer<TS, TM> : ComponentBase
     {

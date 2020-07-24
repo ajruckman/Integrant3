@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element
 {
-    public interface IElement
+    public interface IBit
     {
         public RenderFragment Render();
     }

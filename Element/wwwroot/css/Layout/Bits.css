@@ -1,0 +1,34 @@
+div[class~="Integrant.Element.Bit.Arrow"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: inline-block; }
+
+div[class~="Integrant.Element.Bit.Chip"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 2px 5px; }
+
+img[class~="Integrant.Element.Bit.Image"] {
+  box-sizing: border-box;
+  vertical-align: middle; }
+
+div[class~="Integrant.Element.Bit.Separator"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: inline-block; }
+
+div[class~="Integrant.Element.Bit.MonoBlock"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  background-color: var(--ColorSet_ThemeColor_Background_100);
+  border: 2px solid var(--ColorSet_ThemeColor_Border_80);
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: inline-block;
+  font-family: var(--FontSet-MonospaceFont);
+  padding: 2px 5px;
+  user-select: all; }
+
+/*# sourceMappingURL=Bits.css.map */

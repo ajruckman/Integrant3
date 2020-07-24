@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Integrant.Fundament
+namespace Integrant.Fundament.Structure
 {
     // ReSharper disable once UnusedTypeParameter
     public interface IMember<TStructure>

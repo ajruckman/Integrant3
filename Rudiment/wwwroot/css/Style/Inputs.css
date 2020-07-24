@@ -16,7 +16,7 @@ div[class~="Integrant.Rudiment.Input"] input, div[class~="Integrant.Rudiment.Inp
   border: 1px solid var(--ColorSet_ThemeColor_Border_60);
   color: var(--ColorSet_ThemeColor_Text_60);
   box-sizing: border-box;
-  font-size: 1em;
+  font-size: 1rem;
   transition: color linear 200ms, background-color linear 200ms, border linear 200ms, box-shadow linear 200ms; }
   div[class~="Integrant.Rudiment.Input"] input:not(:disabled), div[class~="Integrant.Rudiment.Input"] textarea:not(:disabled) {
     box-shadow: 0 0 3px 1px var(--ColorSet_ThemeColor_ElementShadow); }

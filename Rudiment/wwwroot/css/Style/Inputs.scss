@@ -9,7 +9,8 @@ $TransitionSnap:    color linear 0ms, background-color linear 0ms, border linear
     border:           1px solid var(--ColorSet_ThemeColor_Border_60);
     color:            var(--ColorSet_ThemeColor_Text_60);
     box-sizing:       border-box;
-    font-size:        1em;
+    //font-size:        1em;
+    font-size: 1rem;
     transition:       $TransitionRestore;
 
     &:not(:disabled) {

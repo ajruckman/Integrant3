@@ -1,18 +1,25 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Integrant.Fundament.Structure;
 
 namespace Integrant.Fundament
 {
     public sealed class ClassSet
     {
         private List<string> _classes;
+        private string?      _formatted;
 
         public ClassSet(params string[] classes)
         {
             _classes = classes.ToList();
         }
 
-        public void Add(string c) => _classes.Add(c);
+        public void Add(string c)
+        {
+            if (_formatted != null) throw new Exception("ClassSet has already been finalized.");
+            _classes.Add(c);
+        }
 
         public static ClassSet FromStructure<TS>
             (Structure<TS> structure, TS value, string primary, params string[] additional)
@@ -50,7 +57,12 @@ namespace Integrant.Fundament
 
         public string Format()
         {
-            return string.Join(' ', _classes);
+            if (_formatted == null)
+            {
+                _formatted = string.Join(' ', _classes);
+            }
+
+            return _formatted;
         }
     }
 }

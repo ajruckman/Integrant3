@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Integrant.Fundament;
+using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Integrant.Rudiment

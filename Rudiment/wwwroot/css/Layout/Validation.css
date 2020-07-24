@@ -25,7 +25,7 @@ div[class~="Integrant.Rudiment.Validation.Result"] {
     div[class~="Integrant.Rudiment.Validation.Result"] div[class~="Integrant.Rudiment.Validation.Result.Icon"]::before {
       align-items: center;
       display: flex;
-      font-size: 15px !important;
+      font-size: 0.95rem !important;
       height: 100% !important; }
   div[class~="Integrant.Rudiment.Validation.Result"] div[class~="Integrant.Rudiment.Validation.Result.Text"] {
     display: inline;

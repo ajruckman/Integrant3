@@ -1,8 +1,9 @@
 using System;
 using Integrant.Fundament;
+using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
 
-namespace Integrant.Rudiment.Input
+namespace Integrant.Rudiment.Inputs
 {
     public class DateTimeInput<TStructure> : IInput<TStructure, DateTime>
     {

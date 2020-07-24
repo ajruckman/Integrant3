@@ -1,5 +1,6 @@
 ﻿using System;
 using Integrant.Fundament;
+using Integrant.Fundament.Structure;
 
 namespace TestProgram
 {
