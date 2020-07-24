@@ -41,7 +41,7 @@ namespace Integrant.Rudiment.Component
                     nameof(StructureGetters.StructureValidations<TS>) + ".");
 
             ClassSet classes = ClassSet.FromStructure(Structure, Value,
-                "Integrant.Rudiment.Component." + nameof(StructureContainer<TS>));
+                "Integrant.Rudiment.Component." + nameof(StructureValidations<TS>));
 
             bool shown = Structure.IsVisible?.Invoke(Structure, Value) ?? true;
 

@@ -14,8 +14,8 @@ div[class~="Integrant.Rudiment.Validation.Result"] {
     margin:        1px;
     padding:       0 3px;
 
-    &:not(:first-child) {
-        margin-left: 3px;
+    &:not(:last-child) {
+        margin-right: 3px;
     }
 
     &[class~="Integrant.Rudiment.Validation.Result:Invalid"] {

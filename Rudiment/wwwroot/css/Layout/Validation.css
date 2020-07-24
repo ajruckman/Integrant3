@@ -9,8 +9,8 @@ div[class~="Integrant.Rudiment.Validation.Result"] {
   display: inline-flex;
   margin: 1px;
   padding: 0 3px; }
-  div[class~="Integrant.Rudiment.Validation.Result"]:not(:first-child) {
-    margin-left: 3px; }
+  div[class~="Integrant.Rudiment.Validation.Result"]:not(:last-child) {
+    margin-right: 3px; }
   div[class~="Integrant.Rudiment.Validation.Result"][class~="Integrant.Rudiment.Validation.Result:Invalid"] {
     background-color: #c80000;
     color: white; }
@@ -65,3 +65,5 @@ div[class~="Integrant.Rudiment.Validation.Notice"] {
     transform: translateX(-16px); }
   to {
     transform: translateX(0); } }
+
+/*# sourceMappingURL=Validation.css.map */

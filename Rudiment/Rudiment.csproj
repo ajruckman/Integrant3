@@ -10,7 +10,7 @@
 
     <PropertyGroup>
         <PackageId>Integrant.Rudiment</PackageId>
-        <VersionPrefix>3.0.0</VersionPrefix>
+        <VersionPrefix>3.0.1</VersionPrefix>
         <VersionSuffix>alpha</VersionSuffix>
     </PropertyGroup>
 
@@ -24,11 +24,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Superset" Version="1.16.0-alpha" />
+        <PackageReference Include="Superset" Version="1.16.0-alpha" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Fundament\Fundament.csproj" />
+        <ProjectReference Include="..\Fundament\Fundament.csproj" />
     </ItemGroup>
-    
+
 </Project>

@@ -9,3 +9,5 @@ div[class~="Integrant.Rudiment.Input"]:not([class~="Integrant.Rudiment.Input:Mon
 
 div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:Monospace"] input, div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:Monospace"] textarea {
   font-family: var(--FontSet-MonospaceFont); }
+
+/*# sourceMappingURL=Inputs.css.map */

@@ -9,7 +9,7 @@
 
     <PropertyGroup>
         <PackageId>Integrant.Element</PackageId>
-        <VersionPrefix>3.0.0</VersionPrefix>
+        <VersionPrefix>3.0.1</VersionPrefix>
         <VersionSuffix>alpha</VersionSuffix>
     </PropertyGroup>
 
