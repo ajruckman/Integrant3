@@ -33,6 +33,31 @@ namespace Integrant.Element.Bits
             );
         }
 
+        public Chip
+        (
+            BitGetters.BitIsVisible? isVisible  = null, BitGetters.BitBackgroundColor? backgroundColor = null,
+            BitGetters.BitTextColor? textColor  = null, BitGetters.BitMargin?          bitMargin       = null,
+            BitGetters.BitPadding?   bitPadding = null, BitGetters.BitREM?             bitRem          = null,
+            BitGetters.BitWeight?    bitWeight  = null
+        )
+        {
+            IsVisible       = isVisible;
+            BackgroundColor = backgroundColor;
+            TextColor       = textColor;
+            BitMargin       = bitMargin;
+            BitPadding      = bitPadding;
+            BitREM          = bitRem;
+            BitWeight       = bitWeight;
+        }
+
+        public readonly BitGetters.BitIsVisible?       IsVisible;
+        public readonly BitGetters.BitBackgroundColor? BackgroundColor;
+        public readonly BitGetters.BitTextColor?       TextColor;
+        public readonly BitGetters.BitMargin?          BitMargin;
+        public readonly BitGetters.BitPadding?         BitPadding;
+        public readonly BitGetters.BitREM?             BitREM;
+        public readonly BitGetters.BitWeight?          BitWeight;
+
         public RenderFragment Render() => builder =>
         {
             int seq = -1;
