@@ -1,0 +1,25 @@
+div[class~="Integrant.Rudiment.Input"] {
+    &[class~="Integrant.Rudiment.Input:FailsRequirement"] {
+        input, textarea {
+            border: 1px solid red;
+        }
+    }
+    
+    &[class~="Integrant.Rudiment.Input:Disabled"] {
+        * {
+            cursor: not-allowed;
+        }
+    }
+    
+    &:not([class~="Integrant.Rudiment.Input:Monospace"]) {
+        input, textarea {
+            font-family: var(--FontSet-SansSerifFont);
+        }
+    }
+    
+    &[class~="Integrant.Rudiment.Input:Monospace"] {
+        input, textarea {
+            font-family: var(--FontSet-MonospaceFont);
+        }
+    }
+}

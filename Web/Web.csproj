@@ -11,8 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Fundaments\Fundaments.csproj" />
-      <ProjectReference Include="..\Rudiments\Rudiments.csproj" />
+      <ProjectReference Include="..\Fundament\Fundament.csproj" />
+      <ProjectReference Include="..\Rudiment\Rudiment.csproj" />
     </ItemGroup>
 
     <ItemGroup>

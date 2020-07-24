@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using Integrant.Rudiments;
+using Integrant.Rudiment;
 using Superset.Web.Resources;
 
 namespace Integrant.Web
 {
     internal sealed class Configuration
     {
-        internal readonly ResourceSet ResourceSet;
+        internal static readonly ResourceSet ResourceSet;
 
-        internal Configuration()
+        static Configuration()
         {
             ResourceSet = new ResourceSet(nameof(Integrant) + "." + nameof(Web), nameof(Configuration),
                 dependencies: new List<ResourceSet>

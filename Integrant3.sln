@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fundaments", "Fundaments\Fundaments.csproj", "{1A7082E7-3952-472A-970E-8C69108615B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fundament", "Fundament\Fundament.csproj", "{1A7082E7-3952-472A-970E-8C69108615B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProgram", "TestProgram\TestProgram.csproj", "{E25232CC-AFD8-49E5-A930-385B7C02E328}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{8C7424FE-8B02-48D9-8B13-680284DAA262}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rudiments", "Rudiments\Rudiments.csproj", "{E5239F50-1B31-4207-AF36-B1414F64427A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rudiment", "Rudiment\Rudiment.csproj", "{E5239F50-1B31-4207-AF36-B1414F64427A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elements", "Elements\Elements.csproj", "{FB72D49E-BAD3-49D7-B4B6-4E196E113DC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Element", "Element\Element.csproj", "{FB72D49E-BAD3-49D7-B4B6-4E196E113DC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

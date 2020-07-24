@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FlareSelect;
-using Integrant.Fundaments;
-using Integrant.Rudiments.Input;
+using Integrant.Fundament;
+using Integrant.Rudiment.Input;
 using Superset.Common;
 
 namespace Integrant.Web.Pages

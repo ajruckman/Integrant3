@@ -4,7 +4,7 @@
 
 @inject ILocalStorageService StorageService
 
-@(new Configuration().ResourceSet.Render(scripts: true, stylesheets: false))
+@(Configuration.ResourceSet.Render(scripts: true, stylesheets: false))
 
 @if (_themeLoader.Complete)
 {

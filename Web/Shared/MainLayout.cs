@@ -9,7 +9,7 @@ namespace Integrant.Web.Shared
 
         protected override void OnInitialized()
         {
-            _themeLoader            =  new ThemeLoader(StorageService, new Configuration().ResourceSet, "Dark");
+            _themeLoader            =  new ThemeLoader(StorageService, Configuration.ResourceSet, "Dark");
             _themeLoader.OnComplete += StateHasChanged;
         }
         
