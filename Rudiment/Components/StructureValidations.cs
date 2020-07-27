@@ -9,25 +9,25 @@ namespace Integrant.Rudiment.Components
 {
     public class StructureValidations<TS> : ComponentBase
     {
-        [CascadingParameter(Name = "Integrant.Rudiment.Structure")]
-        public Structure<TS> Structure { get; set; } = null!;
+        [CascadingParameter(Name = "Integrant.Rudiment.StructureInstance")]
+        public StructureInstance<TS> StructureInstance { get; set; } = null!;
 
         [CascadingParameter(Name = "Integrant.Rudiment.Value")]
         public TS Value { get; set; } = default!;
 
         protected override void OnInitialized()
         {
-            Structure.ValidationState.OnInvalidation += () =>
+            StructureInstance.ValidationState.OnInvalidation += () =>
             {
                 Console.WriteLine("! StructureValidations -> OnInvalidation");
                 InvokeAsync(StateHasChanged);
             };
-            Structure.ValidationState.OnBeginValidating += () =>
+            StructureInstance.ValidationState.OnBeginValidating += () =>
             {
                 Console.WriteLine("! StructureValidations -> OnBeginValidating");
                 InvokeAsync(StateHasChanged);
             };
-            Structure.ValidationState.OnFinishValidating += () =>
+            StructureInstance.ValidationState.OnFinishValidating += () =>
             {
                 Console.WriteLine("! StructureValidations -> OnFinishValidatingStructure");
                 InvokeAsync(StateHasChanged);
@@ -36,15 +36,15 @@ namespace Integrant.Rudiment.Components
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            if (Structure.Validator == null)
-                throw new ArgumentNullException(nameof(Structure.Validator),
+            if (StructureInstance.Structure.Validator == null)
+                throw new ArgumentNullException(nameof(StructureInstance.Structure.Validator),
                     "Structure passed to " + nameof(StructureValidations<TS>) + " component does not have a " +
                     nameof(StructureGetters.StructureValidations<TS>) + ".");
 
-            ClassSet classes = ClassSet.FromStructure(Structure, Value,
+            ClassSet classes = ClassSet.FromStructure(StructureInstance.Structure, Value,
                 "Integrant.Rudiment.Component." + nameof(StructureValidations<TS>));
 
-            bool shown = Structure.IsVisible?.Invoke(Structure, Value) ?? true;
+            bool shown = StructureInstance.Structure.IsVisible?.Invoke(StructureInstance.Structure, Value) ?? true;
 
             //
 
@@ -63,7 +63,7 @@ namespace Integrant.Rudiment.Components
             // }
             // else
             {
-                List<Validation>? validations = Structure.ValidationState.GetStructureValidations();
+                List<Validation>? validations = StructureInstance.ValidationState.GetStructureValidations();
 
                 if (validations != null)
                 {

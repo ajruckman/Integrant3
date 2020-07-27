@@ -18,7 +18,7 @@ namespace Integrant.Fundament
             var result = new List<string>();
 
             var last = "";
-            
+
             foreach (string s in fullName.Split('.'))
             {
                 result.Add(last + s);
@@ -27,7 +27,7 @@ namespace Integrant.Fundament
 
             return result;
         }
-        
+
         public class Debouncer<T>
         {
             public delegate void OnElapsed(T newValue);

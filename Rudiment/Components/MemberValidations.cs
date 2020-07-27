@@ -9,8 +9,8 @@ namespace Integrant.Rudiment.Components
 {
     public class MemberValidations<TS, TM> : ComponentBase
     {
-        [CascadingParameter(Name = "Integrant.Rudiment.Structure")]
-        public Structure<TS> Structure { get; set; } = null!;
+        [CascadingParameter(Name = "Integrant.Rudiment.StructureInstance")]
+        public StructureInstance<TS> StructureInstance { get; set; } = null!;
 
         [CascadingParameter(Name = "Integrant.Rudiment.Value")]
         public TS Value { get; set; } = default!;
@@ -20,17 +20,17 @@ namespace Integrant.Rudiment.Components
 
         protected override void OnInitialized()
         {
-            Structure.ValidationState.OnInvalidation += () =>
+            StructureInstance.ValidationState.OnInvalidation += () =>
             {
                 Console.WriteLine($"! MemberValidations @ {ID} -> OnInvalidation");
                 InvokeAsync(StateHasChanged);
             };
-            Structure.ValidationState.OnBeginValidating += () =>
+            StructureInstance.ValidationState.OnBeginValidating += () =>
             {
                 Console.WriteLine($"! MemberValidations @ {ID} -> OnBeginValidating");
                 InvokeAsync(StateHasChanged);
             };
-            Structure.ValidationState.OnFinishValidating += () =>
+            StructureInstance.ValidationState.OnFinishValidating += () =>
             {
                 Console.WriteLine($"! MemberValidations @ {ID} -> OnFinishValidatingStructure");
                 InvokeAsync(StateHasChanged);
@@ -39,14 +39,14 @@ namespace Integrant.Rudiment.Components
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            Member<TS, TM> member = Structure.GetMember<TM>(ID);
+            Member<TS, TM> member = StructureInstance.Structure.GetMember<TM>(ID);
 
             if (member.Validator == null)
                 throw new ArgumentNullException(nameof(member.Validator),
                     "Member passed to " + nameof(MemberValidations<TS, TM>) + " component does not have a " +
                     nameof(MemberGetters.MemberValidations<TS, TM>) + ".");
 
-            ClassSet classes = ClassSet.FromMember(Structure, Value, member,
+            ClassSet classes = ClassSet.FromMember(StructureInstance.Structure, Value, member,
                 "Integrant.Rudiment.Component." + nameof(MemberValidations<TS, TM>));
 
             //
@@ -57,13 +57,13 @@ namespace Integrant.Rudiment.Components
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            if (Structure.ValidationState.IsValidating)
+            if (StructureInstance.ValidationState.IsValidating)
             {
                 ValidationBuilder.RenderValidatingNotice(builder, ref seq);
             }
             else
             {
-                List<Validation>? validations = Structure.ValidationState.GetMemberValidations(ID);
+                List<Validation>? validations = StructureInstance.ValidationState.GetMemberValidations(ID);
 
                 if (validations != null)
                 {

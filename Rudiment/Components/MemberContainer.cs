@@ -8,8 +8,8 @@ namespace Integrant.Rudiment.Components
 {
     public class MemberContainer<TS, TM> : ComponentBase
     {
-        [CascadingParameter(Name = "Integrant.Rudiment.Structure")]
-        public Structure<TS> Structure { get; set; } = null!;
+        [CascadingParameter(Name = "Integrant.Rudiment.StructureInstance")]
+        public StructureInstance<TS> StructureInstance { get; set; } = null!;
 
         [CascadingParameter(Name = "Integrant.Rudiment.Value")]
         public TS Value { get; set; } = default!;
@@ -32,12 +32,12 @@ namespace Integrant.Rudiment.Components
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            Member<TS, TM> member = Structure.GetMember<TM>(ID!);
+            Member<TS, TM> member = StructureInstance.Structure.GetMember<TM>(ID!);
 
-            ClassSet classes = ClassSet.FromMember(Structure, Value, member,
+            ClassSet classes = ClassSet.FromMember(StructureInstance.Structure, Value, member,
                 "Integrant.Rudiment.Component." + nameof(MemberContainer<TS, TM>));
 
-            bool shown = member.IsVisible?.Invoke(Structure, Value, member) ?? true;
+            bool shown = member.IsVisible?.Invoke(StructureInstance.Structure, Value, member) ?? true;
 
             //
 

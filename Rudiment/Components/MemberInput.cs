@@ -8,8 +8,8 @@ namespace Integrant.Rudiment.Components
 {
     public class MemberInput<TS, TM> : ComponentBase, IDisposable
     {
-        [CascadingParameter(Name = "Integrant.Rudiment.Structure")]
-        public Structure<TS> Structure { get; set; } = null!;
+        [CascadingParameter(Name = "Integrant.Rudiment.StructureInstance")]
+        public StructureInstance<TS> StructureInstance { get; set; } = null!;
 
         [CascadingParameter(Name = "Integrant.Rudiment.Value")]
         public TS Value { get; set; } = default!;
@@ -17,26 +17,26 @@ namespace Integrant.Rudiment.Components
         [CascadingParameter(Name = "Integrant.Rudiment.Member.ID")]
         public string ID { get; set; } = null!;
 
-        private Member<TS, TM> _member = null!;
+        private MemberInstance<TS, TM> _member = null!;
 
         private TM _initialValue = default!;
 
         protected override void OnInitialized()
         {
-            _member = Structure.GetMember<TM>(ID);
+            _member = StructureInstance.GetMemberInstance<TM>(ID);
 
-            if (_member.Input == null)
-                throw new ArgumentNullException(nameof(_member.Input),
+            if (_member.Member.Input == null)
+                throw new ArgumentNullException(nameof(_member.Member.Input),
                     "MemberInput component was used on a Member with no Input.");
 
-            _initialValue = _member.Value.Invoke(Structure, Value, _member);
+            _initialValue = _member.Member.Value.Invoke(StructureInstance.Structure, Value, _member.Member);
 
             _member.OnResetInputs += ResetInput;
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            ClassSet classSet = ClassSet.FromMember(Structure, Value, _member,
+            ClassSet classSet = ClassSet.FromMember(StructureInstance.Structure, Value, _member.Member,
                 "Integrant.Rudiment.Component." + nameof(MemberInput<TS, TM>));
 
             //
@@ -47,7 +47,7 @@ namespace Integrant.Rudiment.Components
 
             builder.AddAttribute(++seq, "class", classSet.Format());
 
-            builder.AddContent(++seq, _member.Input!.Render(Structure, Value, _member));
+            builder.AddContent(++seq, _member.Input!.Render(StructureInstance.Structure, Value, _member.Member));
 
             builder.CloseElement();
         }
@@ -74,9 +74,9 @@ namespace Integrant.Rudiment.Components
             //
             // _canRender = false;
 
-            _member.UpdateValueImmediately(Value, _member.DefaultValue == null
+            _member.UpdateValueImmediately(Value, _member.Member.DefaultValue == null
                 ? _initialValue
-                : _member.DefaultValue.Invoke(Structure, Value, _member));
+                : _member.Member.DefaultValue.Invoke(StructureInstance.Structure, Value, _member.Member));
         }
 
         public void Dispose()

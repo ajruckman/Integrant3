@@ -7,8 +7,8 @@ namespace Integrant.Rudiment.Components
 {
     public class MemberKey<TS, TM> : ComponentBase
     {
-        [CascadingParameter(Name = "Integrant.Rudiment.Structure")]
-        public Structure<TS> Structure { get; set; } = null!;
+        [CascadingParameter(Name = "Integrant.Rudiment.StructureInstance")]
+        public StructureInstance<TS> StructureInstance { get; set; } = null!;
 
         [CascadingParameter(Name = "Integrant.Rudiment.Value")]
         public TS Value { get; set; } = default!;
@@ -18,9 +18,9 @@ namespace Integrant.Rudiment.Components
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            Member<TS, TM> member = Structure.GetMember<TM>(ID);
+            Member<TS, TM> member = StructureInstance.Structure.GetMember<TM>(ID);
 
-            ClassSet classes = ClassSet.FromMember(Structure, Value, member, 
+            ClassSet classes = ClassSet.FromMember(StructureInstance.Structure, Value, member, 
                 "Integrant.Rudiment.Component." + nameof(MemberKey<TS, TM>));
 
             //
@@ -31,7 +31,7 @@ namespace Integrant.Rudiment.Components
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            builder.AddContent(++seq, member.Key.Invoke(Structure, Value, member));
+            builder.AddContent(++seq, member.Key.Invoke(StructureInstance.Structure, Value, member));
 
             builder.CloseElement();
         }

@@ -3,8 +3,14 @@ using System.Collections.Generic;
 
 namespace Integrant.Fundament.Structure
 {
-    public class Structure<T>
+    public sealed class Structure<T>
     {
+        public readonly StructureGetters.StructureClasses<T>?     Classes;
+        public readonly StructureGetters.StructureIsVisible<T>?   IsVisible;
+        public readonly StructureGetters.StructureValidations<T>? Validator;
+
+        private readonly Dictionary<string, IMember<T>> _members;
+
         public Structure
         (
             StructureGetters.StructureClasses<T>?     classes   = null,
@@ -12,44 +18,29 @@ namespace Integrant.Fundament.Structure
             StructureGetters.StructureValidations<T>? validator = null
         )
         {
-            Members = new Dictionary<string, IMember<T>>();
+            _members = new Dictionary<string, IMember<T>>();
 
             Classes   = classes;
             IsVisible = isVisible;
             Validator = validator;
-
-            ValidationState = new ValidationState<T>(this);
         }
-
-        public readonly StructureGetters.StructureClasses<T>?     Classes;
-        public readonly StructureGetters.StructureIsVisible<T>?   IsVisible;
-        public readonly StructureGetters.StructureValidations<T>? Validator;
-
-        public readonly ValidationState<T> ValidationState;
 
         public void Register<TMember>(Member<T, TMember> member)
         {
             if (member == null)
-                throw new ArgumentNullException($"Cannot register null member.");
+                throw new ArgumentNullException(nameof(member), "Cannot register null member.");
 
-            if (Members.ContainsKey(member.ID))
+            if (_members.ContainsKey(member.ID))
                 throw new ArgumentException($"Member with ID '{member.ID}' has already been registered.");
 
-            Members[member.ID] = member;
-
-            member.OnInput += ValidationState.Invalidate;
-
-            member.OnValueUpdate += (s, m, v) =>
-                OnMemberValueUpdate?.Invoke(s, m, v);
-
-            member.OnValueUpdate += (s, m, v) => ValidationState.ValidateStructure(s);
+            _members[member.ID] = member;
         }
 
-        private Dictionary<string, IMember<T>> Members { get; }
+        public StructureInstance<T> Instantiate() => new StructureInstance<T>(this);
 
         public Member<T, TMember> GetMember<TMember>(string id)
         {
-            Members.TryGetValue(id, out IMember<T>? member);
+            _members.TryGetValue(id, out IMember<T>? member);
             if (member == null)
                 throw new ArgumentException($"Member with ID '{id} has not been registered.");
 
@@ -60,45 +51,8 @@ namespace Integrant.Fundament.Structure
             return result;
         }
 
-        public IEnumerable<IMember<T>> AllMembers() => Members.Values;
-
-        public event Action<T, IMember<T>, object>? OnMemberValueUpdate;
-
         //
 
-        private readonly object _validatedInitialLock = new object();
-        private          bool   _hasValidatedInitial;
-
-        public void ValidateInitial(T value)
-        {
-            lock (_validatedInitialLock)
-            {
-                if (!_hasValidatedInitial)
-                {
-                    ValidationState.ValidateStructure(value);
-                    _hasValidatedInitial = true;
-                }
-            }
-        }
-
-        public void Revalidate(T value)
-        {
-            ValidationState.Invalidate();
-            ValidationState.ValidateStructure(value);
-        }
-        
-        //
-
-        public event Action? OnResetAllMemberInputs;
-
-        public void ResetAllMemberInputs()
-        {
-            foreach (IMember<T> member in Members.Values)
-            {
-                member.ResetInputs();
-            }
-            
-            OnResetAllMemberInputs?.Invoke();
-        }
+        public IEnumerable<IMember<T>> AllMembers() => _members.Values;
     }
 }

@@ -35,6 +35,8 @@ namespace Integrant.Fundament.Structure
 
         //
 
+        public delegate IInput<TStructure, TMember> MemberInput<TStructure, TMember>();
+
         public delegate List<string> MemberClasses<TStructure, TMember>
             (Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member);
 

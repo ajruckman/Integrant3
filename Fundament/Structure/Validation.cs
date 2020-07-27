@@ -22,21 +22,20 @@ namespace Integrant.Fundament.Structure
 
     public class ValidationState<TStructure>
     {
-        public List<Validation>?                     StructureValidationCache;
-        public Dictionary<string, List<Validation>>? MemberValidationCache;
+        private readonly StructureInstance<TStructure> _structureInstance;
 
-        public bool IsValidating { get; private set; }
-
-        private readonly Structure<TStructure> _structure;
-
-        public ValidationState(Structure<TStructure> structure)
-        {
-            _structure = structure;
-        }
-
-        private readonly object _cacheLock = new object();
+        private readonly object                                _cacheLock = new object();
+        public           List<Validation>?                     StructureValidationCache;
+        public           Dictionary<string, List<Validation>>? MemberValidationCache;
 
         private CancellationTokenSource? _tokenSource;
+
+        public ValidationState(StructureInstance<TStructure> structureInstance)
+        {
+            _structureInstance = structureInstance;
+        }
+
+        public bool IsValidating { get; private set; }
 
         public bool Valid()
         {
@@ -71,9 +70,9 @@ namespace Integrant.Fundament.Structure
 
         private static (List<Validation>, Dictionary<string, List<Validation>>) Validate
         (
-            Structure<TStructure> structure,
-            TStructure            value,
-            CancellationToken     token
+            StructureInstance<TStructure> structure,
+            TStructure                    value,
+            CancellationToken             token
         )
         {
             token.ThrowIfCancellationRequested();
@@ -81,16 +80,16 @@ namespace Integrant.Fundament.Structure
             var structureValidations = new List<Validation>();
             var memberValidations    = new Dictionary<string, List<Validation>>();
 
-            if (structure.Validator != null)
-                structureValidations = structure.Validator.Invoke(structure, value);
+            if (structure.Structure.Validator != null)
+                structureValidations = structure.Structure.Validator.Invoke(structure.Structure, value);
 
             token.ThrowIfCancellationRequested();
 
-            foreach (IMember<TStructure> member in structure.AllMembers())
+            foreach (IMemberInstance<TStructure> member in structure.AllMemberInstances())
             {
                 token.ThrowIfCancellationRequested();
 
-                List<Validation>? validations = member.Validations(structure, value);
+                List<Validation>? validations = member.Validations(structure.Structure, value);
                 if (validations == null) continue;
 
                 token.ThrowIfCancellationRequested();
@@ -116,7 +115,7 @@ namespace Integrant.Fundament.Structure
             {
                 Console.WriteLine("Validating task: STARTED");
 
-                var (structure, members) = Validate(_structure, value, token);
+                var (structure, members) = Validate(_structureInstance, value, token);
 
                 Console.WriteLine("Validating task: FINISHED");
 
