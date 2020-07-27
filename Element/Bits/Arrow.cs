@@ -5,39 +5,38 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Arrow : IBit
+    public class Arrow : Bit
     {
-        private readonly ClassSet _classSet;
-        private readonly string?  _style;
-
-        public Arrow
-        (
-            Size?   margin          = null, Size?   padding   = null,
-            double? rem             = null, ushort? weight    = null,
-            string? backgroundColor = null, string? textColor = null
-        )
+        public Arrow(BitSpec spec)
         {
-            _classSet = new ClassSet(
+            spec.ValidateFor(nameof(Arrow));
+            
+            Spec = spec;
+            
+            ConstantClasses = new ClassSet(
                 "Integrant.Element.Bit",
                 "Integrant.Element.Bit." + nameof(Arrow)
             );
 
-            _style = BitBuilder.StyleAttribute(
-                margin: margin, padding: padding,
-                rem: rem, weight: weight,
-                backgroundColor: backgroundColor, textColor: textColor
-            );
+            if (spec.IsStatic)
+            {
+                Style(true);
+
+                Class(true);
+            }
         }
 
-        public RenderFragment Render() => builder =>
+        public override RenderFragment Render() => builder =>
         {
             int seq = -1;
 
             builder.OpenElement(++seq, "div");
-            builder.AddAttribute(++seq, "class", _classSet.Format());
+            builder.AddAttribute(++seq, "style", Style(false));
+            builder.AddAttribute(++seq, "class", Class(false));
 
-            if (_style != null)
-                builder.AddAttribute(++seq, "style", _style);
+            ++seq;
+            if (Spec.IsVisible?.Invoke() == false)
+                builder.AddAttribute(seq, "hidden", "hidden");
 
             builder.AddContent(++seq, "⮞");
             builder.CloseElement();

@@ -15,10 +15,21 @@ namespace Integrant.Fundament
             _classes = classes.ToList();
         }
 
+        private ClassSet(List<string> classes)
+        {
+            _classes = classes;
+        }
+
         public void Add(string c)
         {
             if (_formatted != null) throw new Exception("ClassSet has already been finalized.");
             _classes.Add(c);
+        }
+
+        public void AddRange(IEnumerable<string> c)
+        {
+            if (_formatted != null) throw new Exception("ClassSet has already been finalized.");
+            _classes.AddRange(c);
         }
 
         public static ClassSet FromStructure<TS>
@@ -63,6 +74,11 @@ namespace Integrant.Fundament
             }
 
             return _formatted;
+        }
+
+        public ClassSet Clone()
+        {
+            return new ClassSet(_classes.ToList());
         }
     }
 }

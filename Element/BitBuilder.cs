@@ -1,56 +1,56 @@
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Integrant.Element
 {
     public static class BitBuilder
     {
-        public static string? StyleAttribute
-        (
-            Size?    margin          = null,
-            Size?    padding         = null,
-            Display? display         = null,
-            double?  rem             = null, ushort? weight    = 400,
-            string?  backgroundColor = null, string? textColor = null
-        )
+        public static string? StyleAttribute(BitSpec spec)
         {
-            // if (margin == null && rem == null) return null;
+            List<string> result = new List<string>();
 
-            string[] result = { };
+            if (spec.Margin != null)
+            {
+                Size v = spec.Margin.Invoke();
+                result.Add($"margin: {v.Top}px {v.Right}px {v.Bottom}px {v.Left}px;");
+            }
 
-            if (margin != null)
-                result = result.Append(
-                    $"margin: {margin.Value.Top}px {margin.Value.Right}px {margin.Value.Bottom}px {margin.Value.Left}px;"
-                ).ToArray();
+            if (spec.Padding != null)
+            {
+                Size v = spec.Padding.Invoke();
+                result.Add($"padding: {v.Top}px {v.Right}px {v.Bottom}px {v.Left}px;");
+            }
 
-            if (padding != null)
-                result = result.Append(
-                    $"padding: {padding.Value.Top}px {padding.Value.Right}px {padding.Value.Bottom}px {padding.Value.Left}px;"
-                ).ToArray();
+            if (spec.ForegroundColor != null)
+            {
+                result.Add($"color: {spec.ForegroundColor.Invoke()};");
+            }
 
-            if (display != null)
-                result = result.Append(
-                    $@"display: {display switch
-                    {
-                        Display.Inline      => "inline",
-                        Display.InlineBlock => "inline-block",
-                        Display.Block       => "block",
-                        _                   => "",
-                    }};"
-                ).ToArray();
+            if (spec.BackgroundColor != null)
+            {
+                result.Add($"background-color: {spec.BackgroundColor.Invoke()};");
+            }
 
-            if (rem != null)
-                result = result.Append($"font-size: {rem}rem;").ToArray();
+            if (spec.PixelsHeight != null)
+            {
+                result.Add($"height: {spec.PixelsHeight.Invoke()}px;");
+            }
 
-            if (weight != null)
-                result = result.Append($"font-weight: {weight};").ToArray();
+            if (spec.PixelsWidth != null)
+            {
+                result.Add($"width: {spec.PixelsWidth.Invoke()}px;");
+            }
 
-            if (backgroundColor != null)
-                result = result.Append($"background-color: {backgroundColor};").ToArray();
+            if (spec.FontSize != null)
+            {
+                result.Add($"font-size: {spec.FontSize.Invoke()}rem;");
+            }
 
-            if (textColor != null)
-                result = result.Append($"color: {textColor};").ToArray();
+            if (spec.FontWeight != null)
+            {
+                result.Add($"font-weight: {spec.FontWeight.Invoke()};");
+            }
 
-            return result.Length == 0 ? null : string.Join(' ', result);
+            return result.Count > 0 ? string.Join(' ', result) : null;
         }
     }
 }

@@ -1,29 +1,31 @@
+using System.Collections.Generic;
+
 namespace Integrant.Element
 {
     public static class BitGetters
     {
+        // Structure getters
+
         public delegate Content BitContent();
-        
+
         public delegate bool BitIsVisible();
 
-        public delegate string BitBackgroundColor();
+        public delegate IEnumerable<string> BitClasses();
 
-        public delegate string BitTextColor();
+        public delegate string BitURL();
 
-        public delegate Size BitMargin();
+        // Style getters
 
-        public delegate Size BitPadding();
+        public delegate Size BitSize();
+
+        public delegate string BitColor();
 
         public delegate double BitREM();
 
+        public delegate uint BitPixels();
+
         public delegate ushort BitWeight();
 
-        public delegate byte BitPxHeight();
-
-        public delegate byte BitPxWidth();
-
-        public delegate byte BitPxThickness();
-
-        public delegate string BitURL();
+        public delegate Display BitDisplay();
     }
 }

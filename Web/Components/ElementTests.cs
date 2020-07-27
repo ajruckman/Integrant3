@@ -1,7 +1,8 @@
 using Integrant.Fundament;
+using Integrant.Rudiment.Inputs;
 using Microsoft.AspNetCore.Components;
 
-namespace Integrant.Web.Pages
+namespace Integrant.Web.Components
 {
     public partial class ElementTests
     {
@@ -9,6 +10,8 @@ namespace Integrant.Web.Pages
         public Layer Layer { get; set; }
 
         private Layer _childLayer;
+
+        public double Number { get; set; }
         
         protected override void OnInitialized()
         {
