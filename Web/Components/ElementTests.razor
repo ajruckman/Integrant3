@@ -4,36 +4,48 @@
 <input type="number" step="0.1" @bind-value="@Number" @bind-value:event="oninput"/>
 
 <br>
-@* @(new Heading( *@
-@*     "H2 heading #1!", Heading.Size.H2, *@
-@*     margin: new Size(5, 10, 15), padding: new Size(3, 6), *@
-@*     rem: 2, weight: 900, backgroundColor: Colors.Blue, *@
-@*     textColor: Colors.White) *@
-@*     .Render()) *@
-@* <br> *@
-@* @(new Heading( *@
-@*     "H3 heading #1!", Heading.Size.H3, Display.InlineBlock, *@
-@*     margin: new Size(5, 10, 15), padding: new Size(3, 6), *@
-@*     weight: 700, backgroundColor: Colors.Blue, *@
-@*     textColor: Colors.White) *@
-@*     .Render()) *@
+
+@(new Link(() => "Link 1!", () => "http://localhost:5000/").Render())
+@(new Link(() => "Link 2!", () => "http://localhost:5000/", isHighlighted: () => true).Render())
+
 <br>
-@(new Arrow(new BitSpec
-{
-    Margin = () => new Size(5),
-    ForegroundColor = () => Colors.Yellow,
-    FontSize = () => Number,
-}).Render())
+@(new Heading(
+    () => "H2 heading #1!", Heading.Size.H2,
+    margin: () => new Size(5, 10, 15), padding: () => new Size(3, 6),
+    fontSize: () => 2, fontWeight: () => 900, backgroundColor: () => Colors.Blue,
+    foregroundColor: () => Colors.White)
+    .Render())
 <br>
-@* @(new Chip("A chip").Render()) *@
-@* @(new Separator().Render()) *@
-@* @(new Chip("A chip", backgroundColor: Colors.Red, textColor: Colors.White).Render()) *@
+@(new Title(
+    () => "Title #1!",
+    margin: () => new Size(5, 10, 15), padding: () => new Size(3, 6),
+    foregroundColor: () => Colors.Blue)
+    .Render())
+<br>
+@(new Heading(
+    () => "H3 heading #1!", Heading.Size.H3, display: () => Display.InlineBlock,
+    margin: () => new Size(5, 10, 15), padding: () => new Size(3, 6),
+    fontWeight: () => 700, backgroundColor: () => Colors.Blue,
+    foregroundColor: () => Colors.White)
+    .Render())
+<br>
+@(new Arrow(
+    isStatic: false,
+    margin: () => new Size(5),
+    foregroundColor: () => Colors.Yellow,
+    fontSize: () => Number
+    ).Render())
+<br>
+@(new Chip(() => "A chip").Render())
+@(new Separator().Render())
+@(new Separator(pixelsThickness: () => 3, margin: () => new Size(0, 5)).Render())
+@(new Chip(() => "A chip", backgroundColor: () => Colors.Red, foregroundColor: () => Colors.White).Render())
 @* @(new Separator(20, 10, 3, "green").Render()) *@
-@* @(new Chip("A chip", backgroundColor: Colors.Red, textColor: Colors.White, padding: new Size(5, 10), rem: 2, weight: 600).Render()) *@
-@* <br> *@
-@* @(new Image("https://www.google.com/favicon.ico").Render()) *@
-@* @(new Image("https://www.google.com/favicon.ico", pxWidth: 25, backgroundColor: Colors.Green).Render()) *@
-@* @(new Image("https://www.google.com/favicon.ico", pxWidth: 25, pxHeight: 50, backgroundColor: Colors.Green).Render()) *@
-@* <br> *@
-@* @(new MonoBlock("MonoBlock content").Render()) *@
-@* @(new MonoBlock("MonoBlock content", weight: 600, rem: 1.5, padding: new Size(10, 0)).Render()) *@
+@(new Chip(() => "A chip", backgroundColor: () => Colors.Red, foregroundColor: () => Colors.White, padding: () => new Size(5, 10), fontSize: () => 2, fontWeight: () => 600).Render())
+<br>
+@(new Image(() => "https://www.google.com/favicon.ico").Render())
+@(new Image(() => "https://www.google.com/favicon.ico", pixelsHeight: () => 25, backgroundColor: () => Colors.Green).Render())
+@(new Image(() => "https://www.google.com/favicon.ico", pixelsHeight: () => 25, pixelsWidth: () => 50, backgroundColor: () => Colors.Green).Render())
+<br>
+@(new MonoBlock(() => "MonoBlock content").Render())
+@(new MonoBlock(() => "MonoBlock content", fontWeight: () => 600, fontSize: () => 1.5, padding: () => new Size(10, 0)).Render())

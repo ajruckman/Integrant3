@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Integrant.Element
 {
-    public static class BitBuilder
+    internal static class BitBuilder
     {
-        public static string? StyleAttribute(BitSpec spec)
+        internal static string? StyleAttribute(BitSpec spec, string[]? additional = null)
         {
             List<string> result = new List<string>();
 
@@ -49,6 +49,9 @@ namespace Integrant.Element
             {
                 result.Add($"font-weight: {spec.FontWeight.Invoke()};");
             }
+            
+            if (additional != null)
+                result.AddRange(additional);
 
             return result.Count > 0 ? string.Join(' ', result) : null;
         }

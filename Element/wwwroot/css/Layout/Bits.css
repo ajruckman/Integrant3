@@ -10,6 +10,9 @@ div[class~="Integrant.Element.Bit.Chip"] {
   display: inline-block;
   padding: 2px 5px; }
 
+div[class~="Integrant.Element.Bit.Filler"] {
+  flex-grow: 100; }
+
 img[class~="Integrant.Element.Bit.Image"] {
   box-sizing: border-box;
   vertical-align: middle; }
@@ -18,6 +21,20 @@ div[class~="Integrant.Element.Bit.Separator"] {
   box-sizing: border-box;
   vertical-align: middle;
   display: inline-block; }
+
+div[class~="Integrant.Element.Bit.Link"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  color: var(--ColorSet_ThemeColor_Text_80);
+  font-weight: 500;
+  text-decoration: none; }
+  div[class~="Integrant.Element.Bit.Link"]:hover {
+    box-shadow: inset 0 -2px 0 var(--ColorSet_ThemeColor_Text_60);
+    color: var(--ColorSet_ThemeColor_Text_60); }
+  div[class~="Integrant.Element.Bit.Link"]::-moz-focus-inner {
+    border: 0; }
+  div[class~="Integrant.Element.Bit.Link"][class~="Integrant.Element.Bit.Link:Highlighted"] {
+    text-decoration: underline; }
 
 div[class~="Integrant.Element.Bit.MonoBlock"] {
   box-sizing: border-box;
@@ -30,5 +47,23 @@ div[class~="Integrant.Element.Bit.MonoBlock"] {
   font-family: var(--FontSet-MonospaceFont);
   padding: 2px 5px;
   user-select: all; }
+
+div[class~="Integrant.Element.Bit.Separator"] {
+  border-left: 1px solid var(--ColorSet_Color_HeaderVerticalLine);
+  height: 1em;
+  margin: 0 5px; }
+
+div[class~="Integrant.Element.Bit.Space"] {
+  color: var(--ColorSet_Color_HeaderText);
+  font-weight: 500;
+  text-decoration: none; }
+
+div[class~="Integrant.Element.Bit.TextLine"] {
+  width: 5px; }
+
+div[class~="Integrant.Element.Bit.Title"] {
+  color: var(--ColorSet_Color_HeaderText);
+  font-weight: 500;
+  text-decoration: none; }
 
 /*# sourceMappingURL=Bits.css.map */

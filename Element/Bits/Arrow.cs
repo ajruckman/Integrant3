@@ -7,23 +7,44 @@ namespace Integrant.Element.Bits
 {
     public class Arrow : Bit
     {
-        public Arrow(BitSpec spec)
+        public Arrow
+        (
+            bool                     isStatic        = true,
+            BitGetters.BitIsVisible? isVisible       = null,
+            BitGetters.BitClasses?   classes         = null,
+            BitGetters.BitSize?      margin          = null,
+            BitGetters.BitSize?      padding         = null,
+            BitGetters.BitColor?     foregroundColor = null,
+            BitGetters.BitColor?     backgroundColor = null,
+            BitGetters.BitPixels?    pixelsHeight    = null,
+            BitGetters.BitPixels?    pixelsWidth     = null,
+            BitGetters.BitREM?       fontSize        = null,
+            BitGetters.BitWeight?    fontWeight      = null,
+            BitGetters.BitDisplay?   display         = null
+        )
         {
-            spec.ValidateFor(nameof(Arrow));
-            
-            Spec = spec;
-            
+            Spec = new BitSpec
+            {
+                IsStatic        = isStatic,
+                IsVisible       = isVisible,
+                Classes         = classes,
+                Margin          = margin,
+                Padding         = padding,
+                ForegroundColor = foregroundColor,
+                BackgroundColor = backgroundColor,
+                PixelsHeight    = pixelsHeight,
+                PixelsWidth     = pixelsWidth,
+                FontSize        = fontSize,
+                FontWeight      = fontWeight,
+                Display         = display,
+            };
+
             ConstantClasses = new ClassSet(
                 "Integrant.Element.Bit",
                 "Integrant.Element.Bit." + nameof(Arrow)
             );
 
-            if (spec.IsStatic)
-            {
-                Style(true);
-
-                Class(true);
-            }
+            Cache();
         }
 
         public override RenderFragment Render() => builder =>

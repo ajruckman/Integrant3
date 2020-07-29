@@ -6,15 +6,15 @@ namespace Integrant.Element
     {
         public Content(string s)
         {
-            Value = builder => builder.AddContent(0, s);
+            Fragment = builder => builder.AddContent(0, s);
         }
 
         public Content(MarkupString s)
         {
-            Value = builder => builder.AddContent(0, s);
+            Fragment = builder => builder.AddContent(0, s);
         }
 
-        public RenderFragment Value { get; }
+        public readonly RenderFragment Fragment;
 
         public static implicit operator Content(string       s) => new Content(s);
         public static implicit operator Content(MarkupString s) => new Content(s);

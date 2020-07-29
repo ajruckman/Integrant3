@@ -12,6 +12,13 @@ namespace Integrant.Element
                 $"{nameof(Layout)}.{nameof(Bits)}",
                 stylesheets: new[] {"css/Layout/Bits.css"}
             );
+
+            public static readonly ResourceSet Layouts = new ResourceSet
+            (
+                $"{nameof(Integrant)}.{nameof(Element)}",
+                $"{nameof(Layout)}.{nameof(Layouts)}",
+                stylesheets: new[] {"css/Layout/LinearLayout.css"}
+            );
         }
 
         public static class Style

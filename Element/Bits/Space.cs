@@ -5,47 +5,29 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Chip : Bit
+    public class Space : Bit
     {
-        public Chip
+        public Space
         (
-            BitGetters.BitContent    content,
             bool                     isStatic        = true,
             BitGetters.BitIsVisible? isVisible       = null,
-            BitGetters.BitClasses?   classes         = null,
-            BitGetters.BitSize?      margin          = null,
-            BitGetters.BitSize?      padding         = null,
-            BitGetters.BitColor?     foregroundColor = null,
-            BitGetters.BitColor?     backgroundColor = null,
-            BitGetters.BitPixels?    pixelsHeight    = null,
             BitGetters.BitPixels?    pixelsWidth     = null,
-            BitGetters.BitREM?       fontSize        = null,
-            BitGetters.BitWeight?    fontWeight      = null,
             BitGetters.BitDisplay?   display         = null
         )
         {
             Spec = new BitSpec
             {
-                Content         = content,
                 IsStatic        = isStatic,
                 IsVisible       = isVisible,
-                Classes         = classes,
-                Margin          = margin,
-                Padding         = padding,
-                ForegroundColor = foregroundColor,
-                BackgroundColor = backgroundColor,
-                PixelsHeight    = pixelsHeight,
                 PixelsWidth     = pixelsWidth,
-                FontSize        = fontSize,
-                FontWeight      = fontWeight,
                 Display         = display,
             };
 
             ConstantClasses = new ClassSet(
                 "Integrant.Element.Bit",
-                "Integrant.Element.Bit." + nameof(Chip)
+                "Integrant.Element.Bit." + nameof(Space)
             );
-
+            
             Cache();
         }
 
@@ -61,7 +43,6 @@ namespace Integrant.Element.Bits
             if (Spec.IsVisible?.Invoke() == false)
                 builder.AddAttribute(seq, "hidden", "hidden");
 
-            builder.AddContent(++seq, Spec.Content!.Invoke().Fragment);
             builder.CloseElement();
         };
     }

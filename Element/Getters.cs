@@ -10,9 +10,9 @@ namespace Integrant.Element
 
         public delegate bool BitIsVisible();
 
-        public delegate IEnumerable<string> BitClasses();
-
         public delegate string BitURL();
+
+        public delegate IEnumerable<string> BitClasses();
 
         // Style getters
 
@@ -27,5 +27,7 @@ namespace Integrant.Element
         public delegate ushort BitWeight();
 
         public delegate Display BitDisplay();
+
+        public delegate bool BitIsHighlighted();
     }
 }

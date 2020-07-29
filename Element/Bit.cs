@@ -5,21 +5,35 @@ namespace Integrant.Element
 {
     public abstract class Bit : IBit
     {
-        public BitSpec Spec { get; protected set; }
+        internal BitSpec Spec { get; set; }
 
         protected ClassSet ConstantClasses;
-        
+
         protected string? CachedStyle;
         protected string  CachedClass;
 
         public abstract RenderFragment Render();
 
-        protected string? Style(bool initial)
+        protected void Cache
+        (
+            string[]? additionalStyle   = null,
+            string[]? additionalClasses = null
+        )
+        {
+            if (Spec.IsStatic)
+            {
+                Style(true, additionalStyle);
+
+                Class(true);
+            }
+        }
+
+        protected string? Style(bool initial, string[]? additional = null)
         {
             if (Spec.IsStatic && !initial)
                 return CachedStyle;
-            
-            string? r = BitBuilder.StyleAttribute(Spec);
+
+            string? r = BitBuilder.StyleAttribute(Spec, additional);
 
             if (Spec.IsStatic)
                 CachedStyle = r;
@@ -27,21 +41,24 @@ namespace Integrant.Element
             return r;
         }
 
-        protected string Class(bool initial)
+        protected string Class(bool initial, string[]? additional = null)
         {
             ClassSet c = ConstantClasses.Clone();
-            
+
             if (Spec.IsStatic && !initial)
                 return CachedClass;
 
             if (Spec.Classes != null)
                 c.AddRange(Spec.Classes.Invoke());
 
+            if (additional != null)
+                c.AddRange(additional);
+
             string r = c.Format();
 
             if (Spec.IsStatic)
                 CachedClass = r;
-            
+
             return r;
         }
     }

@@ -5,46 +5,64 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    // public class MonoBlock : IBit
-    // {
-    //     private readonly Content _content;
-    //
-    //     private readonly ClassSet _classSet;
-    //     private readonly string?  _style;
-    //
-    //     public MonoBlock
-    //     (
-    //         Content content,
-    //         string? backgroundColor = null, string? textColor = null,
-    //         Size?   margin          = null, Size?   padding   = null,
-    //         double? rem             = null, ushort? weight    = null
-    //     )
-    //     {
-    //         _content = content;
-    //         _classSet = new ClassSet(
-    //             "Integrant.Element.Bit",
-    //             "Integrant.Element.Bit." + nameof(MonoBlock)
-    //         );
-    //
-    //         _style = BitBuilder.StyleAttribute(
-    //             margin: margin, padding: padding,
-    //             fontSize: rem, weight: weight,
-    //             backgroundColor: backgroundColor, foregroundColor: textColor
-    //         );
-    //     }
-    //
-    //     public RenderFragment Render() => builder =>
-    //     {
-    //         int seq = -1;
-    //
-    //         builder.OpenElement(++seq, "div");
-    //         builder.AddAttribute(++seq, "class", _classSet.Format());
-    //
-    //         if (_style != null)
-    //             builder.AddAttribute(++seq, "style", _style);
-    //
-    //         builder.AddContent(++seq, _content.Value);
-    //         builder.CloseElement();
-    //     };
-    // }
+    public class MonoBlock : Bit
+    {
+        public MonoBlock
+        (
+            BitGetters.BitContent    content,
+            bool                     isStatic        = true,
+            BitGetters.BitIsVisible? isVisible       = null,
+            BitGetters.BitClasses?   classes         = null,
+            BitGetters.BitSize?      margin          = null,
+            BitGetters.BitSize?      padding         = null,
+            BitGetters.BitColor?     foregroundColor = null,
+            BitGetters.BitColor?     backgroundColor = null,
+            BitGetters.BitPixels?    pixelsHeight    = null,
+            BitGetters.BitPixels?    pixelsWidth     = null,
+            BitGetters.BitREM?       fontSize        = null,
+            BitGetters.BitWeight?    fontWeight      = null,
+            BitGetters.BitDisplay?   display         = null
+        )
+        {
+            Spec = new BitSpec
+            {
+                Content         = content,
+                IsStatic        = isStatic,
+                IsVisible       = isVisible,
+                Classes         = classes,
+                Margin          = margin,
+                Padding         = padding,
+                ForegroundColor = foregroundColor,
+                BackgroundColor = backgroundColor,
+                PixelsHeight    = pixelsHeight,
+                PixelsWidth     = pixelsWidth,
+                FontSize        = fontSize,
+                FontWeight      = fontWeight,
+                Display         = display,
+            };
+
+            ConstantClasses = new ClassSet(
+                "Integrant.Element.Bit",
+                "Integrant.Element.Bit." + nameof(MonoBlock)
+            );
+            
+            Cache();
+        }
+
+        public override RenderFragment Render() => builder =>
+        {
+            int seq = -1;
+
+            builder.OpenElement(++seq, "div");
+            builder.AddAttribute(++seq, "style", Style(false));
+            builder.AddAttribute(++seq, "class", Class(false));
+
+            ++seq;
+            if (Spec.IsVisible?.Invoke() == false)
+                builder.AddAttribute(seq, "hidden", "hidden");
+
+            builder.AddContent(++seq, Spec.Content!.Invoke().Fragment);
+            builder.CloseElement();
+        };
+    }
 }

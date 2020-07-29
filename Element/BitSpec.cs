@@ -1,71 +1,23 @@
-using System;
-using System.Linq;
-using System.Reflection;
-using Integrant.Element.Bits;
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace Integrant.Element
 {
-    public class BitSpec
+    internal class BitSpec
     {
-        // TODO: Use init-only auto properties in C# 9
-
-        public bool IsStatic;
-
-        [BitUsage(nameof(Chip), nameof(Heading))]
-        public BitGetters.BitContent? Content;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitIsVisible? IsVisible;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitClasses? Classes;
-
-        [BitUsage()]
-        public BitGetters.BitURL? URL;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitSize? Margin;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitSize? Padding;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitColor? ForegroundColor;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitColor? BackgroundColor;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitPixels? PixelsHeight;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitPixels? PixelsWidth;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitREM? FontSize;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitWeight? FontWeight;
-
-        [BitUsage(nameof(Arrow), nameof(Chip), nameof(Heading))]
-        public BitGetters.BitDisplay? Display;
-
-        internal void ValidateFor(string bit)
-        {
-            foreach (FieldInfo field in GetType().GetFields())
-            {
-                var usage = field.GetCustomAttribute<BitUsage>();
-
-                if (usage == null)
-                    continue;
-
-                bool hasValue = field.GetValue(this) != null;
-
-                if (hasValue && !usage.Permitted.Contains(bit))
-                {
-                    throw new Exception($"Getter '{field.Name}' cannot be used in Bit '{bit}'.");
-                }
-            }
-        }
+        internal bool                         IsStatic        { get; set; }
+        internal BitGetters.BitContent?       Content         { get; set; }
+        internal BitGetters.BitIsVisible?     IsVisible       { get; set; }
+        internal BitGetters.BitClasses?       Classes         { get; set; }
+        internal BitGetters.BitURL?           URL             { get; set; }
+        internal BitGetters.BitSize?          Margin          { get; set; }
+        internal BitGetters.BitSize?          Padding         { get; set; }
+        internal BitGetters.BitColor?         ForegroundColor { get; set; }
+        internal BitGetters.BitColor?         BackgroundColor { get; set; }
+        internal BitGetters.BitPixels?        PixelsHeight    { get; set; }
+        internal BitGetters.BitPixels?        PixelsWidth     { get; set; }
+        internal BitGetters.BitREM?           FontSize        { get; set; }
+        internal BitGetters.BitWeight?        FontWeight      { get; set; }
+        internal BitGetters.BitDisplay?       Display         { get; set; }
+        internal BitGetters.BitIsHighlighted? IsHighlighted   { get; set; }
     }
 }

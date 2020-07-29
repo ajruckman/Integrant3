@@ -3,50 +3,77 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    // public class Image : IBit
-    // {
-    //     private readonly string _url;
-    //     private readonly byte?  _pxHeight;
-    //     private readonly byte?  _pxWidth;
-    //
-    //     private readonly ClassSet _classSet;
-    //     private readonly string?  _style;
-    //
-    //     public Image
-    //     (
-    //         string  url,
-    //         Size?   margin          = null, Size? padding = null,
-    //         byte?   pxHeight        = null, byte? pxWidth = null,
-    //         string? backgroundColor = null
-    //     )
-    //
-    //     {
-    //         _url      = url;
-    //         _pxHeight = pxHeight;
-    //         _pxWidth  = pxWidth;
-    //         _classSet = new ClassSet(
-    //             "Integrant.Element.Bit",
-    //             "Integrant.Element.Bit." + nameof(Image)
-    //         );
-    //
-    //         _style = BitBuilder.StyleAttribute(margin, padding, backgroundColor: backgroundColor);
-    //     }
-    //
-    //     public RenderFragment Render() => builder =>
-    //     {
-    //         int seq = -1;
-    //
-    //         builder.OpenElement(++seq, "img");
-    //         builder.AddAttribute(++seq, "src",    _url);
-    //         builder.AddAttribute(++seq, "height", _pxHeight);
-    //         builder.AddAttribute(++seq, "width",  _pxWidth);
-    //
-    //         builder.AddAttribute(++seq, "class", _classSet.Format());
-    //
-    //         if (_style != null)
-    //             builder.AddAttribute(++seq, "style", _style);
-    //
-    //         builder.CloseElement();
-    //     };
-    // }
+    public class Image : Bit
+    {
+        private readonly BitGetters.BitPixels? _pixelsHeight;
+        private readonly BitGetters.BitPixels? _pixelsWidth;
+
+        public Image
+        (
+            BitGetters.BitURL        url,
+            bool                     isStatic        = true,
+            BitGetters.BitIsVisible? isVisible       = null,
+            BitGetters.BitClasses?   classes         = null,
+            BitGetters.BitSize?      margin          = null,
+            BitGetters.BitSize?      padding         = null,
+            BitGetters.BitColor?     foregroundColor = null,
+            BitGetters.BitColor?     backgroundColor = null,
+            BitGetters.BitPixels?    pixelsHeight    = null,
+            BitGetters.BitPixels?    pixelsWidth     = null,
+            BitGetters.BitREM?       fontSize        = null,
+            BitGetters.BitWeight?    fontWeight      = null,
+            BitGetters.BitDisplay?   display         = null
+        )
+        {
+            Spec = new BitSpec
+            {
+                URL             = url,
+                IsStatic        = isStatic,
+                IsVisible       = isVisible,
+                Classes         = classes,
+                Margin          = margin,
+                Padding         = padding,
+                ForegroundColor = foregroundColor,
+                BackgroundColor = backgroundColor,
+                // PixelsHeight    = pixelsHeight,
+                // PixelsWidth     = pixelsWidth,
+                FontSize   = fontSize,
+                FontWeight = fontWeight,
+                Display    = display,
+            };
+
+            _pixelsHeight = pixelsHeight;
+            _pixelsWidth  = pixelsWidth;
+
+            ConstantClasses = new ClassSet(
+                "Integrant.Element.Bit",
+                "Integrant.Element.Bit." + nameof(Image)
+            );
+            
+            Cache();
+        }
+
+        public override RenderFragment Render() => builder =>
+        {
+            int seq = -1;
+
+            // Define these in HTML instead of CSS.
+            uint? height = _pixelsHeight?.Invoke() ?? null;
+            uint? width  = _pixelsWidth?.Invoke()  ?? null;
+
+            builder.OpenElement(++seq, "img");
+            builder.AddAttribute(++seq, "style", Style(false));
+            builder.AddAttribute(++seq, "class", Class(false));
+
+            ++seq;
+            if (Spec.IsVisible?.Invoke() == false)
+                builder.AddAttribute(seq, "hidden", "hidden");
+
+            builder.AddAttribute(++seq, "src",    Spec.URL!.Invoke());
+            builder.AddAttribute(++seq, "height", height);
+            builder.AddAttribute(++seq, "width",  width);
+
+            builder.CloseElement();
+        };
+    }
 }

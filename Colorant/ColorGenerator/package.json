@@ -1,0 +1,7 @@
+{
+  "name": "color-generator",
+  "version": "1.0.0",
+  "dependencies": {
+    "@elemental-design/coloralgorithm": "^1.0.0"
+  }
+}

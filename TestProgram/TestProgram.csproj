@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Colorant\Colorant.csproj" />
       <ProjectReference Include="..\Fundament\Fundament.csproj" />
     </ItemGroup>
 

@@ -24,6 +24,7 @@ namespace Integrant.Web
                     Rudiment.ResourceSets.Layout.Components,
                     Rudiment.ResourceSets.Style.Inputs,
                     Element.ResourceSets.Layout.Bits,
+                    Element.ResourceSets.Layout.Layouts,
                     Element.ResourceSets.Style.Bits,
                 });
         }

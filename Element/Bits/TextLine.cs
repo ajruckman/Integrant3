@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Chip : Bit
+    public class TextLine : Bit
     {
-        public Chip
+        public TextLine
         (
             BitGetters.BitContent    content,
             bool                     isStatic        = true,
@@ -43,7 +43,7 @@ namespace Integrant.Element.Bits
 
             ConstantClasses = new ClassSet(
                 "Integrant.Element.Bit",
-                "Integrant.Element.Bit." + nameof(Chip)
+                "Integrant.Element.Bit." + nameof(TextLine)
             );
 
             Cache();

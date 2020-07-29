@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "LinearLayout.css",
+	"sources": [
+		"LinearLayout.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,GAAG,CAAA,AAAA,KAAC,EAAO,uCAAuC,AAA9C,EAAgD;EAChD,WAAW,EAAE,MAAM;EACnB,OAAO,EAAM,IAAI;EACjB,SAAS,EAAI,IAAI;EACjB,KAAK,EAAQ,IAAI,GACpB"
+}
