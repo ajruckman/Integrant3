@@ -167,6 +167,11 @@ namespace TestProgram
             Console.WriteLine(s);
             
             File.WriteAllText("Themes/Default/Compiled.json", s);
+            
+            //
+            
+            var writer = new Writer();
+            writer.Write(tDefault);
         }
     }
 }
