@@ -18,6 +18,11 @@ div[id="Integrant.Colorant.Component.ThemeLoader"] {
         margin-left:      2px;
         outline:          none;
 
+        option {
+            background-color: var(--Colorant_Default_Background_3);
+            color:            var(--Colorant_Default_Text_4);
+        }
+        
         &:focus {
             border: 1px solid var(--Colorant_Default_Accent_4);
         }

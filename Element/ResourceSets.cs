@@ -17,7 +17,11 @@ namespace Integrant.Element
             (
                 $"{nameof(Integrant)}.{nameof(Element)}",
                 $"{nameof(Layout)}.{nameof(Layouts)}",
-                stylesheets: new[] {"css/Layout/LinearLayout.css"}
+                stylesheets: new[]
+                {
+                    "css/Layout/LinearLayout.css",
+                    "css/Layout/DropdownLayout.css",
+                }
             );
         }
 

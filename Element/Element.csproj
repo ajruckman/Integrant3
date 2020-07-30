@@ -32,4 +32,8 @@
       <ProjectReference Include="..\Fundament\Fundament.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="wwwroot\css\Layout\DropdownLayout.scss" />
+    </ItemGroup>
+
 </Project>

@@ -1,9 +1,3 @@
-.Panel {
-    background-color: var(--Colorant_Default_Background_0);
-    border:           1px solid var(--Colorant_Default_Border_6);
-    box-shadow:       0 0 2px rgba(0, 0, 0, 0.12);
-}
-
 div[class~="Integrant.Rudiment.Input"] {
 
     input, textarea, select {
@@ -16,6 +10,11 @@ div[class~="Integrant.Rudiment.Input"] {
         line-height:      1rem;
         outline:          none;
         padding:          2px 4px;
+
+        option {
+            background-color: var(--Colorant_Default_Background_3);
+            color:            var(--Colorant_Default_Text_4);
+        }
 
         &:focus {
             //box-shadow: 0 0 0 2px var(--Colorant_Default_Accent_4) inset;

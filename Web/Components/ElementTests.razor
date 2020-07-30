@@ -9,6 +9,8 @@
 @(new Link(() => "Link 1!", () => "http://localhost:5000/").Render())
 @(new Link(() => "Link 2!", () => "http://localhost:5000/", isHighlighted: () => true, isStatic: false).Render())
 
+@_dropdown1.Render()
+
 <br>
 @(new Heading(
     () => "H2 heading #1!", Heading.Size.H2,

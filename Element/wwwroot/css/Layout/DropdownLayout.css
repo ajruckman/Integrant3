@@ -1,0 +1,19 @@
+div[class~="Integrant.Element.Layout.DropdownLayout"] {
+  display: inline-block;
+  position: relative; }
+  div[class~="Integrant.Element.Layout.DropdownLayout"]:hover div[class~="Integrant.Element.Layout.DropdownLayout.Contents"] {
+    display: block; }
+  div[class~="Integrant.Element.Layout.DropdownLayout"] div[class~="Integrant.Element.Layout.DropdownLayout.Contents"] {
+    background-color: var(--Colorant_Default_Background_2);
+    border: 1px solid red;
+    box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.25);
+    display: none;
+    padding: 3px;
+    position: absolute;
+    z-index: 1; }
+    div[class~="Integrant.Element.Layout.DropdownLayout"] div[class~="Integrant.Element.Layout.DropdownLayout.Contents"] div[class~="Integrant.Element.Layout.DropdownLayout.Separator"] {
+      border-bottom: 1px solid red;
+      margin: 3px 0;
+      width: 100%; }
+
+/*# sourceMappingURL=DropdownLayout.css.map */

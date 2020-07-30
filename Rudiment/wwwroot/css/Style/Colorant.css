@@ -14,6 +14,9 @@ div[id="Integrant.Colorant.Component.ThemeLoader"] {
     color: var(--Colorant_Default_Text_4);
     margin-left: 2px;
     outline: none; }
+    div[id="Integrant.Colorant.Component.ThemeLoader"] select option {
+      background-color: var(--Colorant_Default_Background_3);
+      color: var(--Colorant_Default_Text_4); }
     div[id="Integrant.Colorant.Component.ThemeLoader"] select:focus {
       border: 1px solid var(--Colorant_Default_Accent_4); }
 

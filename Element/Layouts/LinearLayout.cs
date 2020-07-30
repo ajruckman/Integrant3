@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Layouts
 {
-    public class LinearLayout : ILayout
+    public sealed class LinearLayout : ILayout
     {
         public List<IBit> Contents { get; }
 
@@ -12,10 +12,7 @@ namespace Integrant.Element.Layouts
             Contents = contents ?? new List<IBit>();
         }
 
-        public void Add(IBit bit)
-        {
-            Contents.Add(bit);
-        }
+        public void Add(IBit bit) => Contents.Add(bit);
 
         public RenderFragment Render() => builder =>
         {
