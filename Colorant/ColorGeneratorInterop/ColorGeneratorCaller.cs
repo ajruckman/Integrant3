@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using Colorant.Definition;
+using Integrant.Colorant.Schema;
 using Newtonsoft.Json;
 
-namespace Colorant.ColorGeneratorInterop
+namespace Integrant.Colorant.ColorGeneratorInterop
 {
     internal sealed class ColorGeneratorCaller
     {

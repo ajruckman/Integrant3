@@ -48,6 +48,12 @@ namespace Integrant.Rudiment
                 stylesheets: new[] {"css/Style/Inputs.css"}
             );
 
+            public static readonly ResourceSet Colorant = new ResourceSet
+            (
+                $"{nameof(Integrant)}.{nameof(Rudiment)}",
+                $"{nameof(Layout)}.{nameof(Colorant)}",
+                stylesheets: new[] {"css/Style/Colorant.css"}
+            );
         }
     }
 }

@@ -1,0 +1,383 @@
+{
+    "Name":     "Default",
+    "Blocks":   [
+        {
+            "Name":                       "Background",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+            "CreateDisplayTextVariables": true
+        },
+        {
+            "Name":                       "Border",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+            "CreateDisplayTextVariables": false
+        },
+        {
+            "Name":                       "Accent",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
+            "CreateDisplayTextVariables": true
+        },
+        {
+            "Name":                       "Text",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
+            "CreateDisplayTextVariables": false
+        },
+        {
+            "Name":                       "GivenExample",
+            "IDs":                        ["0", "1"],
+            "CreateDisplayTextVariables": false
+        }
+    ],
+    "Variants": [
+        {
+            "Name":                  "Dark",
+            "DefaultDarkTextColor":  "black",
+            "DefaultLightTextColor": "white",
+
+            "BlockSources":          {
+                "Background":   "Range",
+                "Border":       "Range",
+                "Accent":       "Range",
+                "Text":         "Range",
+                "GivenExample": "Given"
+            },
+            "BlockColorsGiven":      {
+                "GivenExample": {
+                    "0": "#000000",
+                    "1": "#000011"
+                }
+            },
+            "BlockColorsRange":      {
+                "Background": {
+                    "HueStart":      259,
+                    "HueEnd":        250,
+                    "HueCurve":      "linear",
+                    "SatStart":      10,
+                    "SatEnd":        20,
+                    "SatCurve":      "easeOutQuart",
+                    "SatRate":       100,
+                    "LumStart":      0,
+                    "LumEnd":        37,
+                    "LumCurve":      "linear",
+                    "Modifier":      10,
+
+                    "HoverStepSize": 2,
+                    "FocusStepSize": 3
+                },
+                "Border":     {
+                    "HueStart":      259,
+                    "HueEnd":        259,
+                    "HueCurve":      "linear",
+                    "SatStart":      10,
+                    "SatEnd":        20,
+                    "SatCurve":      "easeOutQuart",
+                    "LumStart":      10,
+                    "LumEnd":        47,
+                    "LumCurve":      "linear",
+
+                    "HoverStepSize": 5,
+                    "FocusStepSize": 8
+                },
+                "Accent":     {
+                    "HueStart":      259,
+                    "HueEnd":        259,
+                    "HueCurve":      "linear",
+                    "SatStart":      90,
+                    "SatEnd":        25,
+                    "SatCurve":      "easeInCubic",
+                    "LumStart":      50,
+                    "LumEnd":        100,
+                    "LumCurve":      "easeInCubic",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Text":       {
+                    "HueStart": 259,
+                    "HueEnd":   259,
+                    "HueCurve": "linear",
+                    "SatStart": 15,
+                    "SatEnd":   0,
+                    "SatCurve": "easeInQuad",
+                    "LumStart": 35,
+                    "LumEnd":   100,
+                    "LumCurve": "easeInCubic"
+                }
+            }
+        },
+        {
+            "Name":                  "Light",
+            "DefaultDarkTextColor":  "black",
+            "DefaultLightTextColor": "white",
+
+            "BlockSources":          {
+                "Background":   "Range",
+                "Border":       "Range",
+                "Accent":       "Range",
+                "Text":         "Range",
+                "GivenExample": "Given"
+            },
+            "BlockColorsGiven":      null,
+            "BlockColorsRange":      {
+                "Background": {
+                    "HueStart":      210,
+                    "HueEnd":        210,
+                    "HueCurve":      "linear",
+                    "SatStart":      0,
+                    "SatEnd":        15,
+                    "SatCurve":      "easeOutQuart",
+                    "LumStart":      100,
+                    "LumEnd":        70,
+                    "LumCurve":      "easeOutQuad",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Border":     {
+                    "HueStart":      210,
+                    "HueEnd":        210,
+                    "HueCurve":      "linear",
+                    "SatStart":      3,
+                    "SatEnd":        15,
+                    "SatCurve":      "easeOutQuart",
+                    "LumStart":      90,
+                    "LumEnd":        55,
+                    "LumCurve":      "easeOutQuad",
+
+                    "HoverStepSize": -4,
+                    "FocusStepSize": -8
+                },
+                "Accent":     {
+                    "HueStart":      259,
+                    "HueEnd":        259,
+                    "HueCurve":      "linear",
+                    "SatStart":      90,
+                    "SatEnd":        25,
+                    "SatCurve":      "easeInCubic",
+                    "LumStart":      50,
+                    "LumEnd":        100,
+                    "LumCurve":      "easeInCubic",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Text":       {
+                    "HueStart": 210,
+                    "HueEnd":   210,
+                    "HueCurve": "linear",
+                    "SatStart": 15,
+                    "SatEnd":   0,
+                    "SatCurve": "easeInQuad",
+                    "LumStart": 65,
+                    "LumEnd":   0,
+                    "LumCurve": "linear"
+                }
+            }
+        },
+        {
+            "Name":                  "Matrix",
+            "DefaultDarkTextColor":  "black",
+            "DefaultLightTextColor": "#32e71e",
+
+            "BlockSources":          {
+                "Background":   "Range",
+                "Border":       "Range",
+                "Accent":       "Range",
+                "Text":         "Range",
+                "GivenExample": "Given"
+            },
+            "BlockColorsGiven":      null,
+            "BlockColorsRange":      {
+                "Background": {
+                    "HueStart":      259,
+                    "HueEnd":        259,
+                    "HueCurve":      "linear",
+                    "SatStart":      0,
+                    "SatEnd":        20,
+                    "SatCurve":      "easeOutQuart",
+                    "LumStart":      0,
+                    "LumEnd":        37,
+                    "LumCurve":      "linear",
+
+                    "HoverStepSize": 2,
+                    "FocusStepSize": 3
+                },
+                "Border":     {
+                    "HueStart":      259,
+                    "HueEnd":        259,
+                    "HueCurve":      "linear",
+                    "SatStart":      0,
+                    "SatEnd":        20,
+                    "SatCurve":      "easeOutQuart",
+                    "LumStart":      10,
+                    "LumEnd":        47,
+                    "LumCurve":      "linear",
+
+                    "HoverStepSize": 5,
+                    "FocusStepSize": 8
+                },
+                "Accent":     {
+                    "HueStart":      114,
+                    "HueEnd":        114,
+                    "HueCurve":      "linear",
+                    "SatStart":      90,
+                    "SatEnd":        25,
+                    "SatCurve":      "easeInCubic",
+                    "LumStart":      50,
+                    "LumEnd":        100,
+                    "LumCurve":      "easeInCubic",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Text":       {
+                    "HueStart": 114,
+                    "HueEnd":   114,
+                    "HueCurve": "linear",
+                    "SatStart": 100,
+                    "SatEnd":   50,
+                    "SatCurve": "easeInQuad",
+                    "LumStart": 35,
+                    "LumEnd":   100,
+                    "LumCurve": "easeInCubic"
+                }
+            }
+        },
+        {
+            "Name":                  "Pink",
+            "DefaultDarkTextColor":  "black",
+            "DefaultLightTextColor": "white",
+
+            "BlockSources":          {
+                "Background":   "Range",
+                "Border":       "Range",
+                "Accent":       "Range",
+                "Text":         "Range",
+                "GivenExample": "Given"
+            },
+            "BlockColorsGiven":      null,
+            "BlockColorsRange":      {
+                "Background": {
+                    "HueStart":      328,
+                    "HueEnd":        328,
+                    "HueCurve":      "linear",
+                    "SatStart":      0,
+                    "SatEnd":        15,
+                    "SatCurve":      "easeOutQuart",
+                    "LumStart":      100,
+                    "LumEnd":        70,
+                    "LumCurve":      "easeOutQuad",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Border":     {
+                    "HueStart":      328,
+                    "HueEnd":        328,
+                    "HueCurve":      "linear",
+                    "SatStart":      3,
+                    "SatEnd":        15,
+                    "SatCurve":      "easeOutQuart",
+                    "LumStart":      90,
+                    "LumEnd":        55,
+                    "LumCurve":      "easeOutQuad",
+
+                    "HoverStepSize": -4,
+                    "FocusStepSize": -8
+                },
+                "Accent":     {
+                    "HueStart":      328,
+                    "HueEnd":        328,
+                    "HueCurve":      "linear",
+                    "SatStart":      90,
+                    "SatEnd":        25,
+                    "SatCurve":      "easeInCubic",
+                    "LumStart":      50,
+                    "LumEnd":        100,
+                    "LumCurve":      "easeInCubic",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Text":       {
+                    "HueStart": 328,
+                    "HueEnd":   328,
+                    "HueCurve": "linear",
+                    "SatStart": 15,
+                    "SatEnd":   0,
+                    "SatCurve": "easeInQuad",
+                    "LumStart": 65,
+                    "LumEnd":   0,
+                    "LumCurve": "linear"
+                }
+            }
+        },
+        {
+            "Name":                  "White",
+            "DefaultDarkTextColor":  "black",
+            "DefaultLightTextColor": "white",
+            "BlockSources":          {
+                "Background":   "Range",
+                "Border":       "Range",
+                "Accent":       "Range",
+                "Text":         "Range",
+                "GivenExample": "Given"
+            },
+            "BlockColorsGiven":      null,
+            "BlockColorsRange":      {
+                "Background": {
+                    "HueStart":      210,
+                    "HueEnd":        210,
+                    "HueCurve":      "linear",
+                    "SatStart":      0,
+                    "SatEnd":        0,
+                    "SatCurve":      "linear",
+                    "LumStart":      100,
+                    "LumEnd":        85,
+                    "LumCurve":      "linear",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Border":     {
+                    "HueStart":      210,
+                    "HueEnd":        210,
+                    "HueCurve":      "linear",
+                    "SatStart":      3,
+                    "SatEnd":        15,
+                    "SatCurve":      "easeOutQuart",
+                    "LumStart":      90,
+                    "LumEnd":        55,
+                    "LumCurve":      "easeOutQuad",
+
+                    "HoverStepSize": -4,
+                    "FocusStepSize": -8
+                },
+                "Accent":     {
+                    "HueStart":      259,
+                    "HueEnd":        259,
+                    "HueCurve":      "linear",
+                    "SatStart":      90,
+                    "SatEnd":        25,
+                    "SatCurve":      "easeInCubic",
+                    "LumStart":      50,
+                    "LumEnd":        100,
+                    "LumCurve":      "easeInCubic",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Text":       {
+                    "HueStart": 210,
+                    "HueEnd":   210,
+                    "HueCurve": "linear",
+                    "SatStart": 15,
+                    "SatEnd":   0,
+                    "SatCurve": "easeInQuad",
+                    "LumStart": 65,
+                    "LumEnd":   0,
+                    "LumCurve": "linear"
+                }
+            }
+        }
+    ]
+}

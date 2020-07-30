@@ -4,13 +4,15 @@
 
 @inject ILocalStorageService StorageService
 
-@(Configuration.ResourceSet.Render(scripts: true, stylesheets: false))
+@(Configuration.ResourceSet.Render())
 
-@if (_themeLoader.Complete)
+@_solidsThemeLoader.RenderLink()
+
+@if (_defaultThemeLoader.Complete)
 {
-    @_themeLoader.RenderLink()
+    @_defaultThemeLoader.RenderLink()
     <CascadingValue Value="@_rootLayer" Name="Layer">
         @Body
     </CascadingValue>
-    @_themeLoader.RenderDropdown()
+    @_defaultThemeLoader.RenderDropdown()
 }

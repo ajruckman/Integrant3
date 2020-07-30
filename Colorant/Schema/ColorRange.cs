@@ -1,7 +1,7 @@
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 
-namespace Colorant.Definition
+namespace Integrant.Colorant.Schema
 {
     public class ColorRange
     {

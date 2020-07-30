@@ -1,74 +1,46 @@
-::-webkit-input-placeholder {
-  font-style: italic; }
+.Panel {
+  background-color: var(--Colorant_Default_Background_0);
+  border: 1px solid var(--Colorant_Default_Border_6);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.12); }
 
-:-moz-placeholder {
-  font-style: italic; }
-
-::-moz-placeholder {
-  font-style: italic; }
-
-:-ms-input-placeholder {
-  font-style: italic; }
-
-div[class~="Integrant.Rudiment.Input"] input, div[class~="Integrant.Rudiment.Input"] textarea {
-  outline: none;
-  background-color: var(--ColorSet_ThemeColor_Background_60);
-  border: 1px solid var(--ColorSet_ThemeColor_Border_60);
-  color: var(--ColorSet_ThemeColor_Text_60);
+div[class~="Integrant.Rudiment.Input"] input, div[class~="Integrant.Rudiment.Input"] textarea, div[class~="Integrant.Rudiment.Input"] select {
+  background-color: var(--Colorant_Default_Background_3);
+  border: 1px solid var(--Colorant_Default_Border_7);
+  border-radius: 2px;
   box-sizing: border-box;
+  color: var(--Colorant_Default_Text_4);
   font-size: 1rem;
-  transition: color linear 200ms, background-color linear 200ms, border linear 200ms, box-shadow linear 200ms; }
-  div[class~="Integrant.Rudiment.Input"] input:not(:disabled), div[class~="Integrant.Rudiment.Input"] textarea:not(:disabled) {
-    box-shadow: 0 0 3px 1px var(--ColorSet_ThemeColor_ElementShadow); }
-  div[class~="Integrant.Rudiment.Input"] input:disabled, div[class~="Integrant.Rudiment.Input"] textarea:disabled {
-    background-color: var(--ColorSet_ThemeColor_Background_20);
-    border: 1px solid var(ColorSet_ThemeColor_Border_20);
-    color: var(ColorSet_ThemeColor_Text_0);
-    cursor: not-allowed; }
-    div[class~="Integrant.Rudiment.Input"] input:disabled::placeholder, div[class~="Integrant.Rudiment.Input"] textarea:disabled::placeholder {
-      color: var(--ColorSet_ThemeColor_Text_0); }
-  div[class~="Integrant.Rudiment.Input"] input:hover:not(:disabled), div[class~="Integrant.Rudiment.Input"] textarea:hover:not(:disabled) {
-    background-color: var(--ColorSet_ThemeColor_Background_60_Hover);
-    transition: color linear 25ms, background-color linear 25ms, border linear 25ms, box-shadow linear 25ms;
-    border-top: 1px solid var(--ColorSet_ThemeColor_Border_60_Hover);
-    border-left: 1px solid var(--ColorSet_ThemeColor_Border_60_Hover);
-    border-right: 1px solid var(--ColorSet_ThemeColor_Border_60_Hover);
-    border-bottom: 1px solid var(--ColorSet_ThemeColor_AccentBorder_60_Hover); }
-  div[class~="Integrant.Rudiment.Input"] input:focus:not(:disabled), div[class~="Integrant.Rudiment.Input"] input :active:not(:disabled), div[class~="Integrant.Rudiment.Input"] textarea:focus:not(:disabled), div[class~="Integrant.Rudiment.Input"] textarea :active:not(:disabled) {
-    transition: color linear 0ms, background-color linear 0ms, border linear 0ms, box-shadow linear 0ms;
-    background-color: var(--ColorSet_ThemeColor_Background_60_Focus);
-    border-top: 1px solid var(--ColorSet_ThemeColor_Border_60_Focus);
-    border-left: 1px solid var(--ColorSet_ThemeColor_Border_60_Focus);
-    border-right: 1px solid var(--ColorSet_ThemeColor_Border_60_Focus);
-    border-bottom: 1px solid var(--ColorSet_ThemeColor_AccentBorder_60_Focus); }
-  div[class~="Integrant.Rudiment.Input"] input:not([type="date"]):not([type="time"]):not([type="datetime-local"]), div[class~="Integrant.Rudiment.Input"] textarea:not([type="date"]):not([type="time"]):not([type="datetime-local"]) {
-    width: 100%; }
+  line-height: 1rem;
+  outline: none;
+  padding: 2px 4px; }
+  div[class~="Integrant.Rudiment.Input"] input:focus, div[class~="Integrant.Rudiment.Input"] textarea:focus, div[class~="Integrant.Rudiment.Input"] select:focus {
+    border: 1px solid var(--Colorant_Default_Accent_4); }
 
-div[class~="Integrant.Rudiment.Input"] input:required {
+div[class~="Integrant.Rudiment.Input"] input[type="text"], div[class~="Integrant.Rudiment.Input"] textarea {
+  width: calc(100% - 2px); }
+
+div[class~="Integrant.Rudiment.Input"] input:required, div[class~="Integrant.Rudiment.Input"] textarea:required {
   box-shadow: none; }
 
-div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:FailsRequirement"] input, div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:FailsRequirement"] textarea {
-  border: 1px solid red; }
-  div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:FailsRequirement"] input:hover:not(:disabled), div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:FailsRequirement"] textarea:hover:not(:disabled) {
-    border-left: 1px solid red;
-    border-right: 1px solid red;
-    border-top: 1px solid red; }
-  div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:FailsRequirement"] input:focus:not(:disabled), div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:FailsRequirement"] input :active:not(:disabled), div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:FailsRequirement"] textarea:focus:not(:disabled), div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:FailsRequirement"] textarea :active:not(:disabled) {
-    border-left: 1px solid red;
-    border-right: 1px solid red;
-    border-top: 1px solid red; }
+div[class~="Integrant.Rudiment.Input"] input::-webkit-clear-button, div[class~="Integrant.Rudiment.Input"] textarea::-webkit-clear-button {
+  color: red; }
 
-div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:Composite"] {
-  align-items: center;
-  display: inline-flex;
-  flex-wrap: wrap; }
-  div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:Composite"] div[class~="Integrant.Rudiment.Input"]:not(:first-child) {
-    margin-left: 3px; }
+div[class~="Integrant.Rudiment.Input"] input::-webkit-calendar-picker-indicator, div[class~="Integrant.Rudiment.Input"] textarea::-webkit-calendar-picker-indicator {
+  cursor: pointer; }
 
-@keyframes StripedBorder {
-  0% {
-    background-position: left top, right bottom, left bottom, right top; }
-  100% {
-    background-position: left 15px top, right 15px bottom, left bottom 15px, right top 15px; } }
+div[class~="Integrant.Rudiment.Input"] input[type="date"], div[class~="Integrant.Rudiment.Input"] input[type="time"] {
+  padding-right: 4px; }
+
+div[class~="Integrant.Rudiment.Input"] ::-webkit-input-placeholder {
+  font-style: italic; }
+
+div[class~="Integrant.Rudiment.Input"] :-moz-placeholder {
+  font-style: italic; }
+
+div[class~="Integrant.Rudiment.Input"] ::-moz-placeholder {
+  font-style: italic; }
+
+div[class~="Integrant.Rudiment.Input"] :-ms-input-placeholder {
+  font-style: italic; }
 
 /*# sourceMappingURL=Inputs.css.map */

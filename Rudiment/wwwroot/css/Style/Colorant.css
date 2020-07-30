@@ -1,0 +1,20 @@
+div[id="Integrant.Colorant.Component.ThemeLoader"] {
+  align-items: center;
+  display: flex;
+  margin-left: 5px;
+  margin-top: 5px; }
+  div[id="Integrant.Colorant.Component.ThemeLoader"] label, div[id="Integrant.Colorant.Component.ThemeLoader"] select {
+    font-family: var(--FontSet-MonospaceFont);
+    font-size: 1rem;
+    line-height: 1rem; }
+  div[id="Integrant.Colorant.Component.ThemeLoader"] select {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--Colorant_Default_Text_4);
+    margin-left: 2px;
+    outline: none; }
+    div[id="Integrant.Colorant.Component.ThemeLoader"] select:focus {
+      border: 1px solid var(--Colorant_Default_Accent_4); }
+
+/*# sourceMappingURL=Colorant.css.map */

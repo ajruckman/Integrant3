@@ -1,0 +1,25 @@
+div[id="Integrant.Colorant.Component.ThemeLoader"] {
+    align-items: center;
+    display:     flex;
+    margin-left: 5px;
+    margin-top:  5px;
+
+    label, select {
+        font-family: var(--FontSet-MonospaceFont);
+        font-size:   1rem;
+        line-height: 1rem;
+    }
+
+    select {
+        background-color: transparent;
+        border:           1px solid transparent;
+        border-radius:    2px;
+        color:            var(--Colorant_Default_Text_4);
+        margin-left:      2px;
+        outline:          none;
+
+        &:focus {
+            border: 1px solid var(--Colorant_Default_Accent_4);
+        }
+    }
+}

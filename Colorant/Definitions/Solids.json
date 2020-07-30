@@ -1,0 +1,98 @@
+{
+    "Name":     "Solids",
+    "Blocks":   [
+        {
+            "Name":                       "Blue",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+            "CreateDisplayTextVariables": true
+        },
+        {
+            "Name":                       "Green",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+            "CreateDisplayTextVariables": true
+        },
+        {
+            "Name":                       "Red",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+            "CreateDisplayTextVariables": true
+        },
+        {
+            "Name":                       "Yellow",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+            "CreateDisplayTextVariables": true
+        }
+    ],
+    "Variants": [
+        {
+            "Name":                  "Normal",
+            "DefaultDarkTextColor":  "black",
+            "DefaultLightTextColor": "white",
+
+            "BlockSources":          {
+                "Blue":   "Range",
+                "Green":  "Range",
+                "Red":    "Range",
+                "Yellow": "Range"
+            },
+            "BlockColorsRange":      {
+                "Blue":   {
+                    "HueStart":      240,
+                    "HueEnd":        225,
+                    "HueCurve":      "linear",
+                    "SatStart":      100,
+                    "SatEnd":        40,
+                    "SatCurve":      "linear",
+                    "LumStart":      100,
+                    "LumEnd":        60,
+                    "LumCurve":      "easeInSine",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Green":  {
+                    "HueStart":      120,
+                    "HueEnd":        120,
+                    "HueCurve":      "linear",
+                    "SatStart":      100,
+                    "SatEnd":        40,
+                    "SatCurve":      "easeInCubic",
+                    "LumStart":      100,
+                    "LumEnd":        50,
+                    "LumCurve":      "easeInSine",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Red":    {
+                    "HueStart":      0,
+                    "HueEnd":        0,
+                    "HueCurve":      "linear",
+                    "SatStart":      100,
+                    "SatEnd":        55,
+                    "SatCurve":      "linear",
+                    "LumStart":      100,
+                    "LumEnd":        60,
+                    "LumCurve":      "linear",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Yellow": {
+                    "Steps":         15,
+                    "HueStart":      60,
+                    "HueEnd":        60,
+                    "HueCurve":      "linear",
+                    "SatStart":      100,
+                    "SatEnd":        40,
+                    "SatCurve":      "easeInCubic",
+                    "LumStart":      100,
+                    "LumEnd":        50,
+                    "LumCurve":      "linear",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                }
+            }
+        }
+    ]
+}

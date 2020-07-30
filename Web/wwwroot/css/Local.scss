@@ -1,11 +1,12 @@
+@import 'ColorantTest.scss';
+
 html {
     font-size: 13px;
 }
 
 body {
-    background-color: var(--ColorSet_Color_PageBG);
-
-    color:            var(--ColorSet_ThemeColor_Text_50);
+    background-color: var(--Colorant_Default_Background_6);
+    color:            var(--Colorant_Default_Text_4);
     font-family:      var(--FontSet-SansSerifFont);
 }
 
@@ -18,11 +19,12 @@ div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.
             tr {
                 td {
                     padding: 5px;
+
                     &:nth-child(2) {
                         div[class~="Integrant.Rudiment.Component.MemberInput"] {
                             width: 400px;
                             //overflow: hidden;
-                            
+
                             textarea {
                                 max-width: 100%;
                             }

@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <RootNamespace>Integrant.Web</RootNamespace>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Colorant\Colorant.csproj" />
       <ProjectReference Include="..\Element\Element.csproj" />
       <ProjectReference Include="..\Fundament\Fundament.csproj" />
       <ProjectReference Include="..\Rudiment\Rudiment.csproj" />

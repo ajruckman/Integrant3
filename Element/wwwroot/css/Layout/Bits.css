@@ -22,25 +22,25 @@ div[class~="Integrant.Element.Bit.Separator"] {
   vertical-align: middle;
   display: inline-block; }
 
-div[class~="Integrant.Element.Bit.Link"] {
+a[class~="Integrant.Element.Bit.Link"] {
   box-sizing: border-box;
   vertical-align: middle;
-  color: var(--ColorSet_ThemeColor_Text_80);
+  color: var(--Colorant_Default_Text_4);
   font-weight: 500;
   text-decoration: none; }
-  div[class~="Integrant.Element.Bit.Link"]:hover {
-    box-shadow: inset 0 -2px 0 var(--ColorSet_ThemeColor_Text_60);
-    color: var(--ColorSet_ThemeColor_Text_60); }
-  div[class~="Integrant.Element.Bit.Link"]::-moz-focus-inner {
+  a[class~="Integrant.Element.Bit.Link"]:hover {
+    border-bottom: 1px solid var(--Colorant_Default_Text_4);
+    color: var(--Colorant_Default_Text_4); }
+  a[class~="Integrant.Element.Bit.Link"]::-moz-focus-inner {
     border: 0; }
-  div[class~="Integrant.Element.Bit.Link"][class~="Integrant.Element.Bit.Link:Highlighted"] {
-    text-decoration: underline; }
+  a[class~="Integrant.Element.Bit.Link"][class~="Integrant.Element.Bit.Link:Highlighted"] {
+    border-bottom: 2px solid var(--Colorant_Default_Accent_5); }
 
 div[class~="Integrant.Element.Bit.MonoBlock"] {
   box-sizing: border-box;
   vertical-align: middle;
-  background-color: var(--ColorSet_ThemeColor_Background_100);
-  border: 2px solid var(--ColorSet_ThemeColor_Border_80);
+  background-color: var(--Colorant_Default_Background_10);
+  border: 2px solid var(--Colorant_Default_Border_8);
   border-radius: 3px;
   box-sizing: border-box;
   display: inline-block;
@@ -49,12 +49,11 @@ div[class~="Integrant.Element.Bit.MonoBlock"] {
   user-select: all; }
 
 div[class~="Integrant.Element.Bit.Separator"] {
-  border-left: 1px solid var(--ColorSet_Color_HeaderVerticalLine);
+  border-left: 2px solid var(--Colorant_Default_Border_10);
   height: 1em;
   margin: 0 5px; }
 
 div[class~="Integrant.Element.Bit.Space"] {
-  color: var(--ColorSet_Color_HeaderText);
   font-weight: 500;
   text-decoration: none; }
 
@@ -62,7 +61,7 @@ div[class~="Integrant.Element.Bit.TextLine"] {
   width: 5px; }
 
 div[class~="Integrant.Element.Bit.Title"] {
-  color: var(--ColorSet_Color_HeaderText);
+  color: var(--Colorant_Default_Text_4);
   font-weight: 500;
   text-decoration: none; }
 

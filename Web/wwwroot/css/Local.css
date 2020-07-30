@@ -1,9 +1,22 @@
+.C_Container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; }
+  .C_Container h1, .C_Container h2, .C_Container h3 {
+    color: white;
+    margin: 15px 3px 3px 3px; }
+  .C_Container .C_Variant .C_Block .C_Block_ID {
+    height: 32px;
+    margin: 0 3px;
+    padding: 3px;
+    width: 128px; }
+
 html {
   font-size: 13px; }
 
 body {
-  background-color: var(--ColorSet_Color_PageBG);
-  color: var(--ColorSet_ThemeColor_Text_50);
+  background-color: var(--Colorant_Default_Background_6);
+  color: var(--Colorant_Default_Text_4);
   font-family: var(--FontSet-SansSerifFont); }
 
 div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.Index+User"] table {

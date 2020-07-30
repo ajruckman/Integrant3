@@ -1,167 +1,36 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <RootNamespace>Integrant.Colorant</RootNamespace>
+        <AssemblyName>Integrant.Colorant</AssemblyName>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>Integrant.Colorant</PackageId>
+        <VersionPrefix>3.0.1</VersionPrefix>
+        <VersionSuffix>alpha</VersionSuffix>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugType>full</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\.eslintrc" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\.pre-commit-config.yaml" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\dist\bundle.esm.js" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\dist\bundle.umd.js" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\LICENSE.md" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\package.json" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\README.md" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\rollup.config.js" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\src\curves.js" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\src\generate.js" />
-      <Content Include="ColorGenerator\node_modules\@elemental-design\coloralgorithm\src\index.js" />
-      <Content Include="ColorGenerator\node_modules\bezier-easing\dist\bezier-easing.js" />
-      <Content Include="ColorGenerator\node_modules\bezier-easing\dist\bezier-easing.min.js" />
-      <Content Include="ColorGenerator\node_modules\bezier-easing\LICENSE" />
-      <Content Include="ColorGenerator\node_modules\bezier-easing\package.json" />
-      <Content Include="ColorGenerator\node_modules\bezier-easing\README.md" />
-      <Content Include="ColorGenerator\node_modules\bezier-easing\src\index.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\.npmignore" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\.travis.yml" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\bower.json" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\CHANGELOG.md" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\chroma.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\chroma.min.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\assets\bg.png" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\index.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\chroma.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\chroma.min.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\codemirror\lib\codemirror.css" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\codemirror\lib\codemirror.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\codemirror\mode\javascript\index.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\codemirror\mode\javascript\javascript.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\codemirror\mode\javascript\json-ld.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\codemirror\mode\javascript\test.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\codemirror\mode\javascript\typescript.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\libs\jquery\jquery-1.11.1.min.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\Makefile" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\src\footer.inc.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\src\index.css" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\docs\src\index.md" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\Gruntfile.js" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\LICENSE" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\LICENSE-colors" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\license.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\package.json" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\readme.md" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\analyze.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\api.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\color.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\colors\colorbrewer.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\colors\w3cx11.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\cmyk2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\css2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\hcg2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\hex2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\hsi2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\hsl2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\hsv2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\lab2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\lch2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\num2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\in\temperature2rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\misc\lab-constants.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\misc\lab2lch.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\misc\lch2lab.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\hsl2css.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2cmyk.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2css.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2hcg.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2hex.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2hsi.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2hsl.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2hsv.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2lab.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2lch.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2luminance.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2num.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\converter\out\rgb2temperature.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\generator\average.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\generator\bezier.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\generator\cubehelix.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\generator\random.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\index.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\interpolator\interpolate-hsx.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\interpolator\interpolate-lab.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\interpolator\interpolate-lrgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\interpolator\interpolate-num.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\interpolator\interpolate-rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\interpolator\interpolate.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\cmyk.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\contrast.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\css.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\delta-e.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\distance.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\gl.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\hcg.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\hex.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\hsi.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\hsl.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\hsv.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\lab.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\lch.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\luminance.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\named.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\num.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\rgb.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\io\temperature.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\limits.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\ops\alpha.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\ops\blend.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\ops\clipped.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\ops\darken.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\ops\get.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\ops\premultiply.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\ops\saturate.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\ops\set.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\scale.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\src\utils.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\alpha-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\analyze-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\average-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\bezier-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\blend-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\cache-performance.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\cmyk-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\colors-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\contrast-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\converters-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\cubehelix-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\get-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\gl-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\guess-format-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\html\bezier.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\html\blend.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\html\colorscales.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\html\cubehelix.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\html\luminance.html" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\interpolate-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\lch-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\lcorrection-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\limits-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\luminance-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\manipulate-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\num-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\random-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\scales-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\set-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\temperature-test.coffee" />
-      <Content Include="ColorGenerator\node_modules\chroma-js\test\utils-test.coffee" />
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.0-preview.7.20365.19" />
+        <PackageReference Include="Blazored.LocalStorage" Version="2.1.6" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        <PackageReference Include="Superset" Version="1.16.0-alpha" />
     </ItemGroup>
 
     <ItemGroup>
-      <TypeScriptCompile Include="ColorGenerator\node_modules\bezier-easing\src\index.d.ts" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <Folder Include="Themes\Solids" />
     </ItemGroup>
 
 </Project>
