@@ -166,9 +166,9 @@
                     "SatStart": 15,
                     "SatEnd":   0,
                     "SatCurve": "easeInQuad",
-                    "LumStart": 65,
+                    "LumStart": 70,
                     "LumEnd":   0,
-                    "LumCurve": "linear"
+                    "LumCurve": "easeInQuad"
                 }
             }
         },
@@ -301,10 +301,10 @@
                     "HueStart": 328,
                     "HueEnd":   328,
                     "HueCurve": "linear",
-                    "SatStart": 15,
+                    "SatStart": 60,
                     "SatEnd":   0,
                     "SatCurve": "easeInQuad",
-                    "LumStart": 65,
+                    "LumStart": 70,
                     "LumEnd":   0,
                     "LumCurve": "linear"
                 }

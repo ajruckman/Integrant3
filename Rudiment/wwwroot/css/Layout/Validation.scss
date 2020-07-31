@@ -33,15 +33,13 @@ div[class~="Integrant.Rudiment.Validation.Result"] {
         color:            white;
     }
 
-    div[class~="Integrant.Rudiment.Validation.Result.Icon"] {
+    //div[class~="Integrant.Rudiment.Validation.Result.Icon"] {
+    i[class~="Integrant.Resources.Icon"] {
+        align-items:   center;
+        display:       flex;
+        font-size:     0.95rem !important;
+        height:        100% !important;
         padding-right: 3px;
-
-        &::before {
-            align-items: center;
-            display:     flex;
-            font-size:   0.95rem !important;
-            height:      100% !important;
-        }
     }
 
     div[class~="Integrant.Rudiment.Validation.Result.Text"] {
@@ -49,7 +47,6 @@ div[class~="Integrant.Rudiment.Validation.Result"] {
         overflow-wrap: break-word;
     }
 }
-
 
 div[class~="Integrant.Rudiment.Validation.Notice"] {
     align-items: center;

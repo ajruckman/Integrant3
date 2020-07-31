@@ -1,4 +1,5 @@
 using System;
+using Integrant.Element.Bits;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
@@ -8,6 +9,8 @@ namespace Integrant.Rudiment.Inputs
     public class CheckboxInput<TStructure> : IInput<TStructure, bool>
     {
         public event Action<TStructure, bool>? OnInput;
+
+        private Checkbox? _checkbox;
 
         public RenderFragment Render
         (
@@ -33,25 +36,18 @@ namespace Integrant.Rudiment.Inputs
 
             //
 
-            InputBuilder.OpenInnerInput
+            _checkbox ??= new Checkbox
             (
-                builder, ref seq,
-                member,
-                "input", "checkbox",
-                "checked", member.InputValue.Invoke(structure, value, member),
-                required, disabled, args => OnChange(value, args)
+                onToggle: c => OnInput?.Invoke(value, c),
+                isChecked: () => (bool) member.InputValue.Invoke(structure, value, member),
+                isDisabled: () => disabled
             );
             
-            InputBuilder.CloseInnerInput(builder, ref seq);
+            builder.AddContent(++seq, _checkbox.Render());
 
             //
 
             builder.CloseElement();
         };
-
-        private void OnChange(TStructure value, ChangeEventArgs args)
-        {
-            OnInput?.Invoke(value, (bool) args.Value);
-        }
     }
 }

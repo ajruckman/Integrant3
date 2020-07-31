@@ -24,7 +24,7 @@ namespace Integrant.Element
             {
                 Style(true, additionalStyle);
 
-                Class(true);
+                Class(true, additionalClasses);
             }
         }
 
@@ -45,14 +45,14 @@ namespace Integrant.Element
         {
             ClassSet c = ConstantClasses.Clone();
 
+            if (additional != null)
+                c.AddRange(additional);
+
             if (Spec.IsStatic && !initial)
-                return CachedClass;
+                return c.Format();
 
             if (Spec.Classes != null)
                 c.AddRange(Spec.Classes.Invoke());
-
-            if (additional != null)
-                c.AddRange(additional);
 
             string r = c.Format();
 

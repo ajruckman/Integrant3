@@ -6,13 +6,6 @@ namespace Integrant.Rudiment
     {
         public static class Layout
         {
-            public static readonly ResourceSet Icons = new ResourceSet
-            (
-                $"{nameof(Integrant)}.{nameof(Rudiment)}",
-                $"{nameof(Layout)}.{nameof(Icons)}",
-                stylesheets: new[] {"vendor/material-design-icons/iconfont/material-icons.css", "css/Layout/Icons.css"}
-            );
-
             public static readonly ResourceSet Inputs = new ResourceSet
             (
                 $"{nameof(Integrant)}.{nameof(Rudiment)}",
@@ -25,7 +18,7 @@ namespace Integrant.Rudiment
                 $"{nameof(Integrant)}.{nameof(Rudiment)}",
                 $"{nameof(Layout)}.{nameof(Validations)}",
                 stylesheets: new[] {"css/Layout/Validation.css"},
-                dependencies: new[] {Icons}
+                dependencies: new[] {Resources.ResourceSets.MaterialIcons}
             );
 
             public static readonly ResourceSet Components = new ResourceSet

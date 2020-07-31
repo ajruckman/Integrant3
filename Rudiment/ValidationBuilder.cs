@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
+using Integrant.Resources.Icons.MaterialIcons;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Integrant.Rudiment
@@ -48,25 +49,44 @@ namespace Integrant.Rudiment
             builder.OpenElement(++seq, "div");
             builder.AddAttribute(++seq, "class", string.Join(' ', classes));
 
-            builder.OpenElement(++seq, "div");
-            builder.AddAttribute(++seq, "class", "Integrant.Rudiment.Validation.Result.Icon");
+            // builder.OpenElement(++seq, "div");
+            // builder.AddAttribute(++seq, "class", "Integrant.Rudiment.Validation.Result.Icon");
+            // switch (validation.ResultType)
+            // {
+            //     case ValidationResultType.Invalid:
+            //         builder.AddAttribute(++seq, "data-icon", "error");
+            //         break;
+            //     case ValidationResultType.Warning:
+            //         builder.AddAttribute(++seq, "data-icon", "warning");
+            //         break;
+            //     case ValidationResultType.Valid:
+            //         builder.AddAttribute(++seq, "data-icon", "check");
+            //         break;
+            //     default:
+            //         throw new ArgumentOutOfRangeException();
+            // }
+            //
+            // // builder.AddAttribute(++seq, "style", "width: 7px; height: 7px;");
+            // builder.CloseElement();
+
+            builder.OpenComponent<Icon>(++seq);
+            
             switch (validation.ResultType)
             {
                 case ValidationResultType.Invalid:
-                    builder.AddAttribute(++seq, "data-icon", "error");
+                    builder.AddAttribute(++seq, "ID", "error");
                     break;
                 case ValidationResultType.Warning:
-                    builder.AddAttribute(++seq, "data-icon", "warning");
+                    builder.AddAttribute(++seq, "ID", "warning");
                     break;
                 case ValidationResultType.Valid:
-                    builder.AddAttribute(++seq, "data-icon", "check");
+                    builder.AddAttribute(++seq, "ID", "check");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            // builder.AddAttribute(++seq, "style", "width: 7px; height: 7px;");
-            builder.CloseElement();
+            
+            builder.CloseComponent();
 
             builder.OpenElement(++seq, "div");
             builder.AddAttribute(++seq, "class", "Integrant.Rudiment.Validation.Result.Text");

@@ -9,6 +9,18 @@ div[class~="Integrant.Element.Bit.Arrow"] {
     display: inline-block;
 }
 
+div[class~="Integrant.Element.Bit.Checkbox"] {
+    @include _Bit();
+
+    cursor:      pointer;
+    user-select: none;
+
+    &[class~="Integrant.Element.Bit.Checkbox:Disabled"] {
+        color:  var(--Colorant_Default_Text_1);
+        cursor: not-allowed;
+    }
+}
+
 div[class~="Integrant.Element.Bit.Chip"] {
     @include _Bit();
 
@@ -34,13 +46,14 @@ div[class~="Integrant.Element.Bit.Separator"] {
 a[class~="Integrant.Element.Bit.Link"] {
     @include _Bit();
 
-    color:           var(--Colorant_Default_Text_4);
-    font-weight:     500;
-    text-decoration: none;
+    color:                 var(--Colorant_Default_Text_4);
+    font-weight:           500;
+    text-decoration:       underline;
+    text-decoration-color: transparent;
 
     &:hover {
-        border-bottom: 1px solid var(--Colorant_Default_Text_4);
-        color:         var(--Colorant_Default_Text_4);
+        color:                 var(--Colorant_Default_Text_4);
+        text-decoration-color: var(--Colorant_Default_Text_4);
     }
 
     &::-moz-focus-inner {
@@ -48,7 +61,8 @@ a[class~="Integrant.Element.Bit.Link"] {
     }
 
     &[class~="Integrant.Element.Bit.Link:Highlighted"] {
-        border-bottom: 2px solid var(--Colorant_Default_Accent_5);
+        text-decoration-color: var(--Colorant_Default_Accent_5);
+        text-decoration-width: 2px;
     }
 }
 

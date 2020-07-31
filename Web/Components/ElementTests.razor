@@ -6,6 +6,13 @@
 
 <br>
 
+@(new Checkbox(Console.WriteLine).Render())
+@(new Checkbox(c => { }, isChecked: () => true).Render())
+@(new Checkbox(c => { }, isDisabled: () => true).Render())
+@(new Checkbox(c => { }, isDisabled: () => true, isChecked: () => true).Render())
+
+<br>
+
 @(new Link(() => "Link 1!", () => "http://localhost:5000/").Render())
 @(new Link(() => "Link 2!", () => "http://localhost:5000/", isHighlighted: () => true, isStatic: false).Render())
 

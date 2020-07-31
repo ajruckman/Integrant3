@@ -20,13 +20,12 @@ div[class~="Integrant.Rudiment.Validation.Result"] {
   div[class~="Integrant.Rudiment.Validation.Result"][class~="Integrant.Rudiment.Validation.Result:Valid"] {
     background-color: #008000;
     color: white; }
-  div[class~="Integrant.Rudiment.Validation.Result"] div[class~="Integrant.Rudiment.Validation.Result.Icon"] {
+  div[class~="Integrant.Rudiment.Validation.Result"] i[class~="Integrant.Resources.Icon"] {
+    align-items: center;
+    display: flex;
+    font-size: 0.95rem !important;
+    height: 100% !important;
     padding-right: 3px; }
-    div[class~="Integrant.Rudiment.Validation.Result"] div[class~="Integrant.Rudiment.Validation.Result.Icon"]::before {
-      align-items: center;
-      display: flex;
-      font-size: 0.95rem !important;
-      height: 100% !important; }
   div[class~="Integrant.Rudiment.Validation.Result"] div[class~="Integrant.Rudiment.Validation.Result.Text"] {
     display: inline;
     overflow-wrap: break-word; }

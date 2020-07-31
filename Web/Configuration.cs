@@ -27,6 +27,8 @@ namespace Integrant.Web
                     Element.ResourceSets.Layout.Bits,
                     Element.ResourceSets.Layout.Layouts,
                     Element.ResourceSets.Style.Bits,
+                    
+                    Resources.ResourceSets.MaterialIcons,
                 });
         }
     }

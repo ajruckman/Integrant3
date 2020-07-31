@@ -12,6 +12,10 @@ namespace Integrant.Element
 
         public delegate string BitURL();
 
+        public delegate bool BitIsChecked();
+
+        public delegate bool BitIsDisabled();
+
         public delegate IEnumerable<string> BitClasses();
 
         // Style getters
@@ -28,6 +32,7 @@ namespace Integrant.Element
 
         public delegate Display BitDisplay();
 
+        // TODO: Implement style
         public delegate bool BitIsHighlighted();
     }
 }

@@ -7,6 +7,8 @@ namespace Integrant.Element
         internal bool                         IsStatic        { get; set; }
         internal BitGetters.BitContent?       Content         { get; set; }
         internal BitGetters.BitIsVisible?     IsVisible       { get; set; }
+        internal BitGetters.BitIsChecked?     IsChecked       { get; set; }
+        internal BitGetters.BitIsDisabled?    IsDisabled      { get; set; }
         internal BitGetters.BitClasses?       Classes         { get; set; }
         internal BitGetters.BitURL?           URL             { get; set; }
         internal BitGetters.BitSize?          Margin          { get; set; }

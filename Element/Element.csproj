@@ -30,6 +30,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Fundament\Fundament.csproj" />
+      <ProjectReference Include="..\Resources\Resources.csproj" />
     </ItemGroup>
 
     <ItemGroup>
