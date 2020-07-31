@@ -27,8 +27,8 @@ namespace Integrant.Web.Components
                 new Title(() => "Top titleZZ 1!"),
                 new List<IBit>
                 {
-                    new Link(() => "Link 1!", () => "/"),
-                    new Link(() => "Link 2!", () => "/"),
+                    new Link(() => "Link 1!",                      () => "/"),
+                    new Link(() => "Link 2!",                      () => "/"),
                     new Link(() => "Link longer than the others!", () => "/"),
                     new Arrow(
                         isStatic: false,
@@ -51,6 +51,15 @@ namespace Integrant.Web.Components
                         () => "A chip", backgroundColor: () => Constants.Green_4,
                         foregroundColor: () => Constants.Green_4_Text
                     ),
+                    new DropdownLayout(
+                        new Title(() => "Subtitle 1!"),
+                        new List<IBit>
+                        {
+                            new Link(() => "Link 1!",                      () => "/"),
+                            new Link(() => "Link 2!",                      () => "/"),
+                            new Link(() => "Link longer than the others!", () => "/"),
+                        },
+                        true),
                 }
             );
         }

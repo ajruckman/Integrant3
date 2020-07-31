@@ -5,11 +5,14 @@ namespace Integrant.Element.Layouts
 {
     public class DropdownLayout : ILayout
     {
+        private readonly bool _left;
+
         public IBit       Top      { get; }
         public List<IBit> Contents { get; }
 
-        public DropdownLayout(IBit top, List<IBit>? contents = null)
+        public DropdownLayout(IBit top, List<IBit>? contents = null, bool left = false)
         {
+            _left    = left;
             Top      = top;
             Contents = contents ?? new List<IBit>();
         }
@@ -21,7 +24,10 @@ namespace Integrant.Element.Layouts
             int seq = -1;
 
             builder.OpenElement(++seq, "div");
-            builder.AddAttribute(++seq, "class", "Integrant.Element.Layout Integrant.Element.Layout.DropdownLayout");
+            builder.AddAttribute(++seq, "class",
+                "Integrant.Element.Layout Integrant.Element.Layout.DropdownLayout" + (_left
+                    ? " Integrant.Element.Layout.DropdownLayout:Left"
+                    : ""));
 
             builder.OpenElement(++seq, "div");
             builder.AddAttribute(++seq, "class", "Integrant.Element.Layout.DropdownLayout.Top");
@@ -33,15 +39,13 @@ namespace Integrant.Element.Layouts
 
             for (var i = 0; i < Contents.Count; i++)
             {
+                builder.OpenElement(++seq, "div");
+                builder.AddAttribute(++seq, "class", "Integrant.Element.Layout.DropdownLayout.Child");
+
                 IBit? bit = Contents[i];
                 builder.AddContent(++seq, bit.Render());
 
-                if (i < Contents.Count - 1)
-                {
-                    builder.OpenElement(++seq, "div");
-                    builder.AddAttribute(++seq, "class", "Integrant.Element.Layout.DropdownLayout.Separator");
-                    builder.CloseElement();
-                }
+                builder.CloseElement();
             }
 
             builder.CloseElement();

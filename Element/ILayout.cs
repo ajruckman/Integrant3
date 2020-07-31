@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element
 {
-    public interface ILayout
+    public interface ILayout : IBit
     {
-        public List<IBit>     Contents { get; }
-        public void           Add(IBit bit);
-        public RenderFragment Render();
+        public List<IBit> Contents { get; }
+        public void       Add(IBit bit);
     }
 }
