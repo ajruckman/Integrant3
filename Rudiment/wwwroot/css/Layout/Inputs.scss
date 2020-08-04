@@ -13,13 +13,13 @@ div[class~="Integrant.Rudiment.Input"] {
     
     &:not([class~="Integrant.Rudiment.Input:Monospace"]) {
         input, textarea {
-            font-family: var(--FontSet-SansSerifFont);
+            font-family: var(--Integrant_SansSerifFont);
         }
     }
     
     &[class~="Integrant.Rudiment.Input:Monospace"] {
         input, textarea {
-            font-family: var(--FontSet-MonospaceFont);
+            font-family: var(--Integrant_MonospacedFont);
         }
     }
 }

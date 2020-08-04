@@ -17,7 +17,7 @@ html {
 body {
   background-color: var(--Colorant_Default_Background_6);
   color: var(--Colorant_Default_Text_4);
-  font-family: var(--FontSet-SansSerifFont);
+  font-family: var(--Integrant_SansSerifFont);
   margin: 0; }
 
 div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.Index+User"] table {

@@ -5,9 +5,9 @@ div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:Disabled
   cursor: not-allowed; }
 
 div[class~="Integrant.Rudiment.Input"]:not([class~="Integrant.Rudiment.Input:Monospace"]) input, div[class~="Integrant.Rudiment.Input"]:not([class~="Integrant.Rudiment.Input:Monospace"]) textarea {
-  font-family: var(--FontSet-SansSerifFont); }
+  font-family: var(--Integrant_SansSerifFont); }
 
 div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:Monospace"] input, div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:Monospace"] textarea {
-  font-family: var(--FontSet-MonospaceFont); }
+  font-family: var(--Integrant_MonospacedFont); }
 
 /*# sourceMappingURL=Inputs.css.map */

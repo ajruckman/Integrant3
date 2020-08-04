@@ -7,8 +7,8 @@ html {
 body {
     background-color: var(--Colorant_Default_Background_6);
     color:            var(--Colorant_Default_Text_4);
-    font-family:      var(--FontSet-SansSerifFont);
-    margin: 0;
+    font-family:      var(--Integrant_SansSerifFont);
+    margin:           0;
 }
 
 div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.Index+User"] {
@@ -43,5 +43,5 @@ div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.
     border:           1px solid var(--Colorant_Default_Border_9);
     box-shadow:       0 0 2px var(--Colorant_Default_Shadow_0);
     //padding:          3px;
-    margin: 5px;
+    margin:           5px;
 }

@@ -4,7 +4,7 @@ div[id="Integrant.Colorant.Component.ThemeLoader"] {
   margin-left: 5px;
   margin-top: 5px; }
   div[id="Integrant.Colorant.Component.ThemeLoader"] label, div[id="Integrant.Colorant.Component.ThemeLoader"] select {
-    font-family: var(--FontSet-MonospaceFont);
+    font-family: var(--Integrant_MonospacedFont);
     font-size: 1rem;
     line-height: 1rem; }
   div[id="Integrant.Colorant.Component.ThemeLoader"] select {

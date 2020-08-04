@@ -10,5 +10,42 @@ namespace Integrant.Resources
             nameof(MaterialIcons),
             stylesheets: new[] {"MaterialIcons/Icons.css"}
         );
+
+        public static class Fonts
+        {
+            public static class SansSerif
+            {
+                public static readonly ResourceSet Inter = new ResourceSet
+                (
+                    $"{nameof(Integrant)}.{nameof(Resources)}",
+                    $"{nameof(Fonts)}.{nameof(SansSerif)}.{nameof(Inter)}",
+                    stylesheets: new[] {"Font/Inter/Inter.css"}
+                );
+
+                public static readonly ResourceSet Roboto = new ResourceSet
+                (
+                    $"{nameof(Integrant)}.{nameof(Resources)}",
+                    $"{nameof(Fonts)}.{nameof(SansSerif)}.{nameof(Roboto)}",
+                    stylesheets: new[] {"Font/Roboto/Roboto.css"}
+                );
+            }
+
+            public static class Monospaced
+            {
+                public static readonly ResourceSet JetBrainsMono = new ResourceSet
+                (
+                    $"{nameof(Integrant)}.{nameof(Resources)}",
+                    $"{nameof(Fonts)}.{nameof(Monospaced)}.{nameof(JetBrainsMono)}",
+                    stylesheets: new[] {"Font/JetBrainsMono/JetBrainsMono.css"}
+                );
+
+                public static readonly ResourceSet RobotoMono = new ResourceSet
+                (
+                    $"{nameof(Integrant)}.{nameof(Resources)}",
+                    $"{nameof(Fonts)}.{nameof(Monospaced)}.{nameof(RobotoMono)}",
+                    stylesheets: new[] {"Font/RobotoMono/RobotoMono.css"}
+                );
+            }
+        }
     }
 }

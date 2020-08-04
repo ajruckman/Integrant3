@@ -12,13 +12,14 @@ namespace Integrant.Web
             ResourceSet = new ResourceSet(nameof(Integrant) + "." + nameof(Web), nameof(Configuration),
                 dependencies: new List<ResourceSet>
                 {
+                    Resources.ResourceSets.Fonts.SansSerif.Inter,
+                    Resources.ResourceSets.Fonts.Monospaced.JetBrainsMono,
+
                     Superset.Web.ResourceSets.Listeners,
                     Superset.Web.ResourceSets.LocalCSS,
                     FlareSelect.ResourceSets.FlareSelect,
                     FlareTables.ResourceSets.FlareTables,
                     // ColorSet.ResourceSets.Globals,
-                    FontSet.ResourceSets.Inter,
-                    FontSet.ResourceSets.JetBrainsMono,
                     Rudiment.ResourceSets.Layout.Validations,
                     Rudiment.ResourceSets.Layout.Inputs,
                     Rudiment.ResourceSets.Layout.Components,
@@ -28,7 +29,7 @@ namespace Integrant.Web
                     Element.ResourceSets.Layout.Layouts,
                     Element.ResourceSets.Layout.Headers,
                     Element.ResourceSets.Style.Bits,
-                    
+
                     Resources.ResourceSets.MaterialIcons,
                 });
         }

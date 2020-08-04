@@ -50,7 +50,7 @@ div[class~="Integrant.Element.Bit.MonoBlock"] {
   border-radius: 3px;
   box-sizing: border-box;
   display: inline-block;
-  font-family: var(--FontSet-MonospaceFont);
+  font-family: var(--Integrant_MonospacedFont);
   padding: 2px 5px;
   user-select: all; }
 
