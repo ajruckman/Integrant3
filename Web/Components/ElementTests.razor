@@ -1,6 +1,7 @@
 @using Integrant.Element.Bits
 @using Integrant.Element
 @using Integrant.Colorant.Themes.Solids
+@using Integrant.Resources.Icons.MaterialIcons
 
 <input type="number" step="0.1" @bind-value="@Number" @bind-value:event="oninput"/>
 
@@ -46,8 +47,10 @@
     fontSize: () => Number
     ).Render())
 <br>
+@* @(new Icon("play_arrow").Render()) *@
 @(new Chip(() => "A chip").Render())
 @(new Separator().Render())
+@(new ExternalComponent<Icon>(new Attributes {{"ID", "play_arrow"}}).Render())
 @(new Separator(pixelsThickness: () => 3, margin: () => new Size(0, 5)).Render())
 @(new Chip(() => "A chip", backgroundColor: () => Constants.Red_7, foregroundColor: () => Constants.Red_7_Text).Render())
 @* @(new Separator(20, 10, 3, "green").Render()) *@

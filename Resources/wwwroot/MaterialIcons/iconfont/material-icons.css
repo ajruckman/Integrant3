@@ -10,12 +10,12 @@
        url(MaterialIcons-Regular.ttf) format('truetype');
 
   /* Added manually for Integrant */
-  font-display: block
+  font-display: block;
 }
 
 .material-icons {
   /*font-family: 'Material Icons';*/
-  font-family: 'Material Icons', sans-serif; /* Edited manually for Integrant */
+  font-family: 'Material Icons'; /* Edited manually for Integrant */
   font-weight: normal;
   font-style: normal;
   font-size: 24px;  /* Preferred icon size */

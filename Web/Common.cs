@@ -25,8 +25,8 @@ namespace Integrant.Web
             Structure.Register(new Member<Pages.Index.User, bool>
             (
                 nameof(Pages.Index.User.Boolean),
-                (s,                  v, m) => v.Boolean,
-                onValueUpdate: (s,   v, m) => s.Boolean = m,
+                (s,                v, m) => v.Boolean,
+                onValueUpdate: (s, v, m) => s.Boolean = m,
                 input: () => new CheckboxInput<Pages.Index.User>(),
                 inputIsRequired: (s, v, m) => true,
                 inputDebounceMilliseconds: 1
@@ -34,9 +34,9 @@ namespace Integrant.Web
 
             Structure.Register(new Member<Pages.Index.User, string>(
                 nameof(Pages.Index.User.CreatedBy),
-                (s,                  v, m) => v.CreatedBy,
-                onValueUpdate: (s,   v, m) => s.CreatedBy = m,
-                isVisible: (s,       v, m) => v.Boolean,
+                (s,                v, m) => v.CreatedBy,
+                onValueUpdate: (s, v, m) => s.CreatedBy = m,
+                isVisible: (s,     v, m) => v.Boolean,
                 input: () => new StringInput<Pages.Index.User>(),
                 inputIsRequired: (s, v, m) => true,
                 considerDefaultNull: true
@@ -67,7 +67,7 @@ namespace Integrant.Web
 
             Structure.Register(new Member<Pages.Index.User, string>(
                 nameof(Pages.Index.User.Name),
-                (s,                        v, m) => v.Name,
+                (s, v, m) => v.Name,
                 input: () => new StringInput<Pages.Index.User>(),
                 onValueUpdate: (s,         v, m) => s.Name = m,
                 defaultValue: (s,          v, m) => "A.J. <default>",
@@ -121,16 +121,16 @@ namespace Integrant.Web
 
             Structure.Register(new Member<Pages.Index.User, DateTime>(
                 nameof(Pages.Index.User.StartTime),
-                (s,                  v, m) => v.StartTime,
-                onValueUpdate: (s,   v, m) => s.StartTime = m,
+                (s,                v, m) => v.StartTime,
+                onValueUpdate: (s, v, m) => s.StartTime = m,
                 input: () => new TimeInput<Pages.Index.User>(),
                 inputIsDisabled: (s, v, m) => v.UserID == 1
             ));
 
             Structure.Register(new Member<Pages.Index.User, DateTime>(
                 nameof(Pages.Index.User.CompositeDateTime),
-                (s,                  v, m) => v.CompositeDateTime ?? default,
-                onValueUpdate: (s,   v, m) => s.CompositeDateTime = m.Date == default ? new DateTime?() : m,
+                (s,                v, m) => v.CompositeDateTime ?? default,
+                onValueUpdate: (s, v, m) => s.CompositeDateTime = m.Date == default ? new DateTime?() : m,
                 input: () => new DateTimeInput<Pages.Index.User>(),
                 inputIsDisabled: (s, v, m) => v.UserID == 1
             ));
@@ -140,6 +140,19 @@ namespace Integrant.Web
                 (s,                v, m) => v.Tags,
                 displayValue: (s,  v, m) => v.Tags != null ? string.Join(" + ", v.Tags) : "<null>",
                 onValueUpdate: (s, v, m) => s.Tags = m
+            ));
+
+            Structure.Register(new Member<Pages.Index.User, int>(
+                nameof(Pages.Index.User.DepartmentID),
+                (s,                v, m) => v.DepartmentID,
+                onValueUpdate: (s, v, m) => s.DepartmentID = m,
+                input: () => new SelectInput<Pages.Index.User, int>(),
+                selectInputOptions: (s, v, m) => new List<IOption<int>>
+                {
+                    new Option<int>(1, "One"),
+                    new Option<int>(2, "Two"),
+                    new Option<int>(3, "Three"),
+                }
             ));
         }
     }

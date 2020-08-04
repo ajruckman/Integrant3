@@ -22,8 +22,8 @@
             "CreateDisplayTextVariables": false
         },
         {
-            "Name":                       "GivenExample",
-            "IDs":                        ["0", "1"],
+            "Name":                       "Shadow",
+            "IDs":                        ["0"],
             "CreateDisplayTextVariables": false
         }
     ],
@@ -34,16 +34,15 @@
             "DefaultLightTextColor": "white",
 
             "BlockSources":          {
-                "Background":   "Range",
-                "Border":       "Range",
-                "Accent":       "Range",
-                "Text":         "Range",
-                "GivenExample": "Given"
+                "Background": "Range",
+                "Border":     "Range",
+                "Accent":     "Range",
+                "Text":       "Range",
+                "Shadow":     "Given"
             },
             "BlockColorsGiven":      {
-                "GivenExample": {
-                    "0": "#000000",
-                    "1": "#000011"
+                "Shadow": {
+                    "0": "rgba(0, 0, 0, 1)"
                 }
             },
             "BlockColorsRange":      {
@@ -109,13 +108,17 @@
             "DefaultDarkTextColor":  "black",
             "DefaultLightTextColor": "white",
             "BlockSources":          {
-                "Background":   "Range",
-                "Border":       "Range",
-                "Accent":       "Range",
-                "Text":         "Range",
-                "GivenExample": "Given"
+                "Background": "Range",
+                "Border":     "Range",
+                "Accent":     "Range",
+                "Text":       "Range",
+                "Shadow":     "Given"
             },
-            "BlockColorsGiven":      null,
+            "BlockColorsGiven":      {
+                "Shadow": {
+                    "0": "rgba(0, 0, 0, 0.15)"
+                }
+            },
             "BlockColorsRange":      {
                 "Background": {
                     "HueStart":      210,
@@ -178,13 +181,17 @@
             "DefaultLightTextColor": "#32e71e",
 
             "BlockSources":          {
-                "Background":   "Range",
-                "Border":       "Range",
-                "Accent":       "Range",
-                "Text":         "Range",
-                "GivenExample": "Given"
+                "Background": "Range",
+                "Border":     "Range",
+                "Accent":     "Range",
+                "Text":       "Range",
+                "Shadow":     "Given"
             },
-            "BlockColorsGiven":      null,
+            "BlockColorsGiven":      {
+                "Shadow": {
+                    "0": "rgba(0, 0, 0, 1)"
+                }
+            },
             "BlockColorsRange":      {
                 "Background": {
                     "HueStart":      259,
@@ -247,13 +254,17 @@
             "DefaultLightTextColor": "white",
 
             "BlockSources":          {
-                "Background":   "Range",
-                "Border":       "Range",
-                "Accent":       "Range",
-                "Text":         "Range",
-                "GivenExample": "Given"
+                "Background": "Range",
+                "Border":     "Range",
+                "Accent":     "Range",
+                "Text":       "Range",
+                "Shadow":     "Given"
             },
-            "BlockColorsGiven":      null,
+            "BlockColorsGiven":      {
+                "Shadow": {
+                    "0": "rgba(0, 0, 0, 0.15)"
+                }
+            },
             "BlockColorsRange":      {
                 "Background": {
                     "HueStart":      328,

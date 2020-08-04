@@ -23,6 +23,13 @@ namespace Integrant.Element
                     "css/Layout/DropdownLayout.css",
                 }
             );
+
+            public static readonly ResourceSet Headers = new ResourceSet
+            (
+                $"{nameof(Integrant)}.{nameof(Element)}",
+                $"{nameof(Layout)}.{nameof(Headers)}",
+                stylesheets: new[] {"css/Layout/Headers.css"}
+            );
         }
 
         public static class Style

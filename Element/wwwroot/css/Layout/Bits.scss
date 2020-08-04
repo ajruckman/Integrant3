@@ -37,23 +37,21 @@ img[class~="Integrant.Element.Bit.Image"] {
     @include _Bit();
 }
 
-div[class~="Integrant.Element.Bit.Separator"] {
-    @include _Bit();
-
-    display: inline-block;
-}
-
 a[class~="Integrant.Element.Bit.Link"] {
     @include _Bit();
 
-    color:                 var(--Colorant_Default_Text_4);
-    font-weight:           500;
-    text-decoration:       underline;
-    text-decoration-color: transparent;
+    border-bottom:   3px solid transparent;
+    //font-weight:           500;
+    border-top:      3px solid transparent;
+    box-sizing:      content-box;
+    color:           var(--Colorant_Default_Text_4);
+    //text-decoration-color: transparent;
+    text-decoration: none;
 
     &:hover {
-        color:                 var(--Colorant_Default_Text_4);
-        text-decoration-color: var(--Colorant_Default_Text_4);
+        border-bottom-color: var(--Colorant_Default_Accent_7);
+        color:               var(--Colorant_Default_Text_4);
+        //text-decoration-color: var(--Colorant_Default_Text_4);
     }
 
     &::-moz-focus-inner {
@@ -61,8 +59,9 @@ a[class~="Integrant.Element.Bit.Link"] {
     }
 
     &[class~="Integrant.Element.Bit.Link:Highlighted"] {
-        text-decoration-color: var(--Colorant_Default_Accent_5);
-        text-decoration-width: 2px;
+        //text-decoration-color: var(--Colorant_Default_Accent_5);
+        border-bottom-color: var(--Colorant_Default_Accent_5);
+        //text-decoration-width: 2px;
     }
 }
 
@@ -80,14 +79,22 @@ div[class~="Integrant.Element.Bit.MonoBlock"] {
 }
 
 div[class~="Integrant.Element.Bit.Separator"] {
-    border-left: 2px solid var(--Colorant_Default_Border_10);
+    @include _Bit();
+
+    border-left: 2px solid var(--Colorant_Default_Border_15);
+    display:     inline-block;
     height:      1em;
     margin:      0 5px;
 }
 
 div[class~="Integrant.Element.Bit.Space"] {
-    font-weight:     500;
-    text-decoration: none;
+    width: 10px;
+}
+
+div[class~="Integrant.Element.Bit.ExternalComponent"] {
+    @include _Bit();
+
+    display: inline-block;
 }
 
 div[class~="Integrant.Element.Bit.TextLine"] {
@@ -96,6 +103,7 @@ div[class~="Integrant.Element.Bit.TextLine"] {
 
 div[class~="Integrant.Element.Bit.Title"] {
     color:           var(--Colorant_Default_Text_4);
+    font-size:       1.15rem;
     font-weight:     500;
     text-decoration: none;
 }

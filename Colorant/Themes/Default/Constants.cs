@@ -92,7 +92,6 @@ namespace Integrant.Colorant.Themes.Default
         public const string Text_6 = "var(--Colorant_Default_Text_6)";
         public const string Text_7 = "var(--Colorant_Default_Text_7)";
         public const string Text_8 = "var(--Colorant_Default_Text_8)";
-        public const string GivenExample_0 = "var(--Colorant_Default_GivenExample_0)";
-        public const string GivenExample_1 = "var(--Colorant_Default_GivenExample_1)";
+        public const string Shadow_0 = "var(--Colorant_Default_Shadow_0)";
     }
 }

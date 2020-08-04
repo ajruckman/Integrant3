@@ -86,10 +86,9 @@
       "CreateDisplayTextVariables": false
     },
     {
-      "Name": "GivenExample",
+      "Name": "Shadow",
       "IDs": [
-        "0",
-        "1"
+        "0"
       ],
       "CreateDisplayTextVariables": false
     }
@@ -104,12 +103,11 @@
         "Border": "Range",
         "Accent": "Range",
         "Text": "Range",
-        "GivenExample": "Given"
+        "Shadow": "Given"
       },
       "BlockColorsGiven": {
-        "GivenExample": {
-          "0": "#000000",
-          "1": "#000011"
+        "Shadow": {
+          "0": "rgba(0, 0, 0, 1)"
         }
       },
       "BlockColorsRange": {
@@ -273,9 +271,8 @@
           "7": "#f7f5fc",
           "8": "#ffffff"
         },
-        "GivenExample": {
-          "0": "#000000",
-          "1": "#000011"
+        "Shadow": {
+          "0": "rgba(0, 0, 0, 1)"
         }
       }
     },
@@ -288,9 +285,13 @@
         "Border": "Range",
         "Accent": "Range",
         "Text": "Range",
-        "GivenExample": "Given"
+        "Shadow": "Given"
       },
-      "BlockColorsGiven": null,
+      "BlockColorsGiven": {
+        "Shadow": {
+          "0": "rgba(0, 0, 0, 0.15)"
+        }
+      },
       "BlockColorsRange": {
         "Background": {
           "HueStart": 210,
@@ -451,6 +452,9 @@
           "6": "#0c0d0d",
           "7": "#050505",
           "8": "#000000"
+        },
+        "Shadow": {
+          "0": "rgba(0, 0, 0, 0.15)"
         }
       }
     },
@@ -463,9 +467,13 @@
         "Border": "Range",
         "Accent": "Range",
         "Text": "Range",
-        "GivenExample": "Given"
+        "Shadow": "Given"
       },
-      "BlockColorsGiven": null,
+      "BlockColorsGiven": {
+        "Shadow": {
+          "0": "rgba(0, 0, 0, 1)"
+        }
+      },
       "BlockColorsRange": {
         "Background": {
           "HueStart": 259,
@@ -626,6 +634,9 @@
           "6": "#5cf94a",
           "7": "#75fc66",
           "8": "#8cff80"
+        },
+        "Shadow": {
+          "0": "rgba(0, 0, 0, 1)"
         }
       }
     },
@@ -638,9 +649,13 @@
         "Border": "Range",
         "Accent": "Range",
         "Text": "Range",
-        "GivenExample": "Given"
+        "Shadow": "Given"
       },
-      "BlockColorsGiven": null,
+      "BlockColorsGiven": {
+        "Shadow": {
+          "0": "rgba(0, 0, 0, 0.15)"
+        }
+      },
       "BlockColorsRange": {
         "Background": {
           "HueStart": 328,
@@ -801,6 +816,9 @@
           "6": "#2d2228",
           "7": "#161415",
           "8": "#000000"
+        },
+        "Shadow": {
+          "0": "rgba(0, 0, 0, 0.15)"
         }
       }
     }

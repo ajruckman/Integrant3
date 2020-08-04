@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Integrant.Colorant.Components;
+using Integrant.Colorant.Themes.Default;
 using Integrant.Fundament;
 
 namespace Integrant.Web.Shared
@@ -19,12 +20,14 @@ namespace Integrant.Web.Shared
             // _themeLoader            =  new ColorSet.Components.ThemeLoader(StorageService, Configuration.ResourceSet, "Dark");
             // _themeLoader.OnComplete += StateHasChanged;
 
-            _defaultThemeLoader = new ThemeLoader(StorageService, new Colorant.Themes.Default.Theme(),
-                Colorant.Themes.Default.Variants.Dark.ToString());
+            _defaultThemeLoader = new ThemeLoader(StorageService, new Theme(),
+                Variants.Dark.ToString());
             _defaultThemeLoader.OnComplete += StateHasChanged;
 
             _solidsThemeLoader = new ThemeLoader(StorageService, new Colorant.Themes.Solids.Theme(),
                 Colorant.Themes.Solids.Variants.Normal.ToString());
+
+            //
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)

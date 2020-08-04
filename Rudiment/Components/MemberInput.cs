@@ -52,28 +52,8 @@ namespace Integrant.Rudiment.Components
             builder.CloseElement();
         }
 
-        // protected override bool ShouldRender()
-        // {
-        //     return _canRender;
-        // }
-
-        private bool _canRender = false;
-
         private void ResetInput()
         {
-            // _canRender = true;
-            //
-            // try
-            // {
-            //     InvokeAsync(StateHasChanged).Wait();
-            // }
-            // catch
-            // {
-            //     // ignored
-            // }
-            //
-            // _canRender = false;
-
             _member.UpdateValueImmediately(Value, _member.Member.DefaultValue == null
                 ? _initialValue
                 : _member.Member.DefaultValue.Invoke(StructureInstance.Structure, Value, _member.Member));

@@ -26,26 +26,21 @@ img[class~="Integrant.Element.Bit.Image"] {
   box-sizing: border-box;
   vertical-align: middle; }
 
-div[class~="Integrant.Element.Bit.Separator"] {
-  box-sizing: border-box;
-  vertical-align: middle;
-  display: inline-block; }
-
 a[class~="Integrant.Element.Bit.Link"] {
   box-sizing: border-box;
   vertical-align: middle;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid transparent;
+  box-sizing: content-box;
   color: var(--Colorant_Default_Text_4);
-  font-weight: 500;
-  text-decoration: underline;
-  text-decoration-color: transparent; }
+  text-decoration: none; }
   a[class~="Integrant.Element.Bit.Link"]:hover {
-    color: var(--Colorant_Default_Text_4);
-    text-decoration-color: var(--Colorant_Default_Text_4); }
+    border-bottom-color: var(--Colorant_Default_Accent_7);
+    color: var(--Colorant_Default_Text_4); }
   a[class~="Integrant.Element.Bit.Link"]::-moz-focus-inner {
     border: 0; }
   a[class~="Integrant.Element.Bit.Link"][class~="Integrant.Element.Bit.Link:Highlighted"] {
-    text-decoration-color: var(--Colorant_Default_Accent_5);
-    text-decoration-width: 2px; }
+    border-bottom-color: var(--Colorant_Default_Accent_5); }
 
 div[class~="Integrant.Element.Bit.MonoBlock"] {
   box-sizing: border-box;
@@ -60,19 +55,27 @@ div[class~="Integrant.Element.Bit.MonoBlock"] {
   user-select: all; }
 
 div[class~="Integrant.Element.Bit.Separator"] {
-  border-left: 2px solid var(--Colorant_Default_Border_10);
+  box-sizing: border-box;
+  vertical-align: middle;
+  border-left: 2px solid var(--Colorant_Default_Border_15);
+  display: inline-block;
   height: 1em;
   margin: 0 5px; }
 
 div[class~="Integrant.Element.Bit.Space"] {
-  font-weight: 500;
-  text-decoration: none; }
+  width: 10px; }
+
+div[class~="Integrant.Element.Bit.ExternalComponent"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: inline-block; }
 
 div[class~="Integrant.Element.Bit.TextLine"] {
   width: 5px; }
 
 div[class~="Integrant.Element.Bit.Title"] {
   color: var(--Colorant_Default_Text_4);
+  font-size: 1.15rem;
   font-weight: 500;
   text-decoration: none; }
 

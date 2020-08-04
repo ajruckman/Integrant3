@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Integrant.Colorant.Themes.Solids;
 using Integrant.Element;
 using Integrant.Element.Bits;
+using Integrant.Element.Constructs;
 using Integrant.Element.Layouts;
 using Integrant.Fundament;
 using Integrant.Rudiment.Inputs;

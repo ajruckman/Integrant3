@@ -26,6 +26,7 @@ namespace Integrant.Web
                     Rudiment.ResourceSets.Style.Colorant,
                     Element.ResourceSets.Layout.Bits,
                     Element.ResourceSets.Layout.Layouts,
+                    Element.ResourceSets.Layout.Headers,
                     Element.ResourceSets.Style.Bits,
                     
                     Resources.ResourceSets.MaterialIcons,

@@ -113,11 +113,7 @@ namespace Integrant.Fundament.Structure
 
             Task.Run(() =>
             {
-                Console.WriteLine("Validating task: STARTED");
-
                 var (structure, members) = Validate(_structureInstance, value, token);
-
-                Console.WriteLine("Validating task: FINISHED");
 
                 lock (_cacheLock)
                 {

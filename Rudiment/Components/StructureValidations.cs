@@ -17,21 +17,9 @@ namespace Integrant.Rudiment.Components
 
         protected override void OnInitialized()
         {
-            StructureInstance.ValidationState.OnInvalidation += () =>
-            {
-                Console.WriteLine("! StructureValidations -> OnInvalidation");
-                InvokeAsync(StateHasChanged);
-            };
-            StructureInstance.ValidationState.OnBeginValidating += () =>
-            {
-                Console.WriteLine("! StructureValidations -> OnBeginValidating");
-                InvokeAsync(StateHasChanged);
-            };
-            StructureInstance.ValidationState.OnFinishValidating += () =>
-            {
-                Console.WriteLine("! StructureValidations -> OnFinishValidatingStructure");
-                InvokeAsync(StateHasChanged);
-            };
+            StructureInstance.ValidationState.OnInvalidation += () => InvokeAsync(StateHasChanged);
+            StructureInstance.ValidationState.OnBeginValidating += () => InvokeAsync(StateHasChanged);
+            StructureInstance.ValidationState.OnFinishValidating += () => InvokeAsync(StateHasChanged);
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -57,11 +45,11 @@ namespace Integrant.Rudiment.Components
             if (!shown)
                 builder.AddAttribute(++seq, "hidden", "hidden");
 
-            // if (Structure.ValidationState.IsValidating)
-            // {
+            if (StructureInstance.ValidationState.IsValidating)
+            {
                 ValidationBuilder.RenderValidatingNotice(builder, ref seq);
-            // }
-            // else
+            }
+            else
             {
                 List<Validation>? validations = StructureInstance.ValidationState.GetStructureValidations();
 

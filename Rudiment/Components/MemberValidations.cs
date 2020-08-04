@@ -20,21 +20,9 @@ namespace Integrant.Rudiment.Components
 
         protected override void OnInitialized()
         {
-            StructureInstance.ValidationState.OnInvalidation += () =>
-            {
-                Console.WriteLine($"! MemberValidations @ {ID} -> OnInvalidation");
-                InvokeAsync(StateHasChanged);
-            };
-            StructureInstance.ValidationState.OnBeginValidating += () =>
-            {
-                Console.WriteLine($"! MemberValidations @ {ID} -> OnBeginValidating");
-                InvokeAsync(StateHasChanged);
-            };
-            StructureInstance.ValidationState.OnFinishValidating += () =>
-            {
-                Console.WriteLine($"! MemberValidations @ {ID} -> OnFinishValidatingStructure");
-                InvokeAsync(StateHasChanged);
-            };
+            StructureInstance.ValidationState.OnInvalidation     += () => InvokeAsync(StateHasChanged);
+            StructureInstance.ValidationState.OnBeginValidating  += () => InvokeAsync(StateHasChanged);
+            StructureInstance.ValidationState.OnFinishValidating += () => InvokeAsync(StateHasChanged);
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)

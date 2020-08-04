@@ -1,0 +1,12 @@
+.C_Container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; }
+  .C_Container h1, .C_Container h2, .C_Container h3 {
+    color: white;
+    margin: 15px 3px 3px 3px; }
+  .C_Container .C_Variant .C_Block .C_Block_ID {
+    height: 32px;
+    margin: 0 3px;
+    padding: 3px;
+    width: 128px; }

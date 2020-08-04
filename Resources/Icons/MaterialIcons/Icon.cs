@@ -12,6 +12,14 @@ namespace Integrant.Resources.Icons.MaterialIcons
         [Parameter]
         public ushort Size { get; set; } = 24;
 
+        // public Icon() { }
+        //
+        // public Icon(string id, ushort size = 24)
+        // {
+        //     ID   = id;
+        //     Size = size;
+        // }
+
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             int seq = -1;
@@ -30,5 +38,17 @@ namespace Integrant.Resources.Icons.MaterialIcons
             // builder.CloseElement();
             // builder.CloseElement();
         }
+
+        // public RenderFragment Render() => builder =>
+        // {
+        //     int seq = -1;
+        //
+        //     builder.OpenElement(++seq, "i");
+        //     builder.AddAttribute(++seq, "style", $"font-size: {Size}px;");
+        //     builder.AddAttribute(++seq, "class",
+        //         "Integrant.Resources.Icon Integrant.Resources.Icon:MaterialIcons material-icons");
+        //     builder.AddContent(++seq, ID);
+        //     builder.CloseElement();
+        // };
     }
 }
