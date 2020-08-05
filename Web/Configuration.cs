@@ -16,7 +16,6 @@ namespace Integrant.Web
                     Resources.ResourceSets.Fonts.Monospaced.JetBrainsMono,
 
                     Superset.Web.ResourceSets.Listeners,
-                    Superset.Web.ResourceSets.LocalCSS,
                     FlareSelect.ResourceSets.FlareSelect,
                     FlareTables.ResourceSets.FlareTables,
                     // ColorSet.ResourceSets.Globals,
@@ -31,6 +30,7 @@ namespace Integrant.Web
                     Element.ResourceSets.Style.Bits,
 
                     Resources.ResourceSets.MaterialIcons,
+                    Superset.Web.ResourceSets.LocalCSS,
                 });
         }
     }

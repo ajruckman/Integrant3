@@ -10,14 +10,22 @@ namespace Integrant.Rudiment
             (
                 $"{nameof(Integrant)}.{nameof(Rudiment)}",
                 $"{nameof(Layout)}.{nameof(Inputs)}",
-                stylesheets: new[] {"css/Layout/Inputs.css"}
+                stylesheets: new[]
+                {
+                    "css/Layout/Inputs.css",
+                    "css/Layout/Inputs.css.map",
+                }
             );
 
             public static readonly ResourceSet Validations = new ResourceSet
             (
                 $"{nameof(Integrant)}.{nameof(Rudiment)}",
                 $"{nameof(Layout)}.{nameof(Validations)}",
-                stylesheets: new[] {"css/Layout/Validation.css"},
+                stylesheets: new[]
+                {
+                    "css/Layout/Validation.css",
+                    "css/Layout/Validation.css.map",
+                },
                 dependencies: new[] {Resources.ResourceSets.MaterialIcons}
             );
 
@@ -28,6 +36,7 @@ namespace Integrant.Rudiment
                 stylesheets: new[]
                 {
                     "css/Layout/Component.MemberValue.css",
+                    "css/Layout/Component.MemberValue.css.map",
                 }
             );
         }
@@ -38,14 +47,21 @@ namespace Integrant.Rudiment
             (
                 $"{nameof(Integrant)}.{nameof(Rudiment)}",
                 $"{nameof(Layout)}.{nameof(Inputs)}",
-                stylesheets: new[] {"css/Style/Inputs.css"}
+                stylesheets: new[]
+                {
+                    "css/Style/Inputs.css",
+                    "css/Style/Inputs.css.map",
+                }
             );
 
             public static readonly ResourceSet Colorant = new ResourceSet
             (
                 $"{nameof(Integrant)}.{nameof(Rudiment)}",
                 $"{nameof(Layout)}.{nameof(Colorant)}",
-                stylesheets: new[] {"css/Style/Colorant.css"}
+                stylesheets: new[]
+                {
+                    "css/Style/Colorant.css",
+                }
             );
         }
     }

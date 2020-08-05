@@ -10,7 +10,11 @@ namespace Integrant.Element
             (
                 $"{nameof(Integrant)}.{nameof(Element)}",
                 $"{nameof(Layout)}.{nameof(Bits)}",
-                stylesheets: new[] {"css/Layout/Bits.css"}
+                stylesheets: new[]
+                {
+                    "css/Layout/Bits.css",
+                    "css/Layout/Bits.css.map",
+                }
             );
 
             public static readonly ResourceSet Layouts = new ResourceSet
@@ -20,7 +24,9 @@ namespace Integrant.Element
                 stylesheets: new[]
                 {
                     "css/Layout/LinearLayout.css",
+                    "css/Layout/LinearLayout.css.map",
                     "css/Layout/DropdownLayout.css",
+                    "css/Layout/DropdownLayout.css.map",
                 }
             );
 
@@ -28,7 +34,11 @@ namespace Integrant.Element
             (
                 $"{nameof(Integrant)}.{nameof(Element)}",
                 $"{nameof(Layout)}.{nameof(Headers)}",
-                stylesheets: new[] {"css/Layout/Headers.css"}
+                stylesheets: new[]
+                {
+                    "css/Layout/Headers.css",
+                    "css/Layout/Headers.css.map",
+                }
             );
         }
 
@@ -38,7 +48,11 @@ namespace Integrant.Element
             (
                 $"{nameof(Integrant)}.{nameof(Element)}",
                 $"{nameof(Style)}.{nameof(Bits)}",
-                stylesheets: new[] {"css/Style/Bits.css"}
+                stylesheets: new[]
+                {
+                    "css/Style/Bits.css",
+                    "css/Style/Bits.css.map",
+                }
             );
         }
     }

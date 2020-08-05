@@ -40,6 +40,8 @@ namespace Integrant.Web.Pages
         private Header _header1 = null!;
         private Header _header2 = null!;
 
+        private Button _submitButton = null!;
+
         protected override void OnInitialized()
         {
             var altUser = new User();
@@ -108,6 +110,9 @@ namespace Integrant.Web.Pages
             });
 
             //
+
+            _submitButton = new Button(() => "Submit", _ => Submit(), Button.Color.Green, isStatic: false,
+                isDisabled: () => !_structure.ValidationState.Valid());
 
             _header1 = new Header
             (

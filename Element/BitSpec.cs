@@ -13,8 +13,8 @@ namespace Integrant.Element
         internal BitGetters.BitURL?           URL             { get; set; }
         internal BitGetters.BitSize?          Margin          { get; set; }
         internal BitGetters.BitSize?          Padding         { get; set; }
-        internal BitGetters.BitColor?         ForegroundColor { get; set; }
         internal BitGetters.BitColor?         BackgroundColor { get; set; }
+        internal BitGetters.BitColor?         ForegroundColor { get; set; }
         internal BitGetters.BitPixels?        PixelsHeight    { get; set; }
         internal BitGetters.BitPixels?        PixelsWidth     { get; set; }
         internal BitGetters.BitREM?           FontSize        { get; set; }

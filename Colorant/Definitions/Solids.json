@@ -12,6 +12,16 @@
             "CreateDisplayTextVariables": true
         },
         {
+            "Name":                       "Orange",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+            "CreateDisplayTextVariables": true
+        },
+        {
+            "Name":                       "Purple",
+            "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+            "CreateDisplayTextVariables": true
+        },
+        {
             "Name":                       "Red",
             "IDs":                        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
             "CreateDisplayTextVariables": true
@@ -31,6 +41,8 @@
             "BlockSources":          {
                 "Blue":   "Range",
                 "Green":  "Range",
+                "Orange": "Range",
+                "Purple": "Range",
                 "Red":    "Range",
                 "Yellow": "Range"
             },
@@ -55,6 +67,34 @@
                     "HueCurve":      "linear",
                     "SatStart":      100,
                     "SatEnd":        40,
+                    "SatCurve":      "easeInCubic",
+                    "LumStart":      100,
+                    "LumEnd":        50,
+                    "LumCurve":      "easeInSine",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Orange": {
+                    "HueStart":      30,
+                    "HueEnd":        30,
+                    "HueCurve":      "linear",
+                    "SatStart":      100,
+                    "SatEnd":        75,
+                    "SatCurve":      "linear",
+                    "LumStart":      100,
+                    "LumEnd":        50,
+                    "LumCurve":      "linear",
+
+                    "HoverStepSize": 1,
+                    "FocusStepSize": 2
+                },
+                "Purple": {
+                    "HueStart":      282,
+                    "HueEnd":        282,
+                    "HueCurve":      "linear",
+                    "SatStart":      100,
+                    "SatEnd":        50,
                     "SatCurve":      "easeInCubic",
                     "LumStart":      100,
                     "LumEnd":        50,

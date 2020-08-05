@@ -2,6 +2,7 @@
 @using Integrant.Rudiment.Components
 @using Integrant.Web.Components
 @using Integrant.Resources.Icons.MaterialIcons
+@using Integrant.Element.Bits
 
 @page "/"
 
@@ -24,7 +25,11 @@
             <thead>
             <tr>
                 <td colspan="4">
-                    <button @onclick="@ResetAll">Reset all inputs</button>
+                    @{
+                        var button = new Button(() => "Reset all inputs", _ => ResetAll());
+                    }
+
+                    @button.Render()
                 </td>
             </tr>
             </thead>
@@ -173,5 +178,6 @@
         </table>
 
         <button @onclick="Submit" disabled="@(!_structure.ValidationState.Valid())">Submit</button>
+        @_submitButton.Render()
     </StructureContainer>
 </div>

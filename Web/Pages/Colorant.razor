@@ -7,38 +7,42 @@
     }
 </style>
 
-<div class="C_Container">
-    @foreach (Variant variant in _theme.Variants)
-    {
-        <div class="C_Variant">
+@foreach (ThemeDefinition theme in _themes)
+{
+    <div class="C_Container">
+        <h1>@theme.Name</h1>
+        @foreach (Variant variant in theme.Variants)
+        {
+            <div class="C_Variant">
 
-            <h2>@variant.Name</h2>
-            @foreach (Block block in _theme.Blocks)
-            {
-                <div class="C_Block">
-                    <h3>@block.Name</h3>
+                <h2>@variant.Name</h2>
+                @foreach (Block block in theme.Blocks)
+                {
+                    <div class="C_Block">
+                        <h3>@block.Name</h3>
 
-                    @foreach (string id in block.IDs)
-                    {
-                        if (variant.Colors?.ContainsKey(block.Name) != true) continue;
-
-                        string c = variant.Colors[block.Name][id];
-
-                        var style = $"background-color: {c};";
-
-                        if (block.CreateDisplayTextVariables)
+                        @foreach (string id in block.IDs)
                         {
-                            string t = variant.Colors[block.Name][$"{id}_Text"];
-                            style += $" color: {t};";
+                            if (variant.Colors?.ContainsKey(block.Name) != true) continue;
+
+                            string c = variant.Colors[block.Name][id];
+
+                            var style = $"background-color: {c};";
+
+                            if (block.CreateDisplayTextVariables)
+                            {
+                                string t = variant.Colors[block.Name][$"{id}_Text"];
+                                style += $" color: {t};";
+                            }
+
+                            <div style="@style" class="C_Block_ID">
+                                @block.Name @id
+                                @c
+                            </div>
                         }
-                        
-                        <div style="@style" class="C_Block_ID">
-                            @block.Name @id
-                            @c
-                        </div>
-                    }
-                </div>
-            }
-        </div>
-    }
-</div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}

@@ -4,19 +4,25 @@ namespace Integrant.Element
 {
     public readonly struct Content
     {
-        public Content(string s)
+        private Content(string s)
         {
             Fragment = builder => builder.AddContent(0, s);
         }
 
-        public Content(MarkupString s)
+        private Content(MarkupString s)
         {
             Fragment = builder => builder.AddContent(0, s);
+        }
+
+        private Content(RenderFragment s)
+        {
+            Fragment = s;
         }
 
         public readonly RenderFragment Fragment;
 
-        public static implicit operator Content(string       s) => new Content(s);
-        public static implicit operator Content(MarkupString s) => new Content(s);
+        public static implicit operator Content(string         s) => new Content(s);
+        public static implicit operator Content(MarkupString   s) => new Content(s);
+        public static implicit operator Content(RenderFragment s) => new Content(s);
     }
 }

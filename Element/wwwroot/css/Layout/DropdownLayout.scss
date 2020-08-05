@@ -27,18 +27,21 @@ div[class~="Integrant.Element.Layout.DropdownLayout"] {
         display:          none;
         position:         absolute;
         z-index:          1;
-        //left: 100%;
 
         div[class~="Integrant.Element.Layout.DropdownLayout.Child"] {
-            box-sizing: border-box;
-            padding:    3px;
-            position:   relative;
-            text-align: center;
-            width:      100%;
+            box-sizing:  border-box;
+            padding:     3px;
+            position:    relative;
+            text-align:  center;
+            white-space: nowrap;
+
+            > a[class~="Integrant.Element.Bit.Link"] {
+                width:   100%;
+            }
 
             &:hover {
-                box-shadow:       0 0 4px -1px var(--Colorant_Default_Shadow_0) inset;
                 background-color: var(--Colorant_Default_Background_4);
+                box-shadow:       0 0 4px -1px var(--Colorant_Default_Shadow_0) inset;
             }
 
             &:not(:last-child) {

@@ -23,8 +23,8 @@ namespace Integrant.Element.Bits
             BitGetters.BitClasses?    classes         = null,
             BitGetters.BitSize?       margin          = null,
             BitGetters.BitSize?       padding         = null,
-            BitGetters.BitColor?      foregroundColor = null,
             BitGetters.BitColor?      backgroundColor = null,
+            BitGetters.BitColor?      foregroundColor = null,
             BitGetters.BitPixels?     pixelsHeight    = null,
             BitGetters.BitPixels?     pixelsWidth     = null,
             BitGetters.BitREM?        fontSize        = null,
@@ -41,8 +41,8 @@ namespace Integrant.Element.Bits
                 Classes         = classes,
                 Margin          = margin,
                 Padding         = padding,
-                ForegroundColor = foregroundColor,
                 BackgroundColor = backgroundColor,
+                ForegroundColor = foregroundColor,
                 PixelsHeight    = pixelsHeight,
                 PixelsWidth     = pixelsWidth,
                 FontSize        = fontSize,
@@ -55,17 +55,10 @@ namespace Integrant.Element.Bits
                 "Integrant.Element.Bit." + nameof(Checkbox)
             );
 
-            Cache(additionalClasses: LocalClasses());
+            Cache();
 
             _onToggle = onToggle;
             _checked  = isChecked?.Invoke() ?? false;
-        }
-
-        private string[]? LocalClasses()
-        {
-            return Spec.IsDisabled?.Invoke() == true
-                ? new[] {"Integrant.Element.Bit." + nameof(Checkbox) + ":Disabled"}
-                : null;
         }
 
         public override RenderFragment Render() => builder =>
@@ -74,7 +67,7 @@ namespace Integrant.Element.Bits
 
             builder.OpenElement(++seq, "div");
             builder.AddAttribute(++seq, "style",   Style(false));
-            builder.AddAttribute(++seq, "class",   Class(false, LocalClasses()));
+            builder.AddAttribute(++seq, "class",   Class(false));
             builder.AddAttribute(++seq, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClick));
 
             ++seq;
@@ -99,10 +92,13 @@ namespace Integrant.Element.Bits
             if (Spec.IsDisabled?.Invoke() == true)
                 return;
 
-            _checked = !_checked;
+            bool was = _checked;
+            _checked = !_checked || Spec.IsChecked?.Invoke() == true;
+            
             _trigger.Trigger();
             
-            _onToggle.Invoke(_checked);
+            if (_checked != was)
+                _onToggle.Invoke(_checked);
         }
     }
 }

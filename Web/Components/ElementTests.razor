@@ -3,7 +3,29 @@
 @using Integrant.Colorant.Themes.Solids
 @using Integrant.Resources.Icons.MaterialIcons
 
-<input type="number" step="0.1" @bind-value="@Number" @bind-value:event="oninput"/>
+<div class="Integrant.Rudiment.Input">
+    <input type="number" step="0.1" @bind-value="@Number" @bind-value:event="oninput"/>
+</div>
+
+<br>
+
+@(new Button(() => "Button 1!", _ => { }).Render())
+@(new Button(() => "Button blue!", _ => { }, Button.Color.Blue).Render())
+@(new Button(() => "Button green!", _ => { }, Button.Color.Green).Render())
+@(new Button(() => "Button orange!", _ => { }, Button.Color.Orange).Render())
+@(new Button(() => "Button purple!", _ => { }, Button.Color.Purple).Render())
+@(new Button(() => "Button red!", _ => { }, Button.Color.Red).Render())
+@(new Button(() => "Button yellow!", _ => { }, Button.Color.Yellow).Render())
+
+<br>
+
+@(new Button(() => "Button 1!", _ => { }, isDisabled: () => true).Render())
+@(new Button(() => "Button blue!", _ => { }, Button.Color.Blue, isDisabled: () => true).Render())
+@(new Button(() => "Button green!", _ => { }, Button.Color.Green, isDisabled: () => true).Render())
+@(new Button(() => "Button orange!", _ => { }, Button.Color.Orange, isDisabled: () => true).Render())
+@(new Button(() => "Button purple!", _ => { }, Button.Color.Purple, isDisabled: () => true).Render())
+@(new Button(() => "Button red!", _ => { }, Button.Color.Red, isDisabled: () => true).Render())
+@(new Button(() => "Button yellow!", _ => { }, Button.Color.Yellow, isDisabled: () => true).Render())
 
 <br>
 

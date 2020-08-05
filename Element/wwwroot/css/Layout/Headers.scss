@@ -1,17 +1,17 @@
 div[class~="Integrant.Element.Construct.Header"] {
     padding: 5px 10px;
 
-    &[class~="Integrant.Element.Construct.Header:BorderTop"] {
-        border-top: 1px solid var(--Colorant_Default_Border_11);
-    }
-
-    &[class~="Integrant.Element.Construct.Header:BorderBottom"] {
-        border-bottom: 1px solid var(--Colorant_Default_Border_11);
-    }
-
     &[class~="Integrant.Element.Construct.Header:Primary"] {
         background-color: var(--Colorant_Default_Background_11);
         font-size:        1.5rem;
+
+        &[class~="Integrant.Element.Construct.Header:BorderTop"] {
+            border-top: 1px solid var(--Colorant_Default_Border_14);
+        }
+
+        &[class~="Integrant.Element.Construct.Header:BorderBottom"] {
+            border-bottom: 1px solid var(--Colorant_Default_Border_14);
+        }
     }
 
     &[class~="Integrant.Element.Construct.Header:Secondary"] {
@@ -20,6 +20,14 @@ div[class~="Integrant.Element.Construct.Header"] {
         //box-shadow:       0 0 4px 0 rgba(0, 0, 0, 0.15) inset;
         box-shadow:       0 0 3px var(--Colorant_Default_Shadow_0) inset;
         font-size:        1.25rem;
+
+        &[class~="Integrant.Element.Construct.Header:BorderTop"] {
+            border-top: 1px solid var(--Colorant_Default_Border_11);
+        }
+
+        &[class~="Integrant.Element.Construct.Header:BorderBottom"] {
+            border-bottom: 1px solid var(--Colorant_Default_Border_11);
+        }
     }
 
     // Descendant overrides

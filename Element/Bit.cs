@@ -10,7 +10,6 @@ namespace Integrant.Element
         protected ClassSet ConstantClasses;
 
         protected string? CachedStyle;
-        protected string  CachedClass;
 
         public abstract RenderFragment Render();
 
@@ -47,19 +46,14 @@ namespace Integrant.Element
 
             if (additional != null)
                 c.AddRange(additional);
-
-            if (Spec.IsStatic && !initial)
-                return c.Format();
+            
+            if (Spec.IsDisabled?.Invoke() == true)
+                c.Add("Integrant.Element.Bit:Disabled");
 
             if (Spec.Classes != null)
                 c.AddRange(Spec.Classes.Invoke());
 
-            string r = c.Format();
-
-            if (Spec.IsStatic)
-                CachedClass = r;
-
-            return r;
+            return c.Format();
         }
     }
 }

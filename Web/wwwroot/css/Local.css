@@ -1,7 +1,10 @@
 .C_Container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  padding: 5px; }
+  .C_Container h1 {
+    width: 100%; }
   .C_Container h1, .C_Container h2, .C_Container h3 {
     color: white;
     margin: 15px 3px 3px 3px; }
@@ -33,5 +36,7 @@ div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.
 .Panel {
   background-color: var(--Colorant_Default_Background_0);
   border: 1px solid var(--Colorant_Default_Border_9);
-  box-shadow: 0 0 2px var(--Colorant_Default_Shadow_0);
-  margin: 5px; }
+  box-shadow: 0 1px 2px 1px var(--Colorant_Default_Shadow_0);
+  margin: 9px; }
+  .Panel div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary "] {
+    background-color: var(--Colorant_Default_Background_4); }

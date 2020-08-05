@@ -17,6 +17,13 @@ div[class~="Integrant.Rudiment.Input"] input, div[class~="Integrant.Rudiment.Inp
 div[class~="Integrant.Rudiment.Input"] input[type="text"], div[class~="Integrant.Rudiment.Input"] textarea {
   width: calc(100% - 2px); }
 
+div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:Composite"] {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap; }
+  div[class~="Integrant.Rudiment.Input"][class~="Integrant.Rudiment.Input:Composite"] div[class~="Integrant.Rudiment.Input"]:not(:first-child) {
+    margin-left: 3px; }
+
 div[class~="Integrant.Rudiment.Input"] input:required, div[class~="Integrant.Rudiment.Input"] textarea:required {
   box-shadow: none; }
 

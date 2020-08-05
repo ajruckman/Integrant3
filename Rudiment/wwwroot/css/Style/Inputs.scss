@@ -32,6 +32,16 @@ div[class~="Integrant.Rudiment.Input"] {
     &[class~="Integrant.Rudiment.Input:Disabled"] {
     }
 
+    &[class~="Integrant.Rudiment.Input:Composite"] {
+        align-items: center;
+        display:     inline-flex;
+        flex-wrap:   wrap;
+
+        div[class~="Integrant.Rudiment.Input"]:not(:first-child) {
+            margin-left: 3px;
+        }
+    }
+
     // Overrides/resets
 
     input, textarea {

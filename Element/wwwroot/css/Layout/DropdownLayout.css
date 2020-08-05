@@ -19,10 +19,12 @@ div[class~="Integrant.Element.Layout.DropdownLayout"] {
       padding: 3px;
       position: relative;
       text-align: center;
-      width: 100%; }
+      white-space: nowrap; }
+      div[class~="Integrant.Element.Layout.DropdownLayout"] div[class~="Integrant.Element.Layout.DropdownLayout.Contents"] div[class~="Integrant.Element.Layout.DropdownLayout.Child"] > a[class~="Integrant.Element.Bit.Link"] {
+        width: 100%; }
       div[class~="Integrant.Element.Layout.DropdownLayout"] div[class~="Integrant.Element.Layout.DropdownLayout.Contents"] div[class~="Integrant.Element.Layout.DropdownLayout.Child"]:hover {
-        box-shadow: 0 0 4px -1px var(--Colorant_Default_Shadow_0) inset;
-        background-color: var(--Colorant_Default_Background_4); }
+        background-color: var(--Colorant_Default_Background_4);
+        box-shadow: 0 0 4px -1px var(--Colorant_Default_Shadow_0) inset; }
       div[class~="Integrant.Element.Layout.DropdownLayout"] div[class~="Integrant.Element.Layout.DropdownLayout.Contents"] div[class~="Integrant.Element.Layout.DropdownLayout.Child"]:not(:last-child) {
         border-bottom: 1px solid var(--Colorant_Default_Border_5); }
 
