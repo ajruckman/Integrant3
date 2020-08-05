@@ -82,6 +82,11 @@ namespace Integrant.Element.Constructs
             return Render();
         }
 
+        public RenderFragment Render(NavigationManager navMgr)
+        {
+            return Render($"/{navMgr.ToBaseRelativePath(navMgr.Uri).TrimEnd('/')}");
+        }
+
         public void Highlight(string url)
         {
             _highlightedURL = url;

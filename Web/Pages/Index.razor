@@ -6,7 +6,6 @@
 
 @page "/"
 
-@_header1.Render("/url5")
 @_header2.Render()
 
 <div class="Panel">
@@ -18,7 +17,7 @@
 <Icon ID="check"/>
 
 <div class="Panel">
-    @_header1.Render()
+    @PrimaryHeader.Render()
     @_header2.Render()
     <StructureContainer TS="User" StructureInstance="@_structure" Value="@_testUser">
         <table>
@@ -164,6 +163,28 @@
                 </td>
                 <td>
                     <MemberValue TS="User" TM="int"/>
+                </td>
+            </MemberContainer>
+            <MemberContainer TS="User" TM="string" ID="DepartmentType" Element="tr">
+                <td>
+                    <MemberKey TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberInput TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="string"/>
+                </td>
+            </MemberContainer>
+            <MemberContainer TS="User" TM="ushort" ID="DepartmentStatus" Element="tr">
+                <td>
+                    <MemberKey TS="User" TM="ushort"/>
+                </td>
+                <td>
+                    <MemberInput TS="User" TM="ushort"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="ushort"/>
                 </td>
             </MemberContainer>
             </tbody>

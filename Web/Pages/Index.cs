@@ -10,6 +10,7 @@ using Integrant.Element.Constructs;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Integrant.Rudiment.Inputs;
+using Microsoft.AspNetCore.Components;
 using Superset.Common;
 
 namespace Integrant.Web.Pages
@@ -29,7 +30,12 @@ namespace Integrant.Web.Pages
             public DateTime?    CompositeDateTime { get; set; }
             public List<string> Tags              { get; set; }
             public int          DepartmentID      { get; set; }
+            public string       DepartmentType    { get; set; }
+            public ushort       DepartmentStatus  { get; set; }
         }
+        
+        [CascadingParameter(Name = "PrimaryHeader")]
+        public Header PrimaryHeader { get; set; }
 
         private StructureInstance<User> _structure    = null!;
         private FlareSelector<string>   _tagsSelector = null!;
@@ -37,7 +43,6 @@ namespace Integrant.Web.Pages
 
         private const bool DoSlow = false;
 
-        private Header _header1 = null!;
         private Header _header2 = null!;
 
         private Button _submitButton = null!;
@@ -111,87 +116,10 @@ namespace Integrant.Web.Pages
 
             //
 
-            _submitButton = new Button(() => "Submit", _ => Submit(), Button.Color.Green, isStatic: false,
+            _submitButton = new Button(() => "Submit", _ => Submit(), Button.Color.Green,
                 isDisabled: () => !_structure.ValidationState.Valid());
 
-            _header1 = new Header
-            (
-                new List<IBit>
-                {
-                    new Title(() => "Header #1!"),
-                    new Filler(),
-                    new Link(() => "Link 1!", () => "/url1"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url2"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url3"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url4"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url5"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url6"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url7"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url8"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url9"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url10"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url11"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url12"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url13"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url14"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url15"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url16"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url17"),
-                    new Space(),
-                    new Separator(),
-                    new Space(),
-                    new Link(() => "Link 2!", () => "/url18"),
-                },
-                doHighlight: true
-            );
+            
 
             _header2 = new Header
             (

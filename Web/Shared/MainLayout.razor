@@ -3,6 +3,7 @@
 @inherits LayoutComponentBase
 
 @inject ILocalStorageService StorageService
+@inject NavigationManager NavigationManager
 
 @(Configuration.ResourceSet.Render())
 
@@ -11,8 +12,11 @@
 @if (_defaultThemeLoader.Complete)
 {
     @_defaultThemeLoader.RenderLink()
+    @_header1.Render(NavigationManager)
     <CascadingValue Value="@_rootLayer" Name="Layer">
-        @Body
+        <CascadingValue Value="@_header1" Name="PrimaryHeader">
+            @Body
+        </CascadingValue>
     </CascadingValue>
     @_defaultThemeLoader.RenderDropdown()
 }

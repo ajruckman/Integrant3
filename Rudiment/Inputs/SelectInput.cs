@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
@@ -9,6 +8,32 @@ namespace Integrant.Rudiment.Inputs
     public class SelectInput<TStructure, TID> : IInput<TStructure, TID>
     {
         public event Action<TStructure, TID>? OnInput;
+
+        public delegate TID Parser(string v);
+
+        private readonly Parser _parser;
+
+        public SelectInput()
+        {
+            if (typeof(TID) == typeof(string))
+            {
+                _parser = v => (TID) (object) v;
+            }
+            else if (typeof(TID) == typeof(int))
+            {
+                _parser = v => (TID) (object) int.Parse(v);
+            }
+            else
+            {
+                throw new ArgumentException(
+                    $"No parser was passed to SelectInput and no fallback parser was found for type '{typeof(TID).Name}'.");
+            }
+        }
+
+        public SelectInput(Parser p)
+        {
+            _parser = p;
+        }
 
         public RenderFragment Render
         (
@@ -43,51 +68,33 @@ namespace Integrant.Rudiment.Inputs
 
             //
 
-            builder.OpenElement(++seq, "select");
-            
+            InputBuilder.OpenInnerInput
+            (
+                builder, ref seq,
+                member,
+                "select", null,
+                "value", member.InputValue.Invoke(structure, value, member),
+                required, disabled,
+                args => OnChange(value, args)
+            );
+
             foreach (IOption<TID>? option in member.SelectInputOptions.Invoke(structure, value, member))
             {
                 builder.OpenElement(++seq, "option");
                 builder.AddAttribute(++seq, "value", option.ID);
 
-                if (member.InputValue?.Invoke(structure, value, member).Equals(option.ID) == true)
-                    builder.AddAttribute(++seq, "selected", "selected");
-
                 builder.AddContent(++seq, option.Name);
                 builder.CloseElement();
             }
-            
-            builder.CloseElement();
 
-            // InputBuilder.OpenInnerInput
-            // (
-            //     builder, ref seq,
-            //     member,
-            //     "input", "text",
-            //     "value", member.InputValue.Invoke(structure, value, member),
-            //     required, disabled,
-            //     args => OnChange(value, args)
-            // );
-            // InputBuilder.CloseInnerInput(builder, ref seq);
+            InputBuilder.CloseInnerInput(builder, ref seq);
 
             builder.CloseElement();
         };
 
-        // private string Bound
-        // {
-        //     get
-        //     {
-        //         
-        //     }
-        //     set
-        //     {
-        //         
-        //     }
-        // }
-
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
-            // OnInput?.Invoke(value, args.Value?.ToString() ?? "");
+            OnInput?.Invoke(value, _parser.Invoke(args.Value!.ToString()!));
         }
     }
 

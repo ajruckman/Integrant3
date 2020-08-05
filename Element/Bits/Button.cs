@@ -26,7 +26,7 @@ namespace Integrant.Element.Bits
             BitGetters.BitContent     content,
             Action<ClickArgs>         onClick,
             Color?                    color           = null,
-            bool                      isStatic        = true,
+            bool?                     isStatic        = null,
             BitGetters.BitIsVisible?  isVisible       = null,
             BitGetters.BitIsDisabled? isDisabled      = null,
             BitGetters.BitClasses?    classes         = null,
@@ -44,7 +44,7 @@ namespace Integrant.Element.Bits
             Spec = new BitSpec
             {
                 Content         = content,
-                IsStatic        = isStatic,
+                IsStatic        = isStatic == true || isDisabled == null,
                 IsVisible       = isVisible,
                 IsDisabled      = isDisabled,
                 Classes         = classes,

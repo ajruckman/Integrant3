@@ -154,6 +154,31 @@ namespace Integrant.Web
                     new Option<int>(3, "Three"),
                 }
             ));
+            Structure.Register(new Member<Pages.Index.User, string>(
+                nameof(Pages.Index.User.DepartmentType),
+                (s,                v, m) => v.DepartmentType,
+                onValueUpdate: (s, v, m) => s.DepartmentType = m,
+                input: () => new SelectInput<Pages.Index.User, string>(),
+                selectInputOptions: (s, v, m) => new List<IOption<string>>
+                {
+                    new Option<string>("One",   "One"),
+                    new Option<string>("Two",   "Two"),
+                    new Option<string>("Three", "Three"),
+                }
+            ));
+
+            Structure.Register(new Member<Pages.Index.User, ushort>(
+                nameof(Pages.Index.User.DepartmentStatus),
+                (s,                v, m) => v.DepartmentStatus,
+                onValueUpdate: (s, v, m) => s.DepartmentStatus = m,
+                input: () => new SelectInput<Pages.Index.User, ushort>(ushort.Parse),
+                selectInputOptions: (s, v, m) => new List<IOption<ushort>>
+                {
+                    new Option<ushort>(1, "One"),
+                    new Option<ushort>(2, "Two"),
+                    new Option<ushort>(3, "Three"),
+                }
+            ));
         }
     }
 }
