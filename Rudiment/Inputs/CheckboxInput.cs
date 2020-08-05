@@ -12,6 +12,11 @@ namespace Integrant.Rudiment.Inputs
 
         private Checkbox? _checkbox;
 
+        public void Reset()
+        {
+            _checkbox!.Reset();
+        }
+
         public RenderFragment Render
         (
             Structure<TStructure> structure, TStructure value, Member<TStructure, bool> member
@@ -42,7 +47,7 @@ namespace Integrant.Rudiment.Inputs
                 isChecked: () => (bool) member.InputValue.Invoke(structure, value, member),
                 isDisabled: () => disabled
             );
-            
+
             builder.AddContent(++seq, _checkbox.Render());
 
             //

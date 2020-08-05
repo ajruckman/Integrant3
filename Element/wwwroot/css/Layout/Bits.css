@@ -150,20 +150,22 @@ img[class~="Integrant.Element.Bit.Image"] {
   box-sizing: border-box;
   vertical-align: middle; }
 
-a[class~="Integrant.Element.Bit.Link"] {
-  box-sizing: border-box;
-  vertical-align: middle;
-  display: inline-block;
+a[class~="Integrant.Element.Bit.Title:Linked"], a[class~="Integrant.Element.Bit.Link"] {
   border-bottom: 3px solid transparent;
   border-top: 3px solid transparent;
   box-sizing: content-box;
   color: var(--Colorant_Default_Text_4);
+  display: inline-block;
   text-decoration: none; }
-  a[class~="Integrant.Element.Bit.Link"]:hover {
+  a[class~="Integrant.Element.Bit.Title:Linked"]:hover, a[class~="Integrant.Element.Bit.Link"]:hover {
     border-bottom-color: var(--Colorant_Default_Accent_7);
     color: var(--Colorant_Default_Text_4); }
-  a[class~="Integrant.Element.Bit.Link"]::-moz-focus-inner {
+  a[class~="Integrant.Element.Bit.Title:Linked"]::-moz-focus-inner, a[class~="Integrant.Element.Bit.Link"]::-moz-focus-inner {
     border: 0; }
+
+a[class~="Integrant.Element.Bit.Link"] {
+  box-sizing: border-box;
+  vertical-align: middle; }
   a[class~="Integrant.Element.Bit.Link"][class~="Integrant.Element.Bit.Link:Highlighted"] {
     border-bottom-color: var(--Colorant_Default_Accent_5); }
 
@@ -198,7 +200,7 @@ div[class~="Integrant.Element.Bit.ExternalComponent"] {
 div[class~="Integrant.Element.Bit.TextLine"] {
   width: 5px; }
 
-div[class~="Integrant.Element.Bit.Title"] {
+div[class~="Integrant.Element.Bit.Title"], a[class~="Integrant.Element.Bit.Title:Linked"] {
   color: var(--Colorant_Default_Text_4);
   font-size: 1.15rem;
   font-weight: 500;

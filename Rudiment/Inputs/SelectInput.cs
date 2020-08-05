@@ -9,6 +9,8 @@ namespace Integrant.Rudiment.Inputs
     {
         public event Action<TStructure, TID>? OnInput;
 
+        public void Reset() { }
+
         public delegate TID Parser(string v);
 
         private readonly Parser _parser;

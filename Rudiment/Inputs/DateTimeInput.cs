@@ -9,6 +9,8 @@ namespace Integrant.Rudiment.Inputs
     {
         public event Action<TStructure, DateTime>? OnInput;
 
+        public void Reset() { }
+
         private readonly DateInput<TStructure> _dateInput;
         private readonly TimeInput<TStructure> _timeInput;
 

@@ -10,6 +10,8 @@ namespace Integrant.Rudiment.Inputs
     {
         public event Action<TStructure, DateTime>? OnInput;
 
+        public void Reset() { }
+
         public RenderFragment Render
         (
             Structure<TStructure> structure, TStructure value, Member<TStructure, DateTime> member

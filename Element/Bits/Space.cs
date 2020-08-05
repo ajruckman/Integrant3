@@ -9,9 +9,9 @@ namespace Integrant.Element.Bits
     {
         public Space
         (
+            BitGetters.BitPixels?    pixelsWidth     = null,
             bool                     isStatic        = true,
             BitGetters.BitIsVisible? isVisible       = null,
-            BitGetters.BitPixels?    pixelsWidth     = null,
             BitGetters.BitDisplay?   display         = null
         )
         {

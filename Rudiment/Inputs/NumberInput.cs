@@ -9,6 +9,8 @@ namespace Integrant.Rudiment.Inputs
     {
         public event Action<TStructure, int>? OnInput;
 
+        public void Reset() { }
+
         public RenderFragment Render
         (
             Structure<TStructure> structure, TStructure value, Member<TStructure, int> member

@@ -8,6 +8,8 @@ namespace Integrant.Fundament
     {
         public event Action<TStructure, TMember>? OnInput;
 
+        public void Reset();
+
         public RenderFragment Render
         (
             Structure<TStructure>       structure,

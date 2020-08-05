@@ -40,6 +40,8 @@ namespace Integrant.Rudiment.Inputs
 
         public event Action<TStructure, string>? OnInput;
 
+        public void Reset() { }
+
         public delegate int GetTextAreaCols
         (
             Structure<TStructure>      structure, TStructure value, Member<TStructure, string> member,

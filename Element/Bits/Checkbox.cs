@@ -92,13 +92,24 @@ namespace Integrant.Element.Bits
             if (Spec.IsDisabled?.Invoke() == true)
                 return;
 
-            bool was = _checked;
-            _checked = !_checked || Spec.IsChecked?.Invoke() == true;
-            
+            _checked = !_checked;
             _trigger.Trigger();
-            
-            if (_checked != was)
-                _onToggle.Invoke(_checked);
+            _onToggle.Invoke(_checked);
+
+            // bool? now = Spec.IsChecked?.Invoke();
+            // if (now == null) return;
+            //
+            // if (_checked != now.Value)
+            // {
+            //     _checked = now.Value;
+            //     _onToggle.Invoke(_checked);
+            // } 
+        }
+
+        public void Reset()
+        {
+            _checked = Spec.IsChecked?.Invoke() ?? false;
+            _trigger.Trigger();
         }
     }
 }

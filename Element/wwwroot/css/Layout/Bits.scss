@@ -39,32 +39,30 @@ img[class~="Integrant.Element.Bit.Image"] {
     @include _Bit();
 }
 
-a[class~="Integrant.Element.Bit.Link"] {
-    @include _Bit();
-    display: inline-block;
-
+%_Link {
     border-bottom:   3px solid transparent;
-    //font-weight:           500;
     border-top:      3px solid transparent;
     box-sizing:      content-box;
     color:           var(--Colorant_Default_Text_4);
-    //text-decoration-color: transparent;
+    display:         inline-block;
     text-decoration: none;
 
     &:hover {
         border-bottom-color: var(--Colorant_Default_Accent_7);
         color:               var(--Colorant_Default_Text_4);
-        //text-decoration-color: var(--Colorant_Default_Text_4);
     }
-
+    
     &::-moz-focus-inner {
         border: 0;
     }
+}
+
+a[class~="Integrant.Element.Bit.Link"] {
+    @include _Bit();
+    @extend %_Link;
 
     &[class~="Integrant.Element.Bit.Link:Highlighted"] {
-        //text-decoration-color: var(--Colorant_Default_Accent_5);
         border-bottom-color: var(--Colorant_Default_Accent_5);
-        //text-decoration-width: 2px;
     }
 }
 
@@ -104,9 +102,13 @@ div[class~="Integrant.Element.Bit.TextLine"] {
     width: 5px;
 }
 
-div[class~="Integrant.Element.Bit.Title"] {
+div[class~="Integrant.Element.Bit.Title"], a[class~="Integrant.Element.Bit.Title:Linked"] {
     color:           var(--Colorant_Default_Text_4);
     font-size:       1.15rem;
     font-weight:     500;
     text-decoration: none;
+}
+
+a[class~="Integrant.Element.Bit.Title:Linked"] {
+    @extend %_Link;
 }

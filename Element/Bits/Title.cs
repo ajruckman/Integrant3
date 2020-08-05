@@ -10,6 +10,7 @@ namespace Integrant.Element.Bits
         public Title
         (
             BitGetters.BitContent    content,
+            BitGetters.BitURL?       url             = null,
             bool                     isStatic        = true,
             BitGetters.BitIsVisible? isVisible       = null,
             BitGetters.BitClasses?   classes         = null,
@@ -27,6 +28,7 @@ namespace Integrant.Element.Bits
             Spec = new BitSpec
             {
                 Content         = content,
+                URL             = url,
                 IsStatic        = isStatic,
                 IsVisible       = isVisible,
                 Classes         = classes,
@@ -46,6 +48,9 @@ namespace Integrant.Element.Bits
                 "Integrant.Element.Bit." + nameof(Title)
             );
 
+            if (url != null)
+                ConstantClasses.Add("Integrant.Element.Bit." + nameof(Title) + ":Linked");
+
             Cache();
         }
 
@@ -53,7 +58,16 @@ namespace Integrant.Element.Bits
         {
             int seq = -1;
 
-            builder.OpenElement(++seq, "div");
+            if (Spec.URL == null)
+            {
+                builder.OpenElement(++seq, "div");
+            }
+            else
+            {
+                builder.OpenElement(++seq, "a");
+                builder.AddAttribute(++seq, "href", Spec.URL.Invoke());
+            }
+
             builder.AddAttribute(++seq, "style", Style(false));
             builder.AddAttribute(++seq, "class", Class(false));
 
