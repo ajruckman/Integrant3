@@ -6,30 +6,31 @@ using Integrant.Element;
 using Integrant.Element.Bits;
 using Integrant.Element.Constructs;
 using Integrant.Fundament;
+using Integrant.Fundament.Element;
 
 namespace Integrant.Web.Shared
 {
     public partial class MainLayout
     {
-        // private ColorSet.Components.ThemeLoader _themeLoader;
+        // private ColorSet.Components.VariantLoader _themeLoader;
         private Layer  _rootLayer;
         private Header _header1 = null!;
 
-        private ThemeLoader _defaultThemeLoader;
-        private ThemeLoader _solidsThemeLoader;
+        private VariantLoader _defaultVariantLoader;
+        private VariantLoader _solidsVariantLoader;
 
         protected override void OnInitialized()
         {
             _rootLayer = new Layer();
 
-            // _themeLoader            =  new ColorSet.Components.ThemeLoader(StorageService, Configuration.ResourceSet, "Dark");
+            // _themeLoader            =  new ColorSet.Components.VariantLoader(StorageService, Configuration.ResourceSet, "Dark");
             // _themeLoader.OnComplete += StateHasChanged;
 
-            _defaultThemeLoader = new ThemeLoader(StorageService, new Theme(),
+            _defaultVariantLoader = new VariantLoader(StorageService, new Theme(),
                 Variants.Dark.ToString());
-            _defaultThemeLoader.OnComplete += StateHasChanged;
+            _defaultVariantLoader.OnComplete += StateHasChanged;
 
-            _solidsThemeLoader = new ThemeLoader(StorageService, new Colorant.Themes.Solids.Theme(),
+            _solidsVariantLoader = new VariantLoader(StorageService, new Colorant.Themes.Solids.Theme(),
                 Colorant.Themes.Solids.Variants.Normal.ToString());
 
             //
@@ -115,7 +116,7 @@ namespace Integrant.Web.Shared
             if (firstRender)
             {
                 // await _themeLoader.Load();
-                await _defaultThemeLoader.Load();
+                await _defaultVariantLoader.Load();
             }
         }
     }

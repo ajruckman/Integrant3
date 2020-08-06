@@ -32,12 +32,4 @@
       <ProjectReference Include="..\Resources\Resources.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Include="wwwroot\css\Layout\DropdownLayout.scss" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="wwwroot\css\Style" />
-    </ItemGroup>
-
 </Project>

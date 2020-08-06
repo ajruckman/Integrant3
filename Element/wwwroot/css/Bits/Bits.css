@@ -1,0 +1,89 @@
+div[class~="Integrant.Element.Bit.Arrow"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: inline-block; }
+
+div[class~="Integrant.Element.Bit.Checkbox"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  color: var(--Colorant_Default_Text_3);
+  cursor: pointer;
+  line-height: 0;
+  user-select: none; }
+  div[class~="Integrant.Element.Bit.Checkbox"]:hover:not([class~="Integrant.Element.Bit:Disabled"]) {
+    color: var(--Colorant_Default_Text_5); }
+  div[class~="Integrant.Element.Bit.Checkbox"][class~="Integrant.Element.Bit:Disabled"] {
+    color: var(--Colorant_Default_Text_0);
+    cursor: not-allowed; }
+
+div[class~="Integrant.Element.Bit.Chip"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 2px 5px; }
+
+div[class~="Integrant.Element.Bit.Filler"] {
+  flex-grow: 100; }
+
+img[class~="Integrant.Element.Bit.Image"] {
+  box-sizing: border-box;
+  vertical-align: middle; }
+
+a[class~="Integrant.Element.Bit.Title:Linked"], a[class~="Integrant.Element.Bit.Link"] {
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid transparent;
+  box-sizing: content-box;
+  color: var(--Colorant_Default_Text_4);
+  display: inline-block;
+  text-decoration: none; }
+  a[class~="Integrant.Element.Bit.Title:Linked"]:hover, a[class~="Integrant.Element.Bit.Link"]:hover {
+    border-bottom-color: var(--Colorant_Default_Accent_7);
+    color: var(--Colorant_Default_Text_4); }
+  a[class~="Integrant.Element.Bit.Title:Linked"]::-moz-focus-inner, a[class~="Integrant.Element.Bit.Link"]::-moz-focus-inner {
+    border: 0; }
+
+a[class~="Integrant.Element.Bit.Link"] {
+  box-sizing: border-box;
+  vertical-align: middle; }
+  a[class~="Integrant.Element.Bit.Link"][class~="Integrant.Element.Bit.Link:Highlighted"] {
+    border-bottom-color: var(--Colorant_Default_Accent_5); }
+
+div[class~="Integrant.Element.Bit.MonoBlock"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  background-color: var(--Colorant_Default_Background_10);
+  border: 2px solid var(--Colorant_Default_Border_8);
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: inline-block;
+  font-family: var(--Integrant_MonospacedFont);
+  padding: 2px 5px;
+  user-select: all; }
+
+div[class~="Integrant.Element.Bit.Separator"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  border-left: 2px solid var(--Colorant_Default_Border_15);
+  display: inline-block;
+  height: 1em;
+  margin: 0 5px; }
+
+div[class~="Integrant.Element.Bit.Space"] {
+  width: 10px; }
+
+div[class~="Integrant.Element.Bit.ExternalComponent"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: inline-block; }
+
+div[class~="Integrant.Element.Bit.TextLine"] {
+  width: 5px; }
+
+div[class~="Integrant.Element.Bit.Title"], a[class~="Integrant.Element.Bit.Title:Linked"] {
+  color: var(--Colorant_Default_Text_4);
+  font-size: 1.15rem;
+  font-weight: 500;
+  text-decoration: none; }
+
+/*# sourceMappingURL=Bits.css.map */

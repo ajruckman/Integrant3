@@ -9,7 +9,7 @@ using Superset.Web.State;
 
 namespace Integrant.Colorant.Components
 {
-    public sealed class ThemeLoader
+    public sealed class VariantLoader
     {
         private readonly ILocalStorageService _localStorage;
         private readonly ITheme               _theme;
@@ -18,7 +18,7 @@ namespace Integrant.Colorant.Components
         private readonly UpdateTrigger _update = new UpdateTrigger();
         private          string?       _variant;
 
-        public ThemeLoader
+        public VariantLoader
         (
             ILocalStorageService localStorage, ITheme theme, string defaultVariant
         )
@@ -69,12 +69,12 @@ namespace Integrant.Colorant.Components
                 int seq = -1;
 
                 builder.OpenElement(++seq, "div");
-                builder.AddAttribute(++seq, "id", $"Integrant.Colorant.Component.{nameof(ThemeLoader)}");
+                builder.AddAttribute(++seq, "id", $"Integrant.Colorant.Component.{nameof(VariantLoader)}");
 
                 builder.OpenElement(++seq, "span");
 
                 builder.OpenElement(++seq, "label");
-                builder.AddAttribute(++seq, "for", $"Integrant.Colorant.Component.{nameof(ThemeLoader)}");
+                builder.AddAttribute(++seq, "for", $"Integrant.Colorant.Component.{nameof(VariantLoader)}");
                 builder.AddContent(++seq, "Theme");
                 builder.CloseElement();
 
@@ -83,11 +83,11 @@ namespace Integrant.Colorant.Components
                 builder.AddAttribute(++seq, "ChildContent", (RenderFragment) (builder2 =>
                 {
                     builder2.OpenElement(++seq, "select");
-                    builder2.AddAttribute(++seq, "id", $"Integrant.Colorant.Component.{nameof(ThemeLoader)}.Dropdown");
+                    builder2.AddAttribute(++seq, "id", $"Integrant.Colorant.Component.{nameof(VariantLoader)}.Dropdown");
                     builder2.AddAttribute(
                         ++seq,
                         "onchange",
-                        EventCallback.Factory.Create<ChangeEventArgs>(this, OnThemeSelection)
+                        EventCallback.Factory.Create<ChangeEventArgs>(this, OnVariantSelection)
                     );
 
                     foreach (var variant in _theme.Variants)
@@ -112,11 +112,11 @@ namespace Integrant.Colorant.Components
 
         public async Task Load()
         {
-            var variant = await _localStorage.GetItemAsync<string>("Integrant.Colorant.Theme");
+            var variant = await _localStorage.GetItemAsync<string>("Integrant.Colorant.Variant");
             if (string.IsNullOrEmpty(variant))
             {
                 _variant = _defaultVariant;
-                await _localStorage.SetItemAsync("Integrant.Colorant.Theme", _variant);
+                await _localStorage.SetItemAsync("Integrant.Colorant.Variant", _variant);
             }
             else
             {
@@ -128,11 +128,11 @@ namespace Integrant.Colorant.Components
             OnComplete?.Invoke();
         }
 
-        private async Task OnThemeSelection(ChangeEventArgs args)
+        private async Task OnVariantSelection(ChangeEventArgs args)
         {
             var variant = args.Value.ToString();
             _variant = variant;
-            await _localStorage.SetItemAsync("Integrant.Colorant.Theme", _variant);
+            await _localStorage.SetItemAsync("Integrant.Colorant.Variant", _variant);
             _update.Trigger();
         }
     }

@@ -3,14 +3,14 @@
 @using Integrant.Colorant.Themes.Solids
 @using Integrant.Resources.Icons.MaterialIcons
 
-<div class="Integrant.Rudiment.Input">
+<div class="Integrant.Element.Input">
     <input type="number" step="0.1" @bind-value="@Number" @bind-value:event="oninput"/>
 </div>
 
 <br>
 
 @(new Button(() => "Button 1!", _ => { }).Render())
-@(new Button(() => "Button blue!", _ => { }, Button.Color.Blue).Render())
+@(new Button(() => "Button blue!", async _ => await Console.Out.WriteLineAsync("async"), Button.Color.Blue).Render())
 @(new Button(() => "Button green!", _ => { }, Button.Color.Green).Render())
 @(new Button(() => "Button orange!", _ => { }, Button.Color.Orange).Render())
 @(new Button(() => "Button purple!", _ => { }, Button.Color.Purple).Render())
@@ -29,10 +29,10 @@
 
 <br>
 
-@* @(new Checkbox(Console.WriteLine).Render()) *@
-@* @(new Checkbox(c => { }, isChecked: () => true).Render()) *@
-@* @(new Checkbox(c => { }, isDisabled: () => true).Render()) *@
-@* @(new Checkbox(c => { }, isDisabled: () => true, isChecked: () => true).Render()) *@
+@(new Checkbox(c => { }).Render())
+@(new Checkbox(async c => await Console.Out.WriteLineAsync("async " + c), isChecked: () => true).Render())
+@(new Checkbox(c => { }, isDisabled: () => true).Render())
+@(new Checkbox(c => { }, isDisabled: () => true, isChecked: () => true).Render())
 
 <br>
 

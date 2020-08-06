@@ -1,4 +1,4 @@
-div[class~="Integrant.Rudiment.Input"] {
+div[class~="Integrant.Element.Input"] {
 
     input, textarea, select {
         background-color: var(--Colorant_Default_Background_3);
@@ -26,19 +26,37 @@ div[class~="Integrant.Rudiment.Input"] {
         width: calc(100% - 2px);
     }
 
-    &[class~="Integrant.Rudiment.Input:FailsRequirement"] {
+    &[class~="Integrant.Element.Input:FailsRequirement"] {
+        input, textarea {
+            border: 1px solid red;
+        }
     }
 
-    &[class~="Integrant.Rudiment.Input:Disabled"] {
+    &[class~="Integrant.Element.Input:Disabled"] {
+        * {
+            cursor: not-allowed;
+        }
     }
 
-    &[class~="Integrant.Rudiment.Input:Composite"] {
+    &[class~="Integrant.Element.Input:Composite"] {
         align-items: center;
         display:     inline-flex;
         flex-wrap:   wrap;
 
-        div[class~="Integrant.Rudiment.Input"]:not(:first-child) {
+        div[class~="Integrant.Element.Input"]:not(:first-child) {
             margin-left: 3px;
+        }
+    }
+
+    &:not([class~="Integrant.Element.Input:Monospace"]) {
+        input, textarea, select, option {
+            font-family: var(--Integrant_SansSerifFont);
+        }
+    }
+
+    &[class~="Integrant.Element.Input:Monospace"] {
+        input, textarea, select, option {
+            font-family: var(--Integrant_MonospacedFont);
         }
     }
 

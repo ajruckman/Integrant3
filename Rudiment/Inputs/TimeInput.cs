@@ -24,7 +24,7 @@ namespace Integrant.Rudiment.Inputs
             //
 
             var classes = new ClassSet(
-                "Integrant.Rudiment.Input",
+                "Integrant.Element.Input",
                 "Integrant.Rudiment.Input." + nameof(TimeInput<TStructure>)
             );
 

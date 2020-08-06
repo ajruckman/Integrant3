@@ -1,9 +1,10 @@
 using Integrant.Fundament;
+using Integrant.Fundament.Element;
 using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element
 {
-    public abstract class Bit : IBit
+    public abstract class BitBase : IBit
     {
         internal BitSpec Spec { get; set; }
 
@@ -46,7 +47,7 @@ namespace Integrant.Element
 
             if (additional != null)
                 c.AddRange(additional);
-            
+
             if (Spec.IsDisabled?.Invoke() == true)
                 c.Add("Integrant.Element.Bit:Disabled");
 

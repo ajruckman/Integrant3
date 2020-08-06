@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Integrant.Fundament;
+using Integrant.Fundament.Element;
 using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits

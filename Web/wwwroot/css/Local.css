@@ -38,5 +38,3 @@ div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.
   border: 1px solid var(--Colorant_Default_Border_10);
   box-shadow: 0 1px 2px 1px var(--Colorant_Default_Shadow_0);
   margin: 9px; }
-  .Panel div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary "] {
-    background-color: var(--Colorant_Default_Background_4); }

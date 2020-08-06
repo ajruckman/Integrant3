@@ -1,23 +1,23 @@
-div[id="Integrant.Colorant.Component.ThemeLoader"] {
+div[id="Integrant.Colorant.Component.VariantLoader"] {
   align-items: center;
   display: flex;
   margin-left: 5px;
   margin-top: 5px; }
-  div[id="Integrant.Colorant.Component.ThemeLoader"] label, div[id="Integrant.Colorant.Component.ThemeLoader"] select {
+  div[id="Integrant.Colorant.Component.VariantLoader"] label, div[id="Integrant.Colorant.Component.VariantLoader"] select {
     font-family: var(--Integrant_MonospacedFont);
     font-size: 1rem;
     line-height: 1rem; }
-  div[id="Integrant.Colorant.Component.ThemeLoader"] select {
+  div[id="Integrant.Colorant.Component.VariantLoader"] select {
     background-color: transparent;
     border: 1px solid transparent;
     border-radius: 2px;
     color: var(--Colorant_Default_Text_4);
     margin-left: 2px;
     outline: none; }
-    div[id="Integrant.Colorant.Component.ThemeLoader"] select option {
+    div[id="Integrant.Colorant.Component.VariantLoader"] select option {
       background-color: var(--Colorant_Default_Background_3);
       color: var(--Colorant_Default_Text_4); }
-    div[id="Integrant.Colorant.Component.ThemeLoader"] select:focus {
+    div[id="Integrant.Colorant.Component.VariantLoader"] select:focus {
       border: 1px solid var(--Colorant_Default_Accent_4); }
 
-/*# sourceMappingURL=Colorant.css.map */
+/*# sourceMappingURL=VariantLoader.css.map */

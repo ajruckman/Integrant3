@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Integrant.Element
+namespace Integrant.Fundament.Element
 {
     public interface ILayout : IBit
     {

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Arrow : Bit
+    public class Arrow : BitBase
     {
         public Arrow
         (

@@ -8,6 +8,7 @@ using Integrant.Element;
 using Integrant.Element.Bits;
 using Integrant.Element.Constructs;
 using Integrant.Fundament;
+using Integrant.Fundament.Element;
 using Integrant.Fundament.Structure;
 using Integrant.Rudiment.Inputs;
 using Microsoft.AspNetCore.Components;

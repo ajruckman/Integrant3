@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Link : Bit
+    public class Link : BitBase
     {
         public Link
         (

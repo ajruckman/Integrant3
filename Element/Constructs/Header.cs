@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Integrant.Element.Bits;
 using Integrant.Element.Layouts;
+using Integrant.Fundament;
+using Integrant.Fundament.Element;
 using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Constructs

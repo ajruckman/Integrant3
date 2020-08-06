@@ -63,7 +63,7 @@ $TransitionSnap:    color linear 0ms, background-color linear 0ms, border linear
     font-style: italic;
 }
 
-div[class~="Integrant.Rudiment.Input"] {
+div[class~="Integrant.Element.Input"] {
     input, textarea {
         @include _InputBase;
 
@@ -109,7 +109,7 @@ div[class~="Integrant.Rudiment.Input"] {
         display:     inline-flex;
         flex-wrap:   wrap;
 
-        div[class~="Integrant.Rudiment.Input"]:not(:first-child) {
+        div[class~="Integrant.Element.Input"]:not(:first-child) {
             margin-left: 3px;
         }
     }

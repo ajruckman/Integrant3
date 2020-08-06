@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Integrant.Element.Bits
 {
-    public class Button : Bit
+    public class Button : BitBase
     {
         public enum Color
         {
@@ -19,12 +20,12 @@ namespace Integrant.Element.Bits
             Yellow,
         }
 
-        public event Action<ClickArgs> OnClick;
+        private readonly Func<ClickArgs, Task> _onClick;
 
         public Button
         (
             BitGetters.BitContent     content,
-            Action<ClickArgs>         onClick,
+            Func<ClickArgs, Task>     onClick,
             Color?                    color           = null,
             bool?                     isStatic        = null,
             BitGetters.BitIsVisible?  isVisible       = null,
@@ -59,20 +60,62 @@ namespace Integrant.Element.Bits
                 Display         = display,
             };
 
-            OnClick += onClick;
+            _onClick = onClick;
 
             ConstantClasses = new ClassSet(
+                "Integrant.Element.Button",
                 "Integrant.Element.Bit",
                 "Integrant.Element.Bit." + nameof(Button)
             );
 
             if (color == null)
-                ConstantClasses.Add("Integrant.Element.Bit." + nameof(Button) + ":Default");
+                ConstantClasses.Add("Integrant.Element.Button:Default");
             else
-                ConstantClasses.Add("Integrant.Element.Bit." + nameof(Button) + ":" + color);
+                ConstantClasses.Add("Integrant.Element.Button:" + color);
 
             Cache();
         }
+
+        public Button
+        (
+            BitGetters.BitContent     content,
+            Action<ClickArgs>         onClick,
+            Color?                    color           = null,
+            bool?                     isStatic        = null,
+            BitGetters.BitIsVisible?  isVisible       = null,
+            BitGetters.BitIsDisabled? isDisabled      = null,
+            BitGetters.BitClasses?    classes         = null,
+            BitGetters.BitSize?       margin          = null,
+            BitGetters.BitSize?       padding         = null,
+            BitGetters.BitColor?      foregroundColor = null,
+            BitGetters.BitColor?      backgroundColor = null,
+            BitGetters.BitPixels?     pixelsHeight    = null,
+            BitGetters.BitPixels?     pixelsWidth     = null,
+            BitGetters.BitREM?        fontSize        = null,
+            BitGetters.BitWeight?     fontWeight      = null,
+            BitGetters.BitDisplay?    display         = null
+        ) : this(
+            content,
+            async v =>
+            {
+                onClick.Invoke(v);
+                await Task.CompletedTask;
+            },
+            color,
+            isStatic,
+            isVisible,
+            isDisabled,
+            classes,
+            margin,
+            padding,
+            foregroundColor,
+            backgroundColor,
+            pixelsHeight,
+            pixelsWidth,
+            fontSize,
+            fontWeight,
+            display
+        ) { }
 
         public override RenderFragment Render() => builder =>
         {
@@ -94,7 +137,7 @@ namespace Integrant.Element.Bits
 
         private void Click(MouseEventArgs args)
         {
-            OnClick.Invoke(new ClickArgs
+            _onClick.Invoke(new ClickArgs
             (
                 (ushort) args.Button,
                 (ushort) args.ClientX,

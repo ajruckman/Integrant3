@@ -93,5 +93,17 @@ namespace Integrant.Colorant.Themes.Default
         public const string Text_7 = "var(--Colorant_Default_Text_7)";
         public const string Text_8 = "var(--Colorant_Default_Text_8)";
         public const string Shadow_0 = "var(--Colorant_Default_Shadow_0)";
+        public const string TableRow_0 = "var(--Colorant_Default_TableRow_0)";
+        public const string TableRow_1 = "var(--Colorant_Default_TableRow_1)";
+        public const string TableRow_2 = "var(--Colorant_Default_TableRow_2)";
+        public const string TableRow_3 = "var(--Colorant_Default_TableRow_3)";
+        public const string TableRow_Green_0 = "var(--Colorant_Default_TableRow_Green_0)";
+        public const string TableRow_Green_1 = "var(--Colorant_Default_TableRow_Green_1)";
+        public const string TableRow_Green_2 = "var(--Colorant_Default_TableRow_Green_2)";
+        public const string TableRow_Green_3 = "var(--Colorant_Default_TableRow_Green_3)";
+        public const string TableRow_Red_0 = "var(--Colorant_Default_TableRow_Red_0)";
+        public const string TableRow_Red_1 = "var(--Colorant_Default_TableRow_Red_1)";
+        public const string TableRow_Red_2 = "var(--Colorant_Default_TableRow_Red_2)";
+        public const string TableRow_Red_3 = "var(--Colorant_Default_TableRow_Red_3)";
     }
 }

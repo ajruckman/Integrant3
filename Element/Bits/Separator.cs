@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Separator : Bit
+    public class Separator : BitBase
     {
         private readonly BitGetters.BitPixels? _pixelsThickness;
         private readonly BitGetters.BitColor?  _color;

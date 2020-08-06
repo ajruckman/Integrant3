@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Image : Bit
+    public class Image : BitBase
     {
         private readonly BitGetters.BitPixels? _pixelsHeight;
         private readonly BitGetters.BitPixels? _pixelsWidth;

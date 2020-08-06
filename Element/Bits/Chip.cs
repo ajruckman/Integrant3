@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Chip : Bit
+    public class Chip : BitBase
     {
         public Chip
         (

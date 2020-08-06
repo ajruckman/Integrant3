@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class MonoBlock : Bit
+    public class MonoBlock : BitBase
     {
         public MonoBlock
         (

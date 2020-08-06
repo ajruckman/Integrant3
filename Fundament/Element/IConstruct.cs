@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Integrant.Element
+namespace Integrant.Fundament.Element
 {
     public interface IConstruct
     {

@@ -91,6 +91,36 @@
         "0"
       ],
       "CreateDisplayTextVariables": false
+    },
+    {
+      "Name": "TableRow",
+      "IDs": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "CreateDisplayTextVariables": false
+    },
+    {
+      "Name": "TableRow_Green",
+      "IDs": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "CreateDisplayTextVariables": false
+    },
+    {
+      "Name": "TableRow_Red",
+      "IDs": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "CreateDisplayTextVariables": false
     }
   ],
   "Variants": [
@@ -103,7 +133,10 @@
         "Border": "Range",
         "Accent": "Range",
         "Text": "Range",
-        "Shadow": "Given"
+        "Shadow": "Given",
+        "TableRow": "Range",
+        "TableRow_Green": "Range",
+        "TableRow_Red": "Range"
       },
       "BlockColorsGiven": {
         "Shadow": {
@@ -167,6 +200,51 @@
           "LumStart": 35,
           "LumEnd": 100,
           "LumCurve": "easeInCubic",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow": {
+          "HueStart": 259,
+          "HueEnd": 259,
+          "HueCurve": "linear",
+          "SatStart": 20,
+          "SatEnd": 20,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 5,
+          "LumEnd": 10,
+          "LumCurve": "easeInQuad",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow_Green": {
+          "HueStart": 120,
+          "HueEnd": 120,
+          "HueCurve": "linear",
+          "SatStart": 100,
+          "SatEnd": 100,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 10,
+          "LumEnd": 15,
+          "LumCurve": "easeInQuad",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow_Red": {
+          "HueStart": 0,
+          "HueEnd": 0,
+          "HueCurve": "linear",
+          "SatStart": 100,
+          "SatEnd": 100,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 13,
+          "LumEnd": 18,
+          "LumCurve": "easeInQuad",
           "Modifier": 10,
           "HoverStepSize": 0,
           "FocusStepSize": 0
@@ -273,6 +351,24 @@
         },
         "Shadow": {
           "0": "rgba(0, 0, 0, 1)"
+        },
+        "TableRow": {
+          "0": "#0b0a0d",
+          "1": "#111014",
+          "2": "#151318",
+          "3": "#16141a"
+        },
+        "TableRow_Green": {
+          "0": "#001a00",
+          "1": "#002000",
+          "2": "#002500",
+          "3": "#002600"
+        },
+        "TableRow_Red": {
+          "0": "#210000",
+          "1": "#280000",
+          "2": "#2c0000",
+          "3": "#2e0000"
         }
       }
     },
@@ -285,7 +381,10 @@
         "Border": "Range",
         "Accent": "Range",
         "Text": "Range",
-        "Shadow": "Given"
+        "Shadow": "Given",
+        "TableRow": "Range",
+        "TableRow_Green": "Range",
+        "TableRow_Red": "Range"
       },
       "BlockColorsGiven": {
         "Shadow": {
@@ -348,6 +447,51 @@
           "SatRate": 100,
           "LumStart": 70,
           "LumEnd": 0,
+          "LumCurve": "easeInQuad",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow": {
+          "HueStart": 210,
+          "HueEnd": 210,
+          "HueCurve": "linear",
+          "SatStart": 0,
+          "SatEnd": 0,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 100,
+          "LumEnd": 96,
+          "LumCurve": "linear",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow_Green": {
+          "HueStart": 120,
+          "HueEnd": 120,
+          "HueCurve": "linear",
+          "SatStart": 15,
+          "SatEnd": 15,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 88,
+          "LumEnd": 96,
+          "LumCurve": "easeInQuad",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow_Red": {
+          "HueStart": 0,
+          "HueEnd": 0,
+          "HueCurve": "linear",
+          "SatStart": 15,
+          "SatEnd": 15,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 88,
+          "LumEnd": 96,
           "LumCurve": "easeInQuad",
           "Modifier": 10,
           "HoverStepSize": 0,
@@ -455,6 +599,24 @@
         },
         "Shadow": {
           "0": "rgba(0, 0, 0, 0.15)"
+        },
+        "TableRow": {
+          "0": "#ffffff",
+          "1": "#fcfcfc",
+          "2": "#f8f8f8",
+          "3": "#f5f5f5"
+        },
+        "TableRow_Green": {
+          "0": "#bfe0bf",
+          "1": "#c8ebc8",
+          "2": "#cef2ce",
+          "3": "#d0f5d0"
+        },
+        "TableRow_Red": {
+          "0": "#e0bfbf",
+          "1": "#ebc8c8",
+          "2": "#f2cece",
+          "3": "#f5d0d0"
         }
       }
     },
@@ -467,7 +629,10 @@
         "Border": "Range",
         "Accent": "Range",
         "Text": "Range",
-        "Shadow": "Given"
+        "Shadow": "Given",
+        "TableRow": "Range",
+        "TableRow_Green": "Range",
+        "TableRow_Red": "Range"
       },
       "BlockColorsGiven": {
         "Shadow": {
@@ -531,6 +696,51 @@
           "LumStart": 35,
           "LumEnd": 100,
           "LumCurve": "easeInCubic",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow": {
+          "HueStart": 259,
+          "HueEnd": 259,
+          "HueCurve": "linear",
+          "SatStart": 20,
+          "SatEnd": 20,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 5,
+          "LumEnd": 10,
+          "LumCurve": "easeInQuad",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow_Green": {
+          "HueStart": 120,
+          "HueEnd": 120,
+          "HueCurve": "linear",
+          "SatStart": 100,
+          "SatEnd": 100,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 10,
+          "LumEnd": 15,
+          "LumCurve": "easeInQuad",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow_Red": {
+          "HueStart": 0,
+          "HueEnd": 0,
+          "HueCurve": "linear",
+          "SatStart": 100,
+          "SatEnd": 100,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 13,
+          "LumEnd": 18,
+          "LumCurve": "easeInQuad",
           "Modifier": 10,
           "HoverStepSize": 0,
           "FocusStepSize": 0
@@ -637,6 +847,24 @@
         },
         "Shadow": {
           "0": "rgba(0, 0, 0, 1)"
+        },
+        "TableRow": {
+          "0": "#0b0a0d",
+          "1": "#111014",
+          "2": "#151318",
+          "3": "#16141a"
+        },
+        "TableRow_Green": {
+          "0": "#001a00",
+          "1": "#002000",
+          "2": "#002500",
+          "3": "#002600"
+        },
+        "TableRow_Red": {
+          "0": "#210000",
+          "1": "#280000",
+          "2": "#2c0000",
+          "3": "#2e0000"
         }
       }
     },
@@ -649,7 +877,10 @@
         "Border": "Range",
         "Accent": "Range",
         "Text": "Range",
-        "Shadow": "Given"
+        "Shadow": "Given",
+        "TableRow": "Range",
+        "TableRow_Green": "Range",
+        "TableRow_Red": "Range"
       },
       "BlockColorsGiven": {
         "Shadow": {
@@ -706,13 +937,58 @@
           "HueStart": 328,
           "HueEnd": 328,
           "HueCurve": "linear",
-          "SatStart": 60,
-          "SatEnd": 0,
-          "SatCurve": "easeInQuad",
+          "SatStart": 15,
+          "SatEnd": 100,
+          "SatCurve": "easeOutQuad",
           "SatRate": 100,
           "LumStart": 70,
           "LumEnd": 0,
-          "LumCurve": "linear",
+          "LumCurve": "easeOutQuad",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow": {
+          "HueStart": 328,
+          "HueEnd": 328,
+          "HueCurve": "linear",
+          "SatStart": 3,
+          "SatEnd": 3,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 100,
+          "LumEnd": 96,
+          "LumCurve": "easeInQuad",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow_Green": {
+          "HueStart": 120,
+          "HueEnd": 120,
+          "HueCurve": "linear",
+          "SatStart": 15,
+          "SatEnd": 15,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 88,
+          "LumEnd": 96,
+          "LumCurve": "easeInQuad",
+          "Modifier": 10,
+          "HoverStepSize": 0,
+          "FocusStepSize": 0
+        },
+        "TableRow_Red": {
+          "HueStart": 0,
+          "HueEnd": 0,
+          "HueCurve": "linear",
+          "SatStart": 15,
+          "SatEnd": 15,
+          "SatCurve": "linear",
+          "SatRate": 100,
+          "LumStart": 88,
+          "LumEnd": 96,
+          "LumCurve": "easeInQuad",
           "Modifier": 10,
           "HoverStepSize": 0,
           "FocusStepSize": 0
@@ -807,18 +1083,36 @@
           "8_Text": "black"
         },
         "Text": {
-          "0": "#b34781",
-          "1": "#9c4172",
-          "2": "#863c63",
-          "3": "#703755",
-          "4": "#593147",
-          "5": "#432b38",
-          "6": "#2d2228",
-          "7": "#161415",
+          "0": "#b398a6",
+          "1": "#af7292",
+          "2": "#a74e7d",
+          "3": "#9b3069",
+          "4": "#8a1b56",
+          "5": "#710d42",
+          "6": "#51042d",
+          "7": "#2a0117",
           "8": "#000000"
         },
         "Shadow": {
           "0": "rgba(0, 0, 0, 0.15)"
+        },
+        "TableRow": {
+          "0": "#fff7fb",
+          "1": "#faf2f6",
+          "2": "#f6eff3",
+          "3": "#f5edf1"
+        },
+        "TableRow_Green": {
+          "0": "#bfe0bf",
+          "1": "#c8ebc8",
+          "2": "#cef2ce",
+          "3": "#d0f5d0"
+        },
+        "TableRow_Red": {
+          "0": "#e0bfbf",
+          "1": "#ebc8c8",
+          "2": "#f2cece",
+          "3": "#f5d0d0"
         }
       }
     }

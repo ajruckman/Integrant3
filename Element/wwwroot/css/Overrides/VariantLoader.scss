@@ -1,4 +1,4 @@
-div[id="Integrant.Colorant.Component.ThemeLoader"] {
+div[id="Integrant.Colorant.Component.VariantLoader"] {
     align-items: center;
     display:     flex;
     margin-left: 5px;
@@ -22,7 +22,7 @@ div[id="Integrant.Colorant.Component.ThemeLoader"] {
             background-color: var(--Colorant_Default_Background_3);
             color:            var(--Colorant_Default_Text_4);
         }
-        
+
         &:focus {
             border: 1px solid var(--Colorant_Default_Accent_4);
         }

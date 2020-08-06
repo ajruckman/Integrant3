@@ -67,7 +67,7 @@ namespace Integrant.Rudiment.Inputs
 
             ClassSet classes = new ClassSet
             (
-                "Integrant.Rudiment.Input",
+                "Integrant.Element.Input",
                 "Integrant.Rudiment.Input." + nameof(StringInput<TStructure>)
             );
 

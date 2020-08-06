@@ -4,7 +4,7 @@
     $activeBackground, $activeBorder, $activeColor,
     $disabledBackground, $disabledBorder, $disabledColor,
 ) {
-    &:not([class~="Integrant.Element.Bit:Disabled"]) {
+    &:not([class~="Integrant.Element.Bit:Disabled"]):not(:disabled) {
         background-color: $normalBackground;
         border:           1px solid $normalBorder;
         color:            $normalColor;
@@ -23,14 +23,14 @@
         }
     }
 
-    &[class~="Integrant.Element.Bit:Disabled"] {
+    &[class~="Integrant.Element.Bit:Disabled"], &:disabled {
         background-color: $disabledBackground;
         border:           1px solid $disabledBorder;
         color:            $disabledColor;
     }
 }
 
-button[class~="Integrant.Element.Bit.Button"] {
+button[class~="Integrant.Element.Button"] {
     border-radius: 3px;
     cursor:        pointer;
     font-family:   var(--Integrant_SansSerifFont);
@@ -42,11 +42,11 @@ button[class~="Integrant.Element.Bit.Button"] {
         border: 0;
     }
 
-    &[class~="Integrant.Element.Bit:Disabled"] {
+    &:disabled, &[class~="Integrant.Element.Bit:Disabled"] {
         cursor: not-allowed;
     }
 
-    &[class~="Integrant.Element.Bit.Button:Default"] {
+    &[class~="Integrant.Element.Button:Default"] {
         @include _Button(
                         var(--Colorant_Default_Background_3),
                         var(--Colorant_Default_Border_7),
@@ -66,7 +66,7 @@ button[class~="Integrant.Element.Bit.Button"] {
         );
     }
 
-    &[class~="Integrant.Element.Bit.Button:Blue"] {
+    &[class~="Integrant.Element.Button:Blue"] {
         @include _Button(
                         var(--Colorant_Solids_Blue_10),
                         var(--Colorant_Solids_Blue_10),
@@ -86,7 +86,7 @@ button[class~="Integrant.Element.Bit.Button"] {
         );
     }
 
-    &[class~="Integrant.Element.Bit.Button:Green"] {
+    &[class~="Integrant.Element.Button:Green"] {
         @include _Button(
                         var(--Colorant_Solids_Green_9),
                         var(--Colorant_Solids_Green_9),
@@ -106,7 +106,7 @@ button[class~="Integrant.Element.Bit.Button"] {
         );
     }
 
-    &[class~="Integrant.Element.Bit.Button:Orange"] {
+    &[class~="Integrant.Element.Button:Orange"] {
         @include _Button(
                         var(--Colorant_Solids_Orange_8),
                         var(--Colorant_Solids_Orange_8),
@@ -126,7 +126,7 @@ button[class~="Integrant.Element.Bit.Button"] {
         );
     }
 
-    &[class~="Integrant.Element.Bit.Button:Purple"] {
+    &[class~="Integrant.Element.Button:Purple"] {
         @include _Button(
                         var(--Colorant_Solids_Purple_9),
                         var(--Colorant_Solids_Purple_9),
@@ -146,7 +146,7 @@ button[class~="Integrant.Element.Bit.Button"] {
         );
     }
 
-    &[class~="Integrant.Element.Bit.Button:Red"] {
+    &[class~="Integrant.Element.Button:Red"] {
         @include _Button(
                         var(--Colorant_Solids_Red_9),
                         var(--Colorant_Solids_Red_9),
@@ -166,7 +166,7 @@ button[class~="Integrant.Element.Bit.Button"] {
         );
     }
 
-    &[class~="Integrant.Element.Bit.Button:Yellow"] {
+    &[class~="Integrant.Element.Button:Yellow"] {
         @include _Button(
                         var(--Colorant_Solids_Yellow_6),
                         var(--Colorant_Solids_Yellow_6),

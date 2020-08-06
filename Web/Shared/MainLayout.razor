@@ -7,16 +7,16 @@
 
 @(Configuration.ResourceSet.Render())
 
-@_solidsThemeLoader.RenderLink()
+@_solidsVariantLoader.RenderLink()
 
-@if (_defaultThemeLoader.Complete)
+@if (_defaultVariantLoader.Complete)
 {
-    @_defaultThemeLoader.RenderLink()
+    @_defaultVariantLoader.RenderLink()
     @_header1.Render(NavigationManager)
     <CascadingValue Value="@_rootLayer" Name="Layer">
         <CascadingValue Value="@_header1" Name="PrimaryHeader">
             @Body
         </CascadingValue>
     </CascadingValue>
-    @_defaultThemeLoader.RenderDropdown()
+    @_defaultVariantLoader.RenderDropdown()
 }

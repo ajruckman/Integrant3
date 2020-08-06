@@ -1,0 +1,63 @@
+div[class~="Integrant.Element.Input"] input, div[class~="Integrant.Element.Input"] textarea, div[class~="Integrant.Element.Input"] select {
+  background-color: var(--Colorant_Default_Background_3);
+  border: 1px solid var(--Colorant_Default_Border_7);
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: var(--Colorant_Default_Text_4);
+  font-size: 1rem;
+  line-height: 1rem;
+  outline: none;
+  padding: 2px 4px; }
+  div[class~="Integrant.Element.Input"] input option, div[class~="Integrant.Element.Input"] textarea option, div[class~="Integrant.Element.Input"] select option {
+    background-color: var(--Colorant_Default_Background_3);
+    color: var(--Colorant_Default_Text_4); }
+  div[class~="Integrant.Element.Input"] input:focus, div[class~="Integrant.Element.Input"] textarea:focus, div[class~="Integrant.Element.Input"] select:focus {
+    border: 1px solid var(--Colorant_Default_Accent_4); }
+
+div[class~="Integrant.Element.Input"] input[type="text"], div[class~="Integrant.Element.Input"] textarea {
+  width: calc(100% - 2px); }
+
+div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:FailsRequirement"] input, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:FailsRequirement"] textarea {
+  border: 1px solid red; }
+
+div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Disabled"] * {
+  cursor: not-allowed; }
+
+div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Composite"] {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap; }
+  div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Composite"] div[class~="Integrant.Element.Input"]:not(:first-child) {
+    margin-left: 3px; }
+
+div[class~="Integrant.Element.Input"]:not([class~="Integrant.Element.Input:Monospace"]) input, div[class~="Integrant.Element.Input"]:not([class~="Integrant.Element.Input:Monospace"]) textarea, div[class~="Integrant.Element.Input"]:not([class~="Integrant.Element.Input:Monospace"]) select, div[class~="Integrant.Element.Input"]:not([class~="Integrant.Element.Input:Monospace"]) option {
+  font-family: var(--Integrant_SansSerifFont); }
+
+div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] input, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] textarea, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] select, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] option {
+  font-family: var(--Integrant_MonospacedFont); }
+
+div[class~="Integrant.Element.Input"] input:required, div[class~="Integrant.Element.Input"] textarea:required {
+  box-shadow: none; }
+
+div[class~="Integrant.Element.Input"] input::-webkit-clear-button, div[class~="Integrant.Element.Input"] textarea::-webkit-clear-button {
+  color: red; }
+
+div[class~="Integrant.Element.Input"] input::-webkit-calendar-picker-indicator, div[class~="Integrant.Element.Input"] textarea::-webkit-calendar-picker-indicator {
+  cursor: pointer; }
+
+div[class~="Integrant.Element.Input"] input[type="date"], div[class~="Integrant.Element.Input"] input[type="time"] {
+  padding-right: 4px; }
+
+div[class~="Integrant.Element.Input"] ::-webkit-input-placeholder {
+  font-style: italic; }
+
+div[class~="Integrant.Element.Input"] :-moz-placeholder {
+  font-style: italic; }
+
+div[class~="Integrant.Element.Input"] ::-moz-placeholder {
+  font-style: italic; }
+
+div[class~="Integrant.Element.Input"] :-ms-input-placeholder {
+  font-style: italic; }
+
+/*# sourceMappingURL=Inputs.css.map */

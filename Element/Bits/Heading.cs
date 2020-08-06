@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Heading : Bit
+    public class Heading : BitBase
     {
         public enum Size
         {

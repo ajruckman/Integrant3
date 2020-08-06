@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Filler : Bit
+    public class Filler : BitBase
     {
         public Filler
         (

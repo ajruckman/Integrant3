@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Bits
 {
-    public class Space : Bit
+    public class Space : BitBase
     {
         public Space
         (

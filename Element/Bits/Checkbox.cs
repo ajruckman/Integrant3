@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Integrant.Fundament;
 using Integrant.Resources.Icons.MaterialIcons;
 using Microsoft.AspNetCore.Components;
@@ -7,15 +8,16 @@ using Superset.Web.State;
 
 namespace Integrant.Element.Bits
 {
-    public class Checkbox : Bit
+    public class Checkbox : BitBase
     {
-        private readonly Action<bool>  _onToggle;
+        private readonly Func<bool, Task> _onToggle;
+
         private          bool          _checked;
         private readonly UpdateTrigger _trigger = new UpdateTrigger();
 
         public Checkbox
         (
-            Action<bool>              onToggle,
+            Func<bool, Task>          onToggle,
             BitGetters.BitIsChecked?  isChecked       = null,
             BitGetters.BitIsDisabled? isDisabled      = null,
             bool                      isStatic        = true,
@@ -61,6 +63,45 @@ namespace Integrant.Element.Bits
             _checked  = isChecked?.Invoke() ?? false;
         }
 
+        public Checkbox
+        (
+            Action<bool>              onToggle,
+            BitGetters.BitIsChecked?  isChecked       = null,
+            BitGetters.BitIsDisabled? isDisabled      = null,
+            bool                      isStatic        = true,
+            BitGetters.BitIsVisible?  isVisible       = null,
+            BitGetters.BitClasses?    classes         = null,
+            BitGetters.BitSize?       margin          = null,
+            BitGetters.BitSize?       padding         = null,
+            BitGetters.BitColor?      backgroundColor = null,
+            BitGetters.BitColor?      foregroundColor = null,
+            BitGetters.BitPixels?     pixelsHeight    = null,
+            BitGetters.BitPixels?     pixelsWidth     = null,
+            BitGetters.BitREM?        fontSize        = null,
+            BitGetters.BitWeight?     fontWeight      = null,
+            BitGetters.BitDisplay?    display         = null
+        ) : this(
+            async v =>
+            {
+                onToggle.Invoke(v);
+                await Task.CompletedTask;
+            },
+            isChecked,
+            isDisabled,
+            isStatic,
+            isVisible,
+            classes,
+            margin,
+            padding,
+            backgroundColor,
+            foregroundColor,
+            pixelsHeight,
+            pixelsWidth,
+            fontSize,
+            fontWeight,
+            display
+        ) { }
+
         public override RenderFragment Render() => builder =>
         {
             int seq = -1;
@@ -87,14 +128,15 @@ namespace Integrant.Element.Bits
             builder.CloseElement();
         };
 
-        private void OnClick(MouseEventArgs obj)
+        private async Task OnClick(MouseEventArgs obj)
         {
             if (Spec.IsDisabled?.Invoke() == true)
                 return;
 
             _checked = !_checked;
             _trigger.Trigger();
-            _onToggle.Invoke(_checked);
+
+            await _onToggle.Invoke(_checked);
 
             // bool? now = Spec.IsChecked?.Invoke();
             // if (now == null) return;

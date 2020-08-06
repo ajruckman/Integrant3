@@ -14,11 +14,17 @@ div[class~="Integrant.Element.Bit.Arrow"] {
 div[class~="Integrant.Element.Bit.Checkbox"] {
     @include _Bit();
 
+    color:       var(--Colorant_Default_Text_3);
     cursor:      pointer;
+    line-height: 0;
     user-select: none;
 
+    &:hover:not([class~="Integrant.Element.Bit:Disabled"]) {
+        color: var(--Colorant_Default_Text_5);
+    }
+
     &[class~="Integrant.Element.Bit:Disabled"] {
-        color:  var(--Colorant_Default_Text_1);
+        color:  var(--Colorant_Default_Text_0);
         cursor: not-allowed;
     }
 }
@@ -51,7 +57,7 @@ img[class~="Integrant.Element.Bit.Image"] {
         border-bottom-color: var(--Colorant_Default_Accent_7);
         color:               var(--Colorant_Default_Text_4);
     }
-    
+
     &::-moz-focus-inner {
         border: 0;
     }

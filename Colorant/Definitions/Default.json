@@ -25,6 +25,21 @@
             "Name":                       "Shadow",
             "IDs":                        ["0"],
             "CreateDisplayTextVariables": false
+        },
+        {
+            "Name":                       "TableRow",
+            "IDs":                        ["0", "1", "2", "3"],
+            "CreateDisplayTextVariables": false
+        },
+        {
+            "Name":                       "TableRow_Green",
+            "IDs":                        ["0", "1", "2", "3"],
+            "CreateDisplayTextVariables": false
+        },
+        {
+            "Name":                       "TableRow_Red",
+            "IDs":                        ["0", "1", "2", "3"],
+            "CreateDisplayTextVariables": false
         }
     ],
     "Variants": [
@@ -34,11 +49,14 @@
             "DefaultLightTextColor": "white",
 
             "BlockSources":          {
-                "Background": "Range",
-                "Border":     "Range",
-                "Accent":     "Range",
-                "Text":       "Range",
-                "Shadow":     "Given"
+                "Background":     "Range",
+                "Border":         "Range",
+                "Accent":         "Range",
+                "Text":           "Range",
+                "Shadow":         "Given",
+                "TableRow":       "Range",
+                "TableRow_Green": "Range",
+                "TableRow_Red":   "Range"
             },
             "BlockColorsGiven":      {
                 "Shadow": {
@@ -46,7 +64,7 @@
                 }
             },
             "BlockColorsRange":      {
-                "Background": {
+                "Background":     {
                     "HueStart":      259,
                     "HueEnd":        250,
                     "HueCurve":      "linear",
@@ -62,7 +80,7 @@
                     "HoverStepSize": 2,
                     "FocusStepSize": 3
                 },
-                "Border":     {
+                "Border":         {
                     "HueStart":      259,
                     "HueEnd":        259,
                     "HueCurve":      "linear",
@@ -76,7 +94,7 @@
                     "HoverStepSize": 5,
                     "FocusStepSize": 8
                 },
-                "Accent":     {
+                "Accent":         {
                     "HueStart":      259,
                     "HueEnd":        259,
                     "HueCurve":      "linear",
@@ -90,7 +108,7 @@
                     "HoverStepSize": 1,
                     "FocusStepSize": 2
                 },
-                "Text":       {
+                "Text":           {
                     "HueStart": 259,
                     "HueEnd":   259,
                     "HueCurve": "linear",
@@ -100,6 +118,39 @@
                     "LumStart": 35,
                     "LumEnd":   100,
                     "LumCurve": "easeInCubic"
+                },
+                "TableRow":       {
+                    "HueStart": 259,
+                    "HueEnd":   259,
+                    "HueCurve": "linear",
+                    "SatStart": 20,
+                    "SatEnd":   20,
+                    "SatCurve": "linear",
+                    "LumStart": 5,
+                    "LumEnd":   10,
+                    "LumCurve": "easeInQuad"
+                },
+                "TableRow_Green": {
+                    "HueStart": 120,
+                    "HueEnd":   120,
+                    "HueCurve": "linear",
+                    "SatStart": 100,
+                    "SatEnd":   100,
+                    "SatCurve": "linear",
+                    "LumStart": 10,
+                    "LumEnd":   15,
+                    "LumCurve": "easeInQuad"
+                },
+                "TableRow_Red":   {
+                    "HueStart": 0,
+                    "HueEnd":   0,
+                    "HueCurve": "linear",
+                    "SatStart": 100,
+                    "SatEnd":   100,
+                    "SatCurve": "linear",
+                    "LumStart": 13,
+                    "LumEnd":   18,
+                    "LumCurve": "easeInQuad"
                 }
             }
         },
@@ -108,11 +159,14 @@
             "DefaultDarkTextColor":  "black",
             "DefaultLightTextColor": "white",
             "BlockSources":          {
-                "Background": "Range",
-                "Border":     "Range",
-                "Accent":     "Range",
-                "Text":       "Range",
-                "Shadow":     "Given"
+                "Background":     "Range",
+                "Border":         "Range",
+                "Accent":         "Range",
+                "Text":           "Range",
+                "Shadow":         "Given",
+                "TableRow":       "Range",
+                "TableRow_Green": "Range",
+                "TableRow_Red":   "Range"
             },
             "BlockColorsGiven":      {
                 "Shadow": {
@@ -172,6 +226,39 @@
                     "LumStart": 70,
                     "LumEnd":   0,
                     "LumCurve": "easeInQuad"
+                },
+                "TableRow":       {
+                    "HueStart": 210,
+                    "HueEnd":   210,
+                    "HueCurve": "linear",
+                    "SatStart": 0,
+                    "SatEnd":   0,
+                    "SatCurve": "linear",
+                    "LumStart": 100,
+                    "LumEnd":   96,
+                    "LumCurve": "linear"
+                },
+                "TableRow_Green": {
+                    "HueStart": 120,
+                    "HueEnd":   120,
+                    "HueCurve": "linear",
+                    "SatStart": 15,
+                    "SatEnd":   15,
+                    "SatCurve": "linear",
+                    "LumStart": 88,
+                    "LumEnd":   96,
+                    "LumCurve": "easeInQuad"
+                },
+                "TableRow_Red":   {
+                    "HueStart": 0,
+                    "HueEnd":   0,
+                    "HueCurve": "linear",
+                    "SatStart": 15,
+                    "SatEnd":   15,
+                    "SatCurve": "linear",
+                    "LumStart": 88,
+                    "LumEnd":   96,
+                    "LumCurve": "easeInQuad"
                 }
             }
         },
@@ -181,11 +268,14 @@
             "DefaultLightTextColor": "#32e71e",
 
             "BlockSources":          {
-                "Background": "Range",
-                "Border":     "Range",
-                "Accent":     "Range",
-                "Text":       "Range",
-                "Shadow":     "Given"
+                "Background":     "Range",
+                "Border":         "Range",
+                "Accent":         "Range",
+                "Text":           "Range",
+                "Shadow":         "Given",
+                "TableRow":       "Range",
+                "TableRow_Green": "Range",
+                "TableRow_Red":   "Range"
             },
             "BlockColorsGiven":      {
                 "Shadow": {
@@ -245,6 +335,39 @@
                     "LumStart": 35,
                     "LumEnd":   100,
                     "LumCurve": "easeInCubic"
+                },
+                "TableRow":       {
+                    "HueStart": 259,
+                    "HueEnd":   259,
+                    "HueCurve": "linear",
+                    "SatStart": 20,
+                    "SatEnd":   20,
+                    "SatCurve": "linear",
+                    "LumStart": 5,
+                    "LumEnd":   10,
+                    "LumCurve": "easeInQuad"
+                },
+                "TableRow_Green": {
+                    "HueStart": 120,
+                    "HueEnd":   120,
+                    "HueCurve": "linear",
+                    "SatStart": 100,
+                    "SatEnd":   100,
+                    "SatCurve": "linear",
+                    "LumStart": 10,
+                    "LumEnd":   15,
+                    "LumCurve": "easeInQuad"
+                },
+                "TableRow_Red":   {
+                    "HueStart": 0,
+                    "HueEnd":   0,
+                    "HueCurve": "linear",
+                    "SatStart": 100,
+                    "SatEnd":   100,
+                    "SatCurve": "linear",
+                    "LumStart": 13,
+                    "LumEnd":   18,
+                    "LumCurve": "easeInQuad"
                 }
             }
         },
@@ -254,11 +377,14 @@
             "DefaultLightTextColor": "white",
 
             "BlockSources":          {
-                "Background": "Range",
-                "Border":     "Range",
-                "Accent":     "Range",
-                "Text":       "Range",
-                "Shadow":     "Given"
+                "Background":     "Range",
+                "Border":         "Range",
+                "Accent":         "Range",
+                "Text":           "Range",
+                "Shadow":         "Given",
+                "TableRow":       "Range",
+                "TableRow_Green": "Range",
+                "TableRow_Red":   "Range"
             },
             "BlockColorsGiven":      {
                 "Shadow": {
@@ -312,12 +438,45 @@
                     "HueStart": 328,
                     "HueEnd":   328,
                     "HueCurve": "linear",
-                    "SatStart": 60,
-                    "SatEnd":   0,
-                    "SatCurve": "easeInQuad",
+                    "SatStart": 15,
+                    "SatEnd":   100,
+                    "SatCurve": "easeOutQuad",
                     "LumStart": 70,
                     "LumEnd":   0,
-                    "LumCurve": "linear"
+                    "LumCurve": "easeOutQuad"
+                },
+                "TableRow":       {
+                    "HueStart": 328,
+                    "HueEnd":   328,
+                    "HueCurve": "linear",
+                    "SatStart": 3,
+                    "SatEnd":   3,
+                    "SatCurve": "linear",
+                    "LumStart": 100,
+                    "LumEnd":   96,
+                    "LumCurve": "easeInQuad"
+                },
+                "TableRow_Green": {
+                    "HueStart": 120,
+                    "HueEnd":   120,
+                    "HueCurve": "linear",
+                    "SatStart": 15,
+                    "SatEnd":   15,
+                    "SatCurve": "linear",
+                    "LumStart": 88,
+                    "LumEnd":   96,
+                    "LumCurve": "easeInQuad"
+                },
+                "TableRow_Red":   {
+                    "HueStart": 0,
+                    "HueEnd":   0,
+                    "HueCurve": "linear",
+                    "SatStart": 15,
+                    "SatEnd":   15,
+                    "SatCurve": "linear",
+                    "LumStart": 88,
+                    "LumEnd":   96,
+                    "LumCurve": "easeInQuad"
                 }
             }
         }
