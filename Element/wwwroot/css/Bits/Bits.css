@@ -77,9 +77,6 @@ div[class~="Integrant.Element.Bit.ExternalComponent"] {
   vertical-align: middle;
   display: inline-block; }
 
-div[class~="Integrant.Element.Bit.TextLine"] {
-  width: 5px; }
-
 div[class~="Integrant.Element.Bit.Title"], a[class~="Integrant.Element.Bit.Title:Linked"] {
   color: var(--Colorant_Default_Text_4);
   font-size: 1.15rem;

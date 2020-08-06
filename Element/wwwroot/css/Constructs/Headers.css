@@ -18,10 +18,10 @@ div[class~="Integrant.Element.Construct.Header"] {
   div[class~="Integrant.Element.Construct.Header"] div[class~="Integrant.Element.Bit.Title"] {
     padding-right: 15px; }
   div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] div[class~="Integrant.Element.Bit.Title"], div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] a[class~="Integrant.Element.Bit.Title:Linked"] {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700; }
   div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] div[class~="Integrant.Element.Bit.Title"], div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] a[class~="Integrant.Element.Bit.Title:Linked"] {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 600; }
 
 /*# sourceMappingURL=Headers.css.map */

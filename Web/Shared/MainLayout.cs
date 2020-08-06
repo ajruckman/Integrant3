@@ -40,6 +40,8 @@ namespace Integrant.Web.Shared
                 new List<IBit>
                 {
                     new Title(() => "Header #1!", () => "/"),
+                    new Space(),
+                    new TextLine(() => "(Descriptor)"),
                     new Filler(),
                     new Link(() => "Link root", () => "/"),
                     new Space(),
