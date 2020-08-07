@@ -49,6 +49,11 @@ namespace Integrant.Element
             {
                 result.Add($"font-weight: {spec.FontWeight.Invoke()};");
             }
+  
+            if (spec.Display != null)
+            {
+                result.Add($"display: {spec.Display.Invoke()};");
+            }
             
             if (additional != null)
                 result.AddRange(additional);

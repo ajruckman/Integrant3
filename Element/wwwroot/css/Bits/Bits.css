@@ -1,3 +1,23 @@
+div[class~="Integrant.Element.Bit.Spinner"] svg {
+  animation: rotate 2s linear infinite; }
+  div[class~="Integrant.Element.Bit.Spinner"] svg circle {
+    animation: dash 1.5s ease-in-out infinite; }
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0; }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px; }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px; } }
+
 div[class~="Integrant.Element.Bit.Arrow"] {
   box-sizing: border-box;
   vertical-align: middle;
@@ -36,18 +56,31 @@ a[class~="Integrant.Element.Bit.Title:Linked"], a[class~="Integrant.Element.Bit.
   box-sizing: content-box;
   color: var(--Colorant_Default_Text_4);
   display: inline-block;
+  position: relative;
   text-decoration: none; }
+  a[class~="Integrant.Element.Bit.Title:Linked"]::after, a[class~="Integrant.Element.Bit.Link"]::after {
+    border-radius: 2px;
+    bottom: -5px;
+    content: '';
+    display: block;
+    height: 4px;
+    left: -3px;
+    position: absolute;
+    width: calc(100% + 6px); }
+  a[class~="Integrant.Element.Bit.Link:Highlighted"][class~="Integrant.Element.Bit.Title:Linked"]::after, a[class~="Integrant.Element.Bit.Link:Highlighted"][class~="Integrant.Element.Bit.Link"]::after {
+    background-color: var(--Colorant_Default_Accent_5); }
   a[class~="Integrant.Element.Bit.Title:Linked"]:hover, a[class~="Integrant.Element.Bit.Link"]:hover {
-    border-bottom-color: var(--Colorant_Default_Accent_7);
     color: var(--Colorant_Default_Text_4); }
+    a[class~="Integrant.Element.Bit.Title:Linked"]:hover:not([class~="Integrant.Element.Bit.Link:Highlighted"])::after, a[class~="Integrant.Element.Bit.Link"]:hover:not([class~="Integrant.Element.Bit.Link:Highlighted"])::after {
+      background-color: var(--Colorant_Default_Accent_7); }
+    a[class~="Integrant.Element.Bit.Title:Linked"]:hover[class~="Integrant.Element.Bit.Link:Highlighted"]::after, a[class~="Integrant.Element.Bit.Link"]:hover[class~="Integrant.Element.Bit.Link:Highlighted"]::after {
+      background-color: var(--Colorant_Default_Accent_4); }
   a[class~="Integrant.Element.Bit.Title:Linked"]::-moz-focus-inner, a[class~="Integrant.Element.Bit.Link"]::-moz-focus-inner {
     border: 0; }
 
 a[class~="Integrant.Element.Bit.Link"] {
   box-sizing: border-box;
   vertical-align: middle; }
-  a[class~="Integrant.Element.Bit.Link"][class~="Integrant.Element.Bit.Link:Highlighted"] {
-    border-bottom-color: var(--Colorant_Default_Accent_5); }
 
 div[class~="Integrant.Element.Bit.MonoBlock"] {
   box-sizing: border-box;

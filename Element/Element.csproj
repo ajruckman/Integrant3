@@ -28,6 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Colorant\Colorant.csproj" />
       <ProjectReference Include="..\Fundament\Fundament.csproj" />
       <ProjectReference Include="..\Resources\Resources.csproj" />
     </ItemGroup>

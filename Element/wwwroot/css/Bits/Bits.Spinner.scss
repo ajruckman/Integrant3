@@ -1,0 +1,57 @@
+// From: https://codepen.io/jczimm/pen/vEBpoL
+// @jczimm
+// @elrumordelaluz - Provided scaling fix/improvement
+// @faddee - Provided fix for Edge support
+
+//$c1: #008744;
+//$c2: #0057e7;
+//$c3: #d62d20;
+//$c4: #ffa700;
+
+div[class~="Integrant.Element.Bit.Spinner"] {
+    svg {
+        animation: rotate 2s linear infinite;
+
+        circle {
+            animation: dash 1.5s ease-in-out infinite;
+        }
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray:  1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray:  89, 200;
+        stroke-dashoffset: -35px;
+    }
+    100% {
+        stroke-dasharray:  89, 200;
+        stroke-dashoffset: -124px;
+    }
+}
+
+//@keyframes color {
+//    100%,
+//    0% {
+//        stroke: $c3;
+//    }
+//    40% {
+//        stroke: $c2;
+//    }
+//    66% {
+//        stroke: $c1;
+//    }
+//    80%,
+//    90% {
+//        stroke: $c4;
+//    }
+//}

@@ -1,4 +1,4 @@
-@import 'Bits.Button.scss';
+@import 'Bits.Spinner.scss';
 
 @mixin _Bit {
     box-sizing:     border-box;
@@ -51,11 +51,42 @@ img[class~="Integrant.Element.Bit.Image"] {
     box-sizing:      content-box;
     color:           var(--Colorant_Default_Text_4);
     display:         inline-block;
+    position:        relative;
+
     text-decoration: none;
 
+    &::after {
+        border-radius: 2px;
+        bottom:        -5px;
+        content:       '';
+        display:       block;
+        height:        4px;
+        left:          -3px;
+        position:      absolute;
+        width:         calc(100% + 6px);
+    }
+
+    &[class~="Integrant.Element.Bit.Link:Highlighted"] {
+        &::after {
+            background-color: var(--Colorant_Default_Accent_5);
+        }
+    }
+
     &:hover {
-        border-bottom-color: var(--Colorant_Default_Accent_7);
-        color:               var(--Colorant_Default_Text_4);
+        color: var(--Colorant_Default_Text_4);
+
+        &:not([class~="Integrant.Element.Bit.Link:Highlighted"]) {
+            &::after {
+                background-color: var(--Colorant_Default_Accent_7);
+            }
+
+        }
+
+        &[class~="Integrant.Element.Bit.Link:Highlighted"] {
+            &::after {
+                background-color: var(--Colorant_Default_Accent_4);
+            }
+        }
     }
 
     &::-moz-focus-inner {
@@ -67,9 +98,6 @@ a[class~="Integrant.Element.Bit.Link"] {
     @include _Bit();
     @extend %_Link;
 
-    &[class~="Integrant.Element.Bit.Link:Highlighted"] {
-        border-bottom-color: var(--Colorant_Default_Accent_5);
-    }
 }
 
 div[class~="Integrant.Element.Bit.MonoBlock"] {

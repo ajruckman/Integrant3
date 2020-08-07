@@ -39,6 +39,15 @@
 @(new Link(() => "Link 1!", () => "http://localhost:5000/").Render())
 @(new Link(() => "Link 2!", () => "http://localhost:5000/", isHighlighted: () => true, isStatic: false).Render())
 
+<br>
+
+@((new Spinner()).Render())
+@((new Spinner(() => 100)).Render())
+@((new Spinner(() => 25)).Render())
+@((new Spinner(() => 35, pixelsThickness: () => 2, display: () => Display.Block)).Render())
+
+<br>
+
 @_dropdown1.Render()
 
 <br>
