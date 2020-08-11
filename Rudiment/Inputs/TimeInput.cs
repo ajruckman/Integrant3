@@ -44,7 +44,7 @@ namespace Integrant.Rudiment.Inputs
                 required, disabled,
                 args => OnChange(value, args)
             );
-            InputBuilder.CloseInnerInput(builder, ref seq);
+            InputBuilder.CloseInnerInput(builder);
 
             builder.CloseElement();
         };

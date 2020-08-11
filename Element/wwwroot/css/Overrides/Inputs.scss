@@ -60,6 +60,31 @@ div[class~="Integrant.Element.Input"] {
         }
     }
 
+    &[class~="Integrant.Rudiment.Input.SelectInput"] {
+        @supports (-moz-appearance:none) {
+            position: relative;
+            &::after {
+                content:  '⯆';
+                position: absolute;
+                line-height: 0;
+                font-size: 12px;
+                right:    3px;
+                top:      calc(50% - 1.5px);
+            }
+
+            select {
+                -moz-appearance: none !important;
+                width: 100%;
+            }
+        }
+
+        option:disabled, option:invalid {
+
+            color:  var(--Colorant_Default_Text_1);
+            cursor: not-allowed;
+        }
+    }
+
     // Overrides/resets
 
     input, textarea {

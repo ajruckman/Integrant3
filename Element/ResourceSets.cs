@@ -15,6 +15,17 @@ namespace Integrant.Element
             }
         );
 
+        public static readonly ResourceSet Components = new ResourceSet
+        (
+            $"{nameof(Integrant)}.{nameof(Element)}",
+            nameof(Components),
+            stylesheets: new[]
+            {
+                "css/Components/Components.css",
+                "css/Components/Components.css.map",
+            }
+        );
+
         public static readonly ResourceSet Constructs = new ResourceSet
         (
             $"{nameof(Integrant)}.{nameof(Element)}",

@@ -48,7 +48,7 @@ namespace Integrant.Web
                 // displayValue: (s,  v, m) => $"[{v.UserID}]",
                 key: (s,           v, m) => "User ID",
                 onValueUpdate: (s, v, m) => s.UserID = m,
-                input: () => new NumberInput<Pages.Index.User>(),
+                input: () => new NumberInput<Pages.Index.User, int>(),
                 considerDefaultNull: true,
                 validator: (s, v, m) =>
                 {
@@ -149,9 +149,10 @@ namespace Integrant.Web
                 input: () => new SelectInput<Pages.Index.User, int>(),
                 selectInputOptions: (s, v, m) => new List<IOption<int>>
                 {
-                    new Option<int>(1, "One"),
-                    new Option<int>(2, "Two"),
-                    new Option<int>(3, "Three"),
+                    new Option<int>("1", 1, "One"),
+                    new Option<int>("2", 2, "Two"),
+                    new Option<int>("3", 3, "Three", true),
+                    new Option<int>("4", 4, "Four"),
                 }
             ));
             Structure.Register(new Member<Pages.Index.User, string>(
@@ -161,9 +162,9 @@ namespace Integrant.Web
                 input: () => new SelectInput<Pages.Index.User, string>(),
                 selectInputOptions: (s, v, m) => new List<IOption<string>>
                 {
-                    new Option<string>("One",   "One"),
-                    new Option<string>("Two",   "Two"),
-                    new Option<string>("Three", "Three"),
+                    new Option<string>("One",   "One",   "One"),
+                    new Option<string>("Two",   "Two",   "Two"),
+                    new Option<string>("Three", "Three", "Three"),
                 }
             ));
 
@@ -171,12 +172,12 @@ namespace Integrant.Web
                 nameof(Pages.Index.User.DepartmentStatus),
                 (s,                v, m) => v.DepartmentStatus,
                 onValueUpdate: (s, v, m) => s.DepartmentStatus = m,
-                input: () => new SelectInput<Pages.Index.User, ushort>(ushort.Parse),
+                input: () => new SelectInput<Pages.Index.User, ushort>(),
                 selectInputOptions: (s, v, m) => new List<IOption<ushort>>
                 {
-                    new Option<ushort>(1, "One"),
-                    new Option<ushort>(2, "Two"),
-                    new Option<ushort>(3, "Three"),
+                    new Option<ushort>("1", 1, "One"),
+                    new Option<ushort>("2", 2, "Two"),
+                    new Option<ushort>("3", 3, "Three"),
                 }
             ));
         }

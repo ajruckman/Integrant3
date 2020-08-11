@@ -2,7 +2,8 @@ namespace Integrant.Rudiment.Inputs
 {
     public interface IOption<TID>
     {
-        TID    ID       { get; }
+        string Key      { get; }
+        TID    Value    { get; }
         string Name     { get; }
         bool   Disabled { get; }
     }

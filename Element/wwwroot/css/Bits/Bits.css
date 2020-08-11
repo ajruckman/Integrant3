@@ -1,7 +1,10 @@
-div[class~="Integrant.Element.Bit.Spinner"] svg {
-  animation: rotate 2s linear infinite; }
-  div[class~="Integrant.Element.Bit.Spinner"] svg circle {
-    animation: dash 1.5s ease-in-out infinite; }
+div[class~="Integrant.Element.Bit.Spinner"] {
+  display: inline-block;
+  vertical-align: middle; }
+  div[class~="Integrant.Element.Bit.Spinner"] svg {
+    animation: rotate 2s linear infinite; }
+    div[class~="Integrant.Element.Bit.Spinner"] svg circle {
+      animation: dash 1.5s ease-in-out infinite; }
 
 @keyframes rotate {
   100% {
@@ -9,14 +12,13 @@ div[class~="Integrant.Element.Bit.Spinner"] svg {
 
 @keyframes dash {
   0% {
-    stroke-dasharray: 1, 200;
+    stroke-dasharray: 0, 400;
     stroke-dashoffset: 0; }
   50% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -35px; }
+    stroke-dasharray: 200, 400; }
   100% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -124px; } }
+    stroke-dasharray: 400, 400;
+    stroke-dashoffset: -250px; } }
 
 div[class~="Integrant.Element.Bit.Arrow"] {
   box-sizing: border-box;

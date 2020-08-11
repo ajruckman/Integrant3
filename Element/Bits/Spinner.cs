@@ -8,16 +8,16 @@ namespace Integrant.Element.Bits
     {
         private readonly BitGetters.BitPixels? _pixelsSize;
         private readonly BitGetters.BitColor?  _color;
-        private readonly BitGetters.BitPixels? _pixelsThickness;
+        private readonly BitGetters.BitPixels? _thickness;
 
         public Spinner
         (
-            BitGetters.BitPixels?    pixelsSize      = null,
-            BitGetters.BitColor?     color           = null,
-            BitGetters.BitPixels?    pixelsThickness = null,
-            bool                     isStatic        = true,
-            BitGetters.BitIsVisible? isVisible       = null,
-            BitGetters.BitDisplay?   display         = null
+            BitGetters.BitPixels?    pixelsSize = null,
+            BitGetters.BitColor?     color      = null,
+            BitGetters.BitPixels?    thickness  = null,
+            bool                     isStatic   = true,
+            BitGetters.BitIsVisible? isVisible  = null,
+            BitGetters.BitDisplay?   display    = null
         )
         {
             Spec = new BitSpec
@@ -27,9 +27,9 @@ namespace Integrant.Element.Bits
                 Display   = display,
             };
 
-            _pixelsSize      = pixelsSize;
-            _color           = color;
-            _pixelsThickness = pixelsThickness;
+            _pixelsSize = pixelsSize;
+            _color      = color;
+            _thickness  = thickness;
 
             ConstantClasses = new ClassSet(
                 "Integrant.Element.Bit",
@@ -47,9 +47,9 @@ namespace Integrant.Element.Bits
             int seq = -1;
 
             // Define this in HTML instead of CSS.
-            double size      = _pixelsSize?.Invoke()      ?? 64;
-            string color     = _color?.Invoke()           ?? Constants.Accent_4;
-            uint   thickness = _pixelsThickness?.Invoke() ?? 4;
+            double size      = _pixelsSize?.Invoke() ?? 64;
+            string color     = _color?.Invoke()      ?? Constants.Accent_4;
+            uint   thickness = _thickness?.Invoke()  ?? 4;
 
             builder.OpenElement(++seq, "div");
             builder.AddAttribute(++seq, "style", Style(false));
@@ -63,17 +63,17 @@ namespace Integrant.Element.Bits
 
             builder.AddAttribute(++seq, "height",  size);
             builder.AddAttribute(++seq, "width",   size);
-            builder.AddAttribute(++seq, "viewBox", $"0 0 50 50");
+            builder.AddAttribute(++seq, "viewBox", $"0 0 100 100");
 
             //
 
             builder.AddMarkupContent(++seq,
                 $"<circle "                    +
-                $"cx='25' "                    +
-                $"cy='25' "                    +
-                $"r='20' "                     +
+                $"cx='50' "                    +
+                $"cy='50' "                    +
+                $"r='40' "                     +
                 $"fill='none' "                +
-                $"stroke-dasharray='1, 200' "  +
+                // $"stroke-dasharray='200, 400' "  +
                 $"stroke-dashoffset='0' "      +
                 $"stroke-linecap='round' "     +
                 $"stroke-width='{thickness}' " +

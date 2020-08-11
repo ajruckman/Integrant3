@@ -96,7 +96,7 @@ namespace Integrant.Rudiment.Inputs
                     required, disabled,
                     args => OnChange(value, args)
                 );
-                InputBuilder.CloseInnerInput(builder, ref seq);
+                InputBuilder.CloseInnerInput(builder);
             }
             else
             {
@@ -115,7 +115,7 @@ namespace Integrant.Rudiment.Inputs
                 if (TextAreaRows != null)
                     builder.AddAttribute(++seq, "rows", TextAreaRows.Invoke(structure, value, member, this));
                 
-                InputBuilder.CloseInnerInput(builder, ref seq);
+                InputBuilder.CloseInnerInput(builder);
             }
 
             builder.CloseElement();

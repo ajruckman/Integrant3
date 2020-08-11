@@ -26,6 +26,7 @@ namespace Integrant.Web
                     Element.ResourceSets.Overrides.Inputs,
                     Element.ResourceSets.Overrides.VariantLoader,
                     Element.ResourceSets.Bits,
+                    Element.ResourceSets.Components,
                     Element.ResourceSets.Layouts,
                     Element.ResourceSets.Constructs,
 

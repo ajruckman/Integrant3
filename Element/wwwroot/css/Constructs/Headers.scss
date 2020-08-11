@@ -1,5 +1,5 @@
 div[class~="Integrant.Element.Construct.Header"] {
-    padding: 5px 15px 5px 10px;
+    padding: 5px 10px;
 
     &[class~="Integrant.Element.Construct.Header:Primary"] {
         background-color: var(--Colorant_Default_Background_11);
@@ -47,6 +47,12 @@ div[class~="Integrant.Element.Construct.Header"] {
         div[class~="Integrant.Element.Bit.Title"], a[class~="Integrant.Element.Bit.Title:Linked"] {
             font-size:   1.35rem;
             font-weight: 600;
+        }
+    }
+    
+    a[class~="Integrant.Element.Bit.Link"] {
+        &:last-child {
+            margin-right: 5px;
         }
     }
 }

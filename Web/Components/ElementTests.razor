@@ -1,5 +1,6 @@
-@using Integrant.Element.Bits
 @using Integrant.Element
+@using Integrant.Element.Bits
+@using Integrant.Element.Components
 @using Integrant.Colorant.Themes.Solids
 @using Integrant.Resources.Icons.MaterialIcons
 
@@ -44,7 +45,10 @@
 @((new Spinner()).Render())
 @((new Spinner(() => 100)).Render())
 @((new Spinner(() => 25)).Render())
-@((new Spinner(() => 35, pixelsThickness: () => 2, display: () => Display.Block)).Render())
+@((new Spinner(() => 35, thickness: () => 2, display: () => Display.Block)).Render())
+
+<CenteredSpinner/>
+<CenteredSpinner style="padding: 25px;"/>
 
 <br>
 

@@ -31,7 +31,8 @@ namespace Integrant.Rudiment.Components
 
             _initialValue = _member.Member.Value.Invoke(StructureInstance.Structure, Value, _member.Member);
 
-            _member.OnResetInputs += ResetInput;
+            _member.OnResetInputs    += ResetInput;
+            _member.OnRerenderInputs += RerenderInput;
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -60,10 +61,16 @@ namespace Integrant.Rudiment.Components
             _member.Input!.Reset();
         }
 
+        private void RerenderInput()
+        {
+            InvokeAsync(StateHasChanged);
+        }
+
         public void Dispose()
         {
             Console.WriteLine(new string('-', 50) + " Disposed: " + _member.ID);
-            _member.OnResetInputs -= ResetInput;
+            _member.OnResetInputs    -= ResetInput;
+            _member.OnRerenderInputs -= RerenderInput;
         }
     }
 }

@@ -61,6 +61,13 @@ namespace Integrant.Fundament.Structure
             OnResetInputs?.Invoke();
         }
 
+        public event Action? OnRerenderInputs;
+
+        public void RerenderInputs()
+        {
+            OnRerenderInputs?.Invoke();
+        }
+
         //
 
         public event Action<TStructure, IMember<TStructure>, object>? OnValueUpdate;

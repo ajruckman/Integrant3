@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Integrant.Rudiment.Inputs
 {
@@ -13,29 +15,30 @@ namespace Integrant.Rudiment.Inputs
 
         public delegate TID Parser(string v);
 
-        private readonly Parser _parser;
+        // private readonly Parser _parser;
 
+        
         public SelectInput()
         {
-            if (typeof(TID) == typeof(string))
-            {
-                _parser = v => (TID) (object) v;
-            }
-            else if (typeof(TID) == typeof(int))
-            {
-                _parser = v => (TID) (object) int.Parse(v);
-            }
-            else
-            {
-                throw new ArgumentException(
-                    $"No parser was passed to SelectInput and no fallback parser was found for type '{typeof(TID).Name}'.");
-            }
+            // if (typeof(TID) == typeof(string))
+            // {
+            //     _parser = v => (TID) (object) v;
+            // }
+            // else if (typeof(TID) == typeof(int))
+            // {
+            //     _parser = v => (TID) (object) int.Parse(v);
+            // }
+            // else
+            // {
+            //     throw new ArgumentException(
+            //         $"No parser was passed to SelectInput and no fallback parser was found for type '{typeof(TID).Name}'.");
+            // }
         }
 
-        public SelectInput(Parser p)
-        {
-            _parser = p;
-        }
+        // public SelectInput(Parser p)
+        // {
+        //     _parser = p;
+        // }
 
         public RenderFragment Render
         (
@@ -70,46 +73,79 @@ namespace Integrant.Rudiment.Inputs
 
             //
 
+            object v = member.InputValue.Invoke(structure, value, member);
+            
             InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
                 member,
                 "select", null,
-                "value", member.InputValue.Invoke(structure, value, member),
+                "value", v,
                 required, disabled,
                 args => OnChange(value, args)
             );
 
+            _keyMap = new Dictionary<string, TID>();
+
+            var anySelected = false;
+            
             foreach (IOption<TID>? option in member.SelectInputOptions.Invoke(structure, value, member))
             {
+                _keyMap[option.Key] = option.Value;
+                
                 builder.OpenElement(++seq, "option");
-                builder.AddAttribute(++seq, "value", option.ID);
+                builder.AddAttribute(++seq, "value", option.Key);
+                
+                ++seq;
+                if (option.Disabled)
+                    builder.AddAttribute(seq, "disabled", "disabled");
+
+                ++seq;
+                if (option.Key == v?.ToString())
+                {
+                    builder.AddAttribute(seq, "selected", "selected");
+                    anySelected = true;
+                }
 
                 builder.AddContent(++seq, option.Name);
                 builder.CloseElement();
             }
 
-            InputBuilder.CloseInnerInput(builder, ref seq);
+            if (!anySelected)
+            {
+                builder.OpenElement(++seq, "option");
+                builder.AddAttribute(++seq, "disabled", "disabled");
+                builder.AddAttribute(++seq, "hidden",   "hidden");
+                builder.AddAttribute(++seq, "selected", "selected");
+                builder.CloseElement();
+            }
+            
+            InputBuilder.CloseInnerInput(builder);
 
             builder.CloseElement();
         };
+        
+        private Dictionary<string, TID>? _keyMap;
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
-            OnInput?.Invoke(value, _parser.Invoke(args.Value!.ToString()!));
+            OnInput?.Invoke(value, _keyMap![args.Value!.ToString()!]);
+            // OnInput?.Invoke(value, _parser.Invoke(args.Value!.ToString()!));
         }
     }
 
     public class Option<TID> : IOption<TID>
     {
-        public Option(TID id, string name, bool disabled = false)
+        public Option(string key, TID value, string name, bool disabled = false)
         {
-            ID       = id;
+            Key      = key;
+            Value    = value;
             Name     = name;
             Disabled = disabled;
         }
 
-        public TID    ID       { get; }
+        public string Key      { get; }
+        public TID    Value    { get; }
         public string Name     { get; }
         public bool   Disabled { get; }
     }

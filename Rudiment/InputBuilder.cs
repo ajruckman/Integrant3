@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
@@ -49,6 +50,7 @@ namespace Integrant.Rudiment
             return false;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void OpenInnerInput<TStructure, TMember>
         (
             RenderTreeBuilder           builder, ref int seq,
@@ -86,7 +88,7 @@ namespace Integrant.Rudiment
             // builder.CloseElement();
         }
 
-        public static void CloseInnerInput(RenderTreeBuilder builder, ref int seq)
+        public static void CloseInnerInput(RenderTreeBuilder builder)
         {
             builder.CloseElement();
         }

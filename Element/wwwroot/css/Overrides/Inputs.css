@@ -1,3 +1,4 @@
+@charset "UTF-8";
 div[class~="Integrant.Element.Input"] input, div[class~="Integrant.Element.Input"] textarea, div[class~="Integrant.Element.Input"] select {
   background-color: var(--Colorant_Default_Background_3);
   border: 1px solid var(--Colorant_Default_Border_7);
@@ -35,6 +36,24 @@ div[class~="Integrant.Element.Input"]:not([class~="Integrant.Element.Input:Monos
 
 div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] input, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] textarea, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] select, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] option {
   font-family: var(--Integrant_MonospacedFont); }
+
+@supports (-moz-appearance: none) {
+  div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] {
+    position: relative; }
+    div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"]::after {
+      content: '⯆';
+      position: absolute;
+      line-height: 0;
+      font-size: 12px;
+      right: 3px;
+      top: calc(50% - 1.5px); }
+    div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select {
+      -moz-appearance: none !important;
+      width: 100%; } }
+
+div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] option:disabled, div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] option:invalid {
+  color: var(--Colorant_Default_Text_1);
+  cursor: not-allowed; }
 
 div[class~="Integrant.Element.Input"] input:required, div[class~="Integrant.Element.Input"] textarea:required {
   box-shadow: none; }
