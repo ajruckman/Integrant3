@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
@@ -20,11 +21,19 @@ namespace Integrant.Rudiment.Inputs
             double?                              step   = null,
             Parser<TStructure, TMember, string>? parser = null
         )
-
         {
-            _min   = min;
-            _max   = max;
-            _step  = step;
+            _min  = min;
+            _max  = max;
+            _step = step;
+
+            if (parser == null && !SupportedTypeCodes.Contains(Type.GetTypeCode(typeof(TMember))))
+            {
+                throw new ArgumentException(
+                    $"NumberInput cannot convert input type '{typeof(string)}' "     +
+                    $"to Member type '{typeof(TMember)}' using its default Parser, " +
+                    $"and no custom Parser was provided.");
+            }
+
             Parser = parser ?? DefaultParser;
         }
 
@@ -94,6 +103,20 @@ namespace Integrant.Rudiment.Inputs
             OnRawInput?.Invoke(value, s);
             OnInput?.Invoke(value, Parser.Invoke(value, member, s));
         }
+
+        private static readonly HashSet<TypeCode> SupportedTypeCodes = new HashSet<TypeCode>
+        {
+            TypeCode.Byte,
+            TypeCode.Int16,
+            TypeCode.UInt16,
+            TypeCode.Int32,
+            TypeCode.UInt32,
+            TypeCode.Int64,
+            TypeCode.UInt64,
+            TypeCode.Single,
+            TypeCode.Double,
+            TypeCode.Decimal,
+        };
 
         private static TMember DefaultParser(TStructure value, Member<TStructure, TMember> member, string raw)
         {

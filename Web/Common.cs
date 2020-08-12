@@ -206,7 +206,11 @@ namespace Integrant.Web
                 nameof(User.TimeSpan),
                 (v,                m) => v.TimeSpan,
                 onValueUpdate: (v, m, mv) => v.TimeSpan = mv,
-                input: () => new NumberInput<User, TimeSpan>()
+                input: () => new NumberInput<User, TimeSpan>(parser: (v, m, mv) => mv != ""
+                    ? TimeSpan.FromDays(int.Parse(mv))
+                    : TimeSpan.Zero),
+                inputValue: (v,   m) => v.TimeSpan.TotalDays,
+                displayValue: (v, m) => $"{v.TimeSpan.TotalDays} days"
             ));
 
             Structure.Register(new Member<User, double>
