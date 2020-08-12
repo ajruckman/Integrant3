@@ -7,13 +7,32 @@ using Integrant.Rudiment.Inputs;
 
 namespace Integrant.Web
 {
+    public class User
+    {
+        public bool         Boolean           { get; set; }
+        public string       CreatedBy         { get; set; }
+        public int          UserID            { get; set; }
+        public string       Name              { get; set; }
+        public string       PhoneNumber       { get; set; }
+        public string       Email             { get; set; }
+        public DateTime?    StartDate         { get; set; }
+        public DateTime     StartTime         { get; set; }
+        public DateTime?    CompositeDateTime { get; set; }
+        public List<string> Tags              { get; set; }
+        public int          DepartmentID      { get; set; }
+        public string       DepartmentType    { get; set; }
+        public ushort       DepartmentStatus  { get; set; }
+        public TimeSpan     TimeSpan          { get; set; }
+        public double       Double            { get; set; }
+    }
+
     public static class Common
     {
-        public static readonly Structure<Pages.Index.User> Structure;
+        public static readonly Structure<User> Structure;
 
         static Common()
         {
-            Structure = new Structure<Pages.Index.User>(validator: (structure, value) =>
+            Structure = new Structure<User>(validator: (structure, value) =>
             {
                 // if (DoSlow) Thread.Sleep(200);
                 return new List<Validation>
@@ -22,33 +41,33 @@ namespace Integrant.Web
                 };
             });
 
-            Structure.Register(new Member<Pages.Index.User, bool>
+            Structure.Register(new Member<User, bool>
             (
-                nameof(Pages.Index.User.Boolean),
-                (               v, m) => v.Boolean,
+                nameof(User.Boolean),
+                (v,                m) => v.Boolean,
                 onValueUpdate: (v, m, mv) => v.Boolean = mv,
-                input: () => new CheckboxInput<Pages.Index.User>(),
+                input: () => new CheckboxInput<User>(),
                 inputIsRequired: (v, m) => true,
                 inputDebounceMilliseconds: 1
             ));
 
-            Structure.Register(new Member<Pages.Index.User, string>(
-                nameof(Pages.Index.User.CreatedBy),
-                (               v, m) => v.CreatedBy,
+            Structure.Register(new Member<User, string>(
+                nameof(User.CreatedBy),
+                (v,                m) => v.CreatedBy,
                 onValueUpdate: (v, m, mv) => v.CreatedBy = mv,
-                isVisible: (    v, m) => v.Boolean,
-                input: () => new StringInput<Pages.Index.User>(),
+                isVisible: (v,     m) => v.Boolean,
+                input: () => new StringInput<User>(),
                 inputIsRequired: (v, m) => true,
                 considerDefaultNull: true
             ));
 
-            Structure.Register(new Member<Pages.Index.User, int>(
-                nameof(Pages.Index.User.UserID),
+            Structure.Register(new Member<User, int>(
+                nameof(User.UserID),
                 (v, m) => v.UserID,
                 // displayValue: ( v, m) => $"[{v.UserID}]",
-                key: (          v, m) => "User ID",
+                key: (v,           m) => "User ID",
                 onValueUpdate: (v, m, mv) => v.UserID = mv,
-                input: () => new NumberInput<Pages.Index.User, int>(),
+                input: () => new NumberInput<User, int>(),
                 considerDefaultNull: true,
                 validator: (v, m) =>
                 {
@@ -65,29 +84,29 @@ namespace Integrant.Web
                     return result;
                 }));
 
-            Structure.Register(new Member<Pages.Index.User, string>(
-                nameof(Pages.Index.User.Name),
+            Structure.Register(new Member<User, string>(
+                nameof(User.Name),
                 (v, m) => v.Name,
-                input: () => new StringInput<Pages.Index.User>(),
-                onValueUpdate: (v, m, mv) => v.Name = mv,
-                defaultValue: (         v, m) => "A.J. <default>",
-                inputIsRequired: (      v, m) => true,
+                input: () => new StringInput<User>(),
+                onValueUpdate: (v,         m, mv) => v.Name = mv,
+                defaultValue: (v,          m) => "A.J. <default>",
+                inputIsRequired: (v,       m) => true,
                 inputMeetsRequirement: (v, m) => v.Name?.Length > 3,
-                validator: (            v, m) => Validation.One(ValidationResultType.Warning, "Warning")
+                validator: (v,             m) => Validation.One(ValidationResultType.Warning, "Warning")
             ));
 
-            Structure.Register(new Member<Pages.Index.User, string>(
-                nameof(Pages.Index.User.PhoneNumber),
-                (               v, m) => v.PhoneNumber,
-                key: (          v, m) => "Phone number",
-                isVisible: (    v, m) => v.Name?.Length > 0,
+            Structure.Register(new Member<User, string>(
+                nameof(User.PhoneNumber),
+                (v,                m) => v.PhoneNumber,
+                key: (v,           m) => "Phone number",
+                isVisible: (v,     m) => v.Name?.Length > 0,
                 onValueUpdate: (v, m, mv) => v.PhoneNumber = mv
             ));
 
-            Structure.Register(new Member<Pages.Index.User, string>(
-                nameof(Pages.Index.User.Email),
+            Structure.Register(new Member<User, string>(
+                nameof(User.Email),
                 (v, m) => v.Email,
-                input: () => new StringInput<Pages.Index.User>(textArea: true, monospace: true,
+                input: () => new StringInput<User>(textArea: true, monospace: true,
                     textAreaCols: (v, m, i) =>
                     {
                         int[] lines = v.Email.Split('\n').Select(l => l.Length).ToArray();
@@ -108,45 +127,45 @@ namespace Integrant.Web
                             : Validation.One(ValidationResultType.Invalid, "Invalid");
                 }));
 
-            Structure.Register(new Member<Pages.Index.User, DateTime>(
-                nameof(Pages.Index.User.StartDate),
-                (               v, m) => v.StartDate ?? default,
+            Structure.Register(new Member<User, DateTime>(
+                nameof(User.StartDate),
+                (v,                m) => v.StartDate ?? default,
                 onValueUpdate: (v, m, mv) => v.StartDate = mv == default ? new DateTime?() : mv,
                 validator: (v, m) =>
                     v.StartDate > DateTime.Now
                         ? Validation.One(ValidationResultType.Invalid, "Start date is in the future.")
                         : Validation.One(ValidationResultType.Valid,   "Valid"),
-                input: () => new DateInput<Pages.Index.User>()
+                input: () => new DateInput<User>()
             ));
 
-            Structure.Register(new Member<Pages.Index.User, DateTime>(
-                nameof(Pages.Index.User.StartTime),
-                (               v, m) => v.StartTime,
+            Structure.Register(new Member<User, DateTime>(
+                nameof(User.StartTime),
+                (v,                m) => v.StartTime,
                 onValueUpdate: (v, m, mv) => v.StartTime = mv,
-                input: () => new TimeInput<Pages.Index.User>(),
+                input: () => new TimeInput<User>(),
                 inputIsDisabled: (v, m) => v.UserID == 1
             ));
 
-            Structure.Register(new Member<Pages.Index.User, DateTime>(
-                nameof(Pages.Index.User.CompositeDateTime),
-                (               v, m) => v.CompositeDateTime ?? default,
+            Structure.Register(new Member<User, DateTime>(
+                nameof(User.CompositeDateTime),
+                (v,                m) => v.CompositeDateTime ?? default,
                 onValueUpdate: (v, m, mv) => v.CompositeDateTime = mv.Date == default ? new DateTime?() : mv,
-                input: () => new DateTimeInput<Pages.Index.User>(),
+                input: () => new DateTimeInput<User>(),
                 inputIsDisabled: (v, m) => v.UserID == 1
             ));
 
-            Structure.Register(new Member<Pages.Index.User, List<string>>(
-                nameof(Pages.Index.User.Tags),
-                (               v, m) => v.Tags,
-                displayValue: ( v, m) => v.Tags != null ? string.Join(" + ", v.Tags) : "<null>",
+            Structure.Register(new Member<User, List<string>>(
+                nameof(User.Tags),
+                (v,                m) => v.Tags,
+                displayValue: (v,  m) => v.Tags != null ? string.Join(" + ", v.Tags) : "<null>",
                 onValueUpdate: (v, m, mv) => v.Tags = mv
             ));
 
-            Structure.Register(new Member<Pages.Index.User, int>(
-                nameof(Pages.Index.User.DepartmentID),
-                (               v, m) => v.DepartmentID,
+            Structure.Register(new Member<User, int>(
+                nameof(User.DepartmentID),
+                (v,                m) => v.DepartmentID,
                 onValueUpdate: (v, m, mv) => v.DepartmentID = mv,
-                input: () => new SelectInput<Pages.Index.User, int>(),
+                input: () => new SelectInput<User, int>(),
                 selectInputOptions: (v, m) => new List<IOption<int>>
                 {
                     new Option<int>("1", 1, "One"),
@@ -155,11 +174,12 @@ namespace Integrant.Web
                     new Option<int>("4", 4, "Four"),
                 }
             ));
-            Structure.Register(new Member<Pages.Index.User, string>(
-                nameof(Pages.Index.User.DepartmentType),
-                (               v, m) => v.DepartmentType,
+
+            Structure.Register(new Member<User, string>(
+                nameof(User.DepartmentType),
+                (v,                m) => v.DepartmentType,
                 onValueUpdate: (v, m, mv) => v.DepartmentType = mv,
-                input: () => new SelectInput<Pages.Index.User, string>(),
+                input: () => new SelectInput<User, string>(),
                 selectInputOptions: (v, m) => new List<IOption<string>>
                 {
                     new Option<string>("One",   "One",   "One"),
@@ -168,17 +188,33 @@ namespace Integrant.Web
                 }
             ));
 
-            Structure.Register(new Member<Pages.Index.User, ushort>(
-                nameof(Pages.Index.User.DepartmentStatus),
-                (               v, m) => v.DepartmentStatus,
+            Structure.Register(new Member<User, ushort>(
+                nameof(User.DepartmentStatus),
+                (v,                m) => v.DepartmentStatus,
                 onValueUpdate: (v, m, mv) => v.DepartmentStatus = mv,
-                input: () => new SelectInput<Pages.Index.User, ushort>(),
+                input: () => new SelectInput<User, ushort>(),
                 selectInputOptions: (v, m) => new List<IOption<ushort>>
                 {
                     new Option<ushort>("1", 1, "One"),
                     new Option<ushort>("2", 2, "Two"),
                     new Option<ushort>("3", 3, "Three"),
                 }
+            ));
+
+            Structure.Register(new Member<User, TimeSpan>
+            (
+                nameof(User.TimeSpan),
+                (v,                m) => v.TimeSpan,
+                onValueUpdate: (v, m, mv) => v.TimeSpan = mv,
+                input: () => new NumberInput<User, TimeSpan>()
+            ));
+
+            Structure.Register(new Member<User, double>
+            (
+                nameof(User.Double),
+                (v,                m) => v.Double,
+                onValueUpdate: (v, m, mv) => v.Double = mv,
+                input: () => new NumberInput<User, double>(step: 0.01)
             ));
         }
     }

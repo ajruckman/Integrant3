@@ -18,23 +18,7 @@ namespace Integrant.Web.Pages
 {
     public partial class Index
     {
-        public class User
-        {
-            public bool         Boolean           { get; set; }
-            public string       CreatedBy         { get; set; }
-            public int          UserID            { get; set; }
-            public string       Name              { get; set; }
-            public string       PhoneNumber       { get; set; }
-            public string       Email             { get; set; }
-            public DateTime?    StartDate         { get; set; }
-            public DateTime     StartTime         { get; set; }
-            public DateTime?    CompositeDateTime { get; set; }
-            public List<string> Tags              { get; set; }
-            public int          DepartmentID      { get; set; }
-            public string       DepartmentType    { get; set; }
-            public ushort       DepartmentStatus  { get; set; }
-        }
-        
+       
         [CascadingParameter(Name = "PrimaryHeader")]
         public Header PrimaryHeader { get; set; }
 

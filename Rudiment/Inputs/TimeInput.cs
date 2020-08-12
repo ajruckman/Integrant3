@@ -34,13 +34,13 @@ namespace Integrant.Rudiment.Inputs
             builder.AddAttribute(++seq, "class", classes.Format());
 
             //
-            
+
             InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
                 member,
                 "input", "time",
-                "value", TransformValue(structure, value, member),
+                "value", TransformValue(value, member),
                 required, disabled,
                 args => OnChange(value, args)
             );
@@ -49,11 +49,10 @@ namespace Integrant.Rudiment.Inputs
             builder.CloseElement();
         };
 
-        private static string TransformValue
-            (Structure<TStructure> structure, TStructure value, Member<TStructure, DateTime> member)
+        private static string TransformValue(TStructure value, Member<TStructure, DateTime> member)
         {
             var v = (DateTime) member.InputValue.Invoke(value, member);
-            
+
             return member.ConsiderDefaultNull
                 ? v == default ? "" : v.ToString("HH:mm:ss")
                 : v.ToString("HH:mm:ss");
