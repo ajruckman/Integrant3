@@ -71,11 +71,11 @@ namespace Integrant.Web.Pages
 
             //
 
-            _structure.GetMemberInstance<string>("Name").OnValueUpdate +=
-                (s, v, m) => Console.WriteLine($"Structure<User>." + v.ID + " -> " + v);
+            _structure.GetMemberInstance<string>("Name").OnValueUpdateUntyped +=
+                (v,m,  mv) => Console.WriteLine($"Structure<User>." + m.ID + " -> " + v);
 
-            _structure.GetMemberInstance<string>("Email").OnValueUpdate +=
-                (s, v, m) => Console.WriteLine($"Structure<User>." + v.ID + " -> " + v);
+            _structure.GetMemberInstance<string>("Email").OnValueUpdateUntyped +=
+                (v, m, mv) => Console.WriteLine($"Structure<User>." + m.ID + " -> " + v);
 
             _structure.OnMemberValueUpdate += (s, v, m) =>
             {

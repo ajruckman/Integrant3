@@ -16,6 +16,7 @@ div[class~="Integrant.Element.Bit.Checkbox"] {
 
     color:       var(--Colorant_Default_Text_3);
     cursor:      pointer;
+    display:     inline-block;
     line-height: 0;
     user-select: none;
 
@@ -96,7 +97,6 @@ img[class~="Integrant.Element.Bit.Image"] {
 a[class~="Integrant.Element.Bit.Link"] {
     @include _Bit();
     @extend %_Link;
-
 }
 
 div[class~="Integrant.Element.Bit.MonoBlock"] {

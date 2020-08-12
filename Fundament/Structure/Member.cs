@@ -34,8 +34,8 @@ namespace Integrant.Fundament.Structure
         public readonly MemberGetters.MemberValue<TStructure, TMember>?              DefaultValue;
         public readonly MemberGetters.MemberSelectInputOptions<TStructure, TMember>? SelectInputOptions;
 
-        internal readonly Action<TStructure, IMember<TStructure>, TMember>? OnValueUpdate;
-        internal readonly int                                               InputDebounceMilliseconds;
+        internal readonly Action<TStructure, Member<TStructure, TMember>, TMember>? OnValueUpdate;
+        internal readonly int                                                       InputDebounceMilliseconds;
 
         public Member
         (
@@ -47,23 +47,23 @@ namespace Integrant.Fundament.Structure
             MemberGetters.MemberFormattedValue<TStructure, TMember>?        inputValue            = null,
             MemberGetters.MemberInputMeetsRequirement<TStructure, TMember>? inputMeetsRequirement = null,
             //
-            MemberGetters.MemberInput<TStructure, TMember>?                       input                       = null,
-            MemberGetters.MemberClasses<TStructure, TMember>?                     classes                     = null,
-            MemberGetters.MemberIsVisible<TStructure, TMember>?                   isVisible                   = null,
-            MemberGetters.MemberInputIsDisabled<TStructure, TMember>?             inputIsDisabled             = null,
-            MemberGetters.MemberInputIsRequired<TStructure, TMember>?             inputIsRequired             = null,
-            MemberGetters.MemberInputPlaceholder<TStructure, TMember>?            inputPlaceholder            = null,
-            MemberGetters.MemberValidations<TStructure, TMember>?                 validator                   = null,
-            MemberGetters.MemberValue<TStructure, TMember>?                       defaultValue                = null,
-            MemberGetters.MemberSelectInputOptions<TStructure, TMember>?          selectInputOptions          = null,
+            MemberGetters.MemberInput<TStructure, TMember>?              input              = null,
+            MemberGetters.MemberClasses<TStructure, TMember>?            classes            = null,
+            MemberGetters.MemberIsVisible<TStructure, TMember>?          isVisible          = null,
+            MemberGetters.MemberInputIsDisabled<TStructure, TMember>?    inputIsDisabled    = null,
+            MemberGetters.MemberInputIsRequired<TStructure, TMember>?    inputIsRequired    = null,
+            MemberGetters.MemberInputPlaceholder<TStructure, TMember>?   inputPlaceholder   = null,
+            MemberGetters.MemberValidations<TStructure, TMember>?        validator          = null,
+            MemberGetters.MemberValue<TStructure, TMember>?              defaultValue       = null,
+            MemberGetters.MemberSelectInputOptions<TStructure, TMember>? selectInputOptions = null,
             //
             Action<TStructure, IMember<TStructure>, TMember>? onValueUpdate             = null,
             int                                               inputDebounceMilliseconds = 200,
             bool?                                             considerDefaultNull       = null
         )
         {
-            ID                          = id;
-            Value                       = value;
+            ID    = id;
+            Value = value;
 
             //
 
@@ -78,15 +78,15 @@ namespace Integrant.Fundament.Structure
 
             //
 
-            Input                       = input;
-            Classes                     = classes;
-            IsVisible                   = isVisible;
-            InputIsDisabled             = inputIsDisabled;
-            InputIsRequired             = inputIsRequired;
-            InputPlaceholder            = inputPlaceholder;
-            Validator                   = validator;
-            DefaultValue                = defaultValue;
-            SelectInputOptions          = selectInputOptions;
+            Input              = input;
+            Classes            = classes;
+            IsVisible          = isVisible;
+            InputIsDisabled    = inputIsDisabled;
+            InputIsRequired    = inputIsRequired;
+            InputPlaceholder   = inputPlaceholder;
+            Validator          = validator;
+            DefaultValue       = defaultValue;
+            SelectInputOptions = selectInputOptions;
 
             //
 

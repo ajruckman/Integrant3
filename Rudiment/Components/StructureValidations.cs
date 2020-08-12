@@ -57,7 +57,7 @@ namespace Integrant.Rudiment.Components
                 {
                     foreach (Validation validation in validations)
                     {
-                        ValidationBuilder.RenderResult(builder, ref seq, validation);
+                        builder.AddContent(++seq, ValidationBuilder.RenderResult(validation));
                     }
                 }
             }

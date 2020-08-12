@@ -61,27 +61,18 @@ div[class~="Integrant.Element.Input"] {
     }
 
     &[class~="Integrant.Rudiment.Input.SelectInput"] {
-        @supports (-moz-appearance:none) {
-            position: relative;
-            &::after {
-                content:  '⯆';
-                position: absolute;
-                line-height: 0;
-                font-size: 12px;
-                right:    3px;
-                top:      calc(50% - 1.5px);
+        select {
+            padding-left: 1px;
+            width:        calc(100% - 2px);
+
+            option {
+                font-size: 0.9rem;
+
+                &:disabled, &:invalid {
+                    color:  var(--Colorant_Default_Text_1);
+                    cursor: not-allowed;
+                }
             }
-
-            select {
-                -moz-appearance: none !important;
-                width: 100%;
-            }
-        }
-
-        option:disabled, option:invalid {
-
-            color:  var(--Colorant_Default_Text_1);
-            cursor: not-allowed;
         }
     }
 
@@ -107,6 +98,26 @@ div[class~="Integrant.Element.Input"] {
 
     input[type="date"], input[type="time"] {
         padding-right: 4px;
+    }
+
+    &[class~="Integrant.Rudiment.Input.SelectInput"] {
+        @supports (-moz-appearance:none) {
+            position: relative;
+
+            &::after {
+                content:     '⯆';
+                position:    absolute;
+                line-height: 0;
+                font-size:   12px;
+                right:       5px;
+                top:         calc(50% - 1.5px);
+            }
+
+            select {
+                -moz-appearance: none !important;
+                padding-right:   12px;
+            }
+        }
     }
 
     ::-webkit-input-placeholder {

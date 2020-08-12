@@ -30,6 +30,7 @@ div[class~="Integrant.Element.Bit.Checkbox"] {
   vertical-align: middle;
   color: var(--Colorant_Default_Text_3);
   cursor: pointer;
+  display: inline-block;
   line-height: 0;
   user-select: none; }
   div[class~="Integrant.Element.Bit.Checkbox"]:hover:not([class~="Integrant.Element.Bit:Disabled"]) {

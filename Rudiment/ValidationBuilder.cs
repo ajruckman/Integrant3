@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Integrant.Resources.Icons.MaterialIcons;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Integrant.Rudiment
@@ -27,8 +28,10 @@ namespace Integrant.Rudiment
             builder.CloseElement();
         }
 
-        public static void RenderResult(RenderTreeBuilder builder, ref int seq, Validation validation)
+        public static RenderFragment RenderResult(Validation validation) => builder =>
         {
+            int seq = -1;
+
             var classes = new List<string> {"Integrant.Rudiment.Validation.Result"};
 
             switch (validation.ResultType)
@@ -70,7 +73,7 @@ namespace Integrant.Rudiment
             // builder.CloseElement();
 
             builder.OpenComponent<Icon>(++seq);
-            
+
             switch (validation.ResultType)
             {
                 case ValidationResultType.Invalid:
@@ -85,7 +88,7 @@ namespace Integrant.Rudiment
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             builder.CloseComponent();
 
             builder.OpenElement(++seq, "div");
@@ -94,6 +97,6 @@ namespace Integrant.Rudiment
             builder.CloseElement();
 
             builder.CloseElement();
-        }
+        };
     }
 }

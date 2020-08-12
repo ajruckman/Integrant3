@@ -17,7 +17,7 @@ namespace Integrant.Rudiment.Components
         [CascadingParameter(Name = "Integrant.Rudiment.Member.ID")]
         public string ID { get; set; } = null!;
 
-        private MemberInstance<TS, TM> _member = null!;
+        private IMemberInstance<TS, TM> _member = null!;
 
         private TM _initialValue = default!;
 
@@ -31,8 +31,8 @@ namespace Integrant.Rudiment.Components
 
             _initialValue = _member.Member.Value.Invoke(StructureInstance.Structure, Value, _member.Member);
 
-            _member.OnResetInputs    += ResetInput;
-            _member.OnRerenderInputs += RerenderInput;
+            _member.OnRefreshInputs += RefreshInput;
+            _member.OnResetInputs   += ResetInput;
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -53,6 +53,11 @@ namespace Integrant.Rudiment.Components
             builder.CloseElement();
         }
 
+        private void RefreshInput()
+        {
+            InvokeAsync(StateHasChanged);
+        }
+
         private void ResetInput()
         {
             _member.UpdateValueImmediately(Value, _member.Member.DefaultValue == null
@@ -61,16 +66,11 @@ namespace Integrant.Rudiment.Components
             _member.Input!.Reset();
         }
 
-        private void RerenderInput()
-        {
-            InvokeAsync(StateHasChanged);
-        }
-
         public void Dispose()
         {
             Console.WriteLine(new string('-', 50) + " Disposed: " + _member.ID);
-            _member.OnResetInputs    -= ResetInput;
-            _member.OnRerenderInputs -= RerenderInput;
+            _member.OnRefreshInputs -= RefreshInput;
+            _member.OnResetInputs   -= ResetInput;
         }
     }
 }

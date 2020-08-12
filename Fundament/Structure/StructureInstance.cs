@@ -3,7 +3,20 @@ using System.Collections.Generic;
 
 namespace Integrant.Fundament.Structure
 {
-    public sealed class StructureInstance<T>
+    public interface IStructureInstance<T>
+    {
+        public Structure<T>                Structure { get; }
+        public IMemberInstance<T, TMember> GetMemberInstance<TMember>(string id);
+
+        // Events
+
+        public event Action<T, IMember<T>, object?>? OnMemberValueUpdate;
+
+        public void          ResetAllMemberInputs();
+        public event Action? OnResetAllMemberInputs;
+    }
+
+    public sealed class StructureInstance<T> : IStructureInstance<T>
     {
         public readonly ValidationState<T> ValidationState;
 
@@ -21,9 +34,9 @@ namespace Integrant.Fundament.Structure
             {
                 IMemberInstance<T> instance = member.Instantiate();
 
-                instance.OnInput       += ValidationState.Invalidate;
-                instance.OnValueUpdate += (s, m, v) => OnMemberValueUpdate?.Invoke(s, m, v);
-                instance.OnValueUpdate += (s, m, v) => ValidationState.ValidateStructure(s);
+                instance.OnInput              += ValidationState.Invalidate;
+                instance.OnValueUpdateUntyped += (v, m, mv) => OnMemberValueUpdate?.Invoke(v, m, mv);
+                instance.OnValueUpdateUntyped += (v, m, mv) => ValidationState.ValidateStructure(v);
 
                 _memberInstances[member.ID] = instance;
             }
@@ -31,7 +44,7 @@ namespace Integrant.Fundament.Structure
 
         public Structure<T> Structure { get; }
 
-        public MemberInstance<T, TMember> GetMemberInstance<TMember>(string id)
+        public IMemberInstance<T, TMember> GetMemberInstance<TMember>(string id)
         {
             _memberInstances.TryGetValue(id, out IMemberInstance<T>? member);
             if (member == null)
@@ -43,6 +56,8 @@ namespace Integrant.Fundament.Structure
 
             return result;
         }
+
+        public event Action<T, IMember<T>, object?>? OnMemberValueUpdate;
 
         public void ValidateInitial(T value)
         {
@@ -64,9 +79,9 @@ namespace Integrant.Fundament.Structure
 
         //
 
-        public event Action<T, IMember<T>, object>? OnMemberValueUpdate;
-
+        // public event Action<T, IMember<T>, object>? OnMemberValueUpdate;
         //
+        // //
 
         public event Action? OnResetAllMemberInputs;
 
