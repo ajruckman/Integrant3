@@ -17,20 +17,20 @@ namespace Integrant.Fundament.Structure
         public event Action<TStructure, TMember>? OnInput;
     }
 
-    public interface ITransformableInput<TStructure, TMember, TRaw> : IInput<TStructure, TMember>
+    public interface IParsableInput<TStructure, TMember, TRaw> : IInput<TStructure, TMember>
     {
         public event Action<TStructure, TRaw>? OnRawInput;
-        
-        public Transformer<TStructure, TMember, TRaw> Transformer { get; }
+
+        public Parser<TStructure, TMember, TRaw> Parser { get; }
     }
 
-    public delegate TMember Transformer<TStructure, TMember, in TRaw>
+    public delegate TMember Parser<TStructure, TMember, in TRaw>
         (TStructure value, Member<TStructure, TMember> member, TRaw raw);
 
     // public interface IInput<TStructure, TMember, TInput> : IInput<TStructure, TMember>
     // {
     //     public event Action<TStructure, TInput>? OnRawInput;
     //
-    //     public delegate TMember Transformer(TInput from);
+    //     public delegate TMember Parser(TInput from);
     // }
 }

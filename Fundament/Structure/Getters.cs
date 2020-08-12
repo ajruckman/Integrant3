@@ -56,8 +56,8 @@ namespace Integrant.Fundament.Structure
         public delegate string MemberInputPlaceholder<TStructure, TMember>
             (TStructure value, Member<TStructure, TMember> member);
 
-        // public delegate TMember MemberInputTransformer<TStructure, TMember>
-            // (TStructure value, Member<TStructure, TMember> member, object raw);
+        public delegate TMember MemberInputTransformer<TStructure, TMember>
+            (TStructure value, Member<TStructure, TMember> member, TMember originalValue);
 
         public delegate List<Validation> MemberValidations<TStructure, TMember>
             (TStructure value, Member<TStructure, TMember> member);

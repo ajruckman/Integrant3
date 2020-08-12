@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Rudiment.Inputs
 {
-    public class NumberInput<TStructure, TMember> : ITransformableInput<TStructure, TMember, string>
+    public class NumberInput<TStructure, TMember> : IParsableInput<TStructure, TMember, string>
     {
         private readonly int?    _min;
         private readonly int?    _max;
@@ -15,17 +15,17 @@ namespace Integrant.Rudiment.Inputs
 
         public NumberInput
         (
-            int?                                      min         = null,
-            int?                                      max         = null,
-            double?                                   step        = null,
-            Transformer<TStructure, TMember, string>? transformer = null
+            int?                                 min    = null,
+            int?                                 max    = null,
+            double?                              step   = null,
+            Parser<TStructure, TMember, string>? parser = null
         )
 
         {
-            _min        = min;
-            _max        = max;
-            _step       = step;
-            Transformer = transformer ?? DefaultTransformer;
+            _min   = min;
+            _max   = max;
+            _step  = step;
+            Parser = parser ?? DefaultParser;
         }
 
         public event Action<TStructure, TMember>? OnInput;
@@ -85,54 +85,34 @@ namespace Integrant.Rudiment.Inputs
 
         public event Action<TStructure, string>? OnRawInput;
 
-        public Transformer<TStructure, TMember, string> Transformer { get; }
+        public Parser<TStructure, TMember, string> Parser { get; }
 
         private void OnChange(TStructure value, Member<TStructure, TMember> member, ChangeEventArgs args)
         {
             string s = args.Value?.ToString() ?? "";
 
-            // int v = s == ""
-            //     ? default
-            //     : int.Parse(s);
-
             OnRawInput?.Invoke(value, s);
-            OnInput?.Invoke(value, Transformer.Invoke(value, member, s));
-
-            // if (_transformer == null)
-            // OnInput?.Invoke(value, (TMember) (object) v);
-            // else
-            //     OnInput?.Invoke(value, _transformer.Invoke(v));
+            OnInput?.Invoke(value, Parser.Invoke(value, member, s));
         }
 
-        private static TMember DefaultTransformer(TStructure value, Member<TStructure, TMember> member, string raw)
+        private static TMember DefaultParser(TStructure value, Member<TStructure, TMember> member, string raw)
         {
             if (raw == "") return default!;
 
-            switch (Type.GetTypeCode(typeof(TMember)))
+            return (TMember) (object) (Type.GetTypeCode(typeof(TMember)) switch
             {
-                case TypeCode.Byte:
-                    return (TMember) (object) Byte.Parse(raw);
-                case TypeCode.Int16:
-                    return (TMember) (object) Int16.Parse(raw);
-                case TypeCode.UInt16:
-                    return (TMember) (object) UInt16.Parse(raw);
-                case TypeCode.Int32:
-                    return (TMember) (object) Int32.Parse(raw);
-                case TypeCode.UInt32:
-                    return (TMember) (object) UInt32.Parse(raw);
-                case TypeCode.Int64:
-                    return (TMember) (object) Int64.Parse(raw);
-                case TypeCode.UInt64:
-                    return (TMember) (object) UInt64.Parse(raw);
-                case TypeCode.Single:
-                    return (TMember) (object) Single.Parse(raw);
-                case TypeCode.Double:
-                    return (TMember) (object) Double.Parse(raw);
-                case TypeCode.Decimal:
-                    return (TMember) (object) Decimal.Parse(raw);
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                TypeCode.Byte    => Byte.Parse(raw),
+                TypeCode.Int16   => Int16.Parse(raw),
+                TypeCode.UInt16  => UInt16.Parse(raw),
+                TypeCode.Int32   => Int32.Parse(raw),
+                TypeCode.UInt32  => UInt32.Parse(raw),
+                TypeCode.Int64   => Int64.Parse(raw),
+                TypeCode.UInt64  => UInt64.Parse(raw),
+                TypeCode.Single  => Single.Parse(raw),
+                TypeCode.Double  => Double.Parse(raw),
+                TypeCode.Decimal => Decimal.Parse(raw),
+                _                => throw new ArgumentOutOfRangeException(),
+            });
         }
     }
 }

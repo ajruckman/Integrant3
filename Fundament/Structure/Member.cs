@@ -30,7 +30,7 @@ namespace Integrant.Fundament.Structure
         public readonly MemberGetters.MemberInputIsDisabled<TStructure, TMember>?    InputIsDisabled;
         public readonly MemberGetters.MemberInputIsRequired<TStructure, TMember>?    InputIsRequired;
         public readonly MemberGetters.MemberInputPlaceholder<TStructure, TMember>?   InputPlaceholder;
-        // public readonly MemberGetters.MemberInputTransformer<TStructure, TMember>?   InputTransformer;
+        public readonly MemberGetters.MemberInputTransformer<TStructure, TMember>?   InputTransformer;
         public readonly MemberGetters.MemberValidations<TStructure, TMember>?        Validator;
         public readonly MemberGetters.MemberValue<TStructure, TMember>?              DefaultValue;
         public readonly MemberGetters.MemberSelectInputOptions<TStructure, TMember>? SelectInputOptions;
@@ -54,7 +54,7 @@ namespace Integrant.Fundament.Structure
             MemberGetters.MemberInputIsDisabled<TStructure, TMember>?    inputIsDisabled    = null,
             MemberGetters.MemberInputIsRequired<TStructure, TMember>?    inputIsRequired    = null,
             MemberGetters.MemberInputPlaceholder<TStructure, TMember>?   inputPlaceholder   = null,
-            // MemberGetters.MemberInputTransformer<TStructure, TMember>?   inputTransformer   = null,
+            MemberGetters.MemberInputTransformer<TStructure, TMember>?   inputTransformer   = null,
             MemberGetters.MemberValidations<TStructure, TMember>?        validator          = null,
             MemberGetters.MemberValue<TStructure, TMember>?              defaultValue       = null,
             MemberGetters.MemberSelectInputOptions<TStructure, TMember>? selectInputOptions = null,
@@ -86,7 +86,7 @@ namespace Integrant.Fundament.Structure
             InputIsDisabled    = inputIsDisabled;
             InputIsRequired    = inputIsRequired;
             InputPlaceholder   = inputPlaceholder;
-            // InputTransformer   = inputTransformer;
+            InputTransformer   = inputTransformer;
             Validator          = validator;
             DefaultValue       = defaultValue;
             SelectInputOptions = selectInputOptions;

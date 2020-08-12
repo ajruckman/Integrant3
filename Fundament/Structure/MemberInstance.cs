@@ -42,7 +42,7 @@ namespace Integrant.Fundament.Structure
             if (Member.Input != null)
             {
                 Input         =  Member.Input.Invoke();
-                Input.OnInput += UpdateValue;
+                Input.OnInput += (v, m) => UpdateValue(v, m);
             }
 
             OnValueUpdate += (v, m, mv) => OnValueUpdateUntyped?.Invoke(v, m, mv);
@@ -86,8 +86,11 @@ namespace Integrant.Fundament.Structure
 
         //
 
-        public void UpdateValue(TStructure value, TMember newValue)
+        public void UpdateValue(TStructure value, TMember newValue, bool doTransform = true)
         {
+            if (Member.InputTransformer != null && doTransform)
+                newValue = Member.InputTransformer.Invoke(value, Member, newValue);
+
             OnInput?.Invoke();
             _debouncer.Reset((value, newValue));
         }
