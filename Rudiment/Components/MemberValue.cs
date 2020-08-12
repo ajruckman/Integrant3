@@ -20,7 +20,7 @@ namespace Integrant.Rudiment.Components
         {
             Member<TS, TM> member = StructureInstance.Structure.GetMember<TM>(ID);
 
-            ClassSet classes = ClassSet.FromMember(StructureInstance.Structure, Value, member,
+            ClassSet classes = ClassSet.FromMember(Value, member,
                 "Integrant.Rudiment.Component." + nameof(MemberValue<TS, TM>));
 
             //
@@ -31,7 +31,7 @@ namespace Integrant.Rudiment.Components
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            object v = member.DisplayValue.Invoke(StructureInstance.Structure, Value, member);
+            object v = member.DisplayValue.Invoke(Value, member);
 
             builder.AddContent(++seq, member.ConsiderDefaultNull
                 ? Equals(v, default(TM)) ? "" : v

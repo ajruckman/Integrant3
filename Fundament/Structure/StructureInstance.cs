@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace Integrant.Fundament.Structure
 {
-    public interface IStructureInstance<T>
-    {
-        public Structure<T>                Structure { get; }
-        public IMemberInstance<T, TMember> GetMemberInstance<TMember>(string id);
+    // public interface IStructureInstance<T>
+    // {
+    //     public Structure<T>               Structure { get; }
+    //     public MemberInstance<T, TMember> GetMemberInstance<TMember>(string id);
+    //
+    //     // Events
+    //
+    //     public event Action<T, IMember<T>, object?>? OnMemberValueUpdate;
+    //
+    //     public void          ResetAllMemberInputs();
+    //     public event Action? OnResetAllMemberInputs;
+    // }
 
-        // Events
-
-        public event Action<T, IMember<T>, object?>? OnMemberValueUpdate;
-
-        public void          ResetAllMemberInputs();
-        public event Action? OnResetAllMemberInputs;
-    }
-
-    public sealed class StructureInstance<T> : IStructureInstance<T>
+    public sealed class StructureInstance<T>
     {
         public readonly ValidationState<T> ValidationState;
 
@@ -44,7 +44,7 @@ namespace Integrant.Fundament.Structure
 
         public Structure<T> Structure { get; }
 
-        public IMemberInstance<T, TMember> GetMemberInstance<TMember>(string id)
+        public MemberInstance<T, TMember> GetMemberInstance<TMember>(string id)
         {
             _memberInstances.TryGetValue(id, out IMemberInstance<T>? member);
             if (member == null)
@@ -78,10 +78,6 @@ namespace Integrant.Fundament.Structure
         }
 
         //
-
-        // public event Action<T, IMember<T>, object>? OnMemberValueUpdate;
-        //
-        // //
 
         public event Action? OnResetAllMemberInputs;
 

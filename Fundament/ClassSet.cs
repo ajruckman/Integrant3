@@ -50,7 +50,7 @@ namespace Integrant.Fundament
         }
 
         public static ClassSet FromMember<TS, TM>
-            (Structure<TS> structure, TS value, Member<TS, TM> member, string primary, params string[] additional)
+            (TS value, Member<TS, TM> member, string primary, params string[] additional)
         {
             var classes = new List<string>(additional.Length + 1)
             {
@@ -61,7 +61,7 @@ namespace Integrant.Fundament
             classes.AddRange(additional);
 
             if (member.Classes != null)
-                classes.AddRange(member.Classes.Invoke(structure, value, member));
+                classes.AddRange(member.Classes.Invoke(value, member));
 
             return new ClassSet {_classes = classes};
         }

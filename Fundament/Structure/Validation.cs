@@ -89,7 +89,7 @@ namespace Integrant.Fundament.Structure
             {
                 token.ThrowIfCancellationRequested();
 
-                List<Validation>? validations = member.Validations(structure.Structure, value);
+                List<Validation>? validations = member.Validations(value);
                 if (validations == null) continue;
 
                 token.ThrowIfCancellationRequested();

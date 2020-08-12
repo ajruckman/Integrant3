@@ -55,7 +55,7 @@ namespace Integrant.Rudiment.Inputs
 
             if (member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
-                    member.InputPlaceholder.Invoke(structure, value, member));
+                    member.InputPlaceholder.Invoke(value, member));
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
@@ -66,7 +66,7 @@ namespace Integrant.Rudiment.Inputs
                 builder, ref seq,
                 member,
                 "input", "number",
-                "value", member.InputValue.Invoke(structure, value, member),
+                "value", member.InputValue.Invoke(value, member),
                 required, disabled,
                 args => OnChange(value, args)
             );

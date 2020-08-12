@@ -7,7 +7,7 @@ namespace Integrant.Fundament.Structure
     {
         public string ID { get; }
 
-        public List<Validation>? Validations(Structure<TStructure> structure, TStructure value);
+        public List<Validation>? Validations(TStructure value);
 
         // Events
 
@@ -20,18 +20,18 @@ namespace Integrant.Fundament.Structure
         public event Action? OnResetInputs;
     }
 
-    public interface IMemberInstance<TStructure, TMember> : IMemberInstance<TStructure>
-    {
-        public Member<TStructure, TMember>  Member { get; }
-        public IInput<TStructure, TMember>? Input  { get; }
+    // public interface IMemberInstance<TStructure, TMember> : IMemberInstance<TStructure>
+    // {
+    //     public Member<TStructure, TMember>  Member { get; }
+    //     public IInput<TStructure, TMember>? Input  { get; }
+    //
+    //     public event Action<TStructure, Member<TStructure, TMember>, TMember>? OnValueUpdate;
+    //
+    //     public void UpdateValue(TStructure            value, TMember newValue);
+    //     public void UpdateValueImmediately(TStructure value, TMember newValue);
+    // }
 
-        public event Action<TStructure, Member<TStructure, TMember>, TMember>? OnValueUpdate;
-
-        public void UpdateValue(TStructure            value, TMember newValue);
-        public void UpdateValueImmediately(TStructure value, TMember newValue);
-    }
-
-    public sealed class MemberInstance<TStructure, TMember> : IMemberInstance<TStructure, TMember>
+    public sealed class MemberInstance<TStructure, TMember> : IMemberInstance<TStructure>
     {
         private readonly Utility.Debouncer<(TStructure, TMember)> _debouncer;
 
@@ -63,8 +63,7 @@ namespace Integrant.Fundament.Structure
 
         //
 
-        public List<Validation>? Validations
-            (Structure<TStructure> structure, TStructure value) => Member.Validator?.Invoke(structure, value, Member);
+        public List<Validation>? Validations(TStructure value) => Member.Validator?.Invoke(value, Member);
 
         public event Action? OnInput;
 

@@ -7,17 +7,17 @@ namespace Integrant.Rudiment.Inputs
 {
     public class StringInput<TStructure> : IInput<TStructure, string>
     {
-        public readonly bool             TextArea;
-        public readonly bool             Monospace;
-        public readonly GetTextAreaCols? TextAreaCols;
-        public readonly GetTextAreaRows? TextAreaRows;
+        public readonly bool                  TextArea;
+        public readonly bool                  Monospace;
+        public readonly GetTextAreaDimension? TextAreaCols;
+        public readonly GetTextAreaDimension? TextAreaRows;
 
         public StringInput
         (
-            bool             textArea     = false,
-            bool             monospace    = false,
-            GetTextAreaCols? textAreaCols = null,
-            GetTextAreaRows? textAreaRows = null
+            bool                  textArea     = false,
+            bool                  monospace    = false,
+            GetTextAreaDimension? textAreaCols = null,
+            GetTextAreaDimension? textAreaRows = null
         )
         {
             TextArea     = textArea;
@@ -42,16 +42,9 @@ namespace Integrant.Rudiment.Inputs
 
         public void Reset() { }
 
-        public delegate int GetTextAreaCols
+        public delegate int GetTextAreaDimension
         (
-            Structure<TStructure>      structure, TStructure value, Member<TStructure, string> member,
-            IInput<TStructure, string> input
-        );
-
-        public delegate int GetTextAreaRows
-        (
-            Structure<TStructure>      structure, TStructure value, Member<TStructure, string> member,
-            IInput<TStructure, string> input
+            TStructure value, Member<TStructure, string> member, IInput<TStructure, string> input
         );
 
         public RenderFragment Render
@@ -81,7 +74,7 @@ namespace Integrant.Rudiment.Inputs
 
             if (member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
-                    member.InputPlaceholder.Invoke(structure, value, member));
+                    member.InputPlaceholder.Invoke(value, member));
 
             //
 
@@ -92,7 +85,7 @@ namespace Integrant.Rudiment.Inputs
                     builder, ref seq,
                     member,
                     "input", "text",
-                    "value", member.InputValue.Invoke(structure, value, member),
+                    "value", member.InputValue.Invoke(value, member),
                     required, disabled,
                     args => OnChange(value, args)
                 );
@@ -105,15 +98,15 @@ namespace Integrant.Rudiment.Inputs
                     builder, ref seq,
                     member,
                     "textarea", null,
-                    "value", member.InputValue.Invoke(structure, value, member),
+                    "value", member.InputValue.Invoke(value, member),
                     required, disabled,
                     args => OnChange(value, args)
                 );
                 
                 if (TextAreaCols != null)
-                    builder.AddAttribute(++seq, "cols", TextAreaCols.Invoke(structure, value, member, this));
+                    builder.AddAttribute(++seq, "cols", TextAreaCols.Invoke(value, member, this));
                 if (TextAreaRows != null)
-                    builder.AddAttribute(++seq, "rows", TextAreaRows.Invoke(structure, value, member, this));
+                    builder.AddAttribute(++seq, "rows", TextAreaRows.Invoke(value, member, this));
                 
                 InputBuilder.CloseInnerInput(builder);
             }

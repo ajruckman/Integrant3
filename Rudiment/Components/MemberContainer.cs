@@ -34,10 +34,10 @@ namespace Integrant.Rudiment.Components
         {
             Member<TS, TM> member = StructureInstance.Structure.GetMember<TM>(ID!);
 
-            ClassSet classes = ClassSet.FromMember(StructureInstance.Structure, Value, member,
+            ClassSet classes = ClassSet.FromMember(Value, member,
                 "Integrant.Rudiment.Component." + nameof(MemberContainer<TS, TM>));
 
-            bool shown = member.IsVisible?.Invoke(StructureInstance.Structure, Value, member) ?? true;
+            bool shown = member.IsVisible?.Invoke(Value, member) ?? true;
 
             //
 

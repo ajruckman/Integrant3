@@ -17,7 +17,7 @@ namespace Integrant.Rudiment.Components
         [CascadingParameter(Name = "Integrant.Rudiment.Member.ID")]
         public string ID { get; set; } = null!;
 
-        private IMemberInstance<TS, TM> _member = null!;
+        private MemberInstance<TS, TM> _member = null!;
 
         private TM _initialValue = default!;
 
@@ -29,7 +29,7 @@ namespace Integrant.Rudiment.Components
                 throw new ArgumentNullException(nameof(_member.Member.Input),
                     "MemberInput component was used on a Member with no Input.");
 
-            _initialValue = _member.Member.Value.Invoke(StructureInstance.Structure, Value, _member.Member);
+            _initialValue = _member.Member.Value.Invoke(Value, _member.Member);
 
             _member.OnRefreshInputs += RefreshInput;
             _member.OnResetInputs   += ResetInput;
@@ -37,7 +37,7 @@ namespace Integrant.Rudiment.Components
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            ClassSet classSet = ClassSet.FromMember(StructureInstance.Structure, Value, _member.Member,
+            ClassSet classSet = ClassSet.FromMember(Value, _member.Member,
                 "Integrant.Rudiment.Component." + nameof(MemberInput<TS, TM>));
 
             //
@@ -62,7 +62,7 @@ namespace Integrant.Rudiment.Components
         {
             _member.UpdateValueImmediately(Value, _member.Member.DefaultValue == null
                 ? _initialValue
-                : _member.Member.DefaultValue.Invoke(StructureInstance.Structure, Value, _member.Member));
+                : _member.Member.DefaultValue.Invoke(Value, _member.Member));
             _member.Input!.Reset();
         }
 

@@ -34,7 +34,7 @@ namespace Integrant.Rudiment.Components
                     "Member passed to " + nameof(MemberValidations<TS, TM>) + " component does not have a " +
                     nameof(MemberGetters.MemberValidations<TS, TM>) + ".");
 
-            ClassSet classes = ClassSet.FromMember(StructureInstance.Structure, Value, member,
+            ClassSet classes = ClassSet.FromMember(Value, member,
                 "Integrant.Rudiment.Component." + nameof(MemberValidations<TS, TM>));
 
             //

@@ -69,11 +69,11 @@ namespace Integrant.Rudiment.Inputs
 
             if (member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
-                    member.InputPlaceholder.Invoke(structure, value, member));
+                    member.InputPlaceholder.Invoke(value, member));
 
             //
 
-            object v = member.InputValue.Invoke(structure, value, member);
+            object v = member.InputValue.Invoke(value, member);
             
             InputBuilder.OpenInnerInput
             (
@@ -89,7 +89,7 @@ namespace Integrant.Rudiment.Inputs
 
             var anySelected = false;
             
-            foreach (IOption<TID>? option in member.SelectInputOptions.Invoke(structure, value, member))
+            foreach (IOption<TID>? option in member.SelectInputOptions.Invoke(value, member))
             {
                 _keyMap[option.Key] = option.Value;
                 

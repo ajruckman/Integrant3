@@ -16,14 +16,14 @@ namespace Integrant.Rudiment
             ClassSet              classes
         )
         {
-            if (member.InputIsRequired?.Invoke(structure, value, member) == true)
+            if (member.InputIsRequired?.Invoke(value, member) == true)
             {
                 classes.Add("Integrant.Rudiment.Input:Required");
 
                 // This should always be true
                 if (member.InputMeetsRequirement != null)
                 {
-                    classes.Add(member.InputMeetsRequirement.Invoke(structure, value, member)
+                    classes.Add(member.InputMeetsRequirement.Invoke(value, member)
                         ? "Integrant.Rudiment.Input:MeetsRequirement"
                         : "Integrant.Rudiment.Input:FailsRequirement");
                 }
@@ -41,7 +41,7 @@ namespace Integrant.Rudiment
             ClassSet              classes
         )
         {
-            if (member.InputIsDisabled?.Invoke(structure, value, member) == true)
+            if (member.InputIsDisabled?.Invoke(value, member) == true)
             {
                 classes.Add("Integrant.Rudiment.Input:Disabled");
                 return true;
