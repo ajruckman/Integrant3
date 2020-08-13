@@ -10,9 +10,9 @@ namespace Integrant.Fundament
         public static List<string> Qualifications()
         {
             StackTrace stackTrace = new StackTrace();
-            MethodBase method     = stackTrace.GetFrame(1).GetMethod();
+            MethodBase method     = stackTrace.GetFrame(1)!.GetMethod()!;
 
-            string fullName = method.DeclaringType.FullName;
+            string fullName = method.DeclaringType!.FullName!;
             fullName = fullName.Substring(0, fullName.IndexOf('`'));
 
             var result = new List<string>();
@@ -32,13 +32,11 @@ namespace Integrant.Fundament
         {
             public delegate void OnElapsed(T newValue);
 
-            private readonly Timer     _debouncer;
-            private readonly OnElapsed _onElapsed;
-            private readonly object    _valueLock = new object();
+            private readonly Timer  _debouncer;
+            private readonly object _valueLock = new object();
 
             public Debouncer(OnElapsed onElapsed, T initialValue, int milliseconds = 200)
             {
-                _onElapsed = onElapsed;
                 Value      = initialValue;
                 _debouncer = new Timer(milliseconds);
                 _debouncer.Stop();
@@ -47,7 +45,7 @@ namespace Integrant.Fundament
                 {
                     lock (_valueLock)
                     {
-                        _onElapsed.Invoke(Value);
+                        onElapsed.Invoke(Value);
                     }
                 };
             }

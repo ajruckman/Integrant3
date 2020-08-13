@@ -14,9 +14,9 @@ namespace Integrant.Web.Components
     public partial class ElementTests
     {
         [CascadingParameter]
-        public Layer Layer { get; set; }
+        public Layer Layer { get; set; } = null!;
 
-        private Layer _childLayer;
+        private Layer _childLayer = null!;
 
         public double Number { get; set; }
 
@@ -68,6 +68,6 @@ namespace Integrant.Web.Components
 
         //
 
-        private Dropdown _dropdown1;
+        private Dropdown _dropdown1 = null!;
     }
 }

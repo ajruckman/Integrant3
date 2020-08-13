@@ -6,11 +6,9 @@ namespace Integrant.Element
 {
     public abstract class BitBase : IBit
     {
-        internal BitSpec Spec { get; set; }
-
-        protected ClassSet ConstantClasses;
-
-        protected string? CachedStyle;
+        internal  BitSpec  Spec            = null!;
+        protected ClassSet ConstantClasses = null!;
+        protected string?  CachedStyle;
 
         public abstract RenderFragment Render();
 

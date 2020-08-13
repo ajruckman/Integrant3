@@ -21,7 +21,7 @@ namespace Integrant.Rudiment.Components
         public string? Element { get; set; }
 
         [Parameter]
-        public RenderFragment ChildContent { get; set; }
+        public RenderFragment ChildContent { get; set; } = null!;
 
         protected override void OnInitialized()
         {

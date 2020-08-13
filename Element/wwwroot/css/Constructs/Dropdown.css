@@ -2,18 +2,22 @@ div[class~="Integrant.Element.Construct.Dropdown"] {
   box-sizing: border-box;
   display: inline-block;
   vertical-align: middle; }
+  div[class~="Integrant.Element.Construct.Dropdown"]:hover > div[class~="Integrant.Element.Construct.Dropdown.Top"] i[class~="Integrant.Resources.Icon"] {
+    color: var(--Colorant_Default_Accent_6);
+    content: 'expand_less'; }
   div[class~="Integrant.Element.Construct.Dropdown"]:hover > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
     display: block; }
-  div[class~="Integrant.Element.Construct.Dropdown"] div[class~="Integrant.Element.Construct.Dropdown.Top"] {
+  div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Top"] {
     align-items: center;
     display: flex;
     justify-content: center; }
-    div[class~="Integrant.Element.Construct.Dropdown"] div[class~="Integrant.Element.Construct.Dropdown.Top"] i[class~="Integrant.Resources.Icon"] {
+    div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Top"] > i[class~="Integrant.Resources.Icon"] {
+      color: var(--Colorant_Default_Text_1);
       width: 24px; }
-  div[class~="Integrant.Element.Construct.Dropdown"][class~="Integrant.Element.Construct.Dropdown:Left"] div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+  div[class~="Integrant.Element.Construct.Dropdown"][class~="Integrant.Element.Construct.Dropdown:Left"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
     left: 100%;
     top: -0.2rem; }
-  div[class~="Integrant.Element.Construct.Dropdown"] div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+  div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
     background-color: var(--Colorant_Default_Background_2);
     border: 1px solid var(--Colorant_Default_Border_15);
     border-radius: 2px;
@@ -21,24 +25,24 @@ div[class~="Integrant.Element.Construct.Dropdown"] {
     display: none;
     position: absolute;
     z-index: 1; }
-    div[class~="Integrant.Element.Construct.Dropdown"] div[class~="Integrant.Element.Construct.Dropdown.Contents"] div[class~="Integrant.Element.Construct.Dropdown.Child"] {
+    div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"] {
       box-sizing: border-box;
       padding: 3px;
       position: relative;
       text-align: center;
       white-space: nowrap; }
-      div[class~="Integrant.Element.Construct.Dropdown"] div[class~="Integrant.Element.Construct.Dropdown.Contents"] div[class~="Integrant.Element.Construct.Dropdown.Child"] > a[class~="Integrant.Element.Bit.Link"] {
+      div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"] > a[class~="Integrant.Element.Bit.Link"] {
         width: 100%; }
-        div[class~="Integrant.Element.Construct.Dropdown"] div[class~="Integrant.Element.Construct.Dropdown.Contents"] div[class~="Integrant.Element.Construct.Dropdown.Child"] > a[class~="Integrant.Element.Bit.Link"]::after {
+        div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"] > a[class~="Integrant.Element.Bit.Link"]::after {
           bottom: -4px;
           left: -1px;
           width: calc(100% + 2px); }
-      div[class~="Integrant.Element.Construct.Dropdown"] div[class~="Integrant.Element.Construct.Dropdown.Contents"] div[class~="Integrant.Element.Construct.Dropdown.Child"]:hover {
+      div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"]:hover {
         background-color: var(--Colorant_Default_Background_4);
         box-shadow: 0 0 4px -1px var(--Colorant_Default_Shadow_0) inset; }
-        div[class~="Integrant.Element.Construct.Dropdown"] div[class~="Integrant.Element.Construct.Dropdown.Contents"] div[class~="Integrant.Element.Construct.Dropdown.Child"]:hover > div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+        div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"]:hover > div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
           display: block; }
-      div[class~="Integrant.Element.Construct.Dropdown"] div[class~="Integrant.Element.Construct.Dropdown.Contents"] div[class~="Integrant.Element.Construct.Dropdown.Child"]:not(:last-child) {
+      div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"]:not(:last-child) {
         border-bottom: 1px solid var(--Colorant_Default_Border_5); }
 
 /*# sourceMappingURL=Dropdown.css.map */

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+#pragma warning disable 8618
+
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable CollectionNeverUpdated.Global

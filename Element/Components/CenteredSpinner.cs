@@ -11,7 +11,7 @@ namespace Integrant.Element.Components
 
         [Parameter]                                public uint                       Size       { get; set; } = 64;
         [Parameter]                                public uint                       Thickness  { get; set; } = 4;
-        [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> Attributes { get; set; }
+        [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> Attributes { get; set; } = null!;
 
         protected override void OnParametersSet()
         {

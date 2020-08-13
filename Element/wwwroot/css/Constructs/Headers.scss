@@ -16,8 +16,6 @@ div[class~="Integrant.Element.Construct.Header"] {
 
     &[class~="Integrant.Element.Construct.Header:Secondary"] {
         background-color: var(--Colorant_Default_Background_0);
-
-        //box-shadow:       0 0 4px 0 rgba(0, 0, 0, 0.15) inset;
         box-shadow:       0 0 3px var(--Colorant_Default_Shadow_0) inset;
         font-size:        1.25rem;
 
@@ -31,7 +29,7 @@ div[class~="Integrant.Element.Construct.Header"] {
     }
 
     // Descendant overrides
-    
+
     div[class~="Integrant.Element.Bit.Title"] {
         padding-right: 15px;
     }
@@ -49,7 +47,7 @@ div[class~="Integrant.Element.Construct.Header"] {
             font-weight: 600;
         }
     }
-    
+
     a[class~="Integrant.Element.Bit.Link"] {
         &:last-child {
             margin-right: 5px;

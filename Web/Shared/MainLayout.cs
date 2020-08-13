@@ -13,11 +13,11 @@ namespace Integrant.Web.Shared
     public partial class MainLayout
     {
         // private ColorSet.Components.VariantLoader _themeLoader;
-        private Layer  _rootLayer;
-        private Header _header1 = null!;
+        private Layer  _rootLayer = null!;
+        private Header _header1   = null!;
 
-        private VariantLoader _defaultVariantLoader;
-        private VariantLoader _solidsVariantLoader;
+        private VariantLoader _defaultVariantLoader = null!;
+        private VariantLoader _solidsVariantLoader  = null!;
 
         protected override void OnInitialized()
         {
@@ -34,7 +34,7 @@ namespace Integrant.Web.Shared
                 Colorant.Themes.Solids.Variants.Normal.ToString());
 
             //
-            
+
             _header1 = new Header
             (
                 new List<IBit>

@@ -131,7 +131,7 @@ namespace Integrant.Colorant.Components
 
         private async Task OnVariantSelection(ChangeEventArgs args)
         {
-            var variant = args.Value.ToString();
+            var variant = args.Value!.ToString();
             _variant = variant;
             await _localStorage.SetItemAsync($"Integrant.Colorant.Variant.{_theme.Name}", _variant);
             _update.Trigger();

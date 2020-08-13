@@ -4,37 +4,37 @@ div[class~="Integrant.Element.Construct.Dropdown"] {
     vertical-align: middle;
 
     &:hover {
+        > div[class~="Integrant.Element.Construct.Dropdown.Top"] {
+            i[class~="Integrant.Resources.Icon"] {
+                color:   var(--Colorant_Default_Accent_6);
+                content: 'expand_less';
+            }
+        }
+
         > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
             display: block;
         }
     }
 
-    div[class~="Integrant.Element.Construct.Dropdown.Top"] {
+    > div[class~="Integrant.Element.Construct.Dropdown.Top"] {
         align-items:     center;
         display:         flex;
-        //padding-right: 12px;
-        //position:      relative;
-        //width:         100%;
         justify-content: center;
 
-        i[class~="Integrant.Resources.Icon"] {
-            //bottom:   10px;
-            //font-size: 1em;
-            //position: absolute;
-            //right:    0;
-            //line-height:  0;
+        > i[class~="Integrant.Resources.Icon"] {
+            color: var(--Colorant_Default_Text_1);
             width: 24px;
         }
     }
 
     &[class~="Integrant.Element.Construct.Dropdown:Left"] {
-        div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+        > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
             left: 100%;
             top:  -0.2rem;
         }
     }
 
-    div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+    > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
         background-color: var(--Colorant_Default_Background_2);
         border:           1px solid var(--Colorant_Default_Border_15);
         border-radius:    2px;
@@ -43,7 +43,7 @@ div[class~="Integrant.Element.Construct.Dropdown"] {
         position:         absolute;
         z-index:          1;
 
-        div[class~="Integrant.Element.Construct.Dropdown.Child"] {
+        > div[class~="Integrant.Element.Construct.Dropdown.Child"] {
             box-sizing:  border-box;
             padding:     3px;
             position:    relative;

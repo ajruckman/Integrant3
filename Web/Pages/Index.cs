@@ -18,9 +18,8 @@ namespace Integrant.Web.Pages
 {
     public partial class Index
     {
-       
         [CascadingParameter(Name = "PrimaryHeader")]
-        public Header PrimaryHeader { get; set; }
+        public Header PrimaryHeader { get; set; } = null!;
 
         private StructureInstance<User> _structure    = null!;
         private FlareSelector<string>   _tagsSelector = null!;
@@ -56,7 +55,7 @@ namespace Integrant.Web.Pages
             //
 
             _structure.GetMemberInstance<string>("Name").OnValueUpdateUntyped +=
-                (v,m,  mv) => Console.WriteLine($"Structure<User>." + m.ID + " -> " + v);
+                (v, m, mv) => Console.WriteLine($"Structure<User>." + m.ID + " -> " + v);
 
             _structure.GetMemberInstance<string>("Email").OnValueUpdateUntyped +=
                 (v, m, mv) => Console.WriteLine($"Structure<User>." + m.ID + " -> " + v);
@@ -103,8 +102,6 @@ namespace Integrant.Web.Pages
 
             _submitButton = new Button(() => "Submit", _ => Submit(), Button.Color.Green,
                 isDisabled: () => !_structure.ValidationState.Valid());
-
-            
 
             _header2 = new Header
             (

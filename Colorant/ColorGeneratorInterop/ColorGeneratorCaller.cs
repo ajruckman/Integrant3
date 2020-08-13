@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Integrant.Colorant.Schema;
@@ -34,7 +35,7 @@ namespace Integrant.Colorant.ColorGeneratorInterop
                 $"{s.LumStart} {s.LumEnd} {s.LumCurve} "             +
                 $"{s.Modifier}");
 
-            string json = _p.StandardOutput.ReadLine();
+            string json = _p.StandardOutput.ReadLine() ?? throw new Exception();
 
             var range = JsonConvert.DeserializeObject<List<Color>>
             (
@@ -42,7 +43,7 @@ namespace Integrant.Colorant.ColorGeneratorInterop
                 new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}
             );
 
-            return range;
+            return range ?? throw new Exception();
         }
     }
 }
