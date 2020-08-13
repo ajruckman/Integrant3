@@ -25,7 +25,10 @@ namespace Integrant.Element.Layouts
             
             foreach (var bit in Contents)
             {
+                // builder.OpenElement(++seq, "section");
+                // builder.AddAttribute(++seq, "class", "Integrant.Element.Layout.LinearLayout.Child");
                 builder.AddContent(++seq, bit.Render());
+                // builder.CloseElement();
             }
             
             builder.CloseElement();

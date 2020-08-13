@@ -32,6 +32,8 @@ namespace Integrant.Element
             nameof(Constructs),
             stylesheets: new[]
             {
+                "css/Constructs/Dropdown.css",
+                "css/Constructs/Dropdown.css.map",
                 "css/Constructs/Headers.css",
                 "css/Constructs/Headers.css.map",
             }
@@ -45,8 +47,8 @@ namespace Integrant.Element
             {
                 "css/Layouts/LinearLayout.css",
                 "css/Layouts/LinearLayout.css.map",
-                "css/Layouts/DropdownLayout.css",
-                "css/Layouts/DropdownLayout.css.map",
+                "css/Layouts/VerticalLayout.css",
+                "css/Layouts/VerticalLayout.css.map",
             }
         );
 

@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "VerticalLayout.css",
+	"sources": [
+		"VerticalLayout.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,GAAG,CAAA,AAAA,KAAC,EAAO,yCAAyC,AAAhD,EAAkD;EAClD,OAAO,EAAG,YAAY;EACtB,QAAQ,EAAE,QAAQ,GACrB"
+}

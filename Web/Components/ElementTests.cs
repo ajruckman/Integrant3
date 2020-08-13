@@ -23,8 +23,8 @@ namespace Integrant.Web.Components
         protected override void OnInitialized()
         {
             _childLayer = new Layer(Layer);
-            
-            _dropdown1 = new DropdownLayout
+
+            _dropdown1 = new Dropdown
             (
                 new Title(() => "Top titleZZ 1!"),
                 new List<IBit>
@@ -53,7 +53,7 @@ namespace Integrant.Web.Components
                         () => "A chip", backgroundColor: () => Constants.Green_4,
                         foregroundColor: () => Constants.Green_4_Text
                     ),
-                    new DropdownLayout(
+                    new Dropdown(
                         new Title(() => "Subtitle 1!"),
                         new List<IBit>
                         {
@@ -68,6 +68,6 @@ namespace Integrant.Web.Components
 
         //
 
-        private DropdownLayout _dropdown1;
+        private Dropdown _dropdown1;
     }
 }

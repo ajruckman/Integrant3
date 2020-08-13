@@ -54,7 +54,9 @@ namespace Integrant.Rudiment.Inputs
             var v = (DateTime) member.InputValue.Invoke(value, member);
 
             return member.ConsiderDefaultNull
-                ? v == default ? "" : v.ToString("HH:mm:ss")
+                ? v == default
+                    ? ""
+                    : v.ToString("HH:mm:ss")
                 : v.ToString("HH:mm:ss");
         }
 

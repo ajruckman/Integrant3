@@ -10,17 +10,17 @@ namespace Integrant.Element.Constructs
 {
     public class Header : IConstruct
     {
-        private readonly bool    _doHighlight;
-        private          string? _highlightedURL = null;
+        private readonly LinearLayout _layout;
+        private readonly bool         _doHighlight;
+        private readonly string       _classes;
+
+        private string? _highlightedURL = null;
 
         public enum HeaderType
         {
             Primary,
             Secondary,
         }
-
-        private readonly LinearLayout _layout;
-        private readonly string       _classes;
 
         public Header
         (
@@ -63,9 +63,15 @@ namespace Integrant.Element.Constructs
         public void Add(IBit bit)
         {
             if (!_doHighlight) return;
-            if (!(bit is Link link)) return;
-
-            link.Spec.IsHighlighted ??= () => link.Spec.URL!.Invoke() == _highlightedURL;
+            if (bit is Link link)
+            {
+                link.Spec.IsHighlighted ??= () => link.Spec.URL!.Invoke() == _highlightedURL;
+                _layout.Contents.Add(link);
+            }
+            else
+            {
+                _layout.Contents.Add(bit);
+            }
         }
 
         public RenderFragment Render() => builder =>

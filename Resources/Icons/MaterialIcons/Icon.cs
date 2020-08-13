@@ -27,7 +27,7 @@ namespace Integrant.Resources.Icons.MaterialIcons
             builder.OpenElement(++seq, "i");
             builder.AddAttribute(++seq, "style", $"font-size: {Size}px;");
             builder.AddAttribute(++seq, "class",
-                "Integrant.Resources.Icon Integrant.Resources.Icon:MaterialIcons material-icons");
+                "Integrant.Resources.Icon Integrant.Resources.Icon:MaterialIcon material-icons");
             builder.AddContent(++seq, ID);
             builder.CloseElement();
 
