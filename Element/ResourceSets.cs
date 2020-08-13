@@ -23,6 +23,8 @@ namespace Integrant.Element
             {
                 "css/Components/Components.css",
                 "css/Components/Components.css.map",
+                "css/Components/TabbedPanel.css",
+                "css/Components/TabbedPanel.css.map",
             }
         );
 
@@ -54,6 +56,26 @@ namespace Integrant.Element
 
         public static class Overrides
         {
+            public static readonly ResourceSet BlazorErrorUI = new ResourceSet
+            (
+                $"{nameof(Integrant)}.{nameof(Element)}",
+                nameof(BlazorErrorUI),
+                stylesheets: new[]
+                {
+                    "css/Overrides/BlazorErrorUI.css",
+                }
+            );
+
+            public static readonly ResourceSet BlazorReconnectModal = new ResourceSet
+            (
+                $"{nameof(Integrant)}.{nameof(Element)}",
+                nameof(BlazorReconnectModal),
+                stylesheets: new[]
+                {
+                    "css/Overrides/BlazorReconnectModal.css",
+                }
+            );
+
             public static readonly ResourceSet Buttons = new ResourceSet
             (
                 $"{nameof(Integrant)}.{nameof(Element)}",

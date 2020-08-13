@@ -22,6 +22,8 @@ namespace Integrant.Web
                     Rudiment.ResourceSets.Layout.Validations,
                     Rudiment.ResourceSets.Layout.Components,
 
+                    Element.ResourceSets.Overrides.BlazorErrorUI,
+                    Element.ResourceSets.Overrides.BlazorReconnectModal,
                     Element.ResourceSets.Overrides.Buttons,
                     Element.ResourceSets.Overrides.Inputs,
                     Element.ResourceSets.Overrides.VariantLoader,

@@ -38,7 +38,7 @@ namespace Integrant.Colorant.Components
 
         public event Action? OnComplete;
 
-        public RenderFragment RenderLink()
+        public RenderFragment RenderStylesheets()
         {
             void Fragment(RenderTreeBuilder builder)
             {

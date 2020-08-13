@@ -12,17 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Web</title>
     <base href="~/"/>
-    
+
     @* <link rel="stylesheet" href="_content/Integrant.Resources/Icons.css"/> *@
     @* <link rel="stylesheet" href="_content/Rudiment/vendor/material-design-icons/iconfont/material-icons.css"/> *@
-    
+
     @* <link rel="stylesheet" href="_content/Rudiment/css/Validation.css"/> *@
     @* <link rel="stylesheet" href="_content/FlareSelect/FlareSelect.css"/> *@
     @* *@
     @* <script src="_content/Superset/js/Utilities.js"></script> *@
     @* <script src="_content/Superset/js/ClickListener.js"></script> *@
     @* <script src="_content/Superset/js/KeyListener.js"></script> *@
-    
+
     <style>
         #blazor-error-ui {
             display: none;
@@ -35,14 +35,14 @@
 </app>
 
 <div id="blazor-error-ui">
-    <environment include="Staging,Production">
-        An error has occurred. This application may no longer respond until reloaded.
-    </environment>
-    <environment include="Development">
-        An unhandled exception has occurred. See browser dev tools for details.
-    </environment>
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
+    <div class="Background"></div>
+    <div class="Content">
+        <div class="Message">An error has occurred. This application may no longer respond until reloaded.</div>
+        <div class="Buttons">
+            <button class="Integrant.Element.Button dismiss">DISMISS</button>
+            <button class="Integrant.Element.Button:Red reload" href="">RELOAD</button>
+        </div>
+    </div>
 </div>
 
 <script src="_framework/blazor.server.js"></script>

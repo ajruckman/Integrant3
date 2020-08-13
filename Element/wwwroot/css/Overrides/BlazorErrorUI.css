@@ -1,0 +1,32 @@
+#blazor-error-ui {
+  display: none; }
+  #blazor-error-ui .Background {
+    background-color: var(--Colorant_Solids_Red_2);
+    height: 100%;
+    left: 0;
+    opacity: 0.2;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99; }
+  #blazor-error-ui .Content {
+    background-color: var(--Colorant_Default_Background_3);
+    border: 2px solid var(--Colorant_Solids_Red_3);
+    border-radius: 3px;
+    left: 50%;
+    padding: 5px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 265px;
+    z-index: 100;
+    box-shadow: 0 2px 4px 2px var(--Colorant_Default_Shadow_0); }
+    #blazor-error-ui .Content .Buttons {
+      display: flex;
+      justify-content: flex-end; }
+      #blazor-error-ui .Content .Buttons button {
+        margin: 3px;
+        font-family: var(--Integrant_SansSerifFont); }
+
+/*# sourceMappingURL=BlazorErrorUI.css.map */

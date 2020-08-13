@@ -7,11 +7,11 @@
 
 @(Configuration.ResourceSet.Render())
 
-@_solidsVariantLoader.RenderLink()
+@_solidsVariantLoader.RenderStylesheets()
 
 @if (_defaultVariantLoader.Complete)
 {
-    @_defaultVariantLoader.RenderLink()
+    @_defaultVariantLoader.RenderStylesheets()
     @_header1.Render(NavigationManager)
     <CascadingValue Value="@_rootLayer" Name="Layer">
         <CascadingValue Value="@_header1" Name="PrimaryHeader">

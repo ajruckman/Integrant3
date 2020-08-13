@@ -1,0 +1,32 @@
+@using Integrant.Element.Components.TabbedPanel
+@using Integrant.Resources.Icons.MaterialIcons
+
+@page "/TabbedPanelTests"
+
+<div style="margin: 5px">
+
+    <TabbedPanelContainer>
+        <TabbedPanelTabRow>
+            <TabbedPanelTab ID="1">
+                Tab 1
+            </TabbedPanelTab>
+            <TabbedPanelTab ID="2">
+                Tab <Icon ID="looks_two"></Icon>
+            </TabbedPanelTab>
+            <TabbedPanelTab ID="3">
+                <b>Tab 3</b>
+            </TabbedPanelTab>
+        </TabbedPanelTabRow>
+
+        <TabbedPanelPanel ID="1">
+            <h1>One</h1>
+        </TabbedPanelPanel>
+        <TabbedPanelPanel ID="2">
+            <h2>Two</h2>
+        </TabbedPanelPanel>
+        <TabbedPanelPanel ID="3">
+            <h3>Three</h3>
+        </TabbedPanelPanel>
+    </TabbedPanelContainer>
+
+</div>

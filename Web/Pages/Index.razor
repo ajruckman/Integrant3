@@ -227,3 +227,5 @@
         @_submitButton.Render()
     </StructureContainer>
 </div>
+
+<button @onclick="@(() => throw new Exception())">Crash</button>

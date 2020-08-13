@@ -1,0 +1,32 @@
+div[class~="Integrant.Element.Component.TabbedPanel.Container"] {
+  border: 1px solid var(--Colorant_Default_Border_14);
+  margin: 3px; }
+  div[class~="Integrant.Element.Component.TabbedPanel.Container"] div[class~="Integrant.Element.Component.TabbedPanel.TabRow"] {
+    align-items: stretch;
+    border-bottom: 1px solid var(--Colorant_Default_Border_8);
+    display: flex;
+    justify-content: flex-start; }
+    div[class~="Integrant.Element.Component.TabbedPanel.Container"] div[class~="Integrant.Element.Component.TabbedPanel.TabRow"] div[class~="Integrant.Element.Component.TabbedPanel.Tab"] {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      padding: 0 5px; }
+      div[class~="Integrant.Element.Component.TabbedPanel.Container"] div[class~="Integrant.Element.Component.TabbedPanel.TabRow"] div[class~="Integrant.Element.Component.TabbedPanel.Tab"]::after {
+        content: '';
+        height: 1px;
+        left: 1px;
+        position: absolute;
+        right: 1px;
+        top: 100%; }
+      div[class~="Integrant.Element.Component.TabbedPanel.Container"] div[class~="Integrant.Element.Component.TabbedPanel.TabRow"] div[class~="Integrant.Element.Component.TabbedPanel.Tab"]:not(:hover):not([class~="Integrant.Element.Component.TabbedPanel.Tab:Focused"]) {
+        color: var(--Colorant_Default_Text_1); }
+      div[class~="Integrant.Element.Component.TabbedPanel.Container"] div[class~="Integrant.Element.Component.TabbedPanel.TabRow"] div[class~="Integrant.Element.Component.TabbedPanel.Tab"][class~="Integrant.Element.Component.TabbedPanel.Tab:Focused"] {
+        position: relative; }
+        div[class~="Integrant.Element.Component.TabbedPanel.Container"] div[class~="Integrant.Element.Component.TabbedPanel.TabRow"] div[class~="Integrant.Element.Component.TabbedPanel.Tab"][class~="Integrant.Element.Component.TabbedPanel.Tab:Focused"]::after {
+          background-color: var(--Colorant_Default_Accent_4); }
+      div[class~="Integrant.Element.Component.TabbedPanel.Container"] div[class~="Integrant.Element.Component.TabbedPanel.TabRow"] div[class~="Integrant.Element.Component.TabbedPanel.Tab"][class~="Integrant.Element.Component.TabbedPanel.Tab:Disabled"] {
+        cursor: not-allowed; }
+  div[class~="Integrant.Element.Component.TabbedPanel.Container"] div[class~="Integrant.Element.Component.TabbedPanel.Panel"] {
+    padding: 3px; }
+
+/*# sourceMappingURL=TabbedPanel.css.map */

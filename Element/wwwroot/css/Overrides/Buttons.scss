@@ -1,4 +1,21 @@
-@mixin _Button(
+%_ButtonBase {
+    border-radius: 3px;
+    cursor:        pointer;
+    font-family:   var(--Integrant_SansSerifFont);
+    font-weight:   500;
+    outline:       none;
+    padding:       2px 6px;
+
+    &::-moz-focus-inner {
+        border: 0;
+    }
+
+    &:disabled, &[class~="Integrant.Element.Bit:Disabled"] {
+        cursor: not-allowed;
+    }
+}
+
+@mixin _ButtonColor(
     $normalBackground, $normalBorder, $normalColor, 
     $focusBackground, $focusBorder, $focusColor, 
     $activeBackground, $activeBorder, $activeColor,
@@ -30,159 +47,157 @@
     }
 }
 
-button[class~="Integrant.Element.Button"] {
-    border-radius: 3px;
-    cursor:        pointer;
-    font-family:   var(--Integrant_SansSerifFont);
-    font-weight:   500;
-    outline:       none;
-    padding:       2px 6px;
+button[class~="Integrant.Element.Button:Default"],
+button[class~="Integrant.Element.Button"]:not([class~="Integrant.Element.Button:Blue"]):not([class~="Integrant.Element.Button:Green"]):not([class~="Integrant.Element.Button:Orange"]):not([class~="Integrant.Element.Button:Purple"]):not([class~="Integrant.Element.Button:Red"]):not([class~="Integrant.Element.Button:Yellow"]) {
+    @extend %_ButtonBase;
 
-    &::-moz-focus-inner {
-        border: 0;
-    }
+    @include _ButtonColor(
+                    var(--Colorant_Default_Background_3),
+                    var(--Colorant_Default_Border_7),
+                    var(--Colorant_Default_Text_4),
+                //
+                    var(--Colorant_Default_Background_6),
+                    var(--Colorant_Default_Border_8),
+                    var(--Colorant_Default_Text_4),
+                //
+                    var(--Colorant_Default_Background_9),
+                    var(--Colorant_Default_Accent_4),
+                    var(--Colorant_Default_Text_4),
+                //
+                    transparent,
+                    var(--Colorant_Default_Border_6),
+                    var(--Colorant_Default_Text_0)
+    );
+}
 
-    &:disabled, &[class~="Integrant.Element.Bit:Disabled"] {
-        cursor: not-allowed;
-    }
+button[class~="Integrant.Element.Button:Blue"] {
+    @extend %_ButtonBase;
 
-    &[class~="Integrant.Element.Button:Default"] {
-        @include _Button(
-                        var(--Colorant_Default_Background_3),
-                        var(--Colorant_Default_Border_7),
-                        var(--Colorant_Default_Text_4),
-                    //
-                        var(--Colorant_Default_Background_6),
-                        var(--Colorant_Default_Border_8),
-                        var(--Colorant_Default_Text_4),
-                    //
-                        var(--Colorant_Default_Background_9),
-                        var(--Colorant_Default_Accent_4),
-                        var(--Colorant_Default_Text_4),
-                    //
-                        transparent,
-                        var(--Colorant_Default_Border_6),
-                        var(--Colorant_Default_Text_0)
-        );
-    }
+    @include _ButtonColor(
+                    var(--Colorant_Solids_Blue_10),
+                    var(--Colorant_Solids_Blue_10),
+                    white,
+                //
+                    var(--Colorant_Solids_Blue_8),
+                    var(--Colorant_Solids_Blue_8),
+                    white,
+                //
+                    var(--Colorant_Solids_Blue_6),
+                    var(--Colorant_Solids_Blue_0),
+                    white,
+                //
+                    transparent,
+                    var(--Colorant_Default_Border_6),
+                    var(--Colorant_Default_Text_0)
+    );
+}
 
-    &[class~="Integrant.Element.Button:Blue"] {
-        @include _Button(
-                        var(--Colorant_Solids_Blue_10),
-                        var(--Colorant_Solids_Blue_10),
-                        white,
-                    //
-                        var(--Colorant_Solids_Blue_8),
-                        var(--Colorant_Solids_Blue_8),
-                        white,
-                    //
-                        var(--Colorant_Solids_Blue_6),
-                        var(--Colorant_Solids_Blue_0),
-                        white,
-                    //
-                        transparent,
-                        var(--Colorant_Default_Border_6),
-                        var(--Colorant_Default_Text_0)
-        );
-    }
+button[class~="Integrant.Element.Button:Green"] {
+    @extend %_ButtonBase;
 
-    &[class~="Integrant.Element.Button:Green"] {
-        @include _Button(
-                        var(--Colorant_Solids_Green_9),
-                        var(--Colorant_Solids_Green_9),
-                        white,
-                    //
-                        var(--Colorant_Solids_Green_7),
-                        var(--Colorant_Solids_Green_7),
-                        white,
-                    //
-                        var(--Colorant_Solids_Green_5),
-                        var(--Colorant_Solids_Green_4),
-                        white,
-                    //
-                        transparent,
-                        var(--Colorant_Default_Border_6),
-                        var(--Colorant_Default_Text_0)
-        );
-    }
+    @include _ButtonColor(
+                    var(--Colorant_Solids_Green_9),
+                    var(--Colorant_Solids_Green_9),
+                    white,
+                //
+                    var(--Colorant_Solids_Green_7),
+                    var(--Colorant_Solids_Green_7),
+                    white,
+                //
+                    var(--Colorant_Solids_Green_5),
+                    var(--Colorant_Solids_Green_4),
+                    white,
+                //
+                    transparent,
+                    var(--Colorant_Default_Border_6),
+                    var(--Colorant_Default_Text_0)
+    );
+}
 
-    &[class~="Integrant.Element.Button:Orange"] {
-        @include _Button(
-                        var(--Colorant_Solids_Orange_8),
-                        var(--Colorant_Solids_Orange_8),
-                        white,
-                    //
-                        var(--Colorant_Solids_Orange_6),
-                        var(--Colorant_Solids_Orange_6),
-                        white,
-                    //
-                        var(--Colorant_Solids_Orange_4),
-                        var(--Colorant_Solids_Orange_3),
-                        white,
-                    //
-                        transparent,
-                        var(--Colorant_Default_Border_6),
-                        var(--Colorant_Default_Text_0)
-        );
-    }
+button[class~="Integrant.Element.Button:Orange"] {
+    @extend %_ButtonBase;
 
-    &[class~="Integrant.Element.Button:Purple"] {
-        @include _Button(
-                        var(--Colorant_Solids_Purple_9),
-                        var(--Colorant_Solids_Purple_9),
-                        white,
-                    //
-                        var(--Colorant_Solids_Purple_7),
-                        var(--Colorant_Solids_Purple_7),
-                        white,
-                    //
-                        var(--Colorant_Solids_Purple_5),
-                        var(--Colorant_Solids_Purple_4),
-                        white,
-                    //
-                        transparent,
-                        var(--Colorant_Default_Border_6),
-                        var(--Colorant_Default_Text_0)
-        );
-    }
+    @include _ButtonColor(
+                    var(--Colorant_Solids_Orange_8),
+                    var(--Colorant_Solids_Orange_8),
+                    white,
+                //
+                    var(--Colorant_Solids_Orange_6),
+                    var(--Colorant_Solids_Orange_6),
+                    white,
+                //
+                    var(--Colorant_Solids_Orange_4),
+                    var(--Colorant_Solids_Orange_3),
+                    white,
+                //
+                    transparent,
+                    var(--Colorant_Default_Border_6),
+                    var(--Colorant_Default_Text_0)
+    );
+}
 
-    &[class~="Integrant.Element.Button:Red"] {
-        @include _Button(
-                        var(--Colorant_Solids_Red_9),
-                        var(--Colorant_Solids_Red_9),
-                        white,
-                    //
-                        var(--Colorant_Solids_Red_7),
-                        var(--Colorant_Solids_Red_7),
-                        white,
-                    //
-                        var(--Colorant_Solids_Red_5),
-                        var(--Colorant_Solids_Red_4),
-                        white,
-                    //
-                        transparent,
-                        var(--Colorant_Default_Border_6),
-                        var(--Colorant_Default_Text_0)
-        );
-    }
+button[class~="Integrant.Element.Button:Purple"] {
+    @extend %_ButtonBase;
 
-    &[class~="Integrant.Element.Button:Yellow"] {
-        @include _Button(
-                        var(--Colorant_Solids_Yellow_6),
-                        var(--Colorant_Solids_Yellow_6),
-                        black,
-                    //
-                        var(--Colorant_Solids_Yellow_5),
-                        var(--Colorant_Solids_Yellow_5),
-                        black,
-                    //
-                        var(--Colorant_Solids_Yellow_3),
-                        var(--Colorant_Solids_Yellow_2),
-                        black,
-                    //
-                        transparent,
-                        var(--Colorant_Default_Border_6),
-                        var(--Colorant_Default_Text_0)
-        );
-    }
+    @include _ButtonColor(
+                    var(--Colorant_Solids_Purple_9),
+                    var(--Colorant_Solids_Purple_9),
+                    white,
+                //
+                    var(--Colorant_Solids_Purple_7),
+                    var(--Colorant_Solids_Purple_7),
+                    white,
+                //
+                    var(--Colorant_Solids_Purple_5),
+                    var(--Colorant_Solids_Purple_4),
+                    white,
+                //
+                    transparent,
+                    var(--Colorant_Default_Border_6),
+                    var(--Colorant_Default_Text_0)
+    );
+}
+
+button[class~="Integrant.Element.Button:Red"] {
+    @extend %_ButtonBase;
+
+    @include _ButtonColor(
+                    var(--Colorant_Solids_Red_9),
+                    var(--Colorant_Solids_Red_9),
+                    white,
+                //
+                    var(--Colorant_Solids_Red_7),
+                    var(--Colorant_Solids_Red_7),
+                    white,
+                //
+                    var(--Colorant_Solids_Red_5),
+                    var(--Colorant_Solids_Red_4),
+                    white,
+                //
+                    transparent,
+                    var(--Colorant_Default_Border_6),
+                    var(--Colorant_Default_Text_0)
+    );
+}
+
+button[class~="Integrant.Element.Button:Yellow"] {
+    @extend %_ButtonBase;
+
+    @include _ButtonColor(
+                    var(--Colorant_Solids_Yellow_6),
+                    var(--Colorant_Solids_Yellow_6),
+                    black,
+                //
+                    var(--Colorant_Solids_Yellow_5),
+                    var(--Colorant_Solids_Yellow_5),
+                    black,
+                //
+                    var(--Colorant_Solids_Yellow_3),
+                    var(--Colorant_Solids_Yellow_2),
+                    black,
+                //
+                    transparent,
+                    var(--Colorant_Default_Border_6),
+                    var(--Colorant_Default_Text_0)
+    );
 }
