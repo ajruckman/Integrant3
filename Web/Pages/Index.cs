@@ -120,10 +120,20 @@ namespace Integrant.Web.Pages
                 },
                 Header.HeaderType.Secondary
             );
+
+            // Task.Run(async () =>
+            // {
+            //     while (true)
+            //     {
+            //         await InvokeAsync(StateHasChanged);
+            //         Thread.Sleep(200);
+            //     }
+            // });
         }
 
         protected override void OnAfterRender(bool firstRender)
         {
+            Console.WriteLine("---");
             if (!firstRender) { }
         }
 

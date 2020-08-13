@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Integrant.Fundament.Structure;
 using Integrant.Rudiment.Inputs;
 
@@ -79,7 +78,8 @@ namespace Integrant.Web
                             "Some kinda long validation text with type ValidationResultType.Warning"),
                     };
                     if (string.IsNullOrEmpty(v.Name) || v.Name == "A.J.")
-                        result.Add(new Validation(ValidationResultType.Invalid, "Is invalid"));
+                        result.Add(new Validation(ValidationResultType.Invalid,
+                            "Is invalid"));
 
                     return result;
                 }));
@@ -92,7 +92,8 @@ namespace Integrant.Web
                 defaultValue: (v,          m) => "A.J. <default>",
                 inputIsRequired: (v,       m) => true,
                 inputMeetsRequirement: (v, m) => v.Name?.Length > 3,
-                validator: (v,             m) => Validation.One(ValidationResultType.Warning, "Warning")
+                validator: (v, m) =>
+                    Validation.One(ValidationResultType.Warning, "Warning")
             ));
 
             Structure.Register(new Member<User, string>(
@@ -106,14 +107,20 @@ namespace Integrant.Web
             Structure.Register(new Member<User, string>(
                 nameof(User.Email),
                 (v, m) => v.Email,
-                input: () => new StringInput<User>(textArea: true, monospace: true,
-                    textAreaCols: (v, m, i) =>
-                    {
-                        int[] lines = v.Email.Split('\n').Select(l => l.Length).ToArray();
-                        return Math.Min(lines.Max() + 5, 60);
-                    },
-                    textAreaRows: (v, m, i) => v.Email.Split('\n').Length + 1
-                ),
+                input: () =>
+                    new StringInput<User>(textArea: true, monospace: true,
+                        textAreaCols: (v, m, i) =>
+                        {
+                            int[] lines = v.Email.Split('\n')
+                                           .Select(l => l
+                                               .Length)
+                                           .ToArray();
+                            return Math.Min(lines.Max() + 5,
+                                60);
+                        },
+                        textAreaRows: (v, m, i) =>
+                            v.Email.Split('\n').Length + 1
+                    ),
                 onValueUpdate: (v, m, mv) => v.Email = mv.TrimEnd('!') + "!",
                 inputDebounceMilliseconds: 500,
                 inputIsDisabled: (v, m) => v.UserID == 1,
@@ -121,20 +128,25 @@ namespace Integrant.Web
                 {
                     // Thread.Sleep(500000);
                     return string.IsNullOrEmpty(v.Email)
-                        ? Validation.One(ValidationResultType.Warning, "Email is recommended.")
+                        ? Validation.One(ValidationResultType.Warning,
+                            "Email is recommended.")
                         : v.Email.Contains("@")
-                            ? Validation.One(ValidationResultType.Valid,   "Valid")
-                            : Validation.One(ValidationResultType.Invalid, "Invalid");
+                            ? Validation.One(ValidationResultType.Valid,
+                                "Valid")
+                            : Validation.One(ValidationResultType.Invalid,
+                                "Invalid");
                 }));
 
             Structure.Register(new Member<User, DateTime>(
                 nameof(User.StartDate),
-                (v,                m) => v.StartDate ?? default,
-                onValueUpdate: (v, m, mv) => v.StartDate = mv == default ? new DateTime?() : mv,
+                (v, m) => v.StartDate ?? default,
+                onValueUpdate: (v, m, mv) =>
+                    v.StartDate = mv == default ? new DateTime?() : mv,
                 validator: (v, m) =>
                     v.StartDate > DateTime.Now
-                        ? Validation.One(ValidationResultType.Invalid, "Start date is in the future.")
-                        : Validation.One(ValidationResultType.Valid,   "Valid"),
+                        ? Validation.One(ValidationResultType.Invalid,
+                            "Start date is in the future.")
+                        : Validation.One(ValidationResultType.Valid, "Valid"),
                 input: () => new DateInput<User>()
             ));
 
@@ -148,16 +160,21 @@ namespace Integrant.Web
 
             Structure.Register(new Member<User, DateTime>(
                 nameof(User.CompositeDateTime),
-                (v,                m) => v.CompositeDateTime ?? default,
-                onValueUpdate: (v, m, mv) => v.CompositeDateTime = mv.Date == default ? new DateTime?() : mv,
+                (v, m) => v.CompositeDateTime ?? default,
+                onValueUpdate: (v, m, mv) =>
+                    v.CompositeDateTime =
+                        mv.Date == default ? new DateTime?() : mv,
                 input: () => new DateTimeInput<User>(),
                 inputIsDisabled: (v, m) => v.UserID == 1
             ));
 
             Structure.Register(new Member<User, List<string>>(
                 nameof(User.Tags),
-                (v,                m) => v.Tags,
-                displayValue: (v,  m) => v.Tags != null ? string.Join(" + ", v.Tags) : "<null>",
+                (v, m) => v.Tags,
+                displayValue: (v, m) =>
+                    v.Tags != null
+                        ? string.Join(" + ", v.Tags)
+                        : "<null>",
                 onValueUpdate: (v, m, mv) => v.Tags = mv
             ));
 
@@ -203,12 +220,14 @@ namespace Integrant.Web
 
             Structure.Register(new Member<User, TimeSpan>
             (
-                nameof(User.TimeSpan),
-                (v,                m) => v.TimeSpan,
+                id: nameof(User.TimeSpan),
+                value: (v,         m) => v.TimeSpan,
                 onValueUpdate: (v, m, mv) => v.TimeSpan = mv,
-                input: () => new NumberInput<User, TimeSpan>(parser: (v, m, mv) => mv != ""
-                    ? TimeSpan.FromDays(int.Parse(mv))
-                    : TimeSpan.Zero),
+                defaultValue: (v,  m) => TimeSpan.FromDays(7),
+                input: () => new NumberInput<User, TimeSpan>(
+                    parser: (v, m, mv) => mv != ""
+                        ? TimeSpan.FromDays(int.Parse(mv))
+                        : TimeSpan.Zero),
                 inputValue: (v,   m) => v.TimeSpan.TotalDays,
                 displayValue: (v, m) => $"{v.TimeSpan.TotalDays} days"
             ));

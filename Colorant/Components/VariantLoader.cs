@@ -83,7 +83,8 @@ namespace Integrant.Colorant.Components
                 builder.AddAttribute(++seq, "ChildContent", (RenderFragment) (builder2 =>
                 {
                     builder2.OpenElement(++seq, "select");
-                    builder2.AddAttribute(++seq, "id", $"Integrant.Colorant.Component.{nameof(VariantLoader)}.Dropdown");
+                    builder2.AddAttribute(++seq, "id",
+                        $"Integrant.Colorant.Component.{nameof(VariantLoader)}.Dropdown");
                     builder2.AddAttribute(
                         ++seq,
                         "onchange",
@@ -112,11 +113,11 @@ namespace Integrant.Colorant.Components
 
         public async Task Load()
         {
-            var variant = await _localStorage.GetItemAsync<string>("Integrant.Colorant.Variant");
+            var variant = await _localStorage.GetItemAsync<string>($"Integrant.Colorant.Variant.{_theme.Name}");
             if (string.IsNullOrEmpty(variant))
             {
                 _variant = _defaultVariant;
-                await _localStorage.SetItemAsync("Integrant.Colorant.Variant", _variant);
+                await _localStorage.SetItemAsync($"Integrant.Colorant.Variant.{_theme.Name}", _variant);
             }
             else
             {
@@ -132,7 +133,7 @@ namespace Integrant.Colorant.Components
         {
             var variant = args.Value.ToString();
             _variant = variant;
-            await _localStorage.SetItemAsync("Integrant.Colorant.Variant", _variant);
+            await _localStorage.SetItemAsync($"Integrant.Colorant.Variant.{_theme.Name}", _variant);
             _update.Trigger();
         }
     }
