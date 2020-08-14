@@ -34,9 +34,13 @@ namespace Integrant.Fundament.Structure
             {
                 IMemberInstance<T> instance = member.Instantiate();
 
-                instance.OnInput              += ValidationState.Invalidate;
-                instance.OnValueUpdateUntyped += (v, m, mv) => OnMemberValueUpdate?.Invoke(v, m, mv);
-                instance.OnValueUpdateUntyped += (v, m, mv) => ValidationState.ValidateStructure(v);
+                instance.OnInput += ValidationState.Invalidate;
+
+                instance.OnValueUpdateUntyped += (v, m, mv) =>
+                {
+                    OnMemberValueUpdate?.Invoke(v, m, mv);
+                    ValidationState.ValidateStructure(v);
+                };
 
                 _memberInstances[member.ID] = instance;
             }
