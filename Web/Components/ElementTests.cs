@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Integrant.Colorant.Themes.Solids;
 using Integrant.Element;
@@ -19,6 +20,10 @@ namespace Integrant.Web.Components
         private Layer _childLayer = null!;
 
         public double Number { get; set; }
+
+        private Button       _colorChangingButton      = null!;
+        private Button.Color _colorChangingButtonColor = Button.Color.Default;
+        private ButtonGroup  _buttonGroup;
 
         protected override void OnInitialized()
         {
@@ -64,6 +69,32 @@ namespace Integrant.Web.Components
                         true),
                 }
             );
+
+            _colorChangingButton = new Button
+            (
+                () => "Color changing button",
+                _ =>
+                {
+                    _colorChangingButtonColor =
+                        (Button.Color) (((int) _colorChangingButtonColor + 1) %
+                                        Enum.GetNames(typeof(Button.Color)).Length);
+                    StateHasChanged();
+                },
+                () => _colorChangingButtonColor,
+                isStatic: false
+            );
+
+            _buttonGroup = new ButtonGroup(new List<Button>
+            {
+                new Button(() => "Button 1!", _ => { }),
+                new Button(() => "Button blue!", async _ => await Console.Out.WriteLineAsync("async"),
+                    () => Button.Color.Blue),
+                new Button(() => "Button green!",  _ => { }, () => Button.Color.Green, isDisabled: () => true),
+                new Button(() => "Button orange!", _ => { }, () => Button.Color.Orange),
+                new Button(() => "Button purple!", _ => { }, () => Button.Color.Purple, isHighlighted: () => true),
+                new Button(() => "Button red!",    _ => { }, () => Button.Color.Default),
+                new Button(() => "Button yellow!", _ => { }, () => Button.Color.Default),
+            });
         }
 
         //

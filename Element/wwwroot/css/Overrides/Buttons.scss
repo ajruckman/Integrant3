@@ -47,30 +47,53 @@
     }
 }
 
-button[class~="Integrant.Element.Button:Default"],
-button[class~="Integrant.Element.Button"]:not([class~="Integrant.Element.Button:Blue"]):not([class~="Integrant.Element.Button:Green"]):not([class~="Integrant.Element.Button:Orange"]):not([class~="Integrant.Element.Button:Purple"]):not([class~="Integrant.Element.Button:Red"]):not([class~="Integrant.Element.Button:Yellow"]) {
+button[class~="Integrant.Element.Override.Button:Default"],
+button[class~="Integrant.Element.Override.Button"]:not([class~="Integrant.Element.Override.Button:Blue"]):not([class~="Integrant.Element.Override.Button:Green"]):not([class~="Integrant.Element.Override.Button:Orange"]):not([class~="Integrant.Element.Override.Button:Purple"]):not([class~="Integrant.Element.Override.Button:Red"]):not([class~="Integrant.Element.Override.Button:Yellow"]) {
     @extend %_ButtonBase;
 
-    @include _ButtonColor(
-                    var(--Colorant_Default_Background_3),
-                    var(--Colorant_Default_Border_7),
-                    var(--Colorant_Default_Text_4),
-                //
-                    var(--Colorant_Default_Background_6),
-                    var(--Colorant_Default_Border_8),
-                    var(--Colorant_Default_Text_4),
-                //
-                    var(--Colorant_Default_Background_9),
-                    var(--Colorant_Default_Accent_4),
-                    var(--Colorant_Default_Text_4),
-                //
-                    transparent,
-                    var(--Colorant_Default_Border_6),
-                    var(--Colorant_Default_Text_0)
-    );
+    &:not([class~="Integrant.Element.Override.Button:Highlighted"]) {
+
+        @include _ButtonColor(
+                        var(--Colorant_Default_Background_3),
+                        var(--Colorant_Default_Border_7),
+                        var(--Colorant_Default_Text_4),
+                    //
+                        var(--Colorant_Default_Background_6),
+                        var(--Colorant_Default_Border_8),
+                        var(--Colorant_Default_Text_4),
+                    //
+                        var(--Colorant_Default_Background_9),
+                        var(--Colorant_Default_Accent_4),
+                        var(--Colorant_Default_Text_4),
+                    //
+                        transparent,
+                        var(--Colorant_Default_Border_6),
+                        var(--Colorant_Default_Text_0)
+        );
+    }
+
+    &[class~="Integrant.Element.Override.Button:Highlighted"] {
+        @include _ButtonColor(
+                        var(--Colorant_Default_Accent_4),
+                        var(--Colorant_Default_Border_7),
+                        var(--Colorant_Default_Accent_4_Text),
+                    //
+                        var(--Colorant_Default_Accent_5),
+                        var(--Colorant_Default_Border_8),
+                        var(--Colorant_Default_Accent_4_Text),
+                    //
+                        var(--Colorant_Default_Accent_6),
+                        var(--Colorant_Default_Accent_4),
+                        var(--Colorant_Default_Accent_4_Text),
+                    //
+                        transparent,
+                        var(--Colorant_Default_Border_6),
+                        var(--Colorant_Default_Text_0)
+        );
+    }
 }
 
-button[class~="Integrant.Element.Button:Blue"] {
+button[class~="Integrant.Element.Override.Button:Blue"] {
     @extend %_ButtonBase;
 
     @include _ButtonColor(
@@ -92,7 +115,7 @@ button[class~="Integrant.Element.Button:Blue"] {
     );
 }
 
-button[class~="Integrant.Element.Button:Green"] {
+button[class~="Integrant.Element.Override.Button:Green"] {
     @extend %_ButtonBase;
 
     @include _ButtonColor(
@@ -114,7 +137,7 @@ button[class~="Integrant.Element.Button:Green"] {
     );
 }
 
-button[class~="Integrant.Element.Button:Orange"] {
+button[class~="Integrant.Element.Override.Button:Orange"] {
     @extend %_ButtonBase;
 
     @include _ButtonColor(
@@ -136,7 +159,7 @@ button[class~="Integrant.Element.Button:Orange"] {
     );
 }
 
-button[class~="Integrant.Element.Button:Purple"] {
+button[class~="Integrant.Element.Override.Button:Purple"] {
     @extend %_ButtonBase;
 
     @include _ButtonColor(
@@ -158,7 +181,7 @@ button[class~="Integrant.Element.Button:Purple"] {
     );
 }
 
-button[class~="Integrant.Element.Button:Red"] {
+button[class~="Integrant.Element.Override.Button:Red"] {
     @extend %_ButtonBase;
 
     @include _ButtonColor(
@@ -180,7 +203,7 @@ button[class~="Integrant.Element.Button:Red"] {
     );
 }
 
-button[class~="Integrant.Element.Button:Yellow"] {
+button[class~="Integrant.Element.Override.Button:Yellow"] {
     @extend %_ButtonBase;
 
     @include _ButtonColor(

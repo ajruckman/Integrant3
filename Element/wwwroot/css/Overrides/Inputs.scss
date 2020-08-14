@@ -1,4 +1,4 @@
-div[class~="Integrant.Element.Input"] {
+div[class~="Integrant.Element.Override.Input"] {
 
     input, textarea, select {
         background-color: var(--Colorant_Default_Background_3);
@@ -26,35 +26,35 @@ div[class~="Integrant.Element.Input"] {
         width: calc(100% - 2px);
     }
 
-    &[class~="Integrant.Element.Input:FailsRequirement"] {
+    &[class~="Integrant.Element.Override.Input:FailsRequirement"] {
         input, textarea {
             border: 1px solid red;
         }
     }
 
-    &[class~="Integrant.Element.Input:Disabled"] {
+    &[class~="Integrant.Element.Override.Input:Disabled"] {
         * {
             cursor: not-allowed;
         }
     }
 
-    &[class~="Integrant.Element.Input:Composite"] {
+    &[class~="Integrant.Element.Override.Input:Composite"] {
         align-items: center;
         display:     inline-flex;
         flex-wrap:   wrap;
 
-        div[class~="Integrant.Element.Input"]:not(:first-child) {
+        div[class~="Integrant.Element.Override.Input"]:not(:first-child) {
             margin-left: 3px;
         }
     }
 
-    &:not([class~="Integrant.Element.Input:Monospace"]) {
+    &:not([class~="Integrant.Element.Override.Input:Monospace"]) {
         input, textarea, select, option {
             font-family: var(--Integrant_SansSerifFont);
         }
     }
 
-    &[class~="Integrant.Element.Input:Monospace"] {
+    &[class~="Integrant.Element.Override.Input:Monospace"] {
         input, textarea, select, option {
             font-family: var(--Integrant_MonospacedFont);
         }

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-div[class~="Integrant.Element.Input"] input, div[class~="Integrant.Element.Input"] textarea, div[class~="Integrant.Element.Input"] select {
+div[class~="Integrant.Element.Override.Input"] input, div[class~="Integrant.Element.Override.Input"] textarea, div[class~="Integrant.Element.Override.Input"] select {
   background-color: var(--Colorant_Default_Background_3);
   border: 1px solid var(--Colorant_Default_Border_7);
   border-radius: 2px;
@@ -9,79 +9,79 @@ div[class~="Integrant.Element.Input"] input, div[class~="Integrant.Element.Input
   line-height: 1rem;
   outline: none;
   padding: 2px 4px; }
-  div[class~="Integrant.Element.Input"] input option, div[class~="Integrant.Element.Input"] textarea option, div[class~="Integrant.Element.Input"] select option {
+  div[class~="Integrant.Element.Override.Input"] input option, div[class~="Integrant.Element.Override.Input"] textarea option, div[class~="Integrant.Element.Override.Input"] select option {
     background-color: var(--Colorant_Default_Background_3);
     color: var(--Colorant_Default_Text_4); }
-  div[class~="Integrant.Element.Input"] input:focus, div[class~="Integrant.Element.Input"] textarea:focus, div[class~="Integrant.Element.Input"] select:focus {
+  div[class~="Integrant.Element.Override.Input"] input:focus, div[class~="Integrant.Element.Override.Input"] textarea:focus, div[class~="Integrant.Element.Override.Input"] select:focus {
     border: 1px solid var(--Colorant_Default_Accent_4); }
 
-div[class~="Integrant.Element.Input"] input[type="text"], div[class~="Integrant.Element.Input"] textarea {
+div[class~="Integrant.Element.Override.Input"] input[type="text"], div[class~="Integrant.Element.Override.Input"] textarea {
   width: calc(100% - 2px); }
 
-div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:FailsRequirement"] input, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:FailsRequirement"] textarea {
+div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:FailsRequirement"] input, div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:FailsRequirement"] textarea {
   border: 1px solid red; }
 
-div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Disabled"] * {
+div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Disabled"] * {
   cursor: not-allowed; }
 
-div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Composite"] {
+div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Composite"] {
   align-items: center;
   display: inline-flex;
   flex-wrap: wrap; }
-  div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Composite"] div[class~="Integrant.Element.Input"]:not(:first-child) {
+  div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Composite"] div[class~="Integrant.Element.Override.Input"]:not(:first-child) {
     margin-left: 3px; }
 
-div[class~="Integrant.Element.Input"]:not([class~="Integrant.Element.Input:Monospace"]) input, div[class~="Integrant.Element.Input"]:not([class~="Integrant.Element.Input:Monospace"]) textarea, div[class~="Integrant.Element.Input"]:not([class~="Integrant.Element.Input:Monospace"]) select, div[class~="Integrant.Element.Input"]:not([class~="Integrant.Element.Input:Monospace"]) option {
+div[class~="Integrant.Element.Override.Input"]:not([class~="Integrant.Element.Override.Input:Monospace"]) input, div[class~="Integrant.Element.Override.Input"]:not([class~="Integrant.Element.Override.Input:Monospace"]) textarea, div[class~="Integrant.Element.Override.Input"]:not([class~="Integrant.Element.Override.Input:Monospace"]) select, div[class~="Integrant.Element.Override.Input"]:not([class~="Integrant.Element.Override.Input:Monospace"]) option {
   font-family: var(--Integrant_SansSerifFont); }
 
-div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] input, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] textarea, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] select, div[class~="Integrant.Element.Input"][class~="Integrant.Element.Input:Monospace"] option {
+div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Monospace"] input, div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Monospace"] textarea, div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Monospace"] select, div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Monospace"] option {
   font-family: var(--Integrant_MonospacedFont); }
 
-div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select {
+div[class~="Integrant.Element.Override.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select {
   padding-left: 1px;
   width: calc(100% - 2px); }
-  div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select option {
+  div[class~="Integrant.Element.Override.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select option {
     font-size: 0.9rem; }
-    div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select option:disabled, div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select option:invalid {
+    div[class~="Integrant.Element.Override.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select option:disabled, div[class~="Integrant.Element.Override.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select option:invalid {
       color: var(--Colorant_Default_Text_1);
       cursor: not-allowed; }
 
-div[class~="Integrant.Element.Input"] input:required, div[class~="Integrant.Element.Input"] textarea:required {
+div[class~="Integrant.Element.Override.Input"] input:required, div[class~="Integrant.Element.Override.Input"] textarea:required {
   box-shadow: none; }
 
-div[class~="Integrant.Element.Input"] input::-webkit-clear-button, div[class~="Integrant.Element.Input"] textarea::-webkit-clear-button {
+div[class~="Integrant.Element.Override.Input"] input::-webkit-clear-button, div[class~="Integrant.Element.Override.Input"] textarea::-webkit-clear-button {
   color: red; }
 
-div[class~="Integrant.Element.Input"] input::-webkit-calendar-picker-indicator, div[class~="Integrant.Element.Input"] textarea::-webkit-calendar-picker-indicator {
+div[class~="Integrant.Element.Override.Input"] input::-webkit-calendar-picker-indicator, div[class~="Integrant.Element.Override.Input"] textarea::-webkit-calendar-picker-indicator {
   cursor: pointer; }
 
-div[class~="Integrant.Element.Input"] input[type="date"], div[class~="Integrant.Element.Input"] input[type="time"] {
+div[class~="Integrant.Element.Override.Input"] input[type="date"], div[class~="Integrant.Element.Override.Input"] input[type="time"] {
   padding-right: 4px; }
 
 @supports (-moz-appearance: none) {
-  div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] {
+  div[class~="Integrant.Element.Override.Input"][class~="Integrant.Rudiment.Input.SelectInput"] {
     position: relative; }
-    div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"]::after {
+    div[class~="Integrant.Element.Override.Input"][class~="Integrant.Rudiment.Input.SelectInput"]::after {
       content: '⯆';
       position: absolute;
       line-height: 0;
       font-size: 12px;
       right: 5px;
       top: calc(50% - 1.5px); }
-    div[class~="Integrant.Element.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select {
+    div[class~="Integrant.Element.Override.Input"][class~="Integrant.Rudiment.Input.SelectInput"] select {
       -moz-appearance: none !important;
       padding-right: 12px; } }
 
-div[class~="Integrant.Element.Input"] ::-webkit-input-placeholder {
+div[class~="Integrant.Element.Override.Input"] ::-webkit-input-placeholder {
   font-style: italic; }
 
-div[class~="Integrant.Element.Input"] :-moz-placeholder {
+div[class~="Integrant.Element.Override.Input"] :-moz-placeholder {
   font-style: italic; }
 
-div[class~="Integrant.Element.Input"] ::-moz-placeholder {
+div[class~="Integrant.Element.Override.Input"] ::-moz-placeholder {
   font-style: italic; }
 
-div[class~="Integrant.Element.Input"] :-ms-input-placeholder {
+div[class~="Integrant.Element.Override.Input"] :-ms-input-placeholder {
   font-style: italic; }
 
 /*# sourceMappingURL=Inputs.css.map */

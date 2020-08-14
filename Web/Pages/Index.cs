@@ -4,13 +4,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FlareSelect;
-using Integrant.Element;
 using Integrant.Element.Bits;
 using Integrant.Element.Constructs;
-using Integrant.Fundament;
 using Integrant.Fundament.Element;
 using Integrant.Fundament.Structure;
-using Integrant.Rudiment.Inputs;
 using Microsoft.AspNetCore.Components;
 using Superset.Common;
 
@@ -29,7 +26,7 @@ namespace Integrant.Web.Pages
 
         private Header _header2 = null!;
 
-        private Button _submitButton = null!;
+        private Button       _submitButton             = null!;
 
         protected override void OnInitialized()
         {
@@ -71,11 +68,11 @@ namespace Integrant.Web.Pages
             // _structure.OnMemberValueUpdate += (s, m, v) => InvokeAsync(StateHasChanged);
 
             _tagsSelector = new FlareSelector<string>
-            (() => new List<Superset.Common.IOption<string>>
+            (() => new List<IOption<string>>
                 {
-                    new FlareSelect.Option<string> {ID = "A", OptionText = "A",},
-                    new FlareSelect.Option<string> {ID = "B", OptionText = "B",},
-                    new FlareSelect.Option<string> {ID = "C", OptionText = "C",},
+                    new Option<string> {ID = "A", OptionText = "A",},
+                    new Option<string> {ID = "B", OptionText = "B",},
+                    new Option<string> {ID = "C", OptionText = "C",},
                 },
                 true
             );
@@ -100,7 +97,7 @@ namespace Integrant.Web.Pages
 
             //
 
-            _submitButton = new Button(() => "Submit", _ => Submit(), Button.Color.Green,
+            _submitButton = new Button(() => "Submit", _ => Submit(), () => Button.Color.Green,
                 isDisabled: () => !_structure.ValidationState.Valid());
 
             _header2 = new Header

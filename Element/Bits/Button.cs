@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
@@ -12,6 +13,7 @@ namespace Integrant.Element.Bits
     {
         public enum Color
         {
+            Default,
             Blue,
             Green,
             Orange,
@@ -24,22 +26,23 @@ namespace Integrant.Element.Bits
 
         public Button
         (
-            BitGetters.BitContent     content,
-            Func<ClickArgs, Task>     onClick,
-            Color?                    color           = null,
-            bool?                     isStatic        = null,
-            BitGetters.BitIsVisible?  isVisible       = null,
-            BitGetters.BitIsDisabled? isDisabled      = null,
-            BitGetters.BitClasses?    classes         = null,
-            BitGetters.BitSize?       margin          = null,
-            BitGetters.BitSize?       padding         = null,
-            BitGetters.BitColor?      foregroundColor = null,
-            BitGetters.BitColor?      backgroundColor = null,
-            BitGetters.BitPixels?     pixelsHeight    = null,
-            BitGetters.BitPixels?     pixelsWidth     = null,
-            BitGetters.BitREM?        fontSize        = null,
-            BitGetters.BitWeight?     fontWeight      = null,
-            BitGetters.BitDisplay?    display         = null
+            BitGetters.BitContent        content,
+            Func<ClickArgs, Task>        onClick,
+            BitGetters.BitButtonColor?   color           = null,
+            bool?                        isStatic        = null,
+            BitGetters.BitIsVisible?     isVisible       = null,
+            BitGetters.BitIsDisabled?    isDisabled      = null,
+            BitGetters.BitClasses?       classes         = null,
+            BitGetters.BitSize?          margin          = null,
+            BitGetters.BitSize?          padding         = null,
+            BitGetters.BitColor?         foregroundColor = null,
+            BitGetters.BitColor?         backgroundColor = null,
+            BitGetters.BitPixels?        pixelsHeight    = null,
+            BitGetters.BitPixels?        pixelsWidth     = null,
+            BitGetters.BitREM?           fontSize        = null,
+            BitGetters.BitWeight?        fontWeight      = null,
+            BitGetters.BitDisplay?       display         = null,
+            BitGetters.BitIsHighlighted? isHighlighted   = null
         )
         {
             Spec = new BitSpec
@@ -58,42 +61,44 @@ namespace Integrant.Element.Bits
                 FontSize        = fontSize,
                 FontWeight      = fontWeight,
                 Display         = display,
+                IsHighlighted   = isHighlighted,
+                ButtonColor     = color ?? DefaultColorGetter,
             };
 
             _onClick = onClick;
 
             ConstantClasses = new ClassSet(
-                "Integrant.Element.Button",
+                "Integrant.Element.Override.Button",
                 "Integrant.Element.Bit",
                 "Integrant.Element.Bit." + nameof(Button)
             );
 
-            if (color == null)
-                ConstantClasses.Add("Integrant.Element.Button:Default");
-            else
-                ConstantClasses.Add("Integrant.Element.Button:" + color);
+            // ConstantClasses.Add("Integrant.Element.Override.Button:" + color.inv);
 
-            Cache();
+            Cache(additionalClasses: LocalClasses());
         }
+
+        private static Color DefaultColorGetter() => Color.Default;
 
         public Button
         (
-            BitGetters.BitContent     content,
-            Action<ClickArgs>         onClick,
-            Color?                    color           = null,
-            bool?                     isStatic        = null,
-            BitGetters.BitIsVisible?  isVisible       = null,
-            BitGetters.BitIsDisabled? isDisabled      = null,
-            BitGetters.BitClasses?    classes         = null,
-            BitGetters.BitSize?       margin          = null,
-            BitGetters.BitSize?       padding         = null,
-            BitGetters.BitColor?      foregroundColor = null,
-            BitGetters.BitColor?      backgroundColor = null,
-            BitGetters.BitPixels?     pixelsHeight    = null,
-            BitGetters.BitPixels?     pixelsWidth     = null,
-            BitGetters.BitREM?        fontSize        = null,
-            BitGetters.BitWeight?     fontWeight      = null,
-            BitGetters.BitDisplay?    display         = null
+            BitGetters.BitContent        content,
+            Action<ClickArgs>            onClick,
+            BitGetters.BitButtonColor?   color           = null,
+            bool?                        isStatic        = null,
+            BitGetters.BitIsVisible?     isVisible       = null,
+            BitGetters.BitIsDisabled?    isDisabled      = null,
+            BitGetters.BitClasses?       classes         = null,
+            BitGetters.BitSize?          margin          = null,
+            BitGetters.BitSize?          padding         = null,
+            BitGetters.BitColor?         foregroundColor = null,
+            BitGetters.BitColor?         backgroundColor = null,
+            BitGetters.BitPixels?        pixelsHeight    = null,
+            BitGetters.BitPixels?        pixelsWidth     = null,
+            BitGetters.BitREM?           fontSize        = null,
+            BitGetters.BitWeight?        fontWeight      = null,
+            BitGetters.BitDisplay?       display         = null,
+            BitGetters.BitIsHighlighted? isHighlighted   = null
         ) : this(
             content,
             async v =>
@@ -114,8 +119,19 @@ namespace Integrant.Element.Bits
             pixelsWidth,
             fontSize,
             fontWeight,
-            display
+            display,
+            isHighlighted
         ) { }
+
+        private string[] LocalClasses()
+        {
+            string[] result = {"Integrant.Element.Override." + nameof(Button) + ":" + Spec.ButtonColor.Invoke()};
+
+            if (Spec.IsHighlighted?.Invoke() == true)
+                result = result.Append("Integrant.Element.Override." + nameof(Button) + ":Highlighted").ToArray();
+
+            return result;
+        }
 
         public override RenderFragment Render() => builder =>
         {
@@ -123,7 +139,7 @@ namespace Integrant.Element.Bits
 
             builder.OpenElement(++seq, "button");
             builder.AddAttribute(++seq, "style", Style(false));
-            builder.AddAttribute(++seq, "class", Class(false));
+            builder.AddAttribute(++seq, "class", Class(false, LocalClasses()));
 
             ++seq;
             if (Spec.IsVisible?.Invoke() == false)

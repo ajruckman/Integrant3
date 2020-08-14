@@ -50,8 +50,8 @@ namespace Integrant.Rudiment.Inputs
             builder.OpenElement(++seq, "div");
 
             var classes = new ClassSet(
-                "Integrant.Element.Input",
-                "Integrant.Element.Input:Composite",
+                "Integrant.Element.Override.Input",
+                "Integrant.Element.Override.Input:Composite",
                 "Integrant.Rudiment.Input." + nameof(DateTimeInput<TStructure>)
             );
 

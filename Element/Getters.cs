@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Integrant.Element.Bits;
 
 namespace Integrant.Element
 {
@@ -34,5 +35,9 @@ namespace Integrant.Element
 
         // TODO: Implement style
         public delegate bool BitIsHighlighted();
+        
+        // Bit-specific getters
+
+        public delegate Button.Color BitButtonColor();
     }
 }

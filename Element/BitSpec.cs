@@ -4,22 +4,23 @@ namespace Integrant.Element
 {
     internal class BitSpec
     {
-        internal bool                         IsStatic        { get; set; }
-        internal BitGetters.BitContent?       Content         { get; set; }
-        internal BitGetters.BitIsVisible?     IsVisible       { get; set; }
-        internal BitGetters.BitIsChecked?     IsChecked       { get; set; }
-        internal BitGetters.BitIsDisabled?    IsDisabled      { get; set; }
-        internal BitGetters.BitClasses?       Classes         { get; set; }
-        internal BitGetters.BitURL?           URL             { get; set; }
-        internal BitGetters.BitSize?          Margin          { get; set; }
-        internal BitGetters.BitSize?          Padding         { get; set; }
-        internal BitGetters.BitColor?         BackgroundColor { get; set; }
-        internal BitGetters.BitColor?         ForegroundColor { get; set; }
-        internal BitGetters.BitPixels?        PixelsHeight    { get; set; }
-        internal BitGetters.BitPixels?        PixelsWidth     { get; set; }
-        internal BitGetters.BitREM?           FontSize        { get; set; }
-        internal BitGetters.BitWeight?        FontWeight      { get; set; }
-        internal BitGetters.BitDisplay?       Display         { get; set; }
-        internal BitGetters.BitIsHighlighted? IsHighlighted   { get; set; }
+        internal bool                         IsStatic;
+        internal BitGetters.BitContent?       Content;
+        internal BitGetters.BitIsVisible?     IsVisible;
+        internal BitGetters.BitIsChecked?     IsChecked;
+        internal BitGetters.BitIsDisabled?    IsDisabled;
+        internal BitGetters.BitClasses?       Classes;
+        internal BitGetters.BitURL?           URL;
+        internal BitGetters.BitSize?          Margin;
+        internal BitGetters.BitSize?          Padding;
+        internal BitGetters.BitColor?         BackgroundColor;
+        internal BitGetters.BitColor?         ForegroundColor;
+        internal BitGetters.BitPixels?        PixelsHeight;
+        internal BitGetters.BitPixels?        PixelsWidth;
+        internal BitGetters.BitREM?           FontSize;
+        internal BitGetters.BitWeight?        FontWeight;
+        internal BitGetters.BitDisplay?       Display;
+        internal BitGetters.BitIsHighlighted? IsHighlighted;
+        internal BitGetters.BitButtonColor    ButtonColor;
     }
 }

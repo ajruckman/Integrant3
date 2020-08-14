@@ -34,6 +34,8 @@ namespace Integrant.Element
             nameof(Constructs),
             stylesheets: new[]
             {
+                "css/Constructs/ButtonGroup.css",
+                "css/Constructs/ButtonGroup.css.map",
                 "css/Constructs/Dropdown.css",
                 "css/Constructs/Dropdown.css.map",
                 "css/Constructs/Headers.css",

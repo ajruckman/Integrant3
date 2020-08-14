@@ -1,0 +1,17 @@
+div[class~="Integrant.Element.Construct.ButtonGroup"] {
+    button[class~="Integrant.Element.Override.Button"],
+    button[class*="Integrant.Element.Override.Button:"],
+    button[class~="Integrant.Element.Override.Button"]:not([class~="Integrant.Element.Override.Button:Blue"]):not([class~="Integrant.Element.Override.Button:Green"]):not([class~="Integrant.Element.Override.Button:Orange"]):not([class~="Integrant.Element.Override.Button:Purple"]):not([class~="Integrant.Element.Override.Button:Red"]):not([class~="Integrant.Element.Override.Button:Yellow"]) {
+        border-radius: 0;
+
+        &:first-child {
+            border-bottom-left-radius: 3px;
+            border-top-left-radius:    3px;
+        }
+
+        &:last-child {
+            border-bottom-right-radius: 3px;
+            border-top-right-radius:    3px;
+        }
+    }
+}

@@ -63,7 +63,7 @@ $TransitionSnap:    color linear 0ms, background-color linear 0ms, border linear
     font-style: italic;
 }
 
-div[class~="Integrant.Element.Input"] {
+div[class~="Integrant.Element.Override.Input"] {
     input, textarea {
         @include _InputBase;
 
@@ -109,7 +109,7 @@ div[class~="Integrant.Element.Input"] {
         display:     inline-flex;
         flex-wrap:   wrap;
 
-        div[class~="Integrant.Element.Input"]:not(:first-child) {
+        div[class~="Integrant.Element.Override.Input"]:not(:first-child) {
             margin-left: 3px;
         }
     }

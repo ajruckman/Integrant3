@@ -1,0 +1,16 @@
+div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"],
+div[class~="Integrant.Element.Construct.ButtonGroup"] button[class*="Integrant.Element.Override.Button:"],
+div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:not([class~="Integrant.Element.Override.Button:Blue"]):not([class~="Integrant.Element.Override.Button:Green"]):not([class~="Integrant.Element.Override.Button:Orange"]):not([class~="Integrant.Element.Override.Button:Purple"]):not([class~="Integrant.Element.Override.Button:Red"]):not([class~="Integrant.Element.Override.Button:Yellow"]) {
+  border-radius: 0; }
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:first-child,
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class*="Integrant.Element.Override.Button:"]:first-child,
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:not([class~="Integrant.Element.Override.Button:Blue"]):not([class~="Integrant.Element.Override.Button:Green"]):not([class~="Integrant.Element.Override.Button:Orange"]):not([class~="Integrant.Element.Override.Button:Purple"]):not([class~="Integrant.Element.Override.Button:Red"]):not([class~="Integrant.Element.Override.Button:Yellow"]):first-child {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px; }
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:last-child,
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class*="Integrant.Element.Override.Button:"]:last-child,
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:not([class~="Integrant.Element.Override.Button:Blue"]):not([class~="Integrant.Element.Override.Button:Green"]):not([class~="Integrant.Element.Override.Button:Orange"]):not([class~="Integrant.Element.Override.Button:Purple"]):not([class~="Integrant.Element.Override.Button:Red"]):not([class~="Integrant.Element.Override.Button:Yellow"]):last-child {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px; }
+
+/*# sourceMappingURL=ButtonGroup.css.map */
