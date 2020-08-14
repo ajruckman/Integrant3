@@ -44,7 +44,7 @@ namespace Integrant.Web
             (
                 nameof(User.Boolean),
                 (v,                m) => v.Boolean,
-                onValueUpdate: (v, m, mv) => v.Boolean = mv,
+                valueUpdater: (v,  m, mv) => v.Boolean = mv,
                 input: () => new CheckboxInput<User>(),
                 inputIsRequired: (v, m) => true,
                 inputDebounceMilliseconds: 1
@@ -53,7 +53,8 @@ namespace Integrant.Web
             Structure.Register(new Member<User, string>(
                 nameof(User.CreatedBy),
                 (v,                m) => v.CreatedBy,
-                onValueUpdate: (v, m, mv) => v.CreatedBy = mv,
+                valueUpdater: (v,  m, mv) => v.CreatedBy = mv,
+                onValueUpdate: (v, m, mv) => Console.WriteLine($"++ {mv}"),
                 isVisible: (v,     m) => v.Boolean,
                 input: () => new StringInput<User>(),
                 inputIsRequired: (v, m) => true,
@@ -64,8 +65,8 @@ namespace Integrant.Web
                 nameof(User.UserID),
                 (v, m) => v.UserID,
                 // displayValue: ( v, m) => $"[{v.UserID}]",
-                key: (v,           m) => "User ID",
-                onValueUpdate: (v, m, mv) => v.UserID = mv,
+                key: (v,          m) => "User ID",
+                valueUpdater: (v, m, mv) => v.UserID = mv,
                 input: () => new NumberInput<User, int>(),
                 considerDefaultNull: true,
                 validator: (v, m) =>
@@ -88,7 +89,7 @@ namespace Integrant.Web
                 nameof(User.Name),
                 (v, m) => v.Name,
                 input: () => new StringInput<User>(),
-                onValueUpdate: (v,         m, mv) => v.Name = mv,
+                valueUpdater: (v,          m, mv) => v.Name = mv,
                 defaultValue: (v,          m) => "A.J. <default>",
                 inputIsRequired: (v,       m) => true,
                 inputMeetsRequirement: (v, m) => v.Name?.Length > 3,
@@ -98,10 +99,10 @@ namespace Integrant.Web
 
             Structure.Register(new Member<User, string>(
                 nameof(User.PhoneNumber),
-                (v,                m) => v.PhoneNumber,
-                key: (v,           m) => "Phone number",
-                isVisible: (v,     m) => v.Name?.Length > 0,
-                onValueUpdate: (v, m, mv) => v.PhoneNumber = mv
+                (v,               m) => v.PhoneNumber,
+                key: (v,          m) => "Phone number",
+                isVisible: (v,    m) => v.Name?.Length > 0,
+                valueUpdater: (v, m, mv) => v.PhoneNumber = mv
             ));
 
             Structure.Register(new Member<User, string>(
@@ -121,7 +122,7 @@ namespace Integrant.Web
                         textAreaRows: (v, m, i) =>
                             v.Email.Split('\n').Length + 1
                     ),
-                onValueUpdate: (v, m, mv) => v.Email = mv.TrimEnd('!') + "!",
+                valueUpdater: (v, m, mv) => v.Email = mv.TrimEnd('!') + "!",
                 inputDebounceMilliseconds: 500,
                 inputIsDisabled: (v, m) => v.UserID == 1,
                 validator: (v, m) =>
@@ -140,7 +141,7 @@ namespace Integrant.Web
             Structure.Register(new Member<User, DateTime>(
                 nameof(User.StartDate),
                 (v, m) => v.StartDate ?? default,
-                onValueUpdate: (v, m, mv) =>
+                valueUpdater: (v, m, mv) =>
                     v.StartDate = mv == default ? new DateTime?() : mv,
                 validator: (v, m) =>
                     v.StartDate > DateTime.Now
@@ -152,8 +153,8 @@ namespace Integrant.Web
 
             Structure.Register(new Member<User, DateTime>(
                 nameof(User.StartTime),
-                (v,                m) => v.StartTime,
-                onValueUpdate: (v, m, mv) => v.StartTime = mv,
+                (v,               m) => v.StartTime,
+                valueUpdater: (v, m, mv) => v.StartTime = mv,
                 input: () => new TimeInput<User>(),
                 inputIsDisabled: (v, m) => v.UserID == 1
             ));
@@ -161,7 +162,7 @@ namespace Integrant.Web
             Structure.Register(new Member<User, DateTime>(
                 nameof(User.CompositeDateTime),
                 (v, m) => v.CompositeDateTime ?? default,
-                onValueUpdate: (v, m, mv) =>
+                valueUpdater: (v, m, mv) =>
                     v.CompositeDateTime =
                         mv.Date == default ? new DateTime?() : mv,
                 input: () => new DateTimeInput<User>(),
@@ -175,13 +176,13 @@ namespace Integrant.Web
                     v.Tags != null
                         ? string.Join(" + ", v.Tags)
                         : "<null>",
-                onValueUpdate: (v, m, mv) => v.Tags = mv
+                valueUpdater: (v, m, mv) => v.Tags = mv
             ));
 
             Structure.Register(new Member<User, int>(
                 nameof(User.DepartmentID),
-                (v,                m) => v.DepartmentID,
-                onValueUpdate: (v, m, mv) => v.DepartmentID = mv,
+                (v,               m) => v.DepartmentID,
+                valueUpdater: (v, m, mv) => v.DepartmentID = mv,
                 input: () => new SelectInput<User, int>(),
                 selectInputOptions: (v, m) => new List<IOption<int>>
                 {
@@ -194,8 +195,8 @@ namespace Integrant.Web
 
             Structure.Register(new Member<User, string>(
                 nameof(User.DepartmentType),
-                (v,                m) => v.DepartmentType,
-                onValueUpdate: (v, m, mv) => v.DepartmentType = mv,
+                (v,               m) => v.DepartmentType,
+                valueUpdater: (v, m, mv) => v.DepartmentType = mv,
                 input: () => new SelectInput<User, string>(),
                 selectInputOptions: (v, m) => new List<IOption<string>>
                 {
@@ -207,8 +208,8 @@ namespace Integrant.Web
 
             Structure.Register(new Member<User, ushort>(
                 nameof(User.DepartmentStatus),
-                (v,                m) => v.DepartmentStatus,
-                onValueUpdate: (v, m, mv) => v.DepartmentStatus = mv,
+                (v,               m) => v.DepartmentStatus,
+                valueUpdater: (v, m, mv) => v.DepartmentStatus = mv,
                 input: () => new SelectInput<User, ushort>(),
                 selectInputOptions: (v, m) => new List<IOption<ushort>>
                 {
@@ -221,9 +222,9 @@ namespace Integrant.Web
             Structure.Register(new Member<User, TimeSpan>
             (
                 id: nameof(User.TimeSpan),
-                value: (v,         m) => v.TimeSpan,
-                onValueUpdate: (v, m, mv) => v.TimeSpan = mv,
-                defaultValue: (v,  m) => TimeSpan.FromDays(7),
+                value: (v,        m) => v.TimeSpan,
+                valueUpdater: (v, m, mv) => v.TimeSpan = mv,
+                defaultValue: (v, m) => TimeSpan.FromDays(7),
                 input: () => new NumberInput<User, TimeSpan>(
                     parser: (v, m, mv) => mv != ""
                         ? TimeSpan.FromDays(int.Parse(mv))
@@ -235,8 +236,8 @@ namespace Integrant.Web
             Structure.Register(new Member<User, double>
             (
                 nameof(User.Double),
-                (v,                m) => v.Double,
-                onValueUpdate: (v, m, mv) => v.Double = mv,
+                (v,               m) => v.Double,
+                valueUpdater: (v, m, mv) => v.Double = mv,
                 input: () => new NumberInput<User, double>(step: 0.01)
             ));
         }

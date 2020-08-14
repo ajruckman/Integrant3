@@ -37,8 +37,17 @@ namespace Integrant.Fundament.Structure
         public readonly MemberGetters.MemberValue<TStructure, TMember>?              DefaultValue;
         public readonly MemberGetters.MemberSelectInputOptions<TStructure, TMember>? SelectInputOptions;
 
+        /// <summary>
+        /// Action called to update TStructure.
+        /// </summary>
+        internal readonly Action<TStructure, Member<TStructure, TMember>, TMember>? ValueUpdater;
+
+        /// <summary>
+        /// Action called after TStructure is updated and revalidated.
+        /// </summary>
         internal readonly Action<TStructure, Member<TStructure, TMember>, TMember>? OnValueUpdate;
-        internal readonly int                                                       InputDebounceMilliseconds;
+
+        internal readonly int InputDebounceMilliseconds;
 
         public Member
         (
@@ -50,22 +59,29 @@ namespace Integrant.Fundament.Structure
             MemberGetters.MemberFormattedValue<TStructure, TMember>?        inputValue            = null,
             MemberGetters.MemberInputMeetsRequirement<TStructure, TMember>? inputMeetsRequirement = null,
             //
-            MemberGetters.MemberInput<TStructure, TMember>?            input            = null,
-            MemberGetters.MemberClasses<TStructure, TMember>?          classes          = null,
-            MemberGetters.MemberIsVisible<TStructure, TMember>?        isVisible        = null,
-            MemberGetters.MemberInputIsDisabled<TStructure, TMember>?  inputIsDisabled  = null,
-            MemberGetters.MemberInputIsRequired<TStructure, TMember>?  inputIsRequired  = null,
-            MemberGetters.MemberInputPlaceholder<TStructure, TMember>? inputPlaceholder = null,
+            MemberGetters.MemberInput<TStructure, TMember>?              input              = null,
+            MemberGetters.MemberClasses<TStructure, TMember>?            classes            = null,
+            MemberGetters.MemberIsVisible<TStructure, TMember>?          isVisible          = null,
+            MemberGetters.MemberInputIsDisabled<TStructure, TMember>?    inputIsDisabled    = null,
+            MemberGetters.MemberInputIsRequired<TStructure, TMember>?    inputIsRequired    = null,
+            MemberGetters.MemberInputPlaceholder<TStructure, TMember>?   inputPlaceholder   = null,
             MemberGetters.MemberInputTransformer<TStructure, TMember>?   inputTransformer   = null,
             MemberGetters.MemberValidations<TStructure, TMember>?        validator          = null,
             MemberGetters.MemberValue<TStructure, TMember>?              defaultValue       = null,
             MemberGetters.MemberSelectInputOptions<TStructure, TMember>? selectInputOptions = null,
             //
+            Action<TStructure, IMember<TStructure>, TMember>? valueUpdater              = null,
             Action<TStructure, IMember<TStructure>, TMember>? onValueUpdate             = null,
             int                                               inputDebounceMilliseconds = 300,
             bool?                                             considerDefaultNull       = null
         )
         {
+            if (input != null && valueUpdater == null)
+            {
+                throw new ArgumentException(
+                    "Member was created with a MemberInput getter but no ValueUpdater to handle input values.");
+            }
+
             ID    = id;
             Value = value;
 
@@ -82,12 +98,12 @@ namespace Integrant.Fundament.Structure
 
             //
 
-            Input            = input;
-            Classes          = classes;
-            IsVisible        = isVisible;
-            InputIsDisabled  = inputIsDisabled;
-            InputIsRequired  = inputIsRequired;
-            InputPlaceholder = inputPlaceholder;
+            Input              = input;
+            Classes            = classes;
+            IsVisible          = isVisible;
+            InputIsDisabled    = inputIsDisabled;
+            InputIsRequired    = inputIsRequired;
+            InputPlaceholder   = inputPlaceholder;
             InputTransformer   = inputTransformer;
             Validator          = validator;
             DefaultValue       = defaultValue;
@@ -95,6 +111,7 @@ namespace Integrant.Fundament.Structure
 
             //
 
+            ValueUpdater              = valueUpdater;
             OnValueUpdate             = onValueUpdate;
             InputDebounceMilliseconds = inputDebounceMilliseconds;
             ConsiderDefaultNull       = considerDefaultNull ?? typeof(TMember) == typeof(DateTime);

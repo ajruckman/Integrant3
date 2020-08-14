@@ -11,7 +11,14 @@ namespace Integrant.Fundament.Structure
 
         // Events
 
-        public event Action?                                           OnInput;
+        /// <summary>
+        /// Non-debounced event called as soon as new input is received.
+        /// </summary>
+        public event Action? OnInput;
+
+        /// <summary>
+        /// Untyped event that an IStructureInstance can subscribe to without knowing TMember.
+        /// </summary>
         public event Action<TStructure, IMember<TStructure>, object?>? OnValueUpdateUntyped;
 
         public void          RefreshInputs();
@@ -45,10 +52,14 @@ namespace Integrant.Fundament.Structure
                 Input.OnInput += (v, m) => UpdateValue(v, m);
             }
 
-            OnValueUpdate += (v, m, mv) => OnValueUpdateUntyped?.Invoke(v, m, mv);
+            OnValueUpdate += (v, m, mv) =>
+            {
+                Member.ValueUpdater?.Invoke(v, m, mv);
 
-            if (Member.OnValueUpdate != null)
-                OnValueUpdate += (v, m, mv) => Member.OnValueUpdate?.Invoke(v, m, mv);
+                OnValueUpdateUntyped?.Invoke(v, m, mv);
+
+                Member.OnValueUpdate?.Invoke(v, m, mv);
+            };
 
             _debouncer = new Utility.Debouncer<(TStructure, TMember)>(newValue =>
                     OnValueUpdate?.Invoke(newValue.Item1, Member, newValue.Item2),
