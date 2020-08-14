@@ -2,6 +2,7 @@
 @using Integrant.Element.Bits
 @using Integrant.Element.Components
 @using Integrant.Colorant.Themes.Solids
+@using Integrant.Element.Constructs
 @using Integrant.Resources.Icons.MaterialIcons
 
 <div class="Integrant.Element.Override.Input">
@@ -38,11 +39,7 @@
 
 <br>
 
-@{
-    var isHighlighted = true;
-}
-
-@(new Button(() => "Highlighted button!", _ => isHighlighted = !isHighlighted, isHighlighted: () => isHighlighted).Render())
+@(new ToggleButton(() => "Highlighted button!", async _ => { }).Render())
 
 <br>
 

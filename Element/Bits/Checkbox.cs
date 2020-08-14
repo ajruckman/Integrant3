@@ -11,9 +11,7 @@ namespace Integrant.Element.Bits
     public class Checkbox : BitBase
     {
         private readonly Func<bool, Task> _onToggle;
-
-        private          bool          _checked;
-        private readonly UpdateTrigger _trigger = new UpdateTrigger();
+        private readonly UpdateTrigger    _trigger = new UpdateTrigger();
 
         public Checkbox
         (
@@ -60,7 +58,7 @@ namespace Integrant.Element.Bits
             Cache();
 
             _onToggle = onToggle;
-            _checked  = isChecked?.Invoke() ?? false;
+            Checked   = isChecked?.Invoke() ?? false;
         }
 
         public Checkbox
@@ -102,6 +100,8 @@ namespace Integrant.Element.Bits
             display
         ) { }
 
+        public bool Checked { get; private set; }
+
         public override RenderFragment Render() => builder =>
         {
             int seq = -1;
@@ -120,7 +120,7 @@ namespace Integrant.Element.Bits
             builder.AddAttribute(++seq, "ChildContent", new RenderFragment(builder2 =>
             {
                 builder2.OpenComponent<Icon>(++seq);
-                builder2.AddAttribute(++seq, "ID", !_checked ? "check_box_outline_blank" : "check_box");
+                builder2.AddAttribute(++seq, "ID", !Checked ? "check_box_outline_blank" : "check_box");
                 builder2.CloseComponent();
             }));
             builder.CloseComponent();
@@ -133,10 +133,10 @@ namespace Integrant.Element.Bits
             if (Spec.IsDisabled?.Invoke() == true)
                 return;
 
-            _checked = !_checked;
+            Checked = !Checked;
             _trigger.Trigger();
 
-            await _onToggle.Invoke(_checked);
+            await _onToggle.Invoke(Checked);
 
             // bool? now = Spec.IsChecked?.Invoke();
             // if (now == null) return;
@@ -150,7 +150,7 @@ namespace Integrant.Element.Bits
 
         public void Reset()
         {
-            _checked = Spec.IsChecked?.Invoke() ?? false;
+            Checked = Spec.IsChecked?.Invoke() ?? false;
             _trigger.Trigger();
         }
     }
