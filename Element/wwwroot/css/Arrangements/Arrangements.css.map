@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "Arrangements.css",
+	"sources": [
+		"Arrangements.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,GAAG,CAAA,AAAA,KAAC,EAAO,qDAAqD,AAA5D,EAA8D;EAC9D,WAAW,EAAE,MAAM;EACnB,OAAO,EAAM,IAAI,GACpB"
+}

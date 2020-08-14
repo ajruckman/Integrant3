@@ -4,6 +4,17 @@ namespace Integrant.Element
 {
     public static class ResourceSets
     {
+        public static readonly ResourceSet Arrangements = new ResourceSet
+        (
+            $"{nameof(Integrant)}.{nameof(Element)}",
+            nameof(Arrangements),
+            stylesheets: new[]
+            {
+                "css/Arrangements/Arrangements.css",
+                "css/Arrangements/Arrangements.css.map",
+            }
+        );
+
         public static readonly ResourceSet Bits = new ResourceSet
         (
             $"{nameof(Integrant)}.{nameof(Element)}",
