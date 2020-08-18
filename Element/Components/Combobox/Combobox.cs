@@ -44,7 +44,9 @@ namespace Integrant.Element.Components.Combobox
 
         private string InputValue()
         {
-            return _selected?.SelectionText ?? (_searchTerm ?? "");
+            return _shown
+                ? _focused?.SelectionText  ?? _selected?.SelectionText ?? (_searchTerm ?? "")
+                : _selected?.SelectionText ?? (_searchTerm ?? "");
         }
 
         private List<IOption<T>> Options() =>
@@ -130,7 +132,7 @@ namespace Integrant.Element.Components.Combobox
 
         private void OnInputBlur(FocusEventArgs args)
         {
-            _shown = false;
+            Hide();
             Console.WriteLine("Blur");
         }
 
@@ -196,6 +198,11 @@ namespace Integrant.Element.Components.Combobox
                     {
                         Select(_focused);
                     }
+
+                    break;
+                
+                case "Escape":
+                    Hide();
 
                     break;
             }
