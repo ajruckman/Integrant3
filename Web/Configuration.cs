@@ -14,6 +14,7 @@ namespace Integrant.Web
                 {
                     Resources.ResourceSets.Fonts.SansSerif.Inter,
                     Resources.ResourceSets.Fonts.Monospaced.JetBrainsMono,
+                    Resources.ResourceSets.Libraries.Popper,
 
                     Superset.Web.ResourceSets.Listeners,
                     FlareSelect.ResourceSets.FlareSelect,

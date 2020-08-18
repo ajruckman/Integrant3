@@ -1,0 +1,19 @@
+@page "/PopperTests"
+
+@inject IJSRuntime JSRuntime
+
+<div>
+
+    <input class="Input" id="UserInput1" type="text" @ref="@UserInput1" @onclick="@OnClick" @onfocus="@Focus" @onblur="@Blur" @onkeydown="@OnInputKeyDown" @onkeyup="@OnInputKeyUp" value="@InputValue()" @oninput="@UpdateFilter" data-has-selection="@(_selected != null)"/>
+
+    <div class="Dropdown" id="UserDropdown1" @ref="@UserDropdown1" data-shown="@_shown">
+        @for (var i = 0; i < _users.Count; i++)
+        {
+            User user = _users[i];
+            bool selected = user.ID == _selected?.ID;
+            bool matches = _searchTerm == null || user.Name.IndexOf(_searchTerm, StringComparison.OrdinalIgnoreCase) >= 0;
+            <div class="Option" @onmousedown="@OnMouseDown" @onmousedown:preventDefault="true" @onclick="@(args => Select(user))" @onkeydown="@(args => Select(args, user))" data-selected="@selected" data-focused="@(_focused?.ID == user.ID)" data-i="@i" hidden="@(!matches)">@user.ID @user.Name @user.Department</div>
+        }
+    </div>
+
+</div>
