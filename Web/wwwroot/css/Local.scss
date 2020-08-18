@@ -58,32 +58,3 @@ div[class~="Integrant.Rudiment.Component.StructureContainer#Integrant.Web.Pages.
 //    }
 //}
 
-#UserDropdown1 {
-    background-color: #333333;
-    border-radius:    4px;
-    color:            white;
-    font-size:        13px;
-    max-height:       200px;
-    //display: none;
-
-    overflow-y:       scroll;
-    padding:          5px 10px;
-
-    > div {
-        cursor: pointer;
-    }
-}
-
-#UserDropdown1 {
-    display: none;
-}
-
-#UserDropdown1[data-shown] {
-    display: block;
-}
-
-.Option {
-    &[data-focused] {
-        border: 1px solid red;
-    }
-}

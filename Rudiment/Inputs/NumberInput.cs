@@ -43,7 +43,7 @@ namespace Integrant.Rudiment.Inputs
 
         public RenderFragment Render
         (
-            Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member
+            StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TMember> member
         ) => builder =>
         {
             int seq = -1;
@@ -57,12 +57,12 @@ namespace Integrant.Rudiment.Inputs
                 "Integrant.Rudiment.Input." + nameof(NumberInput<TStructure, TMember>)
             );
 
-            bool required = InputBuilder.Required(builder, ref seq, structure, value, member, classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure, value, member, classes);
+            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member,classes);
+            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member,classes);
 
-            if (member.InputPlaceholder != null)
+            if (member.Member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
-                    member.InputPlaceholder.Invoke(value, member));
+                    member.Member.InputPlaceholder.Invoke(value, member.Member));
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
@@ -71,11 +71,11 @@ namespace Integrant.Rudiment.Inputs
             InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
-                member,
+                member.Member,
                 "input", "number",
-                "value", member.InputValue.Invoke(value, member),
+                "value", member.Member.InputValue.Invoke(value, member.Member),
                 required, disabled,
-                args => OnChange(value, member, args)
+                args => OnChange(value, member.Member, args)
             );
 
             if (_min != null)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Integrant.Rudiment.Inputs;
 
 // ReSharper disable InconsistentNaming
 
@@ -62,7 +61,7 @@ namespace Integrant.Fundament.Structure
         public delegate List<Validation> MemberValidations<TStructure, TMember>
             (TStructure value, Member<TStructure, TMember> member);
 
-        public delegate IEnumerable<IOption<TMember>> MemberSelectInputOptions<TStructure, TMember>
+        public delegate IEnumerable<IOption<TMember>> MemberSelectableInputOptions<TStructure, TMember>
             (TStructure value, Member<TStructure, TMember> member);
     }
 

@@ -32,10 +32,10 @@ namespace Integrant.Fundament.Structure
 
         public readonly MemberGetters.MemberInputPlaceholder<TStructure, TMember>? InputPlaceholder;
 
-        public readonly MemberGetters.MemberInputTransformer<TStructure, TMember>?   InputTransformer;
-        public readonly MemberGetters.MemberValidations<TStructure, TMember>?        Validator;
-        public readonly MemberGetters.MemberValue<TStructure, TMember>?              DefaultValue;
-        public readonly MemberGetters.MemberSelectInputOptions<TStructure, TMember>? SelectInputOptions;
+        public readonly MemberGetters.MemberInputTransformer<TStructure, TMember>?       InputTransformer;
+        public readonly MemberGetters.MemberValidations<TStructure, TMember>?            Validator;
+        public readonly MemberGetters.MemberValue<TStructure, TMember>?                  DefaultValue;
+        public readonly MemberGetters.MemberSelectableInputOptions<TStructure, TMember>? SelectableInputOptions;
 
         /// <summary>
         /// Action called to update TStructure.
@@ -59,16 +59,16 @@ namespace Integrant.Fundament.Structure
             MemberGetters.MemberFormattedValue<TStructure, TMember>?        inputValue            = null,
             MemberGetters.MemberInputMeetsRequirement<TStructure, TMember>? inputMeetsRequirement = null,
             //
-            MemberGetters.MemberInput<TStructure, TMember>?              input              = null,
-            MemberGetters.MemberClasses<TStructure, TMember>?            classes            = null,
-            MemberGetters.MemberIsVisible<TStructure, TMember>?          isVisible          = null,
-            MemberGetters.MemberInputIsDisabled<TStructure, TMember>?    inputIsDisabled    = null,
-            MemberGetters.MemberInputIsRequired<TStructure, TMember>?    inputIsRequired    = null,
-            MemberGetters.MemberInputPlaceholder<TStructure, TMember>?   inputPlaceholder   = null,
-            MemberGetters.MemberInputTransformer<TStructure, TMember>?   inputTransformer   = null,
-            MemberGetters.MemberValidations<TStructure, TMember>?        validator          = null,
-            MemberGetters.MemberValue<TStructure, TMember>?              defaultValue       = null,
-            MemberGetters.MemberSelectInputOptions<TStructure, TMember>? selectInputOptions = null,
+            MemberGetters.MemberInput<TStructure, TMember>?                  input                  = null,
+            MemberGetters.MemberClasses<TStructure, TMember>?                classes                = null,
+            MemberGetters.MemberIsVisible<TStructure, TMember>?              isVisible              = null,
+            MemberGetters.MemberInputIsDisabled<TStructure, TMember>?        inputIsDisabled        = null,
+            MemberGetters.MemberInputIsRequired<TStructure, TMember>?        inputIsRequired        = null,
+            MemberGetters.MemberInputPlaceholder<TStructure, TMember>?       inputPlaceholder       = null,
+            MemberGetters.MemberInputTransformer<TStructure, TMember>?       inputTransformer       = null,
+            MemberGetters.MemberValidations<TStructure, TMember>?            validator              = null,
+            MemberGetters.MemberValue<TStructure, TMember>?                  defaultValue           = null,
+            MemberGetters.MemberSelectableInputOptions<TStructure, TMember>? selectableInputOptions = null,
             //
             Action<TStructure, IMember<TStructure>, TMember>? valueUpdater              = null,
             Action<TStructure, IMember<TStructure>, TMember>? onValueUpdate             = null,
@@ -98,16 +98,16 @@ namespace Integrant.Fundament.Structure
 
             //
 
-            Input              = input;
-            Classes            = classes;
-            IsVisible          = isVisible;
-            InputIsDisabled    = inputIsDisabled;
-            InputIsRequired    = inputIsRequired;
-            InputPlaceholder   = inputPlaceholder;
-            InputTransformer   = inputTransformer;
-            Validator          = validator;
-            DefaultValue       = defaultValue;
-            SelectInputOptions = selectInputOptions;
+            Input                  = input;
+            Classes                = classes;
+            IsVisible              = isVisible;
+            InputIsDisabled        = inputIsDisabled;
+            InputIsRequired        = inputIsRequired;
+            InputPlaceholder       = inputPlaceholder;
+            InputTransformer       = inputTransformer;
+            Validator              = validator;
+            DefaultValue           = defaultValue;
+            SelectableInputOptions = selectableInputOptions;
 
             //
 

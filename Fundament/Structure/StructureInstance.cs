@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.JSInterop;
 
 namespace Integrant.Fundament.Structure
 {
@@ -24,9 +25,10 @@ namespace Integrant.Fundament.Structure
         private readonly object                                 _validatedInitialLock = new object();
         private          bool                                   _hasValidatedInitial;
 
-        internal StructureInstance(Structure<T> structure)
+        internal StructureInstance(Structure<T> structure, IJSRuntime? jsRuntime)
         {
             Structure        = structure;
+            JSRuntime        = jsRuntime;
             ValidationState  = new ValidationState<T>(this);
             _memberInstances = new Dictionary<string, IMemberInstance<T>>();
 
@@ -47,6 +49,7 @@ namespace Integrant.Fundament.Structure
         }
 
         public Structure<T> Structure { get; }
+        public IJSRuntime?  JSRuntime { get; }
 
         public MemberInstance<T, TMember> GetMemberInstance<TMember>(string id)
         {

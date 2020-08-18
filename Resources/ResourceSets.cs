@@ -57,7 +57,7 @@ namespace Integrant.Resources
                 scripts: new[]
                 {
                     "Libraries/Popper/popper.min.js",
-                    "Libraries/Popper/popper.interop.js",
+                    // "Libraries/Popper/popper.interop.js",
                 }
             );
         }

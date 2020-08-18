@@ -19,7 +19,7 @@ namespace Integrant.Rudiment.Inputs
 
         public RenderFragment Render
         (
-            Structure<TStructure> structure, TStructure value, Member<TStructure, bool> member
+            StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, bool> member
         ) => builder =>
         {
             int seq = -1;
@@ -34,8 +34,8 @@ namespace Integrant.Rudiment.Inputs
                 "Integrant.Rudiment.Input." + nameof(CheckboxInput<TStructure>)
             );
 
-            bool required = InputBuilder.Required(builder, ref seq, structure, value, member, classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure, value, member, classes);
+            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member, classes);
+            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member, classes);
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
@@ -44,7 +44,7 @@ namespace Integrant.Rudiment.Inputs
             _checkbox ??= new Checkbox
             (
                 onToggle: c => OnInput?.Invoke(value, c),
-                isChecked: () => (bool) member.InputValue.Invoke(value, member),
+                isChecked: () => (bool) member.Member.InputValue.Invoke(value, member.Member),
                 isDisabled: () => disabled
             );
 

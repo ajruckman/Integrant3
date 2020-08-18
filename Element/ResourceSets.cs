@@ -36,6 +36,15 @@ namespace Integrant.Element
                 // "css/Components/Components.css.map",
                 "css/Components/TabbedPanel.css",
                 // "css/Components/TabbedPanel.css.map",
+                "css/Components/Combobox.css",
+            },
+            scripts: new[]
+            {
+                "js/Components/Combobox.js",
+            },
+            dependencies: new []
+            {
+                Resources.ResourceSets.Libraries.Popper,
             }
         );
 

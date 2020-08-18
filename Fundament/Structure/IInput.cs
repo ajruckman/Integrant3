@@ -9,9 +9,9 @@ namespace Integrant.Fundament.Structure
 
         public RenderFragment Render
         (
-            Structure<TStructure>       structure,
-            TStructure                  value,
-            Member<TStructure, TMember> member
+            StructureInstance<TStructure>       structure,
+            TStructure                          value,
+            MemberInstance<TStructure, TMember> member
         );
 
         public event Action<TStructure, TMember>? OnInput;

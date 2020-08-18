@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Integrant.Fundament;
 using Integrant.Fundament.Structure;
+using Integrant.Rudiment;
 using Integrant.Rudiment.Inputs;
 
 namespace Integrant.Web
@@ -20,6 +22,7 @@ namespace Integrant.Web
         public List<string> Tags              { get; set; }
         public int          DepartmentID      { get; set; }
         public string       DepartmentType    { get; set; }
+        public string       DepartmentType2    { get; set; }
         public ushort       DepartmentStatus  { get; set; }
         public TimeSpan     TimeSpan          { get; set; }
         public double       Double            { get; set; }
@@ -43,8 +46,8 @@ namespace Integrant.Web
             Structure.Register(new Member<User, bool>
             (
                 nameof(User.Boolean),
-                (v,                m) => v.Boolean,
-                valueUpdater: (v,  m, mv) => v.Boolean = mv,
+                (v,               m) => v.Boolean,
+                valueUpdater: (v, m, mv) => v.Boolean = mv,
                 input: () => new CheckboxInput<User>(),
                 inputIsRequired: (v, m) => true,
                 inputDebounceMilliseconds: 1
@@ -184,11 +187,11 @@ namespace Integrant.Web
                 (v,               m) => v.DepartmentID,
                 valueUpdater: (v, m, mv) => v.DepartmentID = mv,
                 input: () => new SelectInput<User, int>(),
-                selectInputOptions: (v, m) => new List<IOption<int>>
+                selectableInputOptions: (v, m) => new List<IOption<int>>
                 {
                     new Option<int>("1", 1, "One"),
                     new Option<int>("2", 2, "Two"),
-                    new Option<int>("3", 3, "Three", true),
+                    new Option<int>("3", 3, "Three", disabled: true),
                     new Option<int>("4", 4, "Four"),
                 }
             ));
@@ -198,7 +201,20 @@ namespace Integrant.Web
                 (v,               m) => v.DepartmentType,
                 valueUpdater: (v, m, mv) => v.DepartmentType = mv,
                 input: () => new SelectInput<User, string>(),
-                selectInputOptions: (v, m) => new List<IOption<string>>
+                selectableInputOptions: (v, m) => new List<IOption<string>>
+                {
+                    new Option<string>("One",   "One",   "One"),
+                    new Option<string>("Two",   "Two",   "Two"),
+                    new Option<string>("Three", "Three", "Three"),
+                }
+            ));
+            
+            Structure.Register(new Member<User, string>(
+                nameof(User.DepartmentType2),
+                (v,               m) => v.DepartmentType2,
+                valueUpdater: (v, m, mv) => v.DepartmentType2 = mv,
+                input: () => new ComboboxInput<User, string>(),
+                selectableInputOptions: (v, m) => new List<IOption<string>>
                 {
                     new Option<string>("One",   "One",   "One"),
                     new Option<string>("Two",   "Two",   "Two"),
@@ -211,7 +227,7 @@ namespace Integrant.Web
                 (v,               m) => v.DepartmentStatus,
                 valueUpdater: (v, m, mv) => v.DepartmentStatus = mv,
                 input: () => new SelectInput<User, ushort>(),
-                selectInputOptions: (v, m) => new List<IOption<ushort>>
+                selectableInputOptions: (v, m) => new List<IOption<ushort>>
                 {
                     new Option<ushort>("1", 1, "One"),
                     new Option<ushort>("2", 2, "Two"),

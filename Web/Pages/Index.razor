@@ -4,6 +4,8 @@
 @using Integrant.Resources.Icons.MaterialIcons
 @using Integrant.Element.Bits
 
+@inject IJSRuntime JSRuntime
+
 @page "/"
 @page "/url1"
 @page "/url2"
@@ -169,6 +171,17 @@
                 </td>
             </MemberContainer>
             <MemberContainer TS="User" TM="string" ID="DepartmentType" Element="tr">
+                <td>
+                    <MemberKey TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberInput TS="User" TM="string"/>
+                </td>
+                <td>
+                    <MemberValue TS="User" TM="string"/>
+                </td>
+            </MemberContainer>
+            <MemberContainer TS="User" TM="string" ID="DepartmentType2" Element="tr">
                 <td>
                     <MemberKey TS="User" TM="string"/>
                 </td>

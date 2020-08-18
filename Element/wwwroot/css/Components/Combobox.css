@@ -1,0 +1,25 @@
+div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] {
+  background-color: var(--Colorant_Default_Background_2);
+  border: 1px solid var(--Colorant_Default_Border_15);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px 2px var(--Colorant_Default_Shadow_0);
+  display: none;
+  max-height: 200px;
+  padding: 2px;
+  overflow-y: scroll;
+  z-index: 99; }
+  div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"][data-shown] {
+    display: block; }
+  div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"] {
+    border: 1px solid transparent;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 2px; }
+    div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"]:hover {
+      background-color: var(--Colorant_Default_Background_5); }
+    div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"][data-focused] {
+      background-color: var(--Colorant_Default_Background_4);
+      border: 1px solid var(--Colorant_Default_Accent_4);
+      box-shadow: 0 0 4px -1px var(--Colorant_Default_Shadow_0) inset; }
+
+/*# sourceMappingURL=Combobox.css.map */

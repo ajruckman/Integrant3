@@ -44,10 +44,11 @@ namespace Integrant.Web.Pages
                 StartDate    = DateTime.Now,
                 StartTime    = DateTime.Now,
                 DepartmentID = 2,
+                DepartmentType2 = "Two",
             };
             //
 
-            _structure = Common.Structure.Instantiate();
+            _structure = Common.Structure.Instantiate(JSRuntime);
 
             //
 

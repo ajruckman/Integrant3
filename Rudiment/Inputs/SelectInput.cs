@@ -17,7 +17,6 @@ namespace Integrant.Rudiment.Inputs
 
         // private readonly Parser _parser;
 
-        
         public SelectInput()
         {
             // if (typeof(TID) == typeof(string))
@@ -42,13 +41,13 @@ namespace Integrant.Rudiment.Inputs
 
         public RenderFragment Render
         (
-            Structure<TStructure> structure, TStructure value, Member<TStructure, TID> member
+            StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TID> member
         ) => builder =>
         {
-            if (member.SelectInputOptions == null)
+            if (member.Member.SelectableInputOptions == null)
                 throw new ArgumentException(
-                    "Member passed to SelectInput does not have a set SelectInputOptions getter.",
-                    nameof(member.SelectInputOptions));
+                    "Member passed to SelectInput does not have a set SelectableInputOptions getter.",
+                    nameof(member.Member.SelectableInputOptions));
 
             int seq = -1;
 
@@ -62,23 +61,23 @@ namespace Integrant.Rudiment.Inputs
                 "Integrant.Rudiment.Input." + nameof(SelectInput<TStructure, TID>)
             );
 
-            bool required = InputBuilder.Required(builder, ref seq, structure, value, member, classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure, value, member, classes);
+            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member,classes);
+            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member,classes);
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            if (member.InputPlaceholder != null)
+            if (member.Member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
-                    member.InputPlaceholder.Invoke(value, member));
+                    member.Member.InputPlaceholder.Invoke(value, member.Member));
 
             //
 
-            object v = member.InputValue.Invoke(value, member);
-            
+            object v = member.Member.InputValue.Invoke(value, member.Member);
+
             InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
-                member,
+                member.Member,
                 "select", null,
                 "value", v,
                 required, disabled,
@@ -88,14 +87,14 @@ namespace Integrant.Rudiment.Inputs
             _keyMap = new Dictionary<string, TID>();
 
             var anySelected = false;
-            
-            foreach (IOption<TID>? option in member.SelectInputOptions.Invoke(value, member))
+
+            foreach (IOption<TID>? option in member.Member.SelectableInputOptions.Invoke(value, member.Member))
             {
                 _keyMap[option.Key] = option.Value;
-                
+
                 builder.OpenElement(++seq, "option");
                 builder.AddAttribute(++seq, "value", option.Key);
-                
+
                 ++seq;
                 if (option.Disabled)
                     builder.AddAttribute(seq, "disabled", "disabled");
@@ -107,7 +106,7 @@ namespace Integrant.Rudiment.Inputs
                     anySelected = true;
                 }
 
-                builder.AddContent(++seq, option.Name);
+                builder.AddContent(++seq, option.OptionText);
                 builder.CloseElement();
             }
 
@@ -119,12 +118,12 @@ namespace Integrant.Rudiment.Inputs
                 builder.AddAttribute(++seq, "selected", "selected");
                 builder.CloseElement();
             }
-            
+
             InputBuilder.CloseInnerInput(builder);
 
             builder.CloseElement();
         };
-        
+
         private Dictionary<string, TID>? _keyMap;
 
         private void OnChange(TStructure value, ChangeEventArgs args)
@@ -132,21 +131,5 @@ namespace Integrant.Rudiment.Inputs
             OnInput?.Invoke(value, _keyMap![args.Value!.ToString()!]);
             // OnInput?.Invoke(value, _parser.Invoke(args.Value!.ToString()!));
         }
-    }
-
-    public class Option<TID> : IOption<TID>
-    {
-        public Option(string key, TID value, string name, bool disabled = false)
-        {
-            Key      = key;
-            Value    = value;
-            Name     = name;
-            Disabled = disabled;
-        }
-
-        public string Key      { get; }
-        public TID    Value    { get; }
-        public string Name     { get; }
-        public bool   Disabled { get; }
     }
 }
