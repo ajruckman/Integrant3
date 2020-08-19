@@ -24,7 +24,7 @@ namespace Integrant.Element.Components.Combobox
         public delegate string Placeholder();
 
         private readonly IJSRuntime   _jsRuntime;
-        private readonly OptionGetter _optionGetter;
+        private          OptionGetter _optionGetter;
         private readonly IsDisabled?  _isDisabled;
         private readonly IsRequired?  _isRequired;
         private readonly Placeholder? _placeholder;
@@ -36,6 +36,7 @@ namespace Integrant.Element.Components.Combobox
         private string?           _searchTerm;
         private IOption<T>?       _selected;
         private IOption<T>?       _focused;
+        private Action            _stateHasChanged = null!;
 
         public Combobox
         (
@@ -60,6 +61,14 @@ namespace Integrant.Element.Components.Combobox
         public event Action?              OnHide;
 
         //
+
+        public void InvalidateOptions(OptionGetter optionGetter)
+        {
+            _optionGetter = optionGetter;
+            _optionGetter = optionGetter;
+            _options      = null;
+            // _stateHasChanged.Invoke();
+        }
 
         private string InputValue()
         {
@@ -131,7 +140,7 @@ namespace Integrant.Element.Components.Combobox
         public void Deselect(bool update = true)
         {
             _selected = null;
-            
+
             if (update)
                 OnSelect?.Invoke(null);
         }
@@ -290,6 +299,11 @@ namespace Integrant.Element.Components.Combobox
             protected override void OnInitialized()
             {
                 Console.WriteLine("-> INITIALIZED <-");
+            }
+
+            protected override void OnParametersSet()
+            {
+                Combobox._stateHasChanged = StateHasChanged;
             }
 
             protected override void OnAfterRender(bool firstRender)

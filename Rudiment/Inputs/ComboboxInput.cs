@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Integrant.Element.Components.Combobox;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
@@ -50,8 +52,8 @@ namespace Integrant.Rudiment.Inputs
 
             object? v = member.Member.InputValue.Invoke(value, member.Member);
 
-            if (_combobox == null)
-            {
+            // if (_combobox == null)
+            // {
                 _combobox = new Combobox<TID>
                 (
                     structure.JSRuntime,
@@ -64,7 +66,9 @@ namespace Integrant.Rudiment.Inputs
                 );
 
                 _combobox.OnSelect += o => OnInput?.Invoke(value, o != null ? o.Value : default!);
-            }
+            // }
+            
+            // _combobox.InvalidateOptions(() => _options.Invoke(value, member.Member));
 
             if (v is TID vt)
             {

@@ -70,15 +70,15 @@ namespace Integrant.Rudiment
             bool valueIsNull    = v == null;
             bool valueIsDefault = member.ConsiderDefaultNull && Equals(v, default(TMember));
 
-            Console.Write($"{member.ID,-25} {valueIsNull,-6} {valueIsDefault,-6} ");
+            // Console.Write($"{member.ID,-25} {valueIsNull,-6} {valueIsDefault,-6} ");
 
             if (!valueIsNull && !valueIsDefault)
             {
-                Console.Write("->");
+                // Console.Write("->");
                 builder.AddAttribute(++seq, valueAttribute, v);
             }
 
-            Console.WriteLine();
+            // Console.WriteLine();
 
             //
 
