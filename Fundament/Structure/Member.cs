@@ -35,7 +35,7 @@ namespace Integrant.Fundament.Structure
         public readonly MemberGetters.MemberInputTransformer<TStructure, TMember>?       InputTransformer;
         public readonly MemberGetters.MemberValidations<TStructure, TMember>?            Validator;
         public readonly MemberGetters.MemberValue<TStructure, TMember>?                  DefaultValue;
-        public readonly MemberGetters.MemberSelectableInputOptions<TStructure, TMember>? SelectableInputOptions;
+        // public readonly MemberGetters.MemberSelectableInputOptions<TStructure, TMember>? SelectableInputOptions;
 
         /// <summary>
         /// Action called to update TStructure.
@@ -68,7 +68,7 @@ namespace Integrant.Fundament.Structure
             MemberGetters.MemberInputTransformer<TStructure, TMember>?       inputTransformer       = null,
             MemberGetters.MemberValidations<TStructure, TMember>?            validator              = null,
             MemberGetters.MemberValue<TStructure, TMember>?                  defaultValue           = null,
-            MemberGetters.MemberSelectableInputOptions<TStructure, TMember>? selectableInputOptions = null,
+            // MemberGetters.MemberSelectableInputOptions<TStructure, TMember>? selectableInputOptions = null,
             //
             Action<TStructure, IMember<TStructure>, TMember>? valueUpdater              = null,
             Action<TStructure, IMember<TStructure>, TMember>? onValueUpdate             = null,
@@ -107,7 +107,7 @@ namespace Integrant.Fundament.Structure
             InputTransformer       = inputTransformer;
             Validator              = validator;
             DefaultValue           = defaultValue;
-            SelectableInputOptions = selectableInputOptions;
+            // SelectableInputOptions = selectableInputOptions;
 
             //
 

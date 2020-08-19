@@ -44,7 +44,7 @@ namespace Integrant.Web.Pages
                 StartDate    = DateTime.Now,
                 StartTime    = DateTime.Now,
                 DepartmentID = 2,
-                DepartmentType2 = "Two",
+                DepartmentType2 = 2,
             };
             //
 

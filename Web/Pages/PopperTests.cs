@@ -14,10 +14,10 @@ namespace Integrant.Web.Pages
 {
     public partial class PopperTests
     {
-        private Faker<User>        _faker   = null!;
-        private List<User>         _users   = null!;
+        private Faker<User>  _faker   = null!;
+        private List<User>   _users   = null!;
         private List<Option> _options = null!;
-        private bool               _shown   = false;
+        private bool         _shown   = false;
 
         private User?   _selected   = null;
         private User?   _focused    = null;
@@ -50,7 +50,7 @@ namespace Integrant.Web.Pages
                     .RuleFor(u => u.Department, (f, u) => f.Commerce.Department());
 
             _users = _faker.Generate(100);
-            
+
             _options = _users.Select(v => new Option
             {
                 Key           = v.ID.ToString(),
@@ -239,11 +239,28 @@ namespace Integrant.Web.Pages
         //     _shown = false;
         // }
 
-        public class User
+        public class User : IEquatable<User>
         {
             public int    ID         { get; set; }
             public string Name       { get; set; }
             public string Department { get; set; }
+
+            public bool Equals(User? other)
+            {
+                if (ReferenceEquals(null, other)) return false;
+                if (ReferenceEquals(this, other)) return true;
+                return ID == other.ID;
+            }
+
+            public override bool Equals(object? obj)
+            {
+                if (ReferenceEquals(null, obj)) return false;
+                if (ReferenceEquals(this, obj)) return true;
+                if (obj.GetType() != this.GetType()) return false;
+                return Equals((User) obj);
+            }
+
+            public override int GetHashCode() => ID;
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Integrant.Element
         public delegate bool BitIsChecked();
 
         public delegate bool BitIsDisabled();
+        
+        public delegate bool BitIsRequired();
 
         public delegate IEnumerable<string> BitClasses();
 

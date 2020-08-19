@@ -22,7 +22,7 @@ namespace Integrant.Web
         public List<string> Tags              { get; set; }
         public int          DepartmentID      { get; set; }
         public string       DepartmentType    { get; set; }
-        public string       DepartmentType2    { get; set; }
+        public int          DepartmentType2   { get; set; }
         public ushort       DepartmentStatus  { get; set; }
         public TimeSpan     TimeSpan          { get; set; }
         public double       Double            { get; set; }
@@ -186,56 +186,52 @@ namespace Integrant.Web
                 nameof(User.DepartmentID),
                 (v,               m) => v.DepartmentID,
                 valueUpdater: (v, m, mv) => v.DepartmentID = mv,
-                input: () => new SelectInput<User, int>(),
-                selectableInputOptions: (v, m) => new List<IOption<int>>
+                input: () => new SelectInput<User, int>((v, m) => new List<IOption<int>>
                 {
-                    new Option<int>("1", 1, "One"),
-                    new Option<int>("2", 2, "Two"),
-                    new Option<int>("3", 3, "Three", disabled: true),
-                    new Option<int>("4", 4, "Four"),
-                }
+                    new Option<int>(1, "One"),
+                    new Option<int>(2, "Two"),
+                    new Option<int>(3, "Three", disabled: true),
+                    new Option<int>(4, "Four"),
+                })
             ));
 
             Structure.Register(new Member<User, string>(
                 nameof(User.DepartmentType),
                 (v,               m) => v.DepartmentType,
                 valueUpdater: (v, m, mv) => v.DepartmentType = mv,
-                input: () => new SelectInput<User, string>(),
-                selectableInputOptions: (v, m) => new List<IOption<string>>
+                input: () => new SelectInput<User, string>((v, m) => new List<IOption<string>>
                 {
-                    new Option<string>("One",   "One",   "One"),
-                    new Option<string>("Two",   "Two",   "Two"),
-                    new Option<string>("Three", "Three", "Three"),
-                }
+                    new Option<string>("One",   "One"),
+                    new Option<string>("Two",   "Two"),
+                    new Option<string>("Three", "Three"),
+                })
             ));
 
-            Structure.Register(new Member<User, string>(
+            Structure.Register(new Member<User, int>(
                 nameof(User.DepartmentType2),
                 (v,               m) => v.DepartmentType2,
                 valueUpdater: (v, m, mv) => v.DepartmentType2 = mv,
-                input: () => new ComboboxInput<User, string>(),
-                inputPlaceholder: (v, m) => $"Placeholder = {v.CreatedBy}",
-                inputIsDisabled: (v, m) => !v.Boolean,
-                inputIsRequired: (v, m) => true,
-                selectableInputOptions: (v, m) => new List<IOption<string>>
+                input: () => new ComboboxInput<User, int>((v, m) => new List<IOption<int>>
                 {
-                    new Option<string>("One",   "One",   "One"),
-                    new Option<string>("Two",   "Two",   "Two"),
-                    new Option<string>("Three", "Three", "Three"),
-                }
+                    new Option<int>(1, "One"),
+                    new Option<int>(2, "Two"),
+                    new Option<int>(3, "Three"),
+                }),
+                inputPlaceholder: (v, m) => $"Placeholder = {v.CreatedBy}",
+                inputIsDisabled: (v,  m) => !v.Boolean,
+                inputIsRequired: (v,  m) => true
             ));
 
             Structure.Register(new Member<User, ushort>(
                 nameof(User.DepartmentStatus),
                 (v,               m) => v.DepartmentStatus,
                 valueUpdater: (v, m, mv) => v.DepartmentStatus = mv,
-                input: () => new SelectInput<User, ushort>(),
-                selectableInputOptions: (v, m) => new List<IOption<ushort>>
+                input: () => new SelectInput<User, ushort>((v, m) => new List<IOption<ushort>>
                 {
-                    new Option<ushort>("1", 1, "One"),
-                    new Option<ushort>("2", 2, "Two"),
-                    new Option<ushort>("3", 3, "Three"),
-                }
+                    new Option<ushort>(1, "One"),
+                    new Option<ushort>(2, "Two"),
+                    new Option<ushort>(3, "Three"),
+                })
             ));
 
             Structure.Register(new Member<User, TimeSpan>

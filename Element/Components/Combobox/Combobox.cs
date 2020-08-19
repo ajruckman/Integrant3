@@ -13,7 +13,7 @@ using Microsoft.JSInterop;
 
 namespace Integrant.Element.Components.Combobox
 {
-    public sealed class Combobox<T>
+    public sealed class Combobox<T> where T : IEquatable<T>
     {
         public delegate IEnumerable<IOption<T>> OptionGetter();
 
@@ -97,7 +97,7 @@ namespace Integrant.Element.Components.Combobox
             OnSetSearchTerm?.Invoke(term);
         }
 
-        public void Select(IOption<T> o)
+        public void Select(IOption<T> o, bool update = true)
         {
             _selected = o;
             Focus(o);
@@ -105,18 +105,35 @@ namespace Integrant.Element.Components.Combobox
             Hide();
             _justSelected = true;
 
-            OnSelect?.Invoke(o);
+            if (update)
+                OnSelect?.Invoke(o);
         }
 
-        public void Select(string key)
+        // public void Select(string key, bool update = true)
+        // {
+        //     Select(Options().Single(v => v.Key == key), update);
+        // }
+
+        public void Select(T value, bool update = true)
         {
-            Select(Options().Single(v => v.Key == key));
+            Select(Options().Single(v => v.Value.Equals(value)), update);
         }
 
-        public void Deselect()
+        public void SelectIfExists(T value, bool update = true)
+        {
+            IOption<T>? match = Options().SingleOrDefault(v => v.Value.Equals(value));
+            if (match != null)
+                Select(match, update);
+            else
+                Deselect(update);
+        }
+
+        public void Deselect(bool update = true)
         {
             _selected = null;
-            OnSelect?.Invoke(null);
+            
+            if (update)
+                OnSelect?.Invoke(null);
         }
 
         private void Focus(IOption<T> o)
@@ -181,13 +198,13 @@ namespace Integrant.Element.Components.Combobox
                     if (_focused == null)
                     {
                         Focus(first);
-                        Console.WriteLine($"Setting to first: {_focused!.Key}");
+                        Console.WriteLine($"Setting to first: {_focused!.Value}");
                     }
-                    else if (_focused.Key != first.Key)
+                    else if (!_focused.Value.Equals(first.Value))
                     {
-                        int previousIndex = users.FindIndex(v => v.Key == _focused.Key) - 1;
+                        int previousIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) - 1;
                         Focus(users[previousIndex]);
-                        Console.WriteLine($"Setting to previous: {_focused.Key}");
+                        Console.WriteLine($"Setting to previous: {_focused.Value}");
                     }
                     else
                     {
@@ -200,15 +217,15 @@ namespace Integrant.Element.Components.Combobox
                     if (_focused == null)
                     {
                         Focus(first);
-                        Console.WriteLine($"Setting to first: {_focused!.Key}");
+                        Console.WriteLine($"Setting to first: {_focused!.Value}");
                     }
                     else
                     {
-                        int nextIndex = users.FindIndex(v => v.Key == _focused.Key) + 1;
+                        int nextIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) + 1;
                         if (nextIndex < users.Count)
                         {
                             Focus(users[nextIndex]);
-                            Console.WriteLine($"Setting to next: {_focused.Key}");
+                            Console.WriteLine($"Setting to next: {_focused.Value}");
                         }
                     }
 
@@ -323,7 +340,7 @@ namespace Integrant.Element.Components.Combobox
                 if (Combobox._isRequired?.Invoke() == true && Combobox._selected == null)
                     classes.Add("Integrant.Element.Override.Input:FailsRequirement");
 
-                b.AddAttribute(++seq, "class", ((Object) classes).ToString());
+                b.AddAttribute(++seq, "class", classes.ToString());
 
                 b.OpenElement(++seq, "input");
                 b.AddAttribute(++seq, "type",               "text");
@@ -364,8 +381,8 @@ namespace Integrant.Element.Components.Combobox
                 for (var i = 0; i < Combobox.Options().Count; i++)
                 {
                     IOption<T> o        = Combobox.Options()[i];
-                    bool       selected = Combobox._selected?.Key == o.Key;
-                    bool       focused  = Combobox._focused?.Key  == o.Key;
+                    bool       selected = Combobox._selected?.Value.Equals(o.Value) == true;
+                    bool       focused  = Combobox._focused?.Value.Equals(o.Value)  == true;
                     bool       matches  = Combobox.Matches(o);
 
                     b.OpenElement(++seq2, "div");

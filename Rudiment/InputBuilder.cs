@@ -11,9 +11,7 @@ namespace Integrant.Rudiment
     {
         public static bool Required<TStructure, TMember>
         (
-            RenderTreeBuilder     builder,   ref int    seq,
-            Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member,
-            ClassSet              classes
+            TStructure value, Member<TStructure, TMember> member, ClassSet classes
         )
         {
             if (member.InputIsRequired?.Invoke(value, member) == true)
@@ -36,9 +34,7 @@ namespace Integrant.Rudiment
 
         public static bool Disabled<TStructure, TMember>
         (
-            RenderTreeBuilder     builder,   ref int    seq,
-            Structure<TStructure> structure, TStructure value, Member<TStructure, TMember> member,
-            ClassSet              classes
+            TStructure value, Member<TStructure, TMember> member, ClassSet classes
         )
         {
             if (member.InputIsDisabled?.Invoke(value, member) == true)
@@ -53,12 +49,12 @@ namespace Integrant.Rudiment
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void OpenInnerInput<TStructure, TMember>
         (
-            RenderTreeBuilder           builder, ref int seq,
-            Member<TStructure, TMember> member,
-            string                      element,        string? type,
-            string                      valueAttribute, object? value,
-            bool                        required,       bool    disabled,
-            Action<ChangeEventArgs>     onInput
+            RenderTreeBuilder       builder,        ref int                     seq,
+            TStructure              value,          Member<TStructure, TMember> member,
+            string                  element,        string?                     type,
+            string                  valueAttribute, object?                     v,
+            bool                    required,       bool                        disabled,
+            Action<ChangeEventArgs> onInput
         )
         {
             builder.OpenElement(++seq, element);
@@ -71,35 +67,34 @@ namespace Integrant.Rudiment
 
             ++seq;
 
-            bool valueIsNull    = value == null;
-            bool valueIsDefault = member.ConsiderDefaultNull && Equals(value, default(TMember));
+            bool valueIsNull    = v == null;
+            bool valueIsDefault = member.ConsiderDefaultNull && Equals(v, default(TMember));
 
             Console.Write($"{member.ID,-25} {valueIsNull,-6} {valueIsDefault,-6} ");
 
             if (!valueIsNull && !valueIsDefault)
             {
                 Console.Write("->");
-                builder.AddAttribute(++seq, valueAttribute, value);
+                builder.AddAttribute(++seq, valueAttribute, v);
             }
 
             Console.WriteLine();
-            
-            //
-            
-            if (required)
-            {
-                builder.AddAttribute(++seq, "required", "required");
-            }
 
-            if (disabled)
+            //
+
+            builder.AddAttribute(++seq, "required", required);
+
+            builder.AddAttribute(++seq, "disabled", disabled);
+
+            ++seq;
+            string? placeholder = member.InputPlaceholder?.Invoke(value, member);
+            if (placeholder != null)
             {
-                builder.AddAttribute(++seq, "disabled", "disabled");
+                builder.AddAttribute(seq, "placeholder", placeholder);
             }
 
             builder.AddAttribute(++seq, "oninput", onInput);
             builder.SetUpdatesAttributeName(valueAttribute);
-            
-            // builder.CloseElement();
         }
 
         public static void CloseInnerInput(RenderTreeBuilder builder)

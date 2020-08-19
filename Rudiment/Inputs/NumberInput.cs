@@ -57,12 +57,8 @@ namespace Integrant.Rudiment.Inputs
                 "Integrant.Rudiment.Input." + nameof(NumberInput<TStructure, TMember>)
             );
 
-            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member,classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member,classes);
-
-            if (member.Member.InputPlaceholder != null)
-                builder.AddAttribute(++seq, "placeholder",
-                    member.Member.InputPlaceholder.Invoke(value, member.Member));
+            bool required = InputBuilder.Required(value, member.Member, classes);
+            bool disabled = InputBuilder.Disabled(value, member.Member, classes);
 
             builder.AddAttribute(++seq, "class", classes.ToString());
 
@@ -71,7 +67,7 @@ namespace Integrant.Rudiment.Inputs
             InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
-                member.Member,
+                value, member.Member,
                 "input", "number",
                 "value", member.Member.InputValue.Invoke(value, member.Member),
                 required, disabled,
