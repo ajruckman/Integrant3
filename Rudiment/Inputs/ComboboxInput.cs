@@ -6,42 +6,20 @@ using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Rudiment.Inputs
 {
-    public class ComboboxInput<TStructure, TID, TKey> : IInput<TStructure, TID> where TKey : IEquatable<TKey>
+    public class ComboboxInput<TStructure, TID> : IInput<TStructure, TID> where TID : IEquatable<TID>
     {
-        public delegate TID Parser(string v);
+        private readonly MemberGetters.MemberSelectableInputOptions<TStructure, TID> _options;
 
-        private readonly MemberGetters.MemberSelectableInputOptions<TStructure, TID, TKey> _options;
+        private Combobox<TID>? _combobox;
 
-        private Combobox<TKey, TID>? _combobox;
-
-        // private readonly Parser _parser;
-
-        public ComboboxInput(MemberGetters.MemberSelectableInputOptions<TStructure, TID, TKey> options)
+        public ComboboxInput(MemberGetters.MemberSelectableInputOptions<TStructure, TID> options)
         {
             _options = options;
-            // if (typeof(TID) == typeof(string))
-            // {
-            //     _parser = v => (TID) (object) v;
-            // }
-            // else if (typeof(TID) == typeof(int))
-            // {
-            //     _parser = v => (TID) (object) int.Parse(v);
-            // }
-            // else
-            // {
-            //     throw new ArgumentException(
-            //         $"No parser was passed to ComboboxInput and no fallback parser was found for type '{typeof(TID).Name}'.");
-            // }
         }
 
         public event Action<TStructure, TID>? OnInput;
 
         public void Reset() { }
-
-        // public ComboboxInput(Parser p)
-        // {
-        //     _parser = p;
-        // }
 
         public RenderFragment Render
         (
@@ -62,43 +40,39 @@ namespace Integrant.Rudiment.Inputs
             ClassSet classes = new ClassSet
             (
                 "Integrant.Element.Override.Input",
-                "Integrant.Rudiment.Input." + nameof(ComboboxInput<TStructure, TID, TKey>)
+                "Integrant.Rudiment.Input." + nameof(ComboboxInput<TStructure, TID>)
             );
 
-            // TODO: required, disabled, placeholder
-
-            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member, classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member, classes);
+            InputBuilder.Required(value, member.Member, classes);
+            InputBuilder.Disabled(value, member.Member, classes);
 
             builder.AddAttribute(++seq, "class", classes.ToString());
 
-            // if (member.InputPlaceholder != null)
-            //     builder.AddAttribute(++seq, "placeholder",
-            //         member.InputPlaceholder.Invoke(value, member.Member));
-
-            //
-
-            var v = (string?) member.Member.InputValue.Invoke(value, member.Member);
+            object? v = member.Member.InputValue.Invoke(value, member.Member);
 
             if (_combobox == null)
             {
-                _combobox = new Combobox<TKey, TID>
+                _combobox = new Combobox<TID>
                 (
                     structure.JSRuntime,
                     () => _options.Invoke(value, member.Member),
                     () => member.Member.InputIsDisabled?.Invoke(value, member.Member) == true,
                     () => member.Member.InputIsRequired?.Invoke(value, member.Member) == true,
                     member.Member.InputPlaceholder == null
-                        ? (Combobox<TKey, TID>.Placeholder?) null
+                        ? (Combobox<TID>.Placeholder?) null
                         : () => member.Member.InputPlaceholder.Invoke(value, member.Member)
                 );
 
                 _combobox.OnSelect += o => OnInput?.Invoke(value, o != null ? o.Value : default!);
             }
 
-            if (!string.IsNullOrEmpty(v))
+            if (v is TID vt)
             {
-                _combobox.Select(v, false);
+                _combobox.SelectIfExists(vt, false);
+            }
+            else
+            {
+                _combobox.Deselect(false);
             }
 
             builder.AddContent(++seq, _combobox.Render());

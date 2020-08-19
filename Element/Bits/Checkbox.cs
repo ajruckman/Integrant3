@@ -18,6 +18,7 @@ namespace Integrant.Element.Bits
             Func<bool, Task>          onToggle,
             BitGetters.BitIsChecked?  isChecked       = null,
             BitGetters.BitIsDisabled? isDisabled      = null,
+            BitGetters.BitIsRequired? isRequired      = null,
             bool                      isStatic        = true,
             BitGetters.BitIsVisible?  isVisible       = null,
             BitGetters.BitClasses?    classes         = null,
@@ -36,6 +37,7 @@ namespace Integrant.Element.Bits
             {
                 IsChecked       = isChecked,
                 IsDisabled      = isDisabled,
+                IsRequired      = isRequired,
                 IsStatic        = isStatic,
                 IsVisible       = isVisible,
                 Classes         = classes,
@@ -55,7 +57,7 @@ namespace Integrant.Element.Bits
                 "Integrant.Element.Bit." + nameof(Checkbox)
             );
 
-            Cache();
+            Cache(null, AdditionalClasses());
 
             _onToggle = onToggle;
             Checked   = isChecked?.Invoke() ?? false;
@@ -66,6 +68,7 @@ namespace Integrant.Element.Bits
             Action<bool>              onToggle,
             BitGetters.BitIsChecked?  isChecked       = null,
             BitGetters.BitIsDisabled? isDisabled      = null,
+            BitGetters.BitIsRequired? isRequired      = null,
             bool                      isStatic        = true,
             BitGetters.BitIsVisible?  isVisible       = null,
             BitGetters.BitClasses?    classes         = null,
@@ -86,6 +89,7 @@ namespace Integrant.Element.Bits
             },
             isChecked,
             isDisabled,
+            isRequired,
             isStatic,
             isVisible,
             classes,
@@ -102,30 +106,32 @@ namespace Integrant.Element.Bits
 
         public bool Checked { get; private set; }
 
+        private string[]? AdditionalClasses()
+        {
+            return Spec.IsRequired?.Invoke() == true && !Checked
+                ? new[] {"Integrant.Element.Bit:FailsRequirement"}
+                : null;
+        }
+
         public override RenderFragment Render() => builder =>
         {
             int seq = -1;
-
-            builder.OpenElement(++seq, "div");
-            builder.AddAttribute(++seq, "style",   Style(false));
-            builder.AddAttribute(++seq, "class",   Class(false));
-            builder.AddAttribute(++seq, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClick));
-
-            ++seq;
-            if (Spec.IsVisible?.Invoke() == false)
-                builder.AddAttribute(seq, "hidden", "hidden");
 
             builder.OpenComponent<TriggerWrapper>(++seq);
             builder.AddAttribute(++seq, "Trigger", _trigger);
             builder.AddAttribute(++seq, "ChildContent", new RenderFragment(builder2 =>
             {
+                builder2.OpenElement(++seq, "div");
+                builder2.AddAttribute(++seq, "style",   Style(false));
+                builder2.AddAttribute(++seq, "class",   Class(false, AdditionalClasses()));
+                builder2.AddAttribute(++seq, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClick));
+                builder2.AddAttribute(++seq, "hidden",  Spec.IsVisible?.Invoke() == false);
                 builder2.OpenComponent<Icon>(++seq);
                 builder2.AddAttribute(++seq, "ID", !Checked ? "check_box_outline_blank" : "check_box");
                 builder2.CloseComponent();
+                builder2.CloseElement();
             }));
             builder.CloseComponent();
-
-            builder.CloseElement();
         };
 
         private async Task OnClick(MouseEventArgs obj)

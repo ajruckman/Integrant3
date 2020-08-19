@@ -9,6 +9,7 @@ namespace Integrant.Element
         internal BitGetters.BitIsVisible?     IsVisible;
         internal BitGetters.BitIsChecked?     IsChecked;
         internal BitGetters.BitIsDisabled?    IsDisabled;
+        internal BitGetters.BitIsRequired?    IsRequired;
         internal BitGetters.BitClasses?       Classes;
         internal BitGetters.BitURL?           URL;
         internal BitGetters.BitSize?          Margin;

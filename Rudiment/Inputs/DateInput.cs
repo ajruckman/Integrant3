@@ -28,8 +28,8 @@ namespace Integrant.Rudiment.Inputs
                 "Integrant.Rudiment.Input." + nameof(DateInput<TStructure>)
             );
 
-            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member, classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member, classes);
+            bool required = InputBuilder.Required(value, member.Member, classes);
+            bool disabled = InputBuilder.Disabled(value, member.Member, classes);
 
             builder.AddAttribute(++seq, "class", classes.ToString());
 
@@ -38,7 +38,7 @@ namespace Integrant.Rudiment.Inputs
             InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
-                member.Member,
+                value, member.Member,
                 "input", "date",
                 "value", TransformValue(structure.Structure, value, member.Member),
                 required, disabled,

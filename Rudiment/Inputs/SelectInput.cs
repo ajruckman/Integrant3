@@ -1,48 +1,29 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Integrant.Rudiment.Inputs
 {
-    public class SelectInput<TStructure, TID, TKey> : IInput<TStructure, TID> where TKey : IEquatable<TKey>
+    public class SelectInput<TStructure, TID> : IInput<TStructure, TID> where TID : IEquatable<TID>
     {
         public delegate TID Parser(string v);
 
-        private readonly MemberGetters.MemberSelectableInputOptions<TStructure, TID, TKey> _options;
+        private readonly MemberGetters.MemberSelectableInputOptions<TStructure, TID> _options;
 
-        private Dictionary<TKey, TID>? _keyMap;
+        private Dictionary<int, TID>? _keyMap;
 
-        // private readonly Parser _parser;
-
-        public SelectInput(MemberGetters.MemberSelectableInputOptions<TStructure, TID, TKey> options)
+        public SelectInput(MemberGetters.MemberSelectableInputOptions<TStructure, TID> options)
         {
             _options = options;
-            // if (typeof(TID) == typeof(string))
-            // {
-            //     _parser = v => (TID) (object) v;
-            // }
-            // else if (typeof(TID) == typeof(int))
-            // {
-            //     _parser = v => (TID) (object) int.Parse(v);
-            // }
-            // else
-            // {
-            //     throw new ArgumentException(
-            //         $"No parser was passed to SelectInput and no fallback parser was found for type '{typeof(TID).Name}'.");
-            // }
         }
 
         public event Action<TStructure, TID>? OnInput;
 
         public void Reset() { }
-
-        // public SelectInput(Parser p)
-        // {
-        //     _parser = p;
-        // }
 
         public RenderFragment Render
         (
@@ -58,11 +39,11 @@ namespace Integrant.Rudiment.Inputs
             ClassSet classes = new ClassSet
             (
                 "Integrant.Element.Override.Input",
-                "Integrant.Rudiment.Input." + nameof(SelectInput<TStructure, TID, TKey>)
+                "Integrant.Rudiment.Input." + nameof(SelectInput<TStructure, TID>)
             );
 
-            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member, classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member, classes);
+            bool required = InputBuilder.Required(value, member.Member, classes);
+            bool disabled = InputBuilder.Disabled(value, member.Member, classes);
 
             builder.AddAttribute(++seq, "class", classes.ToString());
 
@@ -72,45 +53,55 @@ namespace Integrant.Rudiment.Inputs
 
             //
 
-            object? v = member.Member.InputValue.Invoke(value, member.Member);
+            object?            v             = member.Member.InputValue.Invoke(value, member.Member);
+            List<IOption<TID>> options       = _options.Invoke(value, member.Member).ToList();
+            int?               selectedIndex = null;
+
+            void Fragment(RenderTreeBuilder b)
+            {
+                int iSeq = -1;
+
+                for (var i = 0; i < options.Count; i++)
+                {
+                    IOption<TID> option = options[i];
+                    _keyMap[i] = option.Value;
+
+                    builder.OpenElement(++iSeq, "option");
+                    builder.AddAttribute(++iSeq, "value", i);
+
+                    ++iSeq;
+                    if (option.Disabled)
+                        builder.AddAttribute(iSeq, "disabled", "disabled");
+
+                    ++iSeq;
+                    if (option.Value.Equals(v))
+                    {
+                        builder.AddAttribute(iSeq, "selected", "selected");
+                        selectedIndex = i;
+                    }
+
+                    builder.AddContent(++iSeq, option.OptionText);
+                    builder.CloseElement();
+                }
+            }
 
             InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
-                member.Member,
+                value, member.Member,
                 "select", null,
-                "value", v,
+                "value", selectedIndex,
                 required, disabled,
                 args => OnChange(value, args)
             );
 
-            _keyMap = new Dictionary<TKey, TID>();
+            _keyMap = new Dictionary<int, TID>();
 
-            var anySelected = false;
+            builder.OpenRegion(++seq);
+            builder.AddContent(++seq, Fragment);
+            builder.CloseRegion();
 
-            foreach (IOption<TKey, TID>? option in _options.Invoke(value, member.Member))
-            {
-                _keyMap[option.Key] = option.Value;
-
-                builder.OpenElement(++seq, "option");
-                builder.AddAttribute(++seq, "value", option.Key);
-
-                ++seq;
-                if (option.Disabled)
-                    builder.AddAttribute(seq, "disabled", "disabled");
-
-                ++seq;
-                if (option.Key.Equals(v?.ToString()))
-                {
-                    builder.AddAttribute(seq, "selected", "selected");
-                    anySelected = true;
-                }
-
-                builder.AddContent(++seq, option.OptionText);
-                builder.CloseElement();
-            }
-
-            if (!anySelected)
+            if (selectedIndex == null)
             {
                 builder.OpenElement(++seq, "option");
                 builder.AddAttribute(++seq, "disabled", "disabled");
@@ -126,8 +117,7 @@ namespace Integrant.Rudiment.Inputs
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {
-            OnInput?.Invoke(value, _keyMap![args.Value!.ToString()!]);
-            // OnInput?.Invoke(value, _parser.Invoke(args.Value!.ToString()!));
+            OnInput?.Invoke(value, _keyMap![int.Parse(args.Value!.ToString()!)]);
         }
     }
 }

@@ -28,6 +28,10 @@ div[class~="Integrant.Element.Bit.Checkbox"] {
         color:  var(--Colorant_Default_Text_0);
         cursor: not-allowed;
     }
+
+    &[class~="Integrant.Element.Bit:FailsRequirement"] {
+        color: red;
+    }
 }
 
 div[class~="Integrant.Element.Bit.Chip"] {

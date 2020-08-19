@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 // ReSharper disable InconsistentNaming
@@ -61,8 +62,8 @@ namespace Integrant.Fundament.Structure
         public delegate List<Validation> MemberValidations<TStructure, TMember>
             (TStructure value, Member<TStructure, TMember> member);
 
-        public delegate IEnumerable<IOption<TKey, TMember>> MemberSelectableInputOptions<TStructure, TMember, TKey>
-            (TStructure value, Member<TStructure, TMember> member);
+        public delegate IEnumerable<IOption<TMember>> MemberSelectableInputOptions<TStructure, TMember>
+            (TStructure value, Member<TStructure, TMember> member) where TMember : IEquatable<TMember>;
     }
 
     internal static class DefaultGetters

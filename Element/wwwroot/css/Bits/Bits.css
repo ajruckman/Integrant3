@@ -38,6 +38,8 @@ div[class~="Integrant.Element.Bit.Checkbox"] {
   div[class~="Integrant.Element.Bit.Checkbox"][class~="Integrant.Element.Bit:Disabled"] {
     color: var(--Colorant_Default_Text_0);
     cursor: not-allowed; }
+  div[class~="Integrant.Element.Bit.Checkbox"][class~="Integrant.Element.Bit:FailsRequirement"] {
+    color: red; }
 
 div[class~="Integrant.Element.Bit.Chip"] {
   box-sizing: border-box;
