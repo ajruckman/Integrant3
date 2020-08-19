@@ -31,7 +31,7 @@ namespace Integrant.Rudiment.Components
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            object v = member.DisplayValue.Invoke(Value, member);
+            object? v = member.DisplayValue.Invoke(Value, member);
 
             builder.AddContent(++seq, member.ConsiderDefaultNull
                 ? Equals(v, default(TM)) ? "" : v

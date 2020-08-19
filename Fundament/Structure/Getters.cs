@@ -28,7 +28,7 @@ namespace Integrant.Fundament.Structure
             TStructure value, Member<TStructure, TMember> member
         );
 
-        public delegate object MemberFormattedValue<TStructure, TMember>
+        public delegate object? MemberFormattedValue<TStructure, TMember>
         (
             TStructure value, Member<TStructure, TMember> member
         );
@@ -73,11 +73,10 @@ namespace Integrant.Fundament.Structure
             return member.ID;
         }
 
-        internal static object MemberFormattedValue<TStructure, TMember>
+        internal static object? MemberFormattedValue<TStructure, TMember>
             (TStructure value, Member<TStructure, TMember> member)
         {
-            TMember v = member.Value.Invoke(value, member);
-            return v == null ? (object) "" : v;
+            return member.Value.Invoke(value, member);
         }
 
         internal static bool MemberInputMeetsRequirement<TStructure, TMember>
