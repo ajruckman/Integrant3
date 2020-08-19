@@ -51,13 +51,15 @@ namespace Integrant.Rudiment.Inputs
 
         private static string TransformValue(TStructure value, Member<TStructure, DateTime> member)
         {
-            var v = (DateTime) member.InputValue.Invoke(value, member);
+            var v = (DateTime?) member.InputValue.Invoke(value, member);
+
+            if (v == null) return "";
 
             return member.ConsiderDefaultNull
-                ? v == default
+                ? v.Value == default
                     ? ""
-                    : v.ToString("HH:mm:ss")
-                : v.ToString("HH:mm:ss");
+                    : v.Value.ToString("HH:mm:ss")
+                : v.Value.ToString("HH:mm:ss");
         }
 
         private void OnChange(TStructure value, ChangeEventArgs args)

@@ -72,7 +72,7 @@ namespace Integrant.Rudiment.Inputs
 
             //
 
-            object v = member.Member.InputValue.Invoke(value, member.Member);
+            object? v = member.Member.InputValue.Invoke(value, member.Member);
 
             InputBuilder.OpenInnerInput
             (

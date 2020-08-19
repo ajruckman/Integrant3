@@ -5,7 +5,7 @@ namespace Integrant.Element.Arrangements
 {
     public class VerticallyCenteredRow : ComponentBase
     {
-        [Parameter] public RenderFragment ChildContent { get; set; }
+        [Parameter] public RenderFragment ChildContent { get; set; } = null!;
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {

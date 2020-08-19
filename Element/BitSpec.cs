@@ -21,6 +21,5 @@ namespace Integrant.Element
         internal BitGetters.BitWeight?        FontWeight;
         internal BitGetters.BitDisplay?       Display;
         internal BitGetters.BitIsHighlighted? IsHighlighted;
-        internal BitGetters.BitButtonColor    ButtonColor;
     }
 }

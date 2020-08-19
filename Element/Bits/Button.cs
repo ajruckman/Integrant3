@@ -11,6 +11,8 @@ namespace Integrant.Element.Bits
 {
     public class Button : BitBase
     {
+        public delegate Color ColorGetter();
+
         public enum Color
         {
             Default,
@@ -23,12 +25,13 @@ namespace Integrant.Element.Bits
         }
 
         private readonly Func<ClickArgs, Task> _onClick;
+        private readonly ColorGetter           _color;
 
         public Button
         (
             BitGetters.BitContent        content,
             Func<ClickArgs, Task>        onClick,
-            BitGetters.BitButtonColor?   color           = null,
+            ColorGetter?                 color           = null,
             bool?                        isStatic        = null,
             BitGetters.BitIsVisible?     isVisible       = null,
             BitGetters.BitIsDisabled?    isDisabled      = null,
@@ -62,10 +65,10 @@ namespace Integrant.Element.Bits
                 FontWeight      = fontWeight,
                 Display         = display,
                 IsHighlighted   = isHighlighted,
-                ButtonColor     = color ?? DefaultColorGetter,
             };
 
             _onClick = onClick;
+            _color   = color ?? DefaultColorGetter;
 
             ConstantClasses = new ClassSet(
                 "Integrant.Element.Override.Button",
@@ -78,13 +81,11 @@ namespace Integrant.Element.Bits
             Cache(additionalClasses: LocalClasses());
         }
 
-        private static Color DefaultColorGetter() => Color.Default;
-
         public Button
         (
             BitGetters.BitContent        content,
             Action<ClickArgs>            onClick,
-            BitGetters.BitButtonColor?   color           = null,
+            ColorGetter?                 color           = null,
             bool?                        isStatic        = null,
             BitGetters.BitIsVisible?     isVisible       = null,
             BitGetters.BitIsDisabled?    isDisabled      = null,
@@ -123,9 +124,11 @@ namespace Integrant.Element.Bits
             isHighlighted
         ) { }
 
+        private static Color DefaultColorGetter() => Color.Default;
+
         private string[] LocalClasses()
         {
-            string[] result = {"Integrant.Element.Override." + nameof(Button) + ":" + Spec.ButtonColor.Invoke()};
+            string[] result = {"Integrant.Element.Override." + nameof(Button) + ":" + _color.Invoke()};
 
             if (Spec.IsHighlighted?.Invoke() == true)
                 result = result.Append("Integrant.Element.Override." + nameof(Button) + ":Highlighted").ToArray();

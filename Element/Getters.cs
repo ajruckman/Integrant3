@@ -35,9 +35,5 @@ namespace Integrant.Element
 
         // TODO: Implement style
         public delegate bool BitIsHighlighted();
-        
-        // Bit-specific getters
-
-        public delegate Button.Color BitButtonColor();
     }
 }

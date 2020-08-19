@@ -69,6 +69,8 @@ namespace Integrant.Rudiment.Inputs
                 "Integrant.Rudiment.Input." + nameof(ComboboxInput<TStructure, TID>)
             );
 
+            // TODO: required, disabled, placeholder
+            
             bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member, classes);
             bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member, classes);
 
@@ -80,7 +82,7 @@ namespace Integrant.Rudiment.Inputs
 
             //
 
-            string v = (string) member.Member.InputValue.Invoke(value, member.Member);
+            var v = (string?) member.Member.InputValue.Invoke(value, member.Member);
 
             if (_combobox == null)
             {
@@ -90,8 +92,7 @@ namespace Integrant.Rudiment.Inputs
                     () => member.Member.SelectableInputOptions.Invoke(value, member.Member)
                 );
 
-
-                if (v != "")
+                if (!string.IsNullOrEmpty(v))
                 {
                     _combobox.Select(v);
                 }
@@ -100,67 +101,8 @@ namespace Integrant.Rudiment.Inputs
             }
 
             builder.AddContent(++seq, _combobox.Render());
-
-            //
-
-            //
-
-            // InputBuilder.OpenInnerInput
-            // (
-            //     builder, ref seq,
-            //     member,
-            //     "combobox", null,
-            //     "value", v,
-            //     required, disabled,
-            //     args => OnChange(value, args)
-            // );
-            //
-            // _keyMap = new Dictionary<string, TID>();
-            //
-            // var anyComboboxed = false;
-            //
-            // foreach (IOption<TID>? option in member.SelectableInputOptions.Invoke(value, member.Member))
-            // {
-            //     _keyMap[option.Key] = option.Value;
-            //
-            //     builder.OpenElement(++seq, "option");
-            //     builder.AddAttribute(++seq, "value", option.Key);
-            //
-            //     ++seq;
-            //     if (option.Disabled)
-            //         builder.AddAttribute(seq, "disabled", "disabled");
-            //
-            //     ++seq;
-            //     if (option.Key == v?.ToString())
-            //     {
-            //         builder.AddAttribute(seq, "selected", "comboboxed");
-            //         anyComboboxed = true;
-            //     }
-            //
-            //     builder.AddContent(++seq, option.OptionText);
-            //     builder.CloseElement();
-            // }
-            //
-            // if (!anyComboboxed)
-            // {
-            //     builder.OpenElement(++seq, "option");
-            //     builder.AddAttribute(++seq, "disabled", "disabled");
-            //     builder.AddAttribute(++seq, "hidden",   "hidden");
-            //     builder.AddAttribute(++seq, "comboboxed", "comboboxed");
-            //     builder.CloseElement();
-            // }
-            //
-            // InputBuilder.CloseInnerInput(builder);
-
+            
             builder.CloseElement();
         };
-
-        private Dictionary<string, TID>? _keyMap;
-
-        private void OnChange(TStructure value, ChangeEventArgs args)
-        {
-            OnInput?.Invoke(value, _keyMap![args.Value!.ToString()!]);
-            // OnInput?.Invoke(value, _parser.Invoke(args.Value!.ToString()!));
-        }
     }
 }

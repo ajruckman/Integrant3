@@ -56,7 +56,7 @@ namespace Integrant.Rudiment
             RenderTreeBuilder           builder, ref int seq,
             Member<TStructure, TMember> member,
             string                      element,        string? type,
-            string                      valueAttribute, object  value,
+            string                      valueAttribute, object? value,
             bool                        required,       bool    disabled,
             Action<ChangeEventArgs>     onInput
         )
@@ -67,11 +67,25 @@ namespace Integrant.Rudiment
                 builder.AddAttribute(++seq, "type", type);
             }
 
-            builder.AddAttribute(++seq, valueAttribute, member.ConsiderDefaultNull
-                ? Equals(value, default(TMember)) ? "" : value
-                : value
-            );
+            //
 
+            ++seq;
+
+            bool valueIsNull    = value == null;
+            bool valueIsDefault = member.ConsiderDefaultNull && Equals(value, default(TMember));
+
+            Console.Write($"{member.ID,-25} {valueIsNull,-6} {valueIsDefault,-6} ");
+
+            if (!valueIsNull && !valueIsDefault)
+            {
+                Console.Write("->");
+                builder.AddAttribute(++seq, valueAttribute, value);
+            }
+
+            Console.WriteLine();
+            
+            //
+            
             if (required)
             {
                 builder.AddAttribute(++seq, "required", "required");
