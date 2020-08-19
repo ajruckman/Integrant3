@@ -66,7 +66,7 @@ namespace Integrant.Fundament
             return new ClassSet {_classes = classes};
         }
 
-        public string Format()
+        public override string ToString()
         {
             if (_formatted == null)
             {

@@ -64,7 +64,7 @@ namespace Integrant.Rudiment.Inputs
                 builder.AddAttribute(++seq, "placeholder",
                     member.Member.InputPlaceholder.Invoke(value, member.Member));
 
-            builder.AddAttribute(++seq, "class", classes.Format());
+            builder.AddAttribute(++seq, "class", classes.ToString());
 
             //
 

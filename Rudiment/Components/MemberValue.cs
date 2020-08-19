@@ -29,7 +29,7 @@ namespace Integrant.Rudiment.Components
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", classes.Format());
+            builder.AddAttribute(++seq, "class", classes.ToString());
 
             object? v = member.DisplayValue.Invoke(Value, member);
 

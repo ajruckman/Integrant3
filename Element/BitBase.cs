@@ -52,7 +52,7 @@ namespace Integrant.Element
             if (Spec.Classes != null)
                 c.AddRange(Spec.Classes.Invoke());
 
-            return c.Format();
+            return c.ToString();
         }
     }
 }

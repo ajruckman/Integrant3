@@ -40,7 +40,7 @@ namespace Integrant.Rudiment.Components
                 builder2.AddAttribute(++seq, "ChildContent", new RenderFragment(builder3 =>
                 {
                     builder3.OpenElement(++seq, "div");
-                    builder3.AddAttribute(++seq, "class", classes.Format());
+                    builder3.AddAttribute(++seq, "class", classes.ToString());
 
                     if (!shown)
                         builder3.AddAttribute(++seq, "hidden", "hidden");
