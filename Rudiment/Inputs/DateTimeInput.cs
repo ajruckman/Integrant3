@@ -42,7 +42,7 @@ namespace Integrant.Rudiment.Inputs
 
         public RenderFragment Render
         (
-            Structure<TStructure> structure, TStructure value, Member<TStructure, DateTime> member
+            StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, DateTime> member
         ) => builder =>
         {
             int seq = -1;

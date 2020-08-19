@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.JSInterop;
 
 namespace Integrant.Fundament.Structure
 {
@@ -36,7 +37,7 @@ namespace Integrant.Fundament.Structure
             _members[member.ID] = member;
         }
 
-        public StructureInstance<T> Instantiate() => new StructureInstance<T>(this);
+        public StructureInstance<T> Instantiate(IJSRuntime? jsRuntime = null) => new StructureInstance<T>(this, jsRuntime);
 
         public Member<T, TMember> GetMember<TMember>(string id)
         {

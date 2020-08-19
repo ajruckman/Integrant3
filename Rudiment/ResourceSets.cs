@@ -13,7 +13,7 @@ namespace Integrant.Rudiment
                 stylesheets: new[]
                 {
                     "css/Layout/Validation.css",
-                    "css/Layout/Validation.css.map",
+                    // "css/Layout/Validation.css.map",
                 },
                 dependencies: new[] {Resources.ResourceSets.MaterialIcons}
             );
@@ -25,7 +25,7 @@ namespace Integrant.Rudiment
                 stylesheets: new[]
                 {
                     "css/Layout/Component.MemberValue.css",
-                    "css/Layout/Component.MemberValue.css.map",
+                    // "css/Layout/Component.MemberValue.css.map",
                 }
             );
         }

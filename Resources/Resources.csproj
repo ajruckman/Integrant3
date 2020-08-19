@@ -27,4 +27,8 @@
         <PackageReference Include="Superset" Version="1.16.0-alpha" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\Libraries" />
+    </ItemGroup>
+
 </Project>

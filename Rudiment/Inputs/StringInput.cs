@@ -49,7 +49,7 @@ namespace Integrant.Rudiment.Inputs
 
         public RenderFragment Render
         (
-            Structure<TStructure> structure, TStructure value, Member<TStructure, string> member
+            StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, string> member
         ) => builder =>
         {
             int seq = -1;
@@ -67,14 +67,14 @@ namespace Integrant.Rudiment.Inputs
             if (TextArea) classes.Add("Integrant.Rudiment.Input:TextArea");
             if (Monospace) classes.Add("Integrant.Rudiment.Input:Monospace");
 
-            bool required = InputBuilder.Required(builder, ref seq, structure, value, member, classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure, value, member, classes);
+            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member,classes);
+            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member,classes);
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
-            if (member.InputPlaceholder != null)
+            if (member.Member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",
-                    member.InputPlaceholder.Invoke(value, member));
+                    member.Member.InputPlaceholder.Invoke(value, member.Member));
 
             //
 
@@ -83,9 +83,9 @@ namespace Integrant.Rudiment.Inputs
                 InputBuilder.OpenInnerInput
                 (
                     builder, ref seq,
-                    member,
+                    member.Member,
                     "input", "text",
-                    "value", member.InputValue.Invoke(value, member),
+                    "value", member.Member.InputValue.Invoke(value, member.Member),
                     required, disabled,
                     args => OnChange(value, args)
                 );
@@ -96,17 +96,17 @@ namespace Integrant.Rudiment.Inputs
                 InputBuilder.OpenInnerInput
                 (
                     builder, ref seq,
-                    member,
+                    member.Member,
                     "textarea", null,
-                    "value", member.InputValue.Invoke(value, member),
+                    "value", member.Member.InputValue.Invoke(value, member.Member),
                     required, disabled,
                     args => OnChange(value, args)
                 );
                 
                 if (TextAreaCols != null)
-                    builder.AddAttribute(++seq, "cols", TextAreaCols.Invoke(value, member, this));
+                    builder.AddAttribute(++seq, "cols", TextAreaCols.Invoke(value, member.Member, this));
                 if (TextAreaRows != null)
-                    builder.AddAttribute(++seq, "rows", TextAreaRows.Invoke(value, member, this));
+                    builder.AddAttribute(++seq, "rows", TextAreaRows.Invoke(value, member.Member, this));
                 
                 InputBuilder.CloseInnerInput(builder);
             }

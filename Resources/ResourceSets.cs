@@ -47,5 +47,19 @@ namespace Integrant.Resources
                 );
             }
         }
+
+        public static class Libraries
+        {
+            public static readonly ResourceSet Popper = new ResourceSet
+            (
+                $"{nameof(Integrant)}.{nameof(Resources)}",
+                $"{nameof(Libraries)}.{nameof(Popper)}",
+                scripts: new[]
+                {
+                    "Libraries/Popper/popper.min.js",
+                    // "Libraries/Popper/popper.interop.js",
+                }
+            );
+        }
     }
 }

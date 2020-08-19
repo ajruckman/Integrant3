@@ -14,7 +14,7 @@ namespace Integrant.Rudiment.Inputs
 
         public RenderFragment Render
         (
-            Structure<TStructure> structure, TStructure value, Member<TStructure, DateTime> member
+            StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, DateTime> member
         ) => builder =>
         {
             int seq = -1;
@@ -28,8 +28,8 @@ namespace Integrant.Rudiment.Inputs
                 "Integrant.Rudiment.Input." + nameof(DateInput<TStructure>)
             );
 
-            bool required = InputBuilder.Required(builder, ref seq, structure, value, member, classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure, value, member, classes);
+            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member, classes);
+            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member, classes);
 
             builder.AddAttribute(++seq, "class", classes.Format());
 
@@ -38,9 +38,9 @@ namespace Integrant.Rudiment.Inputs
             InputBuilder.OpenInnerInput
             (
                 builder, ref seq,
-                member,
+                member.Member,
                 "input", "date",
-                "value", TransformValue(structure, value, member),
+                "value", TransformValue(structure.Structure, value, member.Member),
                 required, disabled,
                 args => OnChange(value, args)
             );
