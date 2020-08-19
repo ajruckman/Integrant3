@@ -80,7 +80,7 @@ namespace Integrant.Rudiment.Inputs
 
             //
 
-            object v = member.Member.InputValue.Invoke(value, member.Member);
+            string v = (string) member.Member.InputValue.Invoke(value, member.Member);
 
             if (_combobox == null)
             {
@@ -90,8 +90,12 @@ namespace Integrant.Rudiment.Inputs
                     () => member.Member.SelectableInputOptions.Invoke(value, member.Member)
                 );
 
-                _combobox.Select(v.ToString() ?? "");
-                
+
+                if (v != "")
+                {
+                    _combobox.Select(v);
+                }
+
                 _combobox.OnSelect += o => OnInput?.Invoke(value, o != null ? o.Value : default!);
             }
 

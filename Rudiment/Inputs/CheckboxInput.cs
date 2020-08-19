@@ -44,7 +44,7 @@ namespace Integrant.Rudiment.Inputs
             _checkbox ??= new Checkbox
             (
                 onToggle: c => OnInput?.Invoke(value, c),
-                isChecked: () => (bool) member.Member.InputValue.Invoke(value, member.Member),
+                isChecked: () => member.Member.InputValue.Invoke(value, member.Member) is bool b && b,
                 isDisabled: () => disabled
             );
 
