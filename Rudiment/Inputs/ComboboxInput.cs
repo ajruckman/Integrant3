@@ -1,28 +1,24 @@
 using System;
-using System.Collections.Generic;
 using Integrant.Element.Components.Combobox;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 
 namespace Integrant.Rudiment.Inputs
 {
-    public class ComboboxInput<TStructure, TID> : IInput<TStructure, TID>
+    public class ComboboxInput<TStructure, TID, TKey> : IInput<TStructure, TID> where TKey : IEquatable<TKey>
     {
-        public event Action<TStructure, TID>? OnInput;
-
-        public void Reset() { }
-
-        private Combobox<TID>? _combobox;
-
         public delegate TID Parser(string v);
+
+        private readonly MemberGetters.MemberSelectableInputOptions<TStructure, TID, TKey> _options;
+
+        private Combobox<TKey, TID>? _combobox;
 
         // private readonly Parser _parser;
 
-        public ComboboxInput()
+        public ComboboxInput(MemberGetters.MemberSelectableInputOptions<TStructure, TID, TKey> options)
         {
+            _options = options;
             // if (typeof(TID) == typeof(string))
             // {
             //     _parser = v => (TID) (object) v;
@@ -38,6 +34,10 @@ namespace Integrant.Rudiment.Inputs
             // }
         }
 
+        public event Action<TStructure, TID>? OnInput;
+
+        public void Reset() { }
+
         // public ComboboxInput(Parser p)
         // {
         //     _parser = p;
@@ -51,11 +51,7 @@ namespace Integrant.Rudiment.Inputs
             if (structure.JSRuntime == null)
                 throw new ArgumentException(
                     "StructureInstance passed to ComboboxInput does not have a set JSRuntime.",
-                    nameof(member.Member.SelectableInputOptions));
-            if (member.Member.SelectableInputOptions == null)
-                throw new ArgumentException(
-                    "Member passed to ComboboxInput does not have a set SelectableInputOptions getter.",
-                    nameof(member.Member.SelectableInputOptions));
+                    nameof(structure.JSRuntime));
 
             int seq = -1;
 
@@ -66,7 +62,7 @@ namespace Integrant.Rudiment.Inputs
             ClassSet classes = new ClassSet
             (
                 "Integrant.Element.Override.Input",
-                "Integrant.Rudiment.Input." + nameof(ComboboxInput<TStructure, TID>)
+                "Integrant.Rudiment.Input." + nameof(ComboboxInput<TStructure, TID, TKey>)
             );
 
             // TODO: required, disabled, placeholder
@@ -86,23 +82,23 @@ namespace Integrant.Rudiment.Inputs
 
             if (_combobox == null)
             {
-                _combobox = new Combobox<TID>
+                _combobox = new Combobox<TKey, TID>
                 (
                     structure.JSRuntime,
-                    () => member.Member.SelectableInputOptions.Invoke(value, member.Member),
+                    () => _options.Invoke(value, member.Member),
                     () => member.Member.InputIsDisabled?.Invoke(value, member.Member) == true,
                     () => member.Member.InputIsRequired?.Invoke(value, member.Member) == true,
                     member.Member.InputPlaceholder == null
-                        ? (Combobox<TID>.Placeholder?) null
+                        ? (Combobox<TKey, TID>.Placeholder?) null
                         : () => member.Member.InputPlaceholder.Invoke(value, member.Member)
                 );
 
-                if (!string.IsNullOrEmpty(v))
-                {
-                    _combobox.Select(v);
-                }
-
                 _combobox.OnSelect += o => OnInput?.Invoke(value, o != null ? o.Value : default!);
+            }
+
+            if (!string.IsNullOrEmpty(v))
+            {
+                _combobox.Select(v, false);
             }
 
             builder.AddContent(++seq, _combobox.Render());

@@ -7,18 +7,19 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Integrant.Rudiment.Inputs
 {
-    public class SelectInput<TStructure, TID> : IInput<TStructure, TID>
+    public class SelectInput<TStructure, TID, TKey> : IInput<TStructure, TID> where TKey : IEquatable<TKey>
     {
-        public event Action<TStructure, TID>? OnInput;
-
-        public void Reset() { }
-
         public delegate TID Parser(string v);
+
+        private readonly MemberGetters.MemberSelectableInputOptions<TStructure, TID, TKey> _options;
+
+        private Dictionary<TKey, TID>? _keyMap;
 
         // private readonly Parser _parser;
 
-        public SelectInput()
+        public SelectInput(MemberGetters.MemberSelectableInputOptions<TStructure, TID, TKey> options)
         {
+            _options = options;
             // if (typeof(TID) == typeof(string))
             // {
             //     _parser = v => (TID) (object) v;
@@ -34,6 +35,10 @@ namespace Integrant.Rudiment.Inputs
             // }
         }
 
+        public event Action<TStructure, TID>? OnInput;
+
+        public void Reset() { }
+
         // public SelectInput(Parser p)
         // {
         //     _parser = p;
@@ -44,11 +49,6 @@ namespace Integrant.Rudiment.Inputs
             StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TID> member
         ) => builder =>
         {
-            if (member.Member.SelectableInputOptions == null)
-                throw new ArgumentException(
-                    "Member passed to SelectInput does not have a set SelectableInputOptions getter.",
-                    nameof(member.Member.SelectableInputOptions));
-
             int seq = -1;
 
             builder.OpenElement(++seq, "div");
@@ -58,11 +58,11 @@ namespace Integrant.Rudiment.Inputs
             ClassSet classes = new ClassSet
             (
                 "Integrant.Element.Override.Input",
-                "Integrant.Rudiment.Input." + nameof(SelectInput<TStructure, TID>)
+                "Integrant.Rudiment.Input." + nameof(SelectInput<TStructure, TID, TKey>)
             );
 
-            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member,classes);
-            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member,classes);
+            bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member, classes);
+            bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member, classes);
 
             builder.AddAttribute(++seq, "class", classes.ToString());
 
@@ -84,11 +84,11 @@ namespace Integrant.Rudiment.Inputs
                 args => OnChange(value, args)
             );
 
-            _keyMap = new Dictionary<string, TID>();
+            _keyMap = new Dictionary<TKey, TID>();
 
             var anySelected = false;
 
-            foreach (IOption<TID>? option in member.Member.SelectableInputOptions.Invoke(value, member.Member))
+            foreach (IOption<TKey, TID>? option in _options.Invoke(value, member.Member))
             {
                 _keyMap[option.Key] = option.Value;
 
@@ -100,7 +100,7 @@ namespace Integrant.Rudiment.Inputs
                     builder.AddAttribute(seq, "disabled", "disabled");
 
                 ++seq;
-                if (option.Key == v?.ToString())
+                if (option.Key.Equals(v?.ToString()))
                 {
                     builder.AddAttribute(seq, "selected", "selected");
                     anySelected = true;
@@ -123,8 +123,6 @@ namespace Integrant.Rudiment.Inputs
 
             builder.CloseElement();
         };
-
-        private Dictionary<string, TID>? _keyMap;
 
         private void OnChange(TStructure value, ChangeEventArgs args)
         {

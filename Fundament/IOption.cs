@@ -1,11 +1,11 @@
 namespace Integrant.Fundament
 {
-    public interface IOption<TValue>
+    public interface IOption<TKey, TValue>
     {
         /// <summary>
         /// The value by which to equate one option with another.
         /// </summary>
-        string Key { get; }
+        TKey Key { get; }
 
         /// <summary>
         /// The value which this option represents.

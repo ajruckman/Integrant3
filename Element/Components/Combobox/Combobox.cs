@@ -13,9 +13,9 @@ using Microsoft.JSInterop;
 
 namespace Integrant.Element.Components.Combobox
 {
-    public sealed class Combobox<T>
+    public sealed class Combobox<TKey, TValue> where TKey : IEquatable<TKey>
     {
-        public delegate IEnumerable<IOption<T>> OptionGetter();
+        public delegate IEnumerable<IOption<TKey, TValue>> OptionGetter();
 
         public delegate bool IsDisabled();
 
@@ -29,13 +29,13 @@ namespace Integrant.Element.Components.Combobox
         private readonly IsRequired?  _isRequired;
         private readonly Placeholder? _placeholder;
 
-        private ElementReference  _elementRef;
-        private List<IOption<T>>? _options;
-        private bool              _shown;
-        private bool              _justSelected;
-        private string?           _searchTerm;
-        private IOption<T>?       _selected;
-        private IOption<T>?       _focused;
+        private ElementReference             _elementRef;
+        private List<IOption<TKey, TValue>>? _options;
+        private bool                         _shown;
+        private bool                         _justSelected;
+        private string?                      _searchTerm;
+        private IOption<TKey, TValue>?       _selected;
+        private IOption<TKey, TValue>?       _focused;
 
         public Combobox
         (
@@ -53,11 +53,11 @@ namespace Integrant.Element.Components.Combobox
             _placeholder  = placeholder;
         }
 
-        public event Action<IOption<T>?>? OnSelect;
-        public event Action<IOption<T>?>? OnFocus;
-        public event Action<string?>?     OnSetSearchTerm;
-        public event Action?              OnShow;
-        public event Action?              OnHide;
+        public event Action<IOption<TKey, TValue>?>? OnSelect;
+        public event Action<IOption<TKey, TValue>?>? OnFocus;
+        public event Action<string?>?                OnSetSearchTerm;
+        public event Action?                         OnShow;
+        public event Action?                         OnHide;
 
         //
 
@@ -68,13 +68,13 @@ namespace Integrant.Element.Components.Combobox
                 : _selected?.SelectionText ?? (_searchTerm ?? "");
         }
 
-        private List<IOption<T>> Options() =>
+        private List<IOption<TKey, TValue>> Options() =>
             _options ??= _optionGetter.Invoke().ToList();
 
-        private List<IOption<T>> OptionsFiltered() =>
+        private List<IOption<TKey, TValue>> OptionsFiltered() =>
             _searchTerm == null ? Options() : Options().Where(Matches).ToList();
 
-        private bool Matches(IOption<T> o)
+        private bool Matches(IOption<TKey, TValue> o)
         {
             return _searchTerm == null || o.OptionText.IndexOf(_searchTerm, StringComparison.OrdinalIgnoreCase) >= 0;
         }
@@ -97,7 +97,7 @@ namespace Integrant.Element.Components.Combobox
             OnSetSearchTerm?.Invoke(term);
         }
 
-        public void Select(IOption<T> o)
+        public void Select(IOption<TKey, TValue> o, bool update = true)
         {
             _selected = o;
             Focus(o);
@@ -105,12 +105,13 @@ namespace Integrant.Element.Components.Combobox
             Hide();
             _justSelected = true;
 
-            OnSelect?.Invoke(o);
+            if (update)
+                OnSelect?.Invoke(o);
         }
 
-        public void Select(string key)
+        public void Select(string key, bool update = true)
         {
-            Select(Options().Single(v => v.Key == key));
+            Select(Options().Single(v => v.Key.Equals(key)), update);
         }
 
         public void Deselect()
@@ -119,7 +120,7 @@ namespace Integrant.Element.Components.Combobox
             OnSelect?.Invoke(null);
         }
 
-        private void Focus(IOption<T> o)
+        private void Focus(IOption<TKey, TValue> o)
         {
             _focused = o;
             OnFocus?.Invoke(o);
@@ -166,9 +167,9 @@ namespace Integrant.Element.Components.Combobox
                 Show();
             }
 
-            List<IOption<T>> users = OptionsFiltered();
+            List<IOption<TKey, TValue>> users = OptionsFiltered();
 
-            IOption<T>? first = users.FirstOrDefault();
+            IOption<TKey, TValue>? first = users.FirstOrDefault();
             if (first == null)
             {
                 Console.WriteLine("No first");
@@ -183,9 +184,9 @@ namespace Integrant.Element.Components.Combobox
                         Focus(first);
                         Console.WriteLine($"Setting to first: {_focused!.Key}");
                     }
-                    else if (_focused.Key != first.Key)
+                    else if (!_focused.Key.Equals(first.Key))
                     {
-                        int previousIndex = users.FindIndex(v => v.Key == _focused.Key) - 1;
+                        int previousIndex = users.FindIndex(v => v.Key.Equals(_focused.Key)) - 1;
                         Focus(users[previousIndex]);
                         Console.WriteLine($"Setting to previous: {_focused.Key}");
                     }
@@ -204,7 +205,7 @@ namespace Integrant.Element.Components.Combobox
                     }
                     else
                     {
-                        int nextIndex = users.FindIndex(v => v.Key == _focused.Key) + 1;
+                        int nextIndex = users.FindIndex(v => v.Key.Equals(_focused.Key)) + 1;
                         if (nextIndex < users.Count)
                         {
                             Focus(users[nextIndex]);
@@ -246,7 +247,7 @@ namespace Integrant.Element.Components.Combobox
         private void OnOptionMouseDown(MouseEventArgs args) { }
 
         // ReSharper disable once UnusedParameter.Local
-        private void OnOptionClick(MouseEventArgs _, IOption<T> o)
+        private void OnOptionClick(MouseEventArgs _, IOption<TKey, TValue> o)
         {
             Select(o);
         }
@@ -268,7 +269,7 @@ namespace Integrant.Element.Components.Combobox
         private sealed class Component : ComponentBase
         {
             [Parameter]
-            public Combobox<T> Combobox { get; set; } = null!;
+            public Combobox<TKey, TValue> Combobox { get; set; } = null!;
 
             protected override void OnInitialized()
             {
@@ -323,7 +324,7 @@ namespace Integrant.Element.Components.Combobox
                 if (Combobox._isRequired?.Invoke() == true && Combobox._selected == null)
                     classes.Add("Integrant.Element.Override.Input:FailsRequirement");
 
-                b.AddAttribute(++seq, "class", ((Object) classes).ToString());
+                b.AddAttribute(++seq, "class", classes.ToString());
 
                 b.OpenElement(++seq, "input");
                 b.AddAttribute(++seq, "type",               "text");
@@ -363,10 +364,10 @@ namespace Integrant.Element.Components.Combobox
 
                 for (var i = 0; i < Combobox.Options().Count; i++)
                 {
-                    IOption<T> o        = Combobox.Options()[i];
-                    bool       selected = Combobox._selected?.Key == o.Key;
-                    bool       focused  = Combobox._focused?.Key  == o.Key;
-                    bool       matches  = Combobox.Matches(o);
+                    IOption<TKey, TValue> o        = Combobox.Options()[i];
+                    bool                  selected = Combobox._selected?.Key.Equals(o.Key) == true;
+                    bool                  focused  = Combobox._focused?.Key.Equals(o.Key)  == true;
+                    bool                  matches  = Combobox.Matches(o);
 
                     b.OpenElement(++seq2, "div");
                     b.AddAttribute(++seq,  "class",         "Integrant.Element.Component.Combobox.Option");
