@@ -55,7 +55,7 @@ namespace Integrant.Rudiment.Inputs
                 "Integrant.Rudiment.Input." + nameof(DateTimeInput<TStructure>)
             );
 
-            builder.AddAttribute(++seq, "class", classes.Format());
+            builder.AddAttribute(++seq, "class", classes.ToString());
 
             //
 

@@ -45,7 +45,7 @@ namespace Integrant.Rudiment.Components
             
             builder.OpenElement(++seq, Element ?? "div");
             
-            builder.AddAttribute(++seq, "class", classes.Format());
+            builder.AddAttribute(++seq, "class", classes.ToString());
             
             if (!shown)
                 builder.AddAttribute(++seq, "hidden", "hidden");

@@ -26,15 +26,21 @@ div[class~="Integrant.Element.Override.Input"] {
         width: calc(100% - 2px);
     }
 
-    &[class~="Integrant.Element.Override.Input:FailsRequirement"] {
-        input, textarea {
-            border: 1px solid red;
-        }
-    }
-
     &[class~="Integrant.Element.Override.Input:Disabled"] {
         * {
             cursor: not-allowed;
+        }
+
+        input, textarea, select {
+            background-color: var(--Colorant_Default_Background_1);
+            border:           1px solid var(--Colorant_Default_Border_1);
+            color:            var(--Colorant_Default_Text_1);
+        }
+    }
+
+    &[class~="Integrant.Element.Override.Input:FailsRequirement"] {
+        input, textarea {
+            border: 1px solid red;
         }
     }
 

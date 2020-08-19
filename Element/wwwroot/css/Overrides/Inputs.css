@@ -18,11 +18,16 @@ div[class~="Integrant.Element.Override.Input"] input, div[class~="Integrant.Elem
 div[class~="Integrant.Element.Override.Input"] input[type="text"], div[class~="Integrant.Element.Override.Input"] textarea {
   width: calc(100% - 2px); }
 
-div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:FailsRequirement"] input, div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:FailsRequirement"] textarea {
-  border: 1px solid red; }
-
 div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Disabled"] * {
   cursor: not-allowed; }
+
+div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Disabled"] input, div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Disabled"] textarea, div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Disabled"] select {
+  background-color: var(--Colorant_Default_Background_1);
+  border: 1px solid var(--Colorant_Default_Border_1);
+  color: var(--Colorant_Default_Text_1); }
+
+div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:FailsRequirement"] input, div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:FailsRequirement"] textarea {
+  border: 1px solid red; }
 
 div[class~="Integrant.Element.Override.Input"][class~="Integrant.Element.Override.Input:Composite"] {
   align-items: center;

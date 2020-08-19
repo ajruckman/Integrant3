@@ -17,8 +17,17 @@ namespace Integrant.Element.Components.Combobox
     {
         public delegate IEnumerable<IOption<T>> OptionGetter();
 
+        public delegate bool IsDisabled();
+
+        public delegate bool IsRequired();
+
+        public delegate string Placeholder();
+
         private readonly IJSRuntime   _jsRuntime;
         private readonly OptionGetter _optionGetter;
+        private readonly IsDisabled?  _isDisabled;
+        private readonly IsRequired?  _isRequired;
+        private readonly Placeholder? _placeholder;
 
         private ElementReference  _elementRef;
         private List<IOption<T>>? _options;
@@ -28,10 +37,20 @@ namespace Integrant.Element.Components.Combobox
         private IOption<T>?       _selected;
         private IOption<T>?       _focused;
 
-        public Combobox(IJSRuntime jsRuntime, OptionGetter optionGetter)
+        public Combobox
+        (
+            IJSRuntime   jsRuntime,
+            OptionGetter optionGetter,
+            IsDisabled?  isDisabled  = null,
+            IsRequired?  isRequired  = null,
+            Placeholder? placeholder = null
+        )
         {
             _jsRuntime    = jsRuntime;
             _optionGetter = optionGetter;
+            _isDisabled   = isDisabled;
+            _isRequired   = isRequired;
+            _placeholder  = placeholder;
         }
 
         public event Action<IOption<T>?>? OnSelect;
@@ -119,13 +138,15 @@ namespace Integrant.Element.Components.Combobox
 
         private void OnInputClick(MouseEventArgs args)
         {
-            if (args.Button != 0) return;
+            if (args.Button           != 0) return;
+            if (_isDisabled?.Invoke() == true) return;
             Show();
             Console.WriteLine("Click");
         }
 
         private void OnInputFocus(FocusEventArgs args)
         {
+            if (_isDisabled?.Invoke() == true) return;
             Show();
             Console.WriteLine("Focus");
         }
@@ -200,7 +221,7 @@ namespace Integrant.Element.Components.Combobox
                     }
 
                     break;
-                
+
                 case "Escape":
                     Hide();
 
@@ -290,13 +311,30 @@ namespace Integrant.Element.Components.Combobox
                 // Input
 
                 b.OpenElement(++seq, "div");
-                b.AddAttribute(++seq, "class",
-                    "Integrant.Element.Component.Combobox.Input Integrant.Element.Override.Input");
+
+                var classes = new ClassSet(
+                    "Integrant.Element.Component.Combobox.Input",
+                    "Integrant.Element.Override.Input"
+                );
+
+                if (Combobox._isDisabled?.Invoke() == true)
+                    classes.Add("Integrant.Element.Override.Input:Disabled");
+
+                if (Combobox._isRequired?.Invoke() == true && Combobox._selected == null)
+                    classes.Add("Integrant.Element.Override.Input:FailsRequirement");
+
+                b.AddAttribute(++seq, "class", ((Object) classes).ToString());
 
                 b.OpenElement(++seq, "input");
                 b.AddAttribute(++seq, "type",               "text");
                 b.AddAttribute(++seq, "value",              Combobox.InputValue());
-                b.AddAttribute(++seq, "data-has-selection", Combobox._selected != null);
+                b.AddAttribute(++seq, "data-has-selection", Combobox._selected             != null);
+                b.AddAttribute(++seq, "disabled",           Combobox._isDisabled?.Invoke() == true);
+                b.AddAttribute(++seq, "required",           Combobox._isRequired?.Invoke() == true);
+
+                ++seq;
+                if (Combobox._placeholder != null)
+                    b.AddAttribute(seq, "placeholder", Combobox._placeholder.Invoke());
 
                 b.AddAttribute(++seq, "onclick",
                     EventCallback.Factory.Create<MouseEventArgs>(this, Combobox.OnInputClick));

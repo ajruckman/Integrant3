@@ -208,12 +208,15 @@ namespace Integrant.Web
                     new Option<string>("Three", "Three", "Three"),
                 }
             ));
-            
+
             Structure.Register(new Member<User, string>(
                 nameof(User.DepartmentType2),
                 (v,               m) => v.DepartmentType2,
                 valueUpdater: (v, m, mv) => v.DepartmentType2 = mv,
                 input: () => new ComboboxInput<User, string>(),
+                inputPlaceholder: (v, m) => $"Placeholder = {v.CreatedBy}",
+                inputIsDisabled: (v, m) => !v.Boolean,
+                inputIsRequired: (v, m) => true,
                 selectableInputOptions: (v, m) => new List<IOption<string>>
                 {
                     new Option<string>("One",   "One",   "One"),

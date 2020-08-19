@@ -64,7 +64,7 @@ namespace Integrant.Rudiment.Inputs
             bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member,classes);
             bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member,classes);
 
-            builder.AddAttribute(++seq, "class", classes.Format());
+            builder.AddAttribute(++seq, "class", classes.ToString());
 
             if (member.Member.InputPlaceholder != null)
                 builder.AddAttribute(++seq, "placeholder",

@@ -46,7 +46,7 @@ namespace Integrant.Rudiment.Components
 
             builder.OpenElement(++seq, "div");
 
-            builder.AddAttribute(++seq, "class", classSet.Format());
+            builder.AddAttribute(++seq, "class", classSet.ToString());
 
             builder.AddContent(++seq, _member.Input!.Render(StructureInstance, Value, _member));
 

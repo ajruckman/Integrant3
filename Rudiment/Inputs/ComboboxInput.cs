@@ -70,11 +70,11 @@ namespace Integrant.Rudiment.Inputs
             );
 
             // TODO: required, disabled, placeholder
-            
+
             bool required = InputBuilder.Required(builder, ref seq, structure.Structure, value, member.Member, classes);
             bool disabled = InputBuilder.Disabled(builder, ref seq, structure.Structure, value, member.Member, classes);
 
-            builder.AddAttribute(++seq, "class", classes.Format());
+            builder.AddAttribute(++seq, "class", classes.ToString());
 
             // if (member.InputPlaceholder != null)
             //     builder.AddAttribute(++seq, "placeholder",
@@ -89,7 +89,12 @@ namespace Integrant.Rudiment.Inputs
                 _combobox = new Combobox<TID>
                 (
                     structure.JSRuntime,
-                    () => member.Member.SelectableInputOptions.Invoke(value, member.Member)
+                    () => member.Member.SelectableInputOptions.Invoke(value, member.Member),
+                    () => member.Member.InputIsDisabled?.Invoke(value, member.Member) == true,
+                    () => member.Member.InputIsRequired?.Invoke(value, member.Member) == true,
+                    member.Member.InputPlaceholder == null
+                        ? (Combobox<TID>.Placeholder?) null
+                        : () => member.Member.InputPlaceholder.Invoke(value, member.Member)
                 );
 
                 if (!string.IsNullOrEmpty(v))
@@ -101,7 +106,7 @@ namespace Integrant.Rudiment.Inputs
             }
 
             builder.AddContent(++seq, _combobox.Render());
-            
+
             builder.CloseElement();
         };
     }
