@@ -16,6 +16,8 @@ namespace Integrant.Rudiment.Components
         [CascadingParameter(Name = "Integrant.Rudiment.Member.ID")]
         public string ID { get; set; } = null!;
 
+        // private readonly Restrictor _restrictor = new Restrictor();
+        
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             Member<TS, TM> member = StructureInstance.Structure.GetMember<TM>(ID);

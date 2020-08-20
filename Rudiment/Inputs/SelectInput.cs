@@ -53,36 +53,16 @@ namespace Integrant.Rudiment.Inputs
 
             //
 
-            object?            v             = member.Member.InputValue.Invoke(value, member.Member);
-            List<IOption<TID>> options       = _options.Invoke(value, member.Member).ToList();
-            int?               selectedIndex = null;
+            List<IOption<TID>> options = _options.Invoke(value, member.Member).ToList();
+            object?            v       = member.Member.InputValue.Invoke(value, member.Member);
 
-            void Fragment(RenderTreeBuilder b)
+            int? selectedIndex = null;
+
+            if (v != null)
             {
-                int iSeq = -1;
-
-                for (var i = 0; i < options.Count; i++)
-                {
-                    IOption<TID> option = options[i];
-                    _keyMap[i] = option.Value;
-
-                    builder.OpenElement(++iSeq, "option");
-                    builder.AddAttribute(++iSeq, "value", i);
-
-                    ++iSeq;
-                    if (option.Disabled)
-                        builder.AddAttribute(iSeq, "disabled", "disabled");
-
-                    ++iSeq;
-                    if (option.Value.Equals(v))
-                    {
-                        builder.AddAttribute(iSeq, "selected", "selected");
-                        selectedIndex = i;
-                    }
-
-                    builder.AddContent(++iSeq, option.OptionText);
-                    builder.CloseElement();
-                }
+                selectedIndex = options.FindIndex(q => q.Value.Equals(v));
+                if (selectedIndex == -1) selectedIndex = null;
+                Console.WriteLine($"Selected index: {selectedIndex}");
             }
 
             InputBuilder.OpenInnerInput
@@ -97,9 +77,37 @@ namespace Integrant.Rudiment.Inputs
 
             _keyMap = new Dictionary<int, TID>();
 
+            //
+
             builder.OpenRegion(++seq);
-            builder.AddContent(++seq, Fragment);
+            int iSeq = -1;
+            for (var i = 0; i < options.Count; i++)
+            {
+                IOption<TID> option = options[i];
+                _keyMap[i] = option.Value;
+
+                builder.OpenElement(++iSeq, "option");
+                builder.AddAttribute(++iSeq, "value", i);
+
+                ++iSeq;
+                if (option.Disabled)
+                {
+                    builder.AddAttribute(iSeq, "disabled", "disabled");
+                }
+
+                ++iSeq;
+                if (option.Value.Equals(v))
+                {
+                    builder.AddAttribute(iSeq, "selected", "selected");
+                }
+
+                builder.AddContent(++iSeq, option.OptionText);
+                builder.CloseElement();
+            }
+
             builder.CloseRegion();
+
+            //
 
             if (selectedIndex == null)
             {

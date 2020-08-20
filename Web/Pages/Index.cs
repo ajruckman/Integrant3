@@ -128,7 +128,6 @@ namespace Integrant.Web.Pages
 
         protected override void OnAfterRender(bool firstRender)
         {
-            Console.WriteLine("---");
             // throw new Exception();
             if (!firstRender) { }
         }
