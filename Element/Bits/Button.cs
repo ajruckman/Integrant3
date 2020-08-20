@@ -26,7 +26,7 @@ namespace Integrant.Element.Bits
 
         private readonly Func<ClickArgs, Task> _onClick;
         private readonly ColorGetter           _color;
-
+        
         public Button
         (
             BitGetters.BitContent        content,
@@ -154,9 +154,9 @@ namespace Integrant.Element.Bits
             builder.CloseElement();
         };
 
-        private void Click(MouseEventArgs args)
+        private async Task Click(MouseEventArgs args)
         {
-            _onClick.Invoke(new ClickArgs
+            await _onClick.Invoke(new ClickArgs
             (
                 (ushort) args.Button,
                 (ushort) args.ClientX,

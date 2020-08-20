@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Integrant.Colorant.Themes.Solids;
 using Integrant.Element;
 using Integrant.Element.Bits;
+using Integrant.Element.Components.Modal;
 using Integrant.Element.Constructs;
 using Integrant.Element.Layouts;
 using Integrant.Fundament;
@@ -24,6 +25,8 @@ namespace Integrant.Web.Components
         private Button       _colorChangingButton      = null!;
         private Button.Color _colorChangingButtonColor = Button.Color.Default;
         private ButtonGroup  _buttonGroup;
+
+        private Modal _modal1 = null!;
 
         protected override void OnInitialized()
         {
@@ -86,7 +89,7 @@ namespace Integrant.Web.Components
 
             _buttonGroup = new ButtonGroup(new List<Button>
             {
-                new Button(() => "Button 1!", _ => { }),
+                new Button(() => "Modal button!", _ => _modal1.Show()),
                 new Button(() => "Button blue!", async _ => await Console.Out.WriteLineAsync("async"),
                     () => Button.Color.Blue),
                 new Button(() => "Button green!",  _ => { }, () => Button.Color.Green, isDisabled: () => true),
@@ -95,6 +98,16 @@ namespace Integrant.Web.Components
                 new Button(() => "Button red!",    _ => { }, () => Button.Color.Default),
                 new Button(() => "Button yellow!", _ => { }, () => Button.Color.Default),
             });
+
+            _modal1 = new Modal();
+        }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (firstRender)
+            {
+                _modal1.Show();
+            }
         }
 
         //

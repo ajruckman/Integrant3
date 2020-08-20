@@ -1,6 +1,7 @@
 @using Integrant.Element
 @using Integrant.Element.Bits
 @using Integrant.Element.Components
+@using Integrant.Element.Components.Modal
 @using Integrant.Colorant.Themes.Solids
 @using Integrant.Element.Constructs
 @using Integrant.Resources.Icons.MaterialIcons
@@ -56,13 +57,13 @@
 
 <br>
 
-@((new Spinner()).Render())
-@((new Spinner(() => 100)).Render())
-@((new Spinner(() => 25)).Render())
-@((new Spinner(() => 35, thickness: () => 2, display: () => Display.Block)).Render())
-
-<CenteredSpinner/>
-<CenteredSpinner style="padding: 25px;"/>
+@* @((new Spinner()).Render()) *@
+@* @((new Spinner(() => 100)).Render()) *@
+@* @((new Spinner(() => 25)).Render()) *@
+@* @((new Spinner(() => 35, thickness: () => 2, display: () => Display.Block)).Render()) *@
+@* *@
+@* <CenteredSpinner/> *@
+@* <CenteredSpinner style="padding: 25px;"/> *@
 
 <br>
 
@@ -111,3 +112,10 @@
 <br>
 @(new MonoBlock(() => "MonoBlock content").Render())
 @(new MonoBlock(() => "MonoBlock content", fontWeight: () => 600, fontSize: () => 1.5, padding: () => new Size(10, 0)).Render())
+
+<ModalContent Modal="@_modal1">
+    <ModalHeading>Modal 1 content!</ModalHeading>
+    <p>asdf</p>
+    <br>
+    @(new Chip(() => "A chip", backgroundColor: () => Constants.Red_7, foregroundColor: () => Constants.Red_7_Text).Render())
+</ModalContent>

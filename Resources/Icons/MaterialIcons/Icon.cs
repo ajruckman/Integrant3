@@ -19,7 +19,13 @@ namespace Integrant.Resources.Icons.MaterialIcons
         //     ID   = id;
         //     Size = size;
         // }
-
+        //
+        // public Icon(string id, ushort size = 24)
+        // {
+        //     ID   = id;
+        //     Size = size;
+        // }
+        
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             int seq = -1;

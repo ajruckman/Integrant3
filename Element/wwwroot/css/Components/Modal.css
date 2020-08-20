@@ -1,0 +1,39 @@
+div[class~="Integrant.Element.Component.Modal"] {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  flex-direction: column;
+  height: 100%;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 150; }
+  div[class~="Integrant.Element.Component.Modal"][class~="Integrant.Element.Component.Modal:Shown"] {
+    display: flex; }
+  div[class~="Integrant.Element.Component.Modal"] div[class~="Integrant.Element.Component.Modal.Constrainer"] {
+    width: 100%; }
+    div[class~="Integrant.Element.Component.Modal"] div[class~="Integrant.Element.Component.Modal.Constrainer"] div[class~="Integrant.Element.Component.Modal.Content"] {
+      background-color: var(--Colorant_Default_Background_5);
+      margin-top: 100px;
+      opacity: 1;
+      padding: 16px;
+      position: relative; }
+      div[class~="Integrant.Element.Component.Modal"] div[class~="Integrant.Element.Component.Modal.Constrainer"] div[class~="Integrant.Element.Component.Modal.Content"] span[class~="Integrant.Element.Component.Modal.CloseButton"] {
+        color: var(--Colorant_Solids_Red_9);
+        cursor: pointer;
+        position: absolute;
+        right: 7px;
+        top: 7px; }
+        div[class~="Integrant.Element.Component.Modal"] div[class~="Integrant.Element.Component.Modal.Constrainer"] div[class~="Integrant.Element.Component.Modal.Content"] span[class~="Integrant.Element.Component.Modal.CloseButton"]:hover {
+          color: var(--Colorant_Solids_Red_7); }
+        div[class~="Integrant.Element.Component.Modal"] div[class~="Integrant.Element.Component.Modal.Constrainer"] div[class~="Integrant.Element.Component.Modal.Content"] span[class~="Integrant.Element.Component.Modal.CloseButton"]:active {
+          color: var(--Colorant_Solids_Red_5); }
+      div[class~="Integrant.Element.Component.Modal"] div[class~="Integrant.Element.Component.Modal.Constrainer"] div[class~="Integrant.Element.Component.Modal.Content"] div[class~="Integrant.Element.Component.Modal.Heading"] {
+        border-bottom: 1px solid red;
+        font-size: 1.5rem;
+        font-weight: 600;
+        width: 100%; }
+
+/*# sourceMappingURL=Modal.css.map */
