@@ -44,21 +44,20 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
     });
 
     //
-    
+
     let hasMovedToTop = false;
 
     const visibilityObserver = new MutationObserver((r) => {
-        r.forEach((m) => {
+        for (const m of r) {
             if (m.type === "attributes" && m.attributeName === "data-shown") {
                 popper.update();
 
                 if (!hasMovedToTop) {
                     dropdownElem.scrollTop = 0;
-                    // console.log(dropdownElem);
                     hasMovedToTop = true;
                 }
             }
-        });
+        }
     });
 
     visibilityObserver.observe(dropdownElem, {
@@ -67,9 +66,7 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
     });
 
     const focusedOptionObserver = new MutationObserver((r) => {
-        for (let i = 0; i < r.length; i++) {
-            let m = r[i];
-
+        for (const m of r) {
             if (m.type === "attributes" && m.attributeName === "data-focused") {
                 let focusedOption = dropdownElem.querySelector("[data-focused]");
                 if (focusedOption != null) {
@@ -82,9 +79,10 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
 
     focusedOptionObserver.observe(dropdownElem, {
         attributes: true,
+        attributeFilter: ["data-focused"],
         subtree: true,
     });
-    
+
     //
 
     inputElem.addEventListener("click", () => {

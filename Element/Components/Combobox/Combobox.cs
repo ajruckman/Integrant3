@@ -259,7 +259,10 @@ namespace Integrant.Element.Components.Combobox
         // ReSharper disable once UnusedParameter.Local
         private void OnOptionClick(MouseEventArgs _, IOption<T> o)
         {
-            Select(o);
+            if (!o.Disabled)
+            {
+                Select(o);
+            }
         }
 
         // private void OnOptionKeyDown(KeyboardEventArgs args, IOption<T> o)
@@ -388,20 +391,13 @@ namespace Integrant.Element.Components.Combobox
                     b.AddAttribute(++seq2, "data-selected", selected);
                     b.AddAttribute(++seq2, "data-disabled", o.Disabled);
 
-                    if (!o.Disabled)
-                    {
-                        b.AddAttribute(++seq2, "onmousedown",
-                            EventCallback.Factory.Create<MouseEventArgs>(this, Combobox.OnOptionMouseDown));
-                        b.AddEventPreventDefaultAttribute(++seq2, "onmousedown", true);
+                    b.AddAttribute(++seq2, "onmousedown",
+                        EventCallback.Factory.Create<MouseEventArgs>(this, Combobox.OnOptionMouseDown));
+                    b.AddEventPreventDefaultAttribute(++seq2, "onmousedown", true);
 
-                        b.AddAttribute(++seq2, "onclick",
-                            EventCallback.Factory.Create<MouseEventArgs>(this,
-                                args => Combobox.OnOptionClick(args, o)));
-                    }
-                    else
-                    {
-                        seq2 += 3;
-                    }
+                    b.AddAttribute(++seq2, "onclick",
+                        EventCallback.Factory.Create<MouseEventArgs>(this,
+                            args => Combobox.OnOptionClick(args, o)));
 
                     // b.AddAttribute(++seq2, "onkeydown",
                     // EventCallback.Factory.Create<KeyboardEventArgs>(this, args => OnOptionKeyDown(args, o)));
