@@ -106,7 +106,7 @@ namespace Integrant.Web.Components
         {
             if (firstRender)
             {
-                _modal1.Show();
+                // _modal1.Show();
             }
         }
 

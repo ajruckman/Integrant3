@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
@@ -31,12 +32,33 @@ namespace Integrant.Element.Components.Combobox
 
         private ElementReference  _elementRef;
         private List<IOption<T>>? _options;
-        private bool              _shown;
+        private List<IOption<T>>? _optionsFiltered;
+
+        private bool Shown
+        {
+            get => _shown;
+            set
+            {
+                if (!value)
+                {
+                    // var st = new StackTrace();
+                    // foreach (StackFrame stackFrame in st.GetFrames())
+                    // {
+                    //     Console.Write(stackFrame.ToString());
+                    // }
+                    //
+                    // Console.WriteLine("---");
+                }
+                _shown = value;
+            }
+        }
+
         private bool              _justSelected;
         private string?           _searchTerm;
         private IOption<T>?       _selected;
         private IOption<T>?       _focused;
         private Action            _stateHasChanged = null!;
+        private bool              _shown;
 
         public Combobox
         (
@@ -47,6 +69,8 @@ namespace Integrant.Element.Components.Combobox
             Placeholder? placeholder = null
         )
         {
+            Console.WriteLine("<- CONSTRUCTED ->");
+            
             _jsRuntime    = jsRuntime;
             _optionGetter = optionGetter;
             _isDisabled   = isDisabled;
@@ -65,14 +89,13 @@ namespace Integrant.Element.Components.Combobox
         public void InvalidateOptions(OptionGetter optionGetter)
         {
             _optionGetter = optionGetter;
-            _optionGetter = optionGetter;
             _options      = null;
             // _stateHasChanged.Invoke();
         }
 
         private string InputValue()
         {
-            return _shown
+            return Shown
                 ? _focused?.SelectionText  ?? _selected?.SelectionText ?? (_searchTerm ?? "")
                 : _selected?.SelectionText ?? (_searchTerm ?? "");
         }
@@ -80,8 +103,12 @@ namespace Integrant.Element.Components.Combobox
         private List<IOption<T>> Options() =>
             _options ??= _optionGetter.Invoke().ToList();
 
-        private List<IOption<T>> OptionsFiltered() =>
-            _searchTerm == null ? Options() : Options().Where(Matches).ToList();
+        private List<IOption<T>> OptionsFiltered()
+        {
+            if (_searchTerm == null) return Options();
+
+            return _optionsFiltered ??= Options().Where(Matches).ToList();
+        }
 
         private bool Matches(IOption<T> o)
         {
@@ -90,19 +117,21 @@ namespace Integrant.Element.Components.Combobox
 
         public void Show()
         {
-            _shown = true;
+            Shown = true;
             OnShow?.Invoke();
         }
 
         public void Hide()
         {
-            _shown = false;
+            Console.WriteLine("HIDE");
+            Shown = false;
             OnHide?.Invoke();
         }
 
         public void SetSearchTerm(string? term)
         {
-            _searchTerm = term;
+            _searchTerm      = term;
+            _optionsFiltered = null;
             OnSetSearchTerm?.Invoke(term);
         }
 
@@ -111,15 +140,19 @@ namespace Integrant.Element.Components.Combobox
             _selected = o;
             Focus(o);
             SetSearchTerm(null);
-            Hide();
             _justSelected = true;
 
             if (update)
+            {
+                Hide();
                 OnSelect?.Invoke(o);
+            }
         }
 
         // public void Select(string key, bool update = true)
+
         // {
+
         //     Select(Options().Single(v => v.Key == key), update);
         // }
 
@@ -177,12 +210,13 @@ namespace Integrant.Element.Components.Combobox
 
         private void OnInputBlur(FocusEventArgs args)
         {
+            Console.WriteLine("BLUR");
             Hide();
         }
 
         private void OnInputKeyDown(KeyboardEventArgs args)
         {
-            if ((args.Key == "ArrowUp" || args.Key == "ArrowDown") && !_shown)
+            if ((args.Key == "ArrowUp" || args.Key == "ArrowDown") && !Shown)
             {
                 Show();
             }
@@ -247,8 +281,8 @@ namespace Integrant.Element.Components.Combobox
         {
             var v = args.Value?.ToString();
             SetSearchTerm(string.IsNullOrEmpty(v) ? null : v);
-            Deselect();
             Show();
+            Deselect();
         }
 
         //
@@ -288,6 +322,11 @@ namespace Integrant.Element.Components.Combobox
                 Combobox._stateHasChanged = StateHasChanged;
             }
 
+            protected override void OnInitialized()
+            {
+                Console.WriteLine("<- INITIALIZED ->");
+            }
+
             protected override void OnAfterRender(bool firstRender)
             {
                 if (firstRender)
@@ -302,9 +341,9 @@ namespace Integrant.Element.Components.Combobox
                     // Combobox._dropdownRef);
                 }
 
-                if (Combobox._shown) { }
+                if (Combobox.Shown) { }
 
-                if (Combobox._justSelected && Combobox._shown)
+                if (Combobox._justSelected && Combobox.Shown)
                 {
                     Combobox._justSelected = false;
                     if (Combobox._selected != null)
@@ -370,7 +409,8 @@ namespace Integrant.Element.Components.Combobox
 
                 b.OpenElement(++seq, "div");
                 b.AddAttribute(++seq, "class",      "Integrant.Element.Component.Combobox.Dropdown");
-                b.AddAttribute(++seq, "data-shown", Combobox._shown);
+                b.AddAttribute(++seq, "data-shown", Combobox.Shown);
+                Console.WriteLine($"Shown: {Combobox.Shown, -6} | Search term: {Combobox._searchTerm}");
 
                 b.OpenRegion(++seq);
 

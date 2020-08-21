@@ -36,6 +36,8 @@ function ensureInView(container, element) {
 
 window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobox || function (elementRef) {
 
+    console.log(elementRef);
+    
     const inputElem = elementRef.querySelector("div[class~='Integrant.Element.Component.Combobox.Input'] > input");
     const dropdownElem = elementRef.querySelector("div[class~='Integrant.Element.Component.Combobox.Dropdown']");
 
@@ -47,41 +49,41 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
 
     let hasMovedToTop = false;
 
-    const visibilityObserver = new MutationObserver((r) => {
-        for (const m of r) {
-            if (m.type === "attributes" && m.attributeName === "data-shown") {
-                popper.update();
+    // const visibilityObserver = new MutationObserver((r) => {
+    //     for (const m of r) {
+    //         if (m.type === "attributes" && m.attributeName === "data-shown") {
+    //             popper.update();
+    //
+    //             if (!hasMovedToTop) {
+    //                 dropdownElem.scrollTop = 0;
+    //                 hasMovedToTop = true;
+    //             }
+    //         }
+    //     }
+    // });
+    //
+    // visibilityObserver.observe(dropdownElem, {
+    //     attributes: true,
+    //     attributeFilter: ["data-shown"],
+    // });
+    //
+    // const focusedOptionObserver = new MutationObserver((r) => {
+    //     for (const m of r) {
+    //         if (m.type === "attributes" && m.attributeName === "data-focused") {
+    //             let focusedOption = dropdownElem.querySelector("[data-focused]");
+    //             if (focusedOption != null) {
+    //                 ensureInView(dropdownElem, focusedOption);
+    //             }
+    //             break;
+    //         }
+    //     }
+    // });
 
-                if (!hasMovedToTop) {
-                    dropdownElem.scrollTop = 0;
-                    hasMovedToTop = true;
-                }
-            }
-        }
-    });
-
-    visibilityObserver.observe(dropdownElem, {
-        attributes: true,
-        attributeFilter: ["data-shown"],
-    });
-
-    const focusedOptionObserver = new MutationObserver((r) => {
-        for (const m of r) {
-            if (m.type === "attributes" && m.attributeName === "data-focused") {
-                let focusedOption = dropdownElem.querySelector("[data-focused]");
-                if (focusedOption != null) {
-                    ensureInView(dropdownElem, focusedOption);
-                }
-                break;
-            }
-        }
-    });
-
-    focusedOptionObserver.observe(dropdownElem, {
-        attributes: true,
-        attributeFilter: ["data-focused"],
-        subtree: true,
-    });
+    // focusedOptionObserver.observe(dropdownElem, {
+    //     attributes: true,
+    //     attributeFilter: ["data-focused"],
+    //     subtree: true,
+    // });
 
     //
 

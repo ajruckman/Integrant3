@@ -62,7 +62,7 @@ namespace Integrant.Rudiment.Inputs
             {
                 selectedIndex = options.FindIndex(q => q.Value.Equals(v));
                 if (selectedIndex == -1) selectedIndex = null;
-                Console.WriteLine($"Selected index: {selectedIndex}");
+                // Console.WriteLine($"Selected index: {selectedIndex}");
             }
 
             InputBuilder.OpenInnerInput

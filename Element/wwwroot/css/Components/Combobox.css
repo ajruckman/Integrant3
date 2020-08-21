@@ -15,7 +15,7 @@ div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element
     border-radius: 2px;
     cursor: pointer;
     padding: 3px; }
-    div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"]:hover {
+    div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"]:hover:not([data-disabled]) {
       background-color: var(--Colorant_Default_Background_5); }
     div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"][data-focused] {
       background-color: var(--Colorant_Default_Background_4);

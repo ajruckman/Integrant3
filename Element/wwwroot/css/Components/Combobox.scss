@@ -33,7 +33,7 @@ div[class~="Integrant.Element.Component.Combobox"] {
             cursor:        pointer;
             padding:       3px;
 
-            &:hover {
+            &:hover:not([data-disabled]) {
                 background-color: var(--Colorant_Default_Background_5);
             }
 
