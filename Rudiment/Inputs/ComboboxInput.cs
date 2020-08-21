@@ -11,7 +11,7 @@ namespace Integrant.Rudiment.Inputs
     {
         private readonly MemberGetters.MemberSelectableInputOptions<TStructure, TID> _options;
 
-        // private Combobox<TID>? _combobox;
+        private Combobox<TID>? _combobox;
 
         public ComboboxInput(MemberGetters.MemberSelectableInputOptions<TStructure, TID> options)
         {
@@ -54,15 +54,20 @@ namespace Integrant.Rudiment.Inputs
             builder.AddAttribute(++seq, "class", classes.ToString());
 
             //
-
-            builder.OpenComponent<Component>(++seq);
-            builder.AddAttribute(++seq, "Structure", structure);
-            builder.AddAttribute(++seq, "Value", value);
-            builder.AddAttribute(++seq, "Member", member);
-            builder.AddAttribute(++seq, "Options", _options);
-            builder.AddAttribute(++seq, "OnInput", EventCallback.Factory.Create<(TStructure, TID)>(this, InvokeOnClick));
-            builder.CloseComponent();
             
+            if (_combobox == null)
+                InitCombobox(structure, value, member);
+            
+            builder.AddContent(++seq, _combobox!.Render());
+
+            // builder.OpenComponent<Component>(++seq);
+            // builder.AddAttribute(++seq, "Structure", structure);
+            // builder.AddAttribute(++seq, "Value", value);
+            // builder.AddAttribute(++seq, "Member", member);
+            // builder.AddAttribute(++seq, "Options", _options);
+            // builder.AddAttribute(++seq, "OnInput", EventCallback.Factory.Create<(TStructure, TID)>(this, InvokeOnClick));
+            // builder.CloseComponent();
+            //
             // object? v = member.Member.InputValue.Invoke(value, member.Member);
             //
             // _combobox = new Combobox<TID>
@@ -98,12 +103,7 @@ namespace Integrant.Rudiment.Inputs
 
             builder.CloseElement();
         };
-
-        private void InvokeOnClick((TStructure value, TID member) v)
-        {
-            OnInput?.Invoke(v.value, v.member);
-        }
-
+        
         private class Component : ComponentBase
         {
             private Combobox<TID> _combobox = null!;
@@ -138,7 +138,11 @@ namespace Integrant.Rudiment.Inputs
                         : () => Member.Member.InputPlaceholder.Invoke(Value, Member.Member)
                 );
 
-                _combobox.OnSelect += o => OnInput.InvokeAsync((Value, o != null ? o.Value : default!));
+                _combobox.OnSelect += o =>
+                {
+                    OnInput.InvokeAsync((Value, o != null ? o.Value : default!));
+                    _combobox.SetOptionGetter(() => Options.Invoke(Value, Member.Member));
+                };
             }
 
             protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -148,6 +152,35 @@ namespace Integrant.Rudiment.Inputs
         }
 
         private void InitCombobox
-            (StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TID> member) { }
+            (StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TID> member)
+        {
+            object? v = member.Member.InputValue.Invoke(value, member.Member);
+            
+            _combobox = new Combobox<TID>
+            (
+                structure.JSRuntime!,
+                () => _options.Invoke(value, member.Member),
+                () => member.Member.InputIsDisabled?.Invoke(value, member.Member) == true,
+                () => member.Member.InputIsRequired?.Invoke(value, member.Member) == true,
+                member.Member.InputPlaceholder == null
+                    ? (Combobox<TID>.Placeholder?) null
+                    : () => member.Member.InputPlaceholder.Invoke(value, member.Member)
+            );
+            
+            _combobox.OnSelect += o =>
+            {
+                OnInput?.Invoke(value, o != null ? o.Value : default!);
+                _combobox.SetOptionGetter(() => _options.Invoke(value, member.Member));
+            };
+            
+            if (v is TID vt)
+            {
+                _combobox.Select(vt, false);
+            }
+            else
+            {
+                _combobox.Deselect(false);
+            }
+        }
     }
 }
