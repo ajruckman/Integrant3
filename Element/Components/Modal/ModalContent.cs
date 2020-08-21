@@ -71,7 +71,7 @@ namespace Integrant.Element.Components.Modal
             //
 
             builder.CloseElement();
-            
+
             builder.CloseElement();
 
             builder.CloseElement();

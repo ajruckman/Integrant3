@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Components.Modal
 {
@@ -13,13 +14,12 @@ namespace Integrant.Element.Components.Modal
             _maxWidthGetter = maxWidthGetter ?? DefaultWidthGetter;
         }
 
-        public Action? StateHasChanged { get; internal set; }
-
-        internal bool Shown { get; private set; }
+        internal RenderFragment? Heading         { get; set; }
+        internal bool            Shown           { get; private set; }
+        public   Action?         StateHasChanged { get; internal set; }
 
         private static string DefaultWidthGetter() => "600px";
-
-        internal string MaxWidth() => _maxWidthGetter.Invoke();
+        internal       string MaxWidth()           => _maxWidthGetter.Invoke();
 
         public void Show()
         {
