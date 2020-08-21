@@ -24,10 +24,10 @@ namespace Integrant.Element.Components.Combobox
         public delegate string Placeholder();
 
         private readonly IJSRuntime   _jsRuntime;
-        private          OptionGetter _optionGetter;
         private readonly IsDisabled?  _isDisabled;
         private readonly IsRequired?  _isRequired;
         private readonly Placeholder? _placeholder;
+        private          OptionGetter _optionGetter;
 
         private ElementReference  _elementRef;
         private List<IOption<T>>? _options;
@@ -167,26 +167,21 @@ namespace Integrant.Element.Components.Combobox
             if (args.Button           != 0) return;
             if (_isDisabled?.Invoke() == true) return;
             Show();
-            Console.WriteLine("Click");
         }
 
         private void OnInputFocus(FocusEventArgs args)
         {
             if (_isDisabled?.Invoke() == true) return;
             Show();
-            Console.WriteLine("Focus");
         }
 
         private void OnInputBlur(FocusEventArgs args)
         {
             Hide();
-            Console.WriteLine("Blur");
         }
 
         private void OnInputKeyDown(KeyboardEventArgs args)
         {
-            Console.WriteLine(args.Key);
-
             if ((args.Key == "ArrowUp" || args.Key == "ArrowDown") && !_shown)
             {
                 Show();
@@ -197,7 +192,6 @@ namespace Integrant.Element.Components.Combobox
             IOption<T>? first = users.FirstOrDefault();
             if (first == null)
             {
-                Console.WriteLine("No first");
                 return;
             }
 
@@ -207,17 +201,11 @@ namespace Integrant.Element.Components.Combobox
                     if (_focused == null)
                     {
                         Focus(first);
-                        Console.WriteLine($"Setting to first: {_focused!.Value}");
                     }
                     else if (!_focused.Value.Equals(first.Value))
                     {
                         int previousIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) - 1;
                         Focus(users[previousIndex]);
-                        Console.WriteLine($"Setting to previous: {_focused.Value}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Focused is first");
                     }
 
                     break;
@@ -226,7 +214,6 @@ namespace Integrant.Element.Components.Combobox
                     if (_focused == null)
                     {
                         Focus(first);
-                        Console.WriteLine($"Setting to first: {_focused!.Value}");
                     }
                     else
                     {
@@ -234,7 +221,6 @@ namespace Integrant.Element.Components.Combobox
                         if (nextIndex < users.Count)
                         {
                             Focus(users[nextIndex]);
-                            Console.WriteLine($"Setting to next: {_focused.Value}");
                         }
                     }
 
@@ -263,7 +249,6 @@ namespace Integrant.Element.Components.Combobox
             SetSearchTerm(string.IsNullOrEmpty(v) ? null : v);
             Deselect();
             Show();
-            Console.WriteLine($"Search term -> {_searchTerm}");
         }
 
         //
@@ -287,7 +272,6 @@ namespace Integrant.Element.Components.Combobox
         [JSInvokable]
         public void SelectFromJS(string i)
         {
-            Console.WriteLine($"Select from JS: {i}");
             Select(Options()[int.Parse(i)]);
         }
 
@@ -295,11 +279,6 @@ namespace Integrant.Element.Components.Combobox
         {
             [Parameter]
             public Combobox<T> Combobox { get; set; } = null!;
-
-            protected override void OnInitialized()
-            {
-                Console.WriteLine("-> INITIALIZED <-");
-            }
 
             protected override void OnParametersSet()
             {
@@ -320,10 +299,7 @@ namespace Integrant.Element.Components.Combobox
                     // Combobox._dropdownRef);
                 }
 
-                if (Combobox._shown)
-                {
-                    
-                }
+                if (Combobox._shown) { }
 
                 if (Combobox._justSelected && Combobox._shown)
                 {
@@ -419,7 +395,8 @@ namespace Integrant.Element.Components.Combobox
                         b.AddEventPreventDefaultAttribute(++seq2, "onmousedown", true);
 
                         b.AddAttribute(++seq2, "onclick",
-                            EventCallback.Factory.Create<MouseEventArgs>(this, args => Combobox.OnOptionClick(args, o)));
+                            EventCallback.Factory.Create<MouseEventArgs>(this,
+                                args => Combobox.OnOptionClick(args, o)));
                     }
                     else
                     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Integrant.Rudiment;
@@ -211,12 +212,7 @@ namespace Integrant.Web
                 nameof(User.DepartmentType2),
                 (v,               m) => v.DepartmentType2,
                 valueUpdater: (v, m, mv) => v.DepartmentType2 = mv,
-                input: () => new ComboboxInput<User, int>((v, m) => new List<IOption<int>>
-                {
-                    new Option<int>(1, "One"),
-                    new Option<int>(2, "Two"),
-                    new Option<int>(3, "Three"),
-                }),
+                input: () => new ComboboxInput<User, int>((v, m) => SampleOptions()),
                 inputPlaceholder: (v, m) => $"Placeholder = {v.CreatedBy}",
                 inputIsDisabled: (v,  m) => !v.Boolean,
                 inputIsRequired: (v,  m) => true
@@ -255,6 +251,16 @@ namespace Integrant.Web
                 valueUpdater: (v, m, mv) => v.Double = mv,
                 input: () => new NumberInput<User, double>(step: 0.01)
             ));
+        }
+
+        private static IEnumerable<IOption<int>> SampleOptions()
+        {
+            var rnd = new Random(1);
+
+            for (var i = 0; i < 100; i++)
+            {
+                yield return new Option<int>(i, rnd.Next().ToString(), disabled: rnd.Next() % 15 == 0);
+            }
         }
     }
 }

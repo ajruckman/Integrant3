@@ -43,9 +43,11 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
         placement: "bottom",
     });
 
+    //
+    
     let hasMovedToTop = false;
 
-    const observer = new MutationObserver((r) => {
+    const visibilityObserver = new MutationObserver((r) => {
         r.forEach((m) => {
             if (m.type === "attributes" && m.attributeName === "data-shown") {
                 popper.update();
@@ -59,28 +61,36 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
         });
     });
 
-    observer.observe(dropdownElem, {
+    visibilityObserver.observe(dropdownElem, {
         attributes: true,
         attributeFilter: ["data-shown"],
     });
 
-    inputElem.addEventListener("click", () => {
-        // console.log("click");
-        if (inputElem.hasAttribute("data-has-selection")) {
-            // console.log(this);
-            inputElem.setSelectionRange(0, inputElem.value.length); // Select all text in input
-            // referenceElem.select();
+    const focusedOptionObserver = new MutationObserver((r) => {
+        for (let i = 0; i < r.length; i++) {
+            let m = r[i];
+
+            if (m.type === "attributes" && m.attributeName === "data-focused") {
+                let focusedOption = dropdownElem.querySelector("[data-focused]");
+                if (focusedOption != null) {
+                    ensureInView(dropdownElem, focusedOption);
+                }
+                break;
+            }
         }
     });
 
-    inputElem.addEventListener("keyup", (e) => {
-        setTimeout(() => {
-            let focusedOption = dropdownElem.querySelector("[data-focused]");
-            if (focusedOption != null) {
-                // console.log(focusedOption);
-                ensureInView(dropdownElem, focusedOption);
-            }
-        }, 0);
+    focusedOptionObserver.observe(dropdownElem, {
+        attributes: true,
+        subtree: true,
+    });
+    
+    //
+
+    inputElem.addEventListener("click", () => {
+        if (inputElem.hasAttribute("data-has-selection")) {
+            inputElem.setSelectionRange(0, inputElem.value.length); // Select all text in input
+        }
     });
 
 };
