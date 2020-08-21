@@ -23,7 +23,7 @@ namespace Integrant.Rudiment.Inputs
 
         public event Action<TStructure, TID>? OnInput;
 
-        public void Reset() { }
+        public void Reset(StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TID> member) { }
 
         public RenderFragment Render
         (

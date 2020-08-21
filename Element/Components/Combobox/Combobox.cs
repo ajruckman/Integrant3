@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using Superset.Utilities;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -24,41 +24,21 @@ namespace Integrant.Element.Components.Combobox
 
         public delegate string Placeholder();
 
-        private readonly IJSRuntime   _jsRuntime;
-        private readonly IsDisabled?  _isDisabled;
-        private readonly IsRequired?  _isRequired;
-        private readonly Placeholder? _placeholder;
-        private          OptionGetter _optionGetter;
+        private readonly IJSRuntime                        _jsRuntime;
+        private readonly IsDisabled?                       _isDisabled;
+        private readonly IsRequired?                       _isRequired;
+        private readonly Placeholder?                      _placeholder;
+        private readonly ThreadSafeCache<List<IOption<T>>> _options         = new ThreadSafeCache<List<IOption<T>>>();
+        private readonly ThreadSafeCache<List<IOption<T>>> _optionsFiltered = new ThreadSafeCache<List<IOption<T>>>();
+        private          OptionGetter                      _optionGetter;
+        private          ElementReference                  _elementRef;
 
-        private ElementReference  _elementRef;
-        private List<IOption<T>>? _options;
-        private List<IOption<T>>? _optionsFiltered;
-
-        private bool Shown
-        {
-            get => _shown;
-            set
-            {
-                if (!value)
-                {
-                    // var st = new StackTrace();
-                    // foreach (StackFrame stackFrame in st.GetFrames())
-                    // {
-                    //     Console.Write(stackFrame.ToString());
-                    // }
-                    //
-                    // Console.WriteLine("---");
-                }
-                _shown = value;
-            }
-        }
-
-        private bool              _justSelected;
-        private string?           _searchTerm;
-        private IOption<T>?       _selected;
-        private IOption<T>?       _focused;
-        private Action            _stateHasChanged = null!;
-        private bool              _shown;
+        private bool        _shown;
+        private bool        _justSelected;
+        private string?     _searchTerm;
+        private IOption<T>? _selected;
+        private IOption<T>? _focused;
+        private Action      _stateHasChanged = null!;
 
         public Combobox
         (
@@ -69,8 +49,6 @@ namespace Integrant.Element.Components.Combobox
             Placeholder? placeholder = null
         )
         {
-            Console.WriteLine("<- CONSTRUCTED ->");
-            
             _jsRuntime    = jsRuntime;
             _optionGetter = optionGetter;
             _isDisabled   = isDisabled;
@@ -86,28 +64,36 @@ namespace Integrant.Element.Components.Combobox
 
         //
 
-        public void InvalidateOptions(OptionGetter optionGetter)
+        // public void InvalidateOptions(OptionGetter optionGetter)
+        // {
+        //     _optionGetter = optionGetter;
+        //     _options.Invalidate();
+        //     _optionsFiltered.Invalidate();
+        //     // _stateHasChanged.Invoke();
+        // }
+
+        public void SetOptionGetter(OptionGetter optionGetter)
         {
             _optionGetter = optionGetter;
-            _options      = null;
-            // _stateHasChanged.Invoke();
+            _optionsFiltered.Invalidate();
+            _options.Invalidate();
         }
 
         private string InputValue()
         {
-            return Shown
+            return _shown
                 ? _focused?.SelectionText  ?? _selected?.SelectionText ?? (_searchTerm ?? "")
                 : _selected?.SelectionText ?? (_searchTerm ?? "");
         }
 
         private List<IOption<T>> Options() =>
-            _options ??= _optionGetter.Invoke().ToList();
+            _options.SetIf(() => _optionGetter.Invoke().ToList());
 
         private List<IOption<T>> OptionsFiltered()
         {
             if (_searchTerm == null) return Options();
 
-            return _optionsFiltered ??= Options().Where(Matches).ToList();
+            return _optionsFiltered.SetIf(() => Options().Where(Matches).ToList());
         }
 
         private bool Matches(IOption<T> o)
@@ -117,21 +103,20 @@ namespace Integrant.Element.Components.Combobox
 
         public void Show()
         {
-            Shown = true;
+            _shown = true;
             OnShow?.Invoke();
         }
 
         public void Hide()
         {
-            Console.WriteLine("HIDE");
-            Shown = false;
+            _shown = false;
             OnHide?.Invoke();
         }
 
         public void SetSearchTerm(string? term)
         {
-            _searchTerm      = term;
-            _optionsFiltered = null;
+            _searchTerm = term;
+            _optionsFiltered.Invalidate();
             OnSetSearchTerm?.Invoke(term);
         }
 
@@ -150,9 +135,7 @@ namespace Integrant.Element.Components.Combobox
         }
 
         // public void Select(string key, bool update = true)
-
         // {
-
         //     Select(Options().Single(v => v.Key == key), update);
         // }
 
@@ -216,7 +199,7 @@ namespace Integrant.Element.Components.Combobox
 
         private void OnInputKeyDown(KeyboardEventArgs args)
         {
-            if ((args.Key == "ArrowUp" || args.Key == "ArrowDown") && !Shown)
+            if ((args.Key == "ArrowUp" || args.Key == "ArrowDown") && !_shown)
             {
                 Show();
             }
@@ -261,7 +244,7 @@ namespace Integrant.Element.Components.Combobox
                     break;
 
                 case "Enter":
-                    if (_focused != null)
+                    if (_focused?.Disabled == false)
                     {
                         Select(_focused);
                     }
@@ -341,9 +324,9 @@ namespace Integrant.Element.Components.Combobox
                     // Combobox._dropdownRef);
                 }
 
-                if (Combobox.Shown) { }
+                if (Combobox._shown) { }
 
-                if (Combobox._justSelected && Combobox.Shown)
+                if (Combobox._justSelected && Combobox._shown)
                 {
                     Combobox._justSelected = false;
                     if (Combobox._selected != null)
@@ -409,8 +392,8 @@ namespace Integrant.Element.Components.Combobox
 
                 b.OpenElement(++seq, "div");
                 b.AddAttribute(++seq, "class",      "Integrant.Element.Component.Combobox.Dropdown");
-                b.AddAttribute(++seq, "data-shown", Combobox.Shown);
-                Console.WriteLine($"Shown: {Combobox.Shown, -6} | Search term: {Combobox._searchTerm}");
+                b.AddAttribute(++seq, "data-shown", Combobox._shown);
+                Console.WriteLine($"Shown: {Combobox._shown,-6} | Search term: {Combobox._searchTerm}");
 
                 b.OpenRegion(++seq);
 

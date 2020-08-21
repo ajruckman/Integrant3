@@ -12,7 +12,7 @@ namespace Integrant.Rudiment.Inputs
 
         private Checkbox? _checkbox;
 
-        public void Reset()
+        public void Reset(StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, bool> member)
         {
             _checkbox!.Reset();
         }
