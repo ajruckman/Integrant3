@@ -5,7 +5,7 @@ using Integrant.Colorant.Schema;
 
 namespace Integrant.Colorant
 {
-    public sealed class Writer
+    public static class Writer
     {
         private const string I = "    ";
         private const string C = I + I + "public const string ";
