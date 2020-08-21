@@ -10,7 +10,7 @@ window.Integrant.Element.ScrollDropdownToSelection = window.Integrant.Element.Sc
 
     let padding = selected.clientHeight * 3;
 
-    dropdownElem.scrollTop = Math.min(selected.offsetTop - padding, dropdownElem.scrollHeight)
+    dropdownElem.scrollTop = Math.min(selected.offsetTop - padding, dropdownElem.scrollHeight);
 };
 
 // https://stackoverflow.com/a/37285344/9911189
@@ -34,14 +34,6 @@ function ensureInView(container, element) {
     }
 }
 
-// window.Integrant.Element.EnsureOptionInView = window.Integrant.Element.EnsureOptionInView || function (referenceElem, tooltipElem) {
-//     let focusedOption = tooltipElem.querySelector("[data-focused]");
-//     if (focusedOption != null) {
-//         console.log(focusedOption);
-//         ensureInView(tooltipElem, focusedOption);
-//     }
-// };
-
 window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobox || function (elementRef) {
 
     const inputElem = elementRef.querySelector("div[class~='Integrant.Element.Component.Combobox.Input'] > input");
@@ -49,6 +41,26 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
 
     const popper = Popper.createPopper(inputElem, dropdownElem, {
         placement: "bottom",
+    });
+
+    let hasMovedToTop = false;
+
+    const observer = new MutationObserver((r) => {
+        r.forEach((m) => {
+            if (m.type === "attributes" && m.attributeName === "data-shown") {
+                popper.update();
+
+                if (!hasMovedToTop) {
+                    dropdownElem.scrollTop = 0;
+                    // console.log(dropdownElem);
+                    hasMovedToTop = true;
+                }
+            }
+        });
+    });
+
+    observer.observe(dropdownElem, {
+        attributes: true,
     });
 
     inputElem.addEventListener("click", () => {
@@ -68,22 +80,6 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
                 ensureInView(dropdownElem, focusedOption);
             }
         }, 0);
-    });
-
-    let hasMovedToTop = false;
-
-
-    inputElem.addEventListener("focus", (e) => {
-        // console.log("focus");
-        setTimeout(() => {
-            // Prevent remembering scroll position in dropdown on page load
-            if (!hasMovedToTop) {
-                dropdownElem.scrollTop = 0;
-                // console.log(dropdownElem);
-                hasMovedToTop = true;
-            }
-            popper.update();
-        }, 10);
     });
 
 };

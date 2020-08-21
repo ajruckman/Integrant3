@@ -72,7 +72,7 @@ namespace Integrant.Rudiment.Inputs
 
             if (v is TID vt)
             {
-                _combobox.SelectIfExists(vt, false);
+                _combobox.Select(vt, false);
             }
             else
             {

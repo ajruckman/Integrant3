@@ -320,6 +320,11 @@ namespace Integrant.Element.Components.Combobox
                     // Combobox._dropdownRef);
                 }
 
+                if (Combobox._shown)
+                {
+                    
+                }
+
                 if (Combobox._justSelected && Combobox._shown)
                 {
                     Combobox._justSelected = false;
@@ -405,13 +410,23 @@ namespace Integrant.Element.Components.Combobox
                     b.AddAttribute(++seq2, "data-i",        i);
                     b.AddAttribute(++seq2, "data-focused",  focused);
                     b.AddAttribute(++seq2, "data-selected", selected);
+                    b.AddAttribute(++seq2, "data-disabled", o.Disabled);
 
-                    b.AddAttribute(++seq2, "onmousedown",
-                        EventCallback.Factory.Create<MouseEventArgs>(this, Combobox.OnOptionMouseDown));
-                    b.AddEventPreventDefaultAttribute(++seq2, "onmousedown", true);
+                    if (!o.Disabled)
+                    {
+                        b.AddAttribute(++seq2, "onmousedown",
+                            EventCallback.Factory.Create<MouseEventArgs>(this, Combobox.OnOptionMouseDown));
+                        b.AddEventPreventDefaultAttribute(++seq2, "onmousedown", true);
 
-                    b.AddAttribute(++seq2, "onclick",
-                        EventCallback.Factory.Create<MouseEventArgs>(this, args => Combobox.OnOptionClick(args, o)));
+                        b.AddAttribute(++seq2, "onclick",
+                            EventCallback.Factory.Create<MouseEventArgs>(this, args => Combobox.OnOptionClick(args, o)));
+                        Console.WriteLine("ENABLED  -> " + seq2);
+                    }
+                    else
+                    {
+                        seq2 += 3;
+                        Console.WriteLine("DISABLED -> " + seq2);
+                    }
 
                     // b.AddAttribute(++seq2, "onkeydown",
                     // EventCallback.Factory.Create<KeyboardEventArgs>(this, args => OnOptionKeyDown(args, o)));

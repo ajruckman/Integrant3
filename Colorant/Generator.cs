@@ -5,7 +5,7 @@ using Integrant.Colorant.Schema;
 
 namespace Integrant.Colorant
 {
-    public class Generator
+    public sealed class Generator
     {
         public void Generate(ThemeDefinition themeDefinition)
         {
