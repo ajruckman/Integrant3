@@ -3,6 +3,7 @@ using Integrant.Element.Components.Combobox;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Integrant.Rudiment.Inputs
 {
@@ -10,7 +11,7 @@ namespace Integrant.Rudiment.Inputs
     {
         private readonly MemberGetters.MemberSelectableInputOptions<TStructure, TID> _options;
 
-        private Combobox<TID>? _combobox;
+        // private Combobox<TID>? _combobox;
 
         public ComboboxInput(MemberGetters.MemberSelectableInputOptions<TStructure, TID> options)
         {
@@ -52,43 +53,101 @@ namespace Integrant.Rudiment.Inputs
 
             builder.AddAttribute(++seq, "class", classes.ToString());
 
-            if (_combobox == null) InitCombobox(structure, value, member);
-            // TODO: Same for other getters
-            _combobox!.SetOptionGetter(() => _options.Invoke(value, member.Member));
+            //
 
-            builder.AddContent(++seq, _combobox.Render());
+            builder.OpenComponent<Component>(++seq);
+            builder.AddAttribute(++seq, "Structure", structure);
+            builder.AddAttribute(++seq, "Value", value);
+            builder.AddAttribute(++seq, "Member", member);
+            builder.AddAttribute(++seq, "Options", _options);
+            builder.AddAttribute(++seq, "OnInput", EventCallback.Factory.Create<(TStructure, TID)>(this, InvokeOnClick));
+            builder.CloseComponent();
+            
+            // object? v = member.Member.InputValue.Invoke(value, member.Member);
+            //
+            // _combobox = new Combobox<TID>
+            // (
+            //     structure.JSRuntime!,
+            //     () => _options.Invoke(value, member.Member),
+            //     () => member.Member.InputIsDisabled?.Invoke(value, member.Member) == true,
+            //     () => member.Member.InputIsRequired?.Invoke(value, member.Member) == true,
+            //     member.Member.InputPlaceholder == null
+            //         ? (Combobox<TID>.Placeholder?) null
+            //         : () => member.Member.InputPlaceholder.Invoke(value, member.Member)
+            // );
+            //
+            // _combobox.OnSelect += o => OnInput?.Invoke(value, o != null ? o.Value : default!);
+            //
+            // // _combobox.InvalidateOptions(() => _options.Invoke(value, member.Member));
+            //
+            // if (v is TID vt)
+            // {
+            //     _combobox.Select(vt, false);
+            // }
+            // else
+            // {
+            //     _combobox.Deselect(false);
+            // }
+
+            //
+
+            // TODO: Same for other getters
+            // _combobox!.SetOptionGetter(() => _options.Invoke(value, member.Member));
+
+            // builder.AddContent(++seq, _combobox.Render());
 
             builder.CloseElement();
         };
 
-        private void InitCombobox
-            (StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TID> member)
+        private void InvokeOnClick((TStructure value, TID member) v)
         {
-            object? v = member.Member.InputValue.Invoke(value, member.Member);
+            OnInput?.Invoke(v.value, v.member);
+        }
 
-            _combobox = new Combobox<TID>
-            (
-                structure.JSRuntime!,
-                () => _options.Invoke(value, member.Member),
-                () => member.Member.InputIsDisabled?.Invoke(value, member.Member) == true,
-                () => member.Member.InputIsRequired?.Invoke(value, member.Member) == true,
-                member.Member.InputPlaceholder == null
-                    ? (Combobox<TID>.Placeholder?) null
-                    : () => member.Member.InputPlaceholder.Invoke(value, member.Member)
-            );
+        private class Component : ComponentBase
+        {
+            private Combobox<TID> _combobox = null!;
 
-            _combobox.OnSelect += o => OnInput?.Invoke(value, o != null ? o.Value : default!);
+            [Parameter]
+            public StructureInstance<TStructure> Structure { get; set; } = null!;
 
-            // _combobox.InvalidateOptions(() => _options.Invoke(value, member.Member));
+            [Parameter]
+            public TStructure Value { get; set; } = default!;
 
-            if (v is TID vt)
+            [Parameter]
+            public MemberInstance<TStructure, TID> Member { get; set; } = null!;
+
+            [Parameter]
+            public MemberGetters.MemberSelectableInputOptions<TStructure, TID> Options { get; set; } = null!;
+            
+            [Parameter]
+            public EventCallback<(TStructure, TID)> OnInput { get; set; }
+
+            protected override void OnInitialized()
             {
-                _combobox.Select(vt, false);
+                object? v = Member.Member.InputValue.Invoke(Value, Member.Member);
+
+                _combobox = new Combobox<TID>
+                (
+                    Structure.JSRuntime!,
+                    () => Options.Invoke(Value, Member.Member),
+                    () => Member.Member.InputIsDisabled?.Invoke(Value, Member.Member) == true,
+                    () => Member.Member.InputIsRequired?.Invoke(Value, Member.Member) == true,
+                    Member.Member.InputPlaceholder == null
+                        ? (Combobox<TID>.Placeholder?) null
+                        : () => Member.Member.InputPlaceholder.Invoke(Value, Member.Member)
+                );
+
+                _combobox.OnSelect += o => OnInput.InvokeAsync((Value, o != null ? o.Value : default!));
             }
-            else
+
+            protected override void BuildRenderTree(RenderTreeBuilder builder)
             {
-                _combobox.Deselect(false);
+                builder.AddContent(0, _combobox.Render());
             }
         }
+
+        private void InitCombobox
+            (StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TID> member) { }
     }
 }

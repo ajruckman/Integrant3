@@ -49,6 +49,7 @@ namespace Integrant.Element.Components.Combobox
             Placeholder? placeholder = null
         )
         {
+            Console.WriteLine("<- CONSTRUCTED ->");
             _jsRuntime    = jsRuntime;
             _optionGetter = optionGetter;
             _isDisabled   = isDisabled;
