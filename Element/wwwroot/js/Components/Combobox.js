@@ -36,11 +36,13 @@ function ensureInView(container, element) {
 
 window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobox || function (elementRef) {
 
+    console.log(elementRef);
+    
     const inputElem = elementRef.querySelector("div[class~='Integrant.Element.Component.Combobox.Input'] > input");
     const dropdownElem = elementRef.querySelector("div[class~='Integrant.Element.Component.Combobox.Dropdown']");
 
     const popper = Popper.createPopper(inputElem, dropdownElem, {
-        placement: "bottom",
+        placement: "bottom-start",
     });
 
     //

@@ -1,0 +1,53 @@
+div[class~="Integrant.Element.Component.Multibox"] {
+
+    background-color: var(--Colorant_Default_Background_1);
+    border:           1px solid var(--Colorant_Default_Border_5);
+    border-radius:    2px;
+    padding:          3px;
+
+    div[class~="Integrant.Element.Component.Multibox.Selected"] {
+        display:         flex;
+        flex-wrap:       wrap;
+        justify-content: flex-start;
+
+        //&:not(:empty) {
+        //    padding-bottom: 3px;
+        //}
+
+        > div {
+            align-items:      center;
+            background-color: var(--Colorant_Default_Background_10);
+            border:           1px solid var(--Colorant_Default_Border_8);
+            border-radius:    2px;
+            box-sizing:       border-box;
+            display:          inline-flex;
+            font-family:      var(--Integrant_MonospacedFont);
+            font-size:        1rem;
+            justify-content:  space-between;
+            margin:           1px;
+            padding:          2px 5px;
+
+            > i {
+                background:  none;
+                border:      none;
+                cursor:      pointer;
+                margin-left: 5px;
+                outline:     none;
+                padding:     0;
+
+                &:hover {
+                    color: red;
+                }
+            }
+        }
+
+        > span[class~="Integrant.Element.Component.Multibox.DummySelection" ] {
+            height: 23.5px;
+            //margin: 1px;
+        }
+    }
+
+    div[class~="Integrant.Element.Component.Combobox"] {
+        margin-top: 3px;
+    }
+}

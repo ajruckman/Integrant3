@@ -6,6 +6,8 @@
 @using Integrant.Element.Constructs
 @using Integrant.Resources.Icons.MaterialIcons
 
+@inject IJSRuntime JSRuntime
+
 <div class="Integrant.Element.Override.Input">
     <input type="number" step="0.1" @bind-value="@Number" @bind-value:event="oninput"/>
 </div>
@@ -55,6 +57,12 @@
 @(new Link(() => "Link 1!", () => "http://localhost:5000/").Render())
 @(new Link(() => "Link 2!", () => "http://localhost:5000/", isHighlighted: () => true, isStatic: false).Render())
 
+<br>
+<br>
+
+@_multibox1.Render()
+
+<br>
 <br>
 
 @* @((new Spinner()).Render()) *@

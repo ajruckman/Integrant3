@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Bogus;
 using Integrant.Colorant.Themes.Solids;
 using Integrant.Element;
 using Integrant.Element.Bits;
 using Integrant.Element.Components.Modal;
+using Integrant.Element.Components.Multibox;
 using Integrant.Element.Constructs;
 using Integrant.Element.Layouts;
 using Integrant.Fundament;
 using Integrant.Fundament.Element;
 using Integrant.Rudiment.Inputs;
+using Integrant.Web.Pages;
 using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Web.Components
@@ -27,6 +31,8 @@ namespace Integrant.Web.Components
         private ButtonGroup  _buttonGroup;
 
         private Modal _modal1 = null!;
+
+        private Multibox<PopperTests.User> _multibox1 = null!;
 
         protected override void OnInitialized()
         {
@@ -100,18 +106,47 @@ namespace Integrant.Web.Components
             });
 
             _modal1 = new Modal();
+
+            _faker = new Faker<PopperTests.User>()
+                    .RuleFor(u => u.ID,         (f, u) => f.IndexFaker)
+                    .RuleFor(u => u.Name,       (f, u) => f.Name.FullName())
+                    .RuleFor(u => u.Department, (f, u) => f.Commerce.Department());
+
+            var users = _faker.Generate(100);
+            _options = users.Select(v => new PopperTests.Option
+            {
+                Key           = v.ID.ToString(),
+                Value         = v,
+                OptionText    = $"{v.Name} - {v.Department}",
+                SelectionText = v.Name,
+            }).ToList();
+
+            _multibox1 = new Multibox<PopperTests.User>
+            (
+                JSRuntime, () => _options
+            );
         }
+
+        List<PopperTests.Option> _options;
 
         protected override void OnAfterRender(bool firstRender)
         {
             if (firstRender)
             {
-                _modal1.Show();
+                _multibox1.Select(_options[0]);
+                // _multibox1._combobox.Select(_options[3]);
+                // _multibox1._combobox.Select(_options[5]);
+                // _multibox1._combobox.Select(_options[12]);
+                // _multibox1._combobox.Select(_options[16]);
+                // _multibox1._combobox.Select(_options[17]);
+                // _modal1.Show();
             }
         }
 
         //
 
         private Dropdown _dropdown1 = null!;
+
+        private Faker<PopperTests.User> _faker = null!;
     }
 }

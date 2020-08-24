@@ -38,6 +38,7 @@ namespace Integrant.Element
                 // "css/Components/TabbedPanel.css.map",
                 "css/Components/Combobox.css",
                 "css/Components/Modal.css",
+                "css/Components/Multibox.css",
             },
             scripts: new[]
             {

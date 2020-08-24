@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using Superset.Utilities;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
@@ -23,20 +24,21 @@ namespace Integrant.Element.Components.Combobox
 
         public delegate string Placeholder();
 
-        private readonly IJSRuntime   _jsRuntime;
-        private readonly IsDisabled?  _isDisabled;
-        private readonly IsRequired?  _isRequired;
-        private readonly Placeholder? _placeholder;
-        private          OptionGetter _optionGetter;
+        private readonly IJSRuntime                        _jsRuntime;
+        private readonly IsDisabled?                       _isDisabled;
+        private readonly IsRequired?                       _isRequired;
+        private readonly Placeholder?                      _placeholder;
+        private readonly ThreadSafeCache<List<IOption<T>>> _options         = new ThreadSafeCache<List<IOption<T>>>();
+        private readonly ThreadSafeCache<List<IOption<T>>> _optionsFiltered = new ThreadSafeCache<List<IOption<T>>>();
+        private          OptionGetter                      _optionGetter;
+        private          ElementReference                  _elementRef;
 
-        private ElementReference  _elementRef;
-        private List<IOption<T>>? _options;
-        private bool              _shown;
-        private bool              _justSelected;
-        private string?           _searchTerm;
-        private IOption<T>?       _selected;
-        private IOption<T>?       _focused;
-        private Action            _stateHasChanged = null!;
+        private bool        _shown;
+        private bool        _justSelected;
+        private string?     _searchTerm;
+        private IOption<T>? _selected;
+        private IOption<T>? _focused;
+        private Action      _stateHasChanged = null!;
 
         public Combobox
         (
@@ -47,6 +49,7 @@ namespace Integrant.Element.Components.Combobox
             Placeholder? placeholder = null
         )
         {
+            Console.WriteLine("<- CONSTRUCTED ->");
             _jsRuntime    = jsRuntime;
             _optionGetter = optionGetter;
             _isDisabled   = isDisabled;
@@ -62,12 +65,20 @@ namespace Integrant.Element.Components.Combobox
 
         //
 
-        public void InvalidateOptions(OptionGetter optionGetter)
+        public void SetOptionGetter(OptionGetter optionGetter)
         {
             _optionGetter = optionGetter;
-            _optionGetter = optionGetter;
-            _options      = null;
-            // _stateHasChanged.Invoke();
+            InvalidateOptions();
+        }
+
+        public void InvalidateOptions()
+        {
+            _optionsFiltered.Invalidate();
+            _options.Invalidate();
+
+            if (_focused == null) return;
+            IOption<T>? newFocused = Options().SingleOrDefault(v => v.Value.Equals(_focused.Value));
+            _focused = newFocused ?? null;
         }
 
         private string InputValue()
@@ -78,10 +89,14 @@ namespace Integrant.Element.Components.Combobox
         }
 
         private List<IOption<T>> Options() =>
-            _options ??= _optionGetter.Invoke().ToList();
+            _options.SetIf(() => _optionGetter.Invoke().ToList());
 
-        private List<IOption<T>> OptionsFiltered() =>
-            _searchTerm == null ? Options() : Options().Where(Matches).ToList();
+        private List<IOption<T>> OptionsFiltered()
+        {
+            if (_searchTerm == null) return Options();
+
+            return _optionsFiltered.SetIf(() => Options().Where(Matches).ToList());
+        }
 
         private bool Matches(IOption<T> o)
         {
@@ -103,19 +118,26 @@ namespace Integrant.Element.Components.Combobox
         public void SetSearchTerm(string? term)
         {
             _searchTerm = term;
+            _optionsFiltered.Invalidate();
             OnSetSearchTerm?.Invoke(term);
         }
 
-        public void Select(IOption<T> o, bool update = true)
+        public void Select(IOption<T> o, bool update = true, bool focus = true)
         {
             _selected = o;
-            Focus(o);
             SetSearchTerm(null);
-            Hide();
             _justSelected = true;
 
+            if (focus)
+            {
+                Focus(o);
+            }
+
             if (update)
+            {
+                Hide();
                 OnSelect?.Invoke(o);
+            }
         }
 
         // public void Select(string key, bool update = true)
@@ -123,16 +145,16 @@ namespace Integrant.Element.Components.Combobox
         //     Select(Options().Single(v => v.Key == key), update);
         // }
 
-        public void Select(T value, bool update = true)
+        public void Select(T value, bool update = true, bool focus = true)
         {
-            Select(Options().Single(v => v.Value.Equals(value)), update);
+            Select(Options().Single(v => v.Value.Equals(value)), update, focus);
         }
 
-        public void SelectIfExists(T value, bool update = true)
+        public void SelectIfExists(T value, bool update = true, bool focus = true)
         {
             IOption<T>? match = Options().SingleOrDefault(v => v.Value.Equals(value));
             if (match != null)
-                Select(match, update);
+                Select(match, update, focus);
             else
                 Deselect(update);
         }
@@ -177,6 +199,7 @@ namespace Integrant.Element.Components.Combobox
 
         private void OnInputBlur(FocusEventArgs args)
         {
+            Console.WriteLine("BLUR");
             Hide();
         }
 
@@ -227,7 +250,7 @@ namespace Integrant.Element.Components.Combobox
                     break;
 
                 case "Enter":
-                    if (_focused != null)
+                    if (_shown && _focused?.Disabled == false)
                     {
                         Select(_focused);
                     }
@@ -247,8 +270,8 @@ namespace Integrant.Element.Components.Combobox
         {
             var v = args.Value?.ToString();
             SetSearchTerm(string.IsNullOrEmpty(v) ? null : v);
-            Deselect();
             Show();
+            Deselect();
         }
 
         //
@@ -286,6 +309,11 @@ namespace Integrant.Element.Components.Combobox
             protected override void OnParametersSet()
             {
                 Combobox._stateHasChanged = StateHasChanged;
+            }
+
+            protected override void OnInitialized()
+            {
+                Console.WriteLine("<- INITIALIZED ->");
             }
 
             protected override void OnAfterRender(bool firstRender)
@@ -371,6 +399,7 @@ namespace Integrant.Element.Components.Combobox
                 b.OpenElement(++seq, "div");
                 b.AddAttribute(++seq, "class",      "Integrant.Element.Component.Combobox.Dropdown");
                 b.AddAttribute(++seq, "data-shown", Combobox._shown);
+                Console.WriteLine($"Shown: {Combobox._shown,-6} | Search term: {Combobox._searchTerm}");
 
                 b.OpenRegion(++seq);
 

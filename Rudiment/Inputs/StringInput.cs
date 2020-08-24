@@ -40,7 +40,7 @@ namespace Integrant.Rudiment.Inputs
 
         public event Action<TStructure, string>? OnInput;
 
-        public void Reset() { }
+        public void Reset(StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, string> member) { }
 
         public delegate int GetTextAreaDimension
         (

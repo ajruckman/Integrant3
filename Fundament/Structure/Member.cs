@@ -32,7 +32,7 @@ namespace Integrant.Fundament.Structure
 
         public readonly MemberGetters.MemberInputPlaceholder<TStructure, TMember>? InputPlaceholder;
 
-        public readonly MemberGetters.MemberInputTransformer<TStructure, TMember>?       InputTransformer;
+        // public readonly MemberGetters.MemberInputTransformer<TStructure, TMember>?       InputTransformer;
         public readonly MemberGetters.MemberValidations<TStructure, TMember>?            Validator;
         public readonly MemberGetters.MemberValue<TStructure, TMember>?                  DefaultValue;
         // public readonly MemberGetters.MemberSelectableInputOptions<TStructure, TMember>? SelectableInputOptions;
@@ -65,7 +65,7 @@ namespace Integrant.Fundament.Structure
             MemberGetters.MemberInputIsDisabled<TStructure, TMember>?        inputIsDisabled        = null,
             MemberGetters.MemberInputIsRequired<TStructure, TMember>?        inputIsRequired        = null,
             MemberGetters.MemberInputPlaceholder<TStructure, TMember>?       inputPlaceholder       = null,
-            MemberGetters.MemberInputTransformer<TStructure, TMember>?       inputTransformer       = null,
+            // MemberGetters.MemberInputTransformer<TStructure, TMember>?       inputTransformer       = null,
             MemberGetters.MemberValidations<TStructure, TMember>?            validator              = null,
             MemberGetters.MemberValue<TStructure, TMember>?                  defaultValue           = null,
             // MemberGetters.MemberSelectableInputOptions<TStructure, TMember>? selectableInputOptions = null,
@@ -104,7 +104,7 @@ namespace Integrant.Fundament.Structure
             InputIsDisabled        = inputIsDisabled;
             InputIsRequired        = inputIsRequired;
             InputPlaceholder       = inputPlaceholder;
-            InputTransformer       = inputTransformer;
+            // InputTransformer       = inputTransformer;
             Validator              = validator;
             DefaultValue           = defaultValue;
             // SelectableInputOptions = selectableInputOptions;

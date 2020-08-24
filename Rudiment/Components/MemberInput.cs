@@ -63,7 +63,7 @@ namespace Integrant.Rudiment.Components
             _member.UpdateValueImmediately(Value, _member.Member.DefaultValue == null
                 ? _initialValue
                 : _member.Member.DefaultValue.Invoke(Value, _member.Member));
-            _member.Input!.Reset();
+            _member.Input!.Reset(StructureInstance, Value, _member);
         }
 
         public void Dispose()

@@ -99,8 +99,8 @@ namespace Integrant.Fundament.Structure
 
         public void UpdateValue(TStructure value, TMember newValue, bool doTransform = true)
         {
-            if (Member.InputTransformer != null && doTransform)
-                newValue = Member.InputTransformer.Invoke(value, Member, newValue);
+            // if (Member.InputTransformer != null && doTransform)
+                // newValue = Member.InputTransformer.Invoke(value, Member, newValue);
 
             OnInput?.Invoke();
             _debouncer.Reset((value, newValue));

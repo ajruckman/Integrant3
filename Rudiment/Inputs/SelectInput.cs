@@ -23,7 +23,7 @@ namespace Integrant.Rudiment.Inputs
 
         public event Action<TStructure, TID>? OnInput;
 
-        public void Reset() { }
+        public void Reset(StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TID> member) { }
 
         public RenderFragment Render
         (
@@ -62,7 +62,7 @@ namespace Integrant.Rudiment.Inputs
             {
                 selectedIndex = options.FindIndex(q => q.Value.Equals(v));
                 if (selectedIndex == -1) selectedIndex = null;
-                Console.WriteLine($"Selected index: {selectedIndex}");
+                // Console.WriteLine($"Selected index: {selectedIndex}");
             }
 
             InputBuilder.OpenInnerInput

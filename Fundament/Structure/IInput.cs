@@ -5,7 +5,10 @@ namespace Integrant.Fundament.Structure
 {
     public interface IInput<TStructure, TMember>
     {
-        public void Reset();
+        public void Reset
+        (
+            StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, TMember> member
+        );
 
         public RenderFragment Render
         (

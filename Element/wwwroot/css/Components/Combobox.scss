@@ -33,14 +33,20 @@ div[class~="Integrant.Element.Component.Combobox"] {
             cursor:        pointer;
             padding:       3px;
 
-            &:hover {
+            &:hover:not([data-disabled]) {
                 background-color: var(--Colorant_Default_Background_5);
             }
 
             &[data-focused] {
-                background-color: var(--Colorant_Default_Background_4);
-                border:           1px solid var(--Colorant_Default_Accent_4);
-                box-shadow:       0 0 4px -1px var(--Colorant_Default_Shadow_0) inset;
+                &:not([data-disabled]) {
+                    background-color: var(--Colorant_Default_Background_4);
+                    border:           1px solid var(--Colorant_Default_Accent_4);
+                    box-shadow:       0 0 4px -1px var(--Colorant_Default_Shadow_0) inset;
+                }
+
+                &[data-disabled] {
+                    border: 1px dotted var(--Colorant_Default_Accent_1);
+                }
             }
 
             &[data-disabled] {

@@ -21,20 +21,23 @@ namespace Integrant.Element.Components.Modal
         private static string DefaultWidthGetter() => "600px";
         internal       string MaxWidth()           => _maxWidthGetter.Invoke();
 
+        public event Action? OnShow;
+        public event Action? OnHide;
+
         public void Show()
         {
-            Console.WriteLine("Show");
             Shown = true;
             if (StateHasChanged == null) throw new ArgumentNullException(nameof(StateHasChanged));
             StateHasChanged.Invoke();
+            OnShow?.Invoke();
         }
 
         public void Hide()
         {
-            Console.WriteLine("Hide");
             Shown = false;
             if (StateHasChanged == null) throw new ArgumentNullException(nameof(StateHasChanged));
             StateHasChanged.Invoke();
+            OnHide?.Invoke();
         }
     }
 }

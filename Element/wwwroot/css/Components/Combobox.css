@@ -15,12 +15,14 @@ div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element
     border-radius: 2px;
     cursor: pointer;
     padding: 3px; }
-    div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"]:hover {
+    div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"]:hover:not([data-disabled]) {
       background-color: var(--Colorant_Default_Background_5); }
-    div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"][data-focused] {
+    div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"][data-focused]:not([data-disabled]) {
       background-color: var(--Colorant_Default_Background_4);
       border: 1px solid var(--Colorant_Default_Accent_4);
       box-shadow: 0 0 4px -1px var(--Colorant_Default_Shadow_0) inset; }
+    div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"][data-focused][data-disabled] {
+      border: 1px dotted var(--Colorant_Default_Accent_1); }
     div[class~="Integrant.Element.Component.Combobox"] div[class~="Integrant.Element.Component.Combobox.Dropdown"] div[class~="Integrant.Element.Component.Combobox.Option"][data-disabled] {
       color: var(--Colorant_Default_Text_1);
       cursor: not-allowed; }

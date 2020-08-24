@@ -1,7 +1,7 @@
 using System;
 using Integrant.Fundament;
 
-namespace Integrant.Rudiment
+namespace Integrant.Element
 {
     public class Option<TID> : IOption<TID> where TID : IEquatable<TID>
     {
