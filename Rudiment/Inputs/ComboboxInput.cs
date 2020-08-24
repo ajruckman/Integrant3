@@ -67,9 +67,9 @@ namespace Integrant.Rudiment.Inputs
             // builder.AddAttribute(++seq, "Options", _options);
             // builder.AddAttribute(++seq, "OnInput", EventCallback.Factory.Create<(TStructure, TID)>(this, InvokeOnClick));
             // builder.CloseComponent();
-            //
-            // object? v = member.Member.InputValue.Invoke(value, member.Member);
-            //
+            
+            object? v = member.Member.InputValue.Invoke(value, member.Member);
+            
             // _combobox = new Combobox<TID>
             // (
             //     structure.JSRuntime!,
@@ -84,20 +84,20 @@ namespace Integrant.Rudiment.Inputs
             // _combobox.OnSelect += o => OnInput?.Invoke(value, o != null ? o.Value : default!);
             //
             // // _combobox.InvalidateOptions(() => _options.Invoke(value, member.Member));
-            //
-            // if (v is TID vt)
-            // {
-            //     _combobox.Select(vt, false);
-            // }
-            // else
-            // {
-            //     _combobox.Deselect(false);
-            // }
-
-            //
-
+            
             // TODO: Same for other getters
-            // _combobox!.SetOptionGetter(() => _options.Invoke(value, member.Member));
+            _combobox!.SetOptionGetter(() => _options.Invoke(value, member.Member));
+
+            if (v is TID vt)
+            {
+                _combobox.Select(vt, false);
+            }
+            else
+            {
+                _combobox.Deselect(false);
+            }
+
+            //
 
             // builder.AddContent(++seq, _combobox.Render());
 
