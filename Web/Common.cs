@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using Integrant.Element;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Integrant.Rudiment;

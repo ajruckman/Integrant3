@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -11,6 +12,9 @@ namespace Integrant.Resources.Icons.MaterialIcons
 
         [Parameter]
         public ushort Size { get; set; } = 24;
+        
+        [Parameter(CaptureUnmatchedValues = true)]
+        public Dictionary<string, object> Additional { get; set; }
 
         // public Icon() { }
         //
@@ -34,6 +38,7 @@ namespace Integrant.Resources.Icons.MaterialIcons
             builder.AddAttribute(++seq, "style", $"font-size: {Size}px;");
             builder.AddAttribute(++seq, "class",
                 "Integrant.Resources.Icon Integrant.Resources.Icon:MaterialIcon material-icons");
+            builder.AddMultipleAttributes(++seq, Additional);
             builder.AddContent(++seq, ID);
             builder.CloseElement();
 

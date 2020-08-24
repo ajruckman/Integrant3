@@ -65,19 +65,20 @@ namespace Integrant.Element.Components.Combobox
 
         //
 
-        // public void InvalidateOptions(OptionGetter optionGetter)
-        // {
-        //     _optionGetter = optionGetter;
-        //     _options.Invalidate();
-        //     _optionsFiltered.Invalidate();
-        //     // _stateHasChanged.Invoke();
-        // }
-
         public void SetOptionGetter(OptionGetter optionGetter)
         {
             _optionGetter = optionGetter;
+            InvalidateOptions();
+        }
+
+        public void InvalidateOptions()
+        {
             _optionsFiltered.Invalidate();
             _options.Invalidate();
+
+            if (_focused == null) return;
+            IOption<T>? newFocused = Options().SingleOrDefault(v => v.Value.Equals(_focused.Value));
+            _focused = newFocused ?? null;
         }
 
         private string InputValue()
@@ -121,12 +122,16 @@ namespace Integrant.Element.Components.Combobox
             OnSetSearchTerm?.Invoke(term);
         }
 
-        public void Select(IOption<T> o, bool update = true)
+        public void Select(IOption<T> o, bool update = true, bool focus = true)
         {
             _selected = o;
-            Focus(o);
             SetSearchTerm(null);
             _justSelected = true;
+
+            if (focus)
+            {
+                Focus(o);
+            }
 
             if (update)
             {
@@ -140,16 +145,16 @@ namespace Integrant.Element.Components.Combobox
         //     Select(Options().Single(v => v.Key == key), update);
         // }
 
-        public void Select(T value, bool update = true)
+        public void Select(T value, bool update = true, bool focus = true)
         {
-            Select(Options().Single(v => v.Value.Equals(value)), update);
+            Select(Options().Single(v => v.Value.Equals(value)), update, focus);
         }
 
-        public void SelectIfExists(T value, bool update = true)
+        public void SelectIfExists(T value, bool update = true, bool focus = true)
         {
             IOption<T>? match = Options().SingleOrDefault(v => v.Value.Equals(value));
             if (match != null)
-                Select(match, update);
+                Select(match, update, focus);
             else
                 Deselect(update);
         }
@@ -245,7 +250,7 @@ namespace Integrant.Element.Components.Combobox
                     break;
 
                 case "Enter":
-                    if (_focused?.Disabled == false)
+                    if (_shown && _focused?.Disabled == false)
                     {
                         Select(_focused);
                     }

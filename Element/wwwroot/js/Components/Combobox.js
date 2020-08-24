@@ -42,7 +42,7 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
     const dropdownElem = elementRef.querySelector("div[class~='Integrant.Element.Component.Combobox.Dropdown']");
 
     const popper = Popper.createPopper(inputElem, dropdownElem, {
-        placement: "bottom",
+        placement: "bottom-start",
     });
 
     //

@@ -1,0 +1,36 @@
+div[class~="Integrant.Element.Component.Multibox"] {
+  background-color: var(--Colorant_Default_Background_1);
+  border: 1px solid var(--Colorant_Default_Border_5);
+  border-radius: 2px;
+  padding: 3px; }
+  div[class~="Integrant.Element.Component.Multibox"] div[class~="Integrant.Element.Component.Multibox.Selected"] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; }
+    div[class~="Integrant.Element.Component.Multibox"] div[class~="Integrant.Element.Component.Multibox.Selected"] > div {
+      align-items: center;
+      background-color: var(--Colorant_Default_Background_10);
+      border: 1px solid var(--Colorant_Default_Border_8);
+      border-radius: 2px;
+      box-sizing: border-box;
+      display: inline-flex;
+      font-family: var(--Integrant_MonospacedFont);
+      font-size: 1rem;
+      justify-content: space-between;
+      margin: 1px;
+      padding: 2px 5px; }
+      div[class~="Integrant.Element.Component.Multibox"] div[class~="Integrant.Element.Component.Multibox.Selected"] > div > i {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-left: 5px;
+        outline: none;
+        padding: 0; }
+        div[class~="Integrant.Element.Component.Multibox"] div[class~="Integrant.Element.Component.Multibox.Selected"] > div > i:hover {
+          color: red; }
+    div[class~="Integrant.Element.Component.Multibox"] div[class~="Integrant.Element.Component.Multibox.Selected"] > span[class~="Integrant.Element.Component.Multibox.DummySelection"] {
+      height: 23.5px; }
+  div[class~="Integrant.Element.Component.Multibox"] div[class~="Integrant.Element.Component.Combobox"] {
+    margin-top: 3px; }
+
+/*# sourceMappingURL=Multibox.css.map */
