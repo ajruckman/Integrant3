@@ -28,5 +28,7 @@ namespace Integrant.Fundament
         /// Whether or not this option is disabled and cannot be selected.
         /// </summary>
         bool Disabled { get; }
+        
+        int? SerialID { get; }
     }
 }

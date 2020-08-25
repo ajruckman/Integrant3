@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using Superset.Utilities;
 
 namespace Integrant.Element.Components.Multibox
 {
@@ -16,11 +17,11 @@ namespace Integrant.Element.Components.Multibox
         private readonly Combobox<T>.OptionGetter _optionGetter;
         private readonly Combobox<T>              _combobox;
 
-        private readonly List<IOption<T>> _selected        = new List<IOption<T>>();
-        private readonly HashSet<T>       _selectedSet     = new HashSet<T>();
-        private          Action           _stateHasChanged = null!;
+        private readonly List<IOption<T>> _selected    = new List<IOption<T>>();
+        private readonly HashSet<T>       _selectedSet = new HashSet<T>();
 
-        public event Action<List<IOption<T>>?>? OnSelect;
+        private readonly ThreadSafeCache<List<Option<T>>> _options;
+        private          Action                           _stateHasChanged = null!;
 
         public Multibox
         (
@@ -42,17 +43,37 @@ namespace Integrant.Element.Components.Multibox
             );
 
             _combobox.OnSelect += o => Select(o);
+
+            _options = new ThreadSafeCache<List<Option<T>>>();
         }
 
-        private IEnumerable<Option<T>> Options()
+        public event Action<List<IOption<T>>?>? OnSelect;
+
+        private List<Option<T>> Options() => _options.SetIf(() =>
         {
-            return _optionGetter.Invoke().Select(v =>
-                new Option<T>(
+            IOption<T>[] options = _optionGetter.Invoke().ToArray();
+
+            List<Option<T>> result = new List<Option<T>>(options.Length);
+
+            for (var i = 0; i < options.Length; i++)
+            {
+                IOption<T> v = options[i];
+
+                result.Add(new Option<T>(
                     v.Value,
                     v.OptionText,
                     v.SelectionText,
-                    v.Disabled || _selectedSet.Contains(v.Value)
+                    v.Disabled || _selectedSet.Contains(v.Value),
+                    i
                 ));
+            }
+
+            return result;
+        });
+
+        public void InvalidateOptions()
+        {
+            _options.Invalidate();
         }
 
         public void Select(IOption<T>? o, bool update = true)
@@ -61,6 +82,7 @@ namespace Integrant.Element.Components.Multibox
 
             _selected.Add(o);
             _selectedSet.Add(o.Value);
+            InvalidateOptions();
             _combobox.InvalidateOptions();
             _combobox.Deselect(false);
             _stateHasChanged.Invoke();
@@ -68,7 +90,7 @@ namespace Integrant.Element.Components.Multibox
             if (update)
                 OnSelect?.Invoke(_selected);
         }
-        
+
         public void Select(T value, bool update = true)
         {
             Select(Options().Single(v => v.Value.Equals(value)), update);
@@ -83,6 +105,7 @@ namespace Integrant.Element.Components.Multibox
         {
             _selected.Remove(option);
             _selectedSet.Remove(option.Value);
+            InvalidateOptions();
             _combobox.InvalidateOptions();
 
             OnSelect?.Invoke(_selected.Count != 0 ? _selected : null);
@@ -117,18 +140,17 @@ namespace Integrant.Element.Components.Multibox
                 b.AddAttribute(++seq, "class", "Integrant.Element.Component.Multibox.Selected");
                 b.OpenRegion(++seq);
 
-                int seq2 = -1;
-
-                foreach (var option in Multibox._selected)
+                var seq2 = 0;
+                foreach (var o in Multibox._selected)
                 {
                     b.OpenElement(++seq2, "div");
-                    b.AddContent(++seq2, option.SelectionText);
+                    b.AddContent(++seq2, o.SelectionText);
 
                     b.OpenComponent<Icon>(++seq2);
                     b.AddAttribute(++seq2, "ID",   "close");
                     b.AddAttribute(++seq2, "Size", (ushort) 16);
                     b.AddAttribute(++seq2, "onclick",
-                        EventCallback.Factory.Create<MouseEventArgs>(this, () => OnRemoveClick(option)));
+                        EventCallback.Factory.Create<MouseEventArgs>(this, () => OnRemoveClick(o)));
                     b.CloseComponent();
 
                     b.CloseElement();

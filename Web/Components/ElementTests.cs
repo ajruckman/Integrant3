@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Bogus;
 using Integrant.Colorant.Themes.Solids;
 using Integrant.Element;
@@ -29,6 +30,7 @@ namespace Integrant.Web.Components
         private Button       _colorChangingButton      = null!;
         private Button.Color _colorChangingButtonColor = Button.Color.Default;
         private ButtonGroup  _buttonGroup;
+        private ButtonGroup  _buttonGroup2;
 
         private Modal _modal1 = null!;
 
@@ -104,6 +106,11 @@ namespace Integrant.Web.Components
                 new Button(() => "Button red!",    _ => { }, () => Button.Color.Default),
                 new Button(() => "Button yellow!", _ => { }, () => Button.Color.Default),
             });
+            
+            // _buttonGroup2 = new ButtonGroup(new List<Button>
+            // {
+                // new ToggleButton(() => "Toggle #1", async b => await Task.CompletedTask, () => false),
+            // });
 
             _modal1 = new Modal();
 
@@ -112,8 +119,8 @@ namespace Integrant.Web.Components
                     .RuleFor(u => u.Name,       (f, u) => f.Name.FullName())
                     .RuleFor(u => u.Department, (f, u) => f.Commerce.Department());
 
-            var users = _faker.Generate(100);
-            _options = users.Select(v => new PopperTests.Option
+            _users = _faker.Generate(100);
+            _options = _users.Select(v => new PopperTests.Option
             {
                 Key           = v.ID.ToString(),
                 Value         = v,
@@ -127,13 +134,15 @@ namespace Integrant.Web.Components
             );
         }
 
+        List<PopperTests.User> _users;
+
         List<PopperTests.Option> _options;
 
         protected override void OnAfterRender(bool firstRender)
         {
             if (firstRender)
             {
-                _multibox1.Select(_options[0]);
+                _multibox1.Select(_users[0]);
                 // _multibox1._combobox.Select(_options[3]);
                 // _multibox1._combobox.Select(_options[5]);
                 // _multibox1._combobox.Select(_options[12]);

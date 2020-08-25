@@ -29,7 +29,10 @@ div[class~="Integrant.Element.Component.Multibox"] {
         div[class~="Integrant.Element.Component.Multibox"] div[class~="Integrant.Element.Component.Multibox.Selected"] > div > i:hover {
           color: red; }
     div[class~="Integrant.Element.Component.Multibox"] div[class~="Integrant.Element.Component.Multibox.Selected"] > span[class~="Integrant.Element.Component.Multibox.DummySelection"] {
-      height: 23.5px; }
+      border: 1px solid transparent;
+      height: 17px;
+      margin: 1px 0;
+      padding: 2px 0; }
   div[class~="Integrant.Element.Component.Multibox"] div[class~="Integrant.Element.Component.Combobox"] {
     margin-top: 3px; }
 

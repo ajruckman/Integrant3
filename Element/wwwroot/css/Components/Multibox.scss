@@ -42,7 +42,10 @@ div[class~="Integrant.Element.Component.Multibox"] {
         }
 
         > span[class~="Integrant.Element.Component.Multibox.DummySelection" ] {
-            height: 23.5px;
+            border:  1px solid transparent;
+            height:  17px;
+            margin:  1px 0;
+            padding: 2px 0;
             //margin: 1px;
         }
     }

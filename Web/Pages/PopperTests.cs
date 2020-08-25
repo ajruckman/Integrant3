@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Bogus;
 using Integrant.Element.Components.Combobox;
 using Integrant.Fundament;
-using Integrant.Resources.Libraries;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 
 namespace Integrant.Web.Pages
 {
@@ -38,6 +34,7 @@ namespace Integrant.Web.Pages
             public string OptionText    { get; set; }
             public string SelectionText { get; set; }
             public bool   Disabled      { get; set; }
+            public int?   SerialID     { get; }
         }
 
         private Combobox<User> _combobox = null!;
