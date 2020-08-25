@@ -26,7 +26,7 @@ namespace Integrant.Web.Pages
 
         private Header _header2 = null!;
 
-        private Button       _submitButton             = null!;
+        private Button _submitButton = null!;
 
         protected override void OnInitialized()
         {
@@ -41,9 +41,9 @@ namespace Integrant.Web.Pages
                 PhoneNumber = "111.222.3344",
                 Email =
                     "aj@example.com9999999999999999999999999999999999!99999999999999999999999999999999999999999999999999999999999999999! spaced out words n stuff",
-                StartDate    = DateTime.Now,
-                StartTime    = DateTime.Now,
-                DepartmentID = 2,
+                StartDate       = DateTime.Now,
+                StartTime       = DateTime.Now,
+                DepartmentID    = 2,
                 DepartmentType2 = 2,
             };
             //

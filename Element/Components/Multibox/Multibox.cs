@@ -32,6 +32,8 @@ namespace Integrant.Element.Components.Multibox
             Combobox<T>.Placeholder? placeholder = null
         )
         {
+            _options      = new ThreadSafeCache<List<Option<T>>>();
+
             _optionGetter = optionGetter;
             _combobox = new Combobox<T>
             (
@@ -43,8 +45,6 @@ namespace Integrant.Element.Components.Multibox
             );
 
             _combobox.OnSelect += o => Select(o);
-
-            _options = new ThreadSafeCache<List<Option<T>>>();
         }
 
         public event Action<List<IOption<T>>?>? OnSelect;
@@ -63,9 +63,16 @@ namespace Integrant.Element.Components.Multibox
                     v.Value,
                     v.OptionText,
                     v.SelectionText,
+                    v.Selected,
                     v.Disabled || _selectedSet.Contains(v.Value),
                     i
                 ));
+
+                if (v.Selected)
+                {
+                    _selected.Add(v);
+                    _selectedSet.Add(v.Value);
+                }
             }
 
             return result;
@@ -80,31 +87,35 @@ namespace Integrant.Element.Components.Multibox
         {
             if (o == null || _selectedSet.Contains(o.Value)) return;
 
-            _selected.Add(o);
+            // _selected.Add(o);
+            o.Selected = true;
+
             _selectedSet.Add(o.Value);
             InvalidateOptions();
             _combobox.InvalidateOptions();
-            _combobox.Deselect(false);
+            // _combobox.Deselect(false);
             _stateHasChanged.Invoke();
 
             if (update)
                 OnSelect?.Invoke(_selected);
         }
 
-        public void Select(T value, bool update = true)
-        {
-            Select(Options().Single(v => v.Value.Equals(value)), update);
-        }
+        // public void Select(T value, bool update = true)
+        // {
+        //     Select(Options().Single(v => v.Value.Equals(value)), update);
+        // }
 
         private static string DefaultPlaceholderGetter()
         {
             return "Click or tab to add selection";
         }
 
-        private void Remove(IOption<T> option)
+        private void Remove(IOption<T> o)
         {
-            _selected.Remove(option);
-            _selectedSet.Remove(option.Value);
+            o.Selected = false;
+            _selected.Remove(o);
+            _selectedSet.Remove(o.Value);
+
             InvalidateOptions();
             _combobox.InvalidateOptions();
 

@@ -106,10 +106,10 @@ namespace Integrant.Web.Components
                 new Button(() => "Button red!",    _ => { }, () => Button.Color.Default),
                 new Button(() => "Button yellow!", _ => { }, () => Button.Color.Default),
             });
-            
+
             // _buttonGroup2 = new ButtonGroup(new List<Button>
             // {
-                // new ToggleButton(() => "Toggle #1", async b => await Task.CompletedTask, () => false),
+            // new ToggleButton(() => "Toggle #1", async b => await Task.CompletedTask, () => false),
             // });
 
             _modal1 = new Modal();
@@ -126,6 +126,7 @@ namespace Integrant.Web.Components
                 Value         = v,
                 OptionText    = $"{v.Name} - {v.Department}",
                 SelectionText = v.Name,
+                Selected      = v.Name.StartsWith("A"),
             }).ToList();
 
             _multibox1 = new Multibox<PopperTests.User>
@@ -142,7 +143,7 @@ namespace Integrant.Web.Components
         {
             if (firstRender)
             {
-                _multibox1.Select(_users[0]);
+                // _multibox1.Select(_users[0]);
                 // _multibox1._combobox.Select(_options[3]);
                 // _multibox1._combobox.Select(_options[5]);
                 // _multibox1._combobox.Select(_options[12]);

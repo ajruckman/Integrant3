@@ -33,8 +33,9 @@ namespace Integrant.Web.Pages
             public User   Value         { get; set; }
             public string OptionText    { get; set; }
             public string SelectionText { get; set; }
+            public bool   Selected      { get; set; }
             public bool   Disabled      { get; set; }
-            public int?   SerialID     { get; }
+            public int?   SerialID      { get; }
         }
 
         private Combobox<User> _combobox = null!;

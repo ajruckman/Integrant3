@@ -33,9 +33,11 @@ namespace Integrant.Element.Components.Combobox
         private          OptionGetter                      _optionGetter;
         private          ElementReference                  _elementRef;
 
-        private bool        _shown;
-        private bool        _justSelected;
-        private string?     _searchTerm;
+        private bool _shown;
+        private bool _justSelected;
+
+        private string? _searchTerm;
+
         private IOption<T>? _selected;
         private IOption<T>? _focused;
         private Action      _stateHasChanged = null!;
@@ -55,6 +57,9 @@ namespace Integrant.Element.Components.Combobox
             _isDisabled   = isDisabled;
             _isRequired   = isRequired;
             _placeholder  = placeholder;
+
+            // Invoke this so we find any selected option.
+            Options();
         }
 
         public event Action<IOption<T>?>? OnSelect;
@@ -89,7 +94,16 @@ namespace Integrant.Element.Components.Combobox
         }
 
         private List<IOption<T>> Options() =>
-            _options.SetIf(() => _optionGetter.Invoke().ToList());
+            _options.SetIf(() =>
+            {
+                List<IOption<T>> r = _optionGetter.Invoke().ToList();
+
+                IOption<T>? selected = r.FirstOrDefault(v => v.Selected);
+                if (selected != null)
+                    _selected = selected;
+
+                return r;
+            });
 
         private List<IOption<T>> OptionsFiltered()
         {
@@ -124,7 +138,9 @@ namespace Integrant.Element.Components.Combobox
 
         public void Select(IOption<T> o, bool update = true, bool focus = true)
         {
-            _selected = o;
+            o.Selected = true;
+            _selected  = o;
+
             SetSearchTerm(null);
             _justSelected = true;
 
@@ -145,26 +161,43 @@ namespace Integrant.Element.Components.Combobox
         //     Select(Options().Single(v => v.Key == key), update);
         // }
 
-        public void Select(T value, bool update = true, bool focus = true)
-        {
-            Select(Options().Single(v => v.Value.Equals(value)), update, focus);
-        }
+        // public void Select(T value, bool update = true, bool focus = true)
+        // {
+        //     Select(Options().Single(v => v.Value.Equals(value)), update, focus);
+        // }
 
-        public void SelectIfExists(T value, bool update = true, bool focus = true)
-        {
-            IOption<T>? match = Options().SingleOrDefault(v => v.Value.Equals(value));
-            if (match != null)
-                Select(match, update, focus);
-            else
-                Deselect(update);
-        }
+        // public void SelectIfExists(T value, bool update = true, bool focus = true)
+        // {
+        //     IOption<T>? match = Options().SingleOrDefault(v => v.Value.Equals(value));
+        //     if (match != null)
+        //         Select(match, update, focus);
+        //     else
+        //         Deselect(update);
+        // }
 
-        public void Deselect(bool update = true)
+        // public void Deselect(bool update = true)
+        // {
+        //     foreach (IOption<T> o in _options.Get().Where(v => v.Selected))
+        //     {
+        //         o.Selected = false;
+        //     }
+        //
+        //     _selected = null;
+        //
+        //     if (update)
+        //         OnSelect?.Invoke(null);
+        // }
+
+        private void Deselect()
         {
+            foreach (IOption<T> o in _options.Get().Where(v => v.Selected))
+            {
+                o.Selected = false;
+            }
+
             _selected = null;
 
-            if (update)
-                OnSelect?.Invoke(null);
+            OnSelect?.Invoke(null);
         }
 
         private void Focus(IOption<T> o)
@@ -408,8 +441,8 @@ namespace Integrant.Element.Components.Combobox
                 for (var i = 0; i < Combobox.Options().Count; i++)
                 {
                     IOption<T> o        = Combobox.Options()[i];
-                    bool       selected = Combobox._selected?.Value.Equals(o.Value) == true;
-                    bool       focused  = Combobox._focused?.Value.Equals(o.Value)  == true;
+                    bool       selected = o.Selected;
+                    bool       focused  = Combobox._focused?.Value.Equals(o.Value) == true;
                     bool       matches  = Combobox.Matches(o);
 
                     b.OpenElement(++seq2, "div");

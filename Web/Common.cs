@@ -213,7 +213,7 @@ namespace Integrant.Web
                 nameof(User.DepartmentType2),
                 (v,               m) => v.DepartmentType2,
                 valueUpdater: (v, m, mv) => v.DepartmentType2 = mv,
-                input: () => new ComboboxInput<User, int>((v, m) => SampleOptions()),
+                input: () => new ComboboxInput<User, int>((v, m) => SampleOptions(v)),
                 inputPlaceholder: (v, m) => $"Placeholder = {v.CreatedBy}",
                 inputIsDisabled: (v,  m) => !v.Boolean,
                 inputIsRequired: (v,  m) => true
@@ -254,13 +254,19 @@ namespace Integrant.Web
             ));
         }
 
-        private static IEnumerable<IOption<int>> SampleOptions()
+        private static IEnumerable<IOption<int>> SampleOptions(User v)
         {
             var rnd = new Random(1);
 
             for (var i = 0; i < 100; i++)
             {
-                yield return new Option<int>(i, rnd.Next().ToString(), disabled: rnd.Next() % 15 == 0);
+                int n = rnd.Next();
+                yield return new Option<int>(
+                    i,
+                    n.ToString(),
+                    selected: v.DepartmentType2 == i,
+                    disabled: n % 5 == 0 && n % 15 != 0
+                );
             }
         }
     }
