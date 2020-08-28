@@ -32,9 +32,9 @@ namespace Integrant.Element.Components.Multibox
             Combobox<T>.Placeholder? placeholder = null
         )
         {
+            _optionGetter = optionGetter;
             _options      = new ThreadSafeCache<List<Option<T>>>();
 
-            _optionGetter = optionGetter;
             _combobox = new Combobox<T>
             (
                 jsRuntime,
@@ -45,6 +45,8 @@ namespace Integrant.Element.Components.Multibox
             );
 
             _combobox.OnSelect += o => Select(o);
+            
+            SetSelectedOptions();
         }
 
         public event Action<List<IOption<T>>?>? OnSelect;
@@ -67,12 +69,6 @@ namespace Integrant.Element.Components.Multibox
                     v.Disabled || _selectedSet.Contains(v.Value),
                     i
                 ));
-
-                if (v.Selected)
-                {
-                    _selected.Add(v);
-                    _selectedSet.Add(v.Value);
-                }
             }
 
             return result;
@@ -81,17 +77,34 @@ namespace Integrant.Element.Components.Multibox
         public void InvalidateOptions()
         {
             _options.Invalidate();
+            SetSelectedOptions();
+        }
+
+        private void SetSelectedOptions()
+        {
+            _selected.Clear();
+            _selectedSet.Clear();
+            
+            foreach (Option<T> o in Options())
+            {
+                if (o.Selected)
+                {
+                    _selected.Add(o);
+                    _selectedSet.Add(o.Value);
+                }
+            }
         }
 
         public void Select(IOption<T>? o, bool update = true)
         {
             if (o == null || _selectedSet.Contains(o.Value)) return;
 
-            // _selected.Add(o);
             o.Selected = true;
-
+            _selected.Add(o);
             _selectedSet.Add(o.Value);
-            InvalidateOptions();
+            
+            // InvalidateOptions();
+            _options.Invalidate();
             _combobox.InvalidateOptions();
             // _combobox.Deselect(false);
             _stateHasChanged.Invoke();

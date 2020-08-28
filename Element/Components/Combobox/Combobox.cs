@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -41,6 +42,9 @@ namespace Integrant.Element.Components.Combobox
         private IOption<T>? _selected;
         private IOption<T>? _focused;
         private Action      _stateHasChanged = null!;
+        private bool        _shouldRender    = true;
+
+        private readonly Debouncer<string?> _debouncer;
 
         public Combobox
         (
@@ -58,7 +62,20 @@ namespace Integrant.Element.Components.Combobox
             _isRequired   = isRequired;
             _placeholder  = placeholder;
 
-            // Invoke this so we find any selected option.
+            _debouncer = new Debouncer<string?>(s =>
+            {
+                SetSearchTerm(s);
+                Show();
+                Deselect();
+
+                // TODO: keep this?
+                _focused = null;
+
+                _shouldRender = true;
+                _stateHasChanged.Invoke();
+            }, null);
+
+            // Cache this so we find any selected option.
             Options();
         }
 
@@ -112,9 +129,10 @@ namespace Integrant.Element.Components.Combobox
             return _optionsFiltered.SetIf(() => Options().Where(Matches).ToList());
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool Matches(IOption<T> o)
         {
-            return _searchTerm == null || o.OptionText.IndexOf(_searchTerm, StringComparison.OrdinalIgnoreCase) >= 0;
+            return _searchTerm == null || o.OptionText.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase);
         }
 
         public void Show()
@@ -302,9 +320,8 @@ namespace Integrant.Element.Components.Combobox
         private void OnInputInput(ChangeEventArgs args)
         {
             var v = args.Value?.ToString();
-            SetSearchTerm(string.IsNullOrEmpty(v) ? null : v);
-            Show();
-            Deselect();
+            _shouldRender = false;
+            _debouncer.Reset(string.IsNullOrEmpty(v) ? null : v);
         }
 
         //
@@ -341,7 +358,7 @@ namespace Integrant.Element.Components.Combobox
 
             protected override void OnParametersSet()
             {
-                Combobox._stateHasChanged = StateHasChanged;
+                Combobox._stateHasChanged = () => InvokeAsync(StateHasChanged);
             }
 
             protected override void OnInitialized()
@@ -375,6 +392,8 @@ namespace Integrant.Element.Components.Combobox
                     }
                 }
             }
+
+            protected override bool ShouldRender() => Combobox._shouldRender;
 
             protected override void BuildRenderTree(RenderTreeBuilder b)
             {
@@ -441,8 +460,8 @@ namespace Integrant.Element.Components.Combobox
                 for (var i = 0; i < Combobox.Options().Count; i++)
                 {
                     IOption<T> o        = Combobox.Options()[i];
-                    bool       selected = o.Selected;
-                    bool       focused  = Combobox._focused?.Value.Equals(o.Value) == true;
+                    bool       selected = Combobox._selected?.Value.Equals(o.Value) == true;
+                    bool       focused  = Combobox._focused?.Value.Equals(o.Value)  == true;
                     bool       matches  = Combobox.Matches(o);
 
                     b.OpenElement(++seq2, "div");

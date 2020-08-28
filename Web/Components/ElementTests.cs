@@ -119,14 +119,14 @@ namespace Integrant.Web.Components
                     .RuleFor(u => u.Name,       (f, u) => f.Name.FullName())
                     .RuleFor(u => u.Department, (f, u) => f.Commerce.Department());
 
-            _users = _faker.Generate(100);
+            _users = _faker.Generate(20000);
             _options = _users.Select(v => new PopperTests.Option
             {
                 Key           = v.ID.ToString(),
                 Value         = v,
                 OptionText    = $"{v.Name} - {v.Department}",
                 SelectionText = v.Name,
-                Selected      = v.Name.StartsWith("A"),
+                // Selected      = v.Name.StartsWith("A"),
             }).ToList();
 
             _multibox1 = new Multibox<PopperTests.User>
