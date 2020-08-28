@@ -10,8 +10,8 @@ window.Integrant.Element.ScrollDropdownToSelection = window.Integrant.Element.Sc
 
     let padding = selected.clientHeight * 3;
 
-    // console.log("Scroll to selection:");
-    // console.log(selected);
+    console.log("Scroll to selection:");
+    console.log(selected);
 
     dropdownElem.scrollTop = Math.min(selected.offsetTop - padding, dropdownElem.scrollHeight);
 };
@@ -58,7 +58,7 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
                 popper.update();
 
                 if (!hasMovedToTop) {
-                    // console.log("Scroll to top");
+                    console.log("Scroll to top");
                     dropdownElem.scrollTop = 0;
                     hasMovedToTop = true;
                 }
@@ -76,9 +76,11 @@ window.Integrant.Element.CreateCombobox = window.Integrant.Element.CreateCombobo
             if (m.type === "attributes" && m.attributeName === "data-focused") {
                 let focusedOption = dropdownElem.querySelector("[data-focused]");
                 if (focusedOption != null) {
-                    // console.log("Ensure in view:");
-                    // console.log(focusedOption);
+                    console.log("Ensure in view:");
+                    console.log(focusedOption);
                     ensureInView(dropdownElem, focusedOption);
+                } else {
+                    console.log("Not found");
                 }
                 break;
             }

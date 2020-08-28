@@ -98,15 +98,21 @@ namespace Integrant.Element.Components.Multibox
         public void Select(IOption<T>? o, bool update = true)
         {
             if (o == null || _selectedSet.Contains(o.Value)) return;
+            
+            _combobox.Deselect();
 
             o.Selected = true;
             _selected.Add(o);
             _selectedSet.Add(o.Value);
+
+            o.Disabled = true;
             
             // InvalidateOptions();
-            _options.Invalidate();
-            _combobox.InvalidateOptions();
+            // _options.Invalidate();
+            // _combobox.InvalidateOptions();
             // _combobox.Deselect(false);
+            
+            
             _stateHasChanged.Invoke();
 
             if (update)
@@ -128,6 +134,8 @@ namespace Integrant.Element.Components.Multibox
             o.Selected = false;
             _selected.Remove(o);
             _selectedSet.Remove(o.Value);
+
+            o.Disabled = false;
 
             InvalidateOptions();
             _combobox.InvalidateOptions();

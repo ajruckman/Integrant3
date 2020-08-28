@@ -27,7 +27,7 @@ namespace Integrant.Element
         public string OptionText    { get; }
         public string SelectionText { get; }
         public bool   Selected      { get; set; }
-        public bool   Disabled      { get; }
+        public bool   Disabled      { get; set; }
 
         public int? SerialID { get; }
     }

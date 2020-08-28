@@ -119,7 +119,7 @@ namespace Integrant.Web.Components
                     .RuleFor(u => u.Name,       (f, u) => f.Name.FullName())
                     .RuleFor(u => u.Department, (f, u) => f.Commerce.Department());
 
-            _users = _faker.Generate(20000);
+            _users = _faker.Generate(1000);
             _options = _users.Select(v => new PopperTests.Option
             {
                 Key           = v.ID.ToString(),

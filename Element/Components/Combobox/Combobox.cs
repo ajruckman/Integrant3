@@ -25,14 +25,14 @@ namespace Integrant.Element.Components.Combobox
 
         public delegate string Placeholder();
 
-        private readonly IJSRuntime                        _jsRuntime;
-        private readonly IsDisabled?                       _isDisabled;
-        private readonly IsRequired?                       _isRequired;
-        private readonly Placeholder?                      _placeholder;
-        private readonly ThreadSafeCache<List<IOption<T>>> _options         = new ThreadSafeCache<List<IOption<T>>>();
-        private readonly ThreadSafeCache<List<IOption<T>>> _optionsFiltered = new ThreadSafeCache<List<IOption<T>>>();
-        private          OptionGetter                      _optionGetter;
-        private          ElementReference                  _elementRef;
+        private readonly IJSRuntime                    _jsRuntime;
+        private readonly IsDisabled?                   _isDisabled;
+        private readonly IsRequired?                   _isRequired;
+        private readonly Placeholder?                  _placeholder;
+        private readonly ThreadSafeCache<IOption<T>[]> _options         = new ThreadSafeCache<IOption<T>[]>();
+        private readonly ThreadSafeCache<IOption<T>[]> _optionsFiltered = new ThreadSafeCache<IOption<T>[]>();
+        private          OptionGetter                  _optionGetter;
+        private          ElementReference              _elementRef;
 
         private bool _shown;
         private bool _justSelected;
@@ -106,14 +106,14 @@ namespace Integrant.Element.Components.Combobox
         private string InputValue()
         {
             return _shown
-                ? _focused?.SelectionText  ?? _selected?.SelectionText ?? (_searchTerm ?? "")
-                : _selected?.SelectionText ?? (_searchTerm ?? "");
+                ? _focused?.SelectionText  ?? _selected?.SelectionText ?? _searchTerm ?? ""
+                : _selected?.SelectionText ?? _searchTerm              ?? "";
         }
 
-        private List<IOption<T>> Options() =>
+        private IOption<T>[] Options() =>
             _options.SetIf(() =>
             {
-                List<IOption<T>> r = _optionGetter.Invoke().ToList();
+                IOption<T>[] r = _optionGetter.Invoke().ToArray();
 
                 IOption<T>? selected = r.FirstOrDefault(v => v.Selected);
                 if (selected != null)
@@ -122,12 +122,19 @@ namespace Integrant.Element.Components.Combobox
                 return r;
             });
 
-        private List<IOption<T>> OptionsFiltered()
+        private IOption<T>[] OptionsFiltered()
         {
-            if (_searchTerm == null) return Options();
+            if (_searchTerm == null) return Options().ToArray();
 
-            return _optionsFiltered.SetIf(() => Options().Where(Matches).ToList());
+            return _optionsFiltered.SetIf(() => Options().Where(Matches).ToArray());
         }
+
+        // private List<IOption<T>> OptionsFiltered()
+        // {
+        //     if (_searchTerm == null) return Options();
+        //
+        //     return _optionsFiltered.SetIf(() => Options().Where(Matches).ToList());
+        // }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool Matches(IOption<T> o)
@@ -156,6 +163,8 @@ namespace Integrant.Element.Components.Combobox
 
         public void Select(IOption<T> o, bool update = true, bool focus = true)
         {
+            if (_selected != null) _selected.Selected = false;
+
             o.Selected = true;
             _selected  = o;
 
@@ -206,7 +215,7 @@ namespace Integrant.Element.Components.Combobox
         //         OnSelect?.Invoke(null);
         // }
 
-        private void Deselect()
+        public void Deselect(bool update = true)
         {
             foreach (IOption<T> o in _options.Get().Where(v => v.Selected))
             {
@@ -215,7 +224,8 @@ namespace Integrant.Element.Components.Combobox
 
             _selected = null;
 
-            OnSelect?.Invoke(null);
+            if (update)
+                OnSelect?.Invoke(null);
         }
 
         private void Focus(IOption<T> o)
@@ -261,7 +271,7 @@ namespace Integrant.Element.Components.Combobox
                 Show();
             }
 
-            List<IOption<T>> users = OptionsFiltered();
+            IOption<T>[] users = OptionsFiltered();
 
             IOption<T>? first = users.FirstOrDefault();
             if (first == null)
@@ -278,7 +288,8 @@ namespace Integrant.Element.Components.Combobox
                     }
                     else if (!_focused.Value.Equals(first.Value))
                     {
-                        int previousIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) - 1;
+                        int previousIndex = Array.FindIndex(users, v => v.Value.Equals(_focused.Value));
+                        // int previousIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) - 1;
                         Focus(users[previousIndex]);
                     }
 
@@ -291,8 +302,9 @@ namespace Integrant.Element.Components.Combobox
                     }
                     else
                     {
-                        int nextIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) + 1;
-                        if (nextIndex < users.Count)
+                        int nextIndex = Array.FindIndex(users, v => v.Value.Equals(_focused.Value)) + 1;
+                        // int nextIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) + 1;
+                        if (nextIndex < users.Length)
                         {
                             Focus(users[nextIndex]);
                         }
@@ -457,7 +469,7 @@ namespace Integrant.Element.Components.Combobox
 
                 int seq2 = -1;
 
-                for (var i = 0; i < Combobox.Options().Count; i++)
+                for (var i = 0; i < Combobox.Options().Length; i++)
                 {
                     IOption<T> o        = Combobox.Options()[i];
                     bool       selected = Combobox._selected?.Value.Equals(o.Value) == true;
