@@ -101,11 +101,11 @@ namespace Integrant.Element.Components.Multibox
             
             _combobox.Deselect();
 
-            o.Selected = true;
+            // o.Selected = true;
             _selected.Add(o);
             _selectedSet.Add(o.Value);
 
-            o.Disabled = true;
+            // o.Disabled = true;
             
             // InvalidateOptions();
             // _options.Invalidate();
@@ -131,16 +131,16 @@ namespace Integrant.Element.Components.Multibox
 
         private void Remove(IOption<T> o)
         {
-            o.Selected = false;
-            _selected.Remove(o);
+            // o.Selected = false;
+            _selected.RemoveAll(v => v.Value.Equals(o.Value));
             _selectedSet.Remove(o.Value);
 
-            o.Disabled = false;
-
-            InvalidateOptions();
-            _combobox.InvalidateOptions();
+            // o.Disabled = false;
 
             OnSelect?.Invoke(_selected.Count != 0 ? _selected : null);
+            
+            // InvalidateOptions();
+            _combobox.InvalidateOptions();
         }
 
         public RenderFragment Render() => b =>

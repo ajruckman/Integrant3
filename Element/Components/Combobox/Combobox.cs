@@ -165,7 +165,7 @@ namespace Integrant.Element.Components.Combobox
         {
             if (_selected != null) _selected.Selected = false;
 
-            o.Selected = true;
+            // o.Selected = true;
             _selected  = o;
 
             SetSearchTerm(null);
@@ -217,10 +217,10 @@ namespace Integrant.Element.Components.Combobox
 
         public void Deselect(bool update = true)
         {
-            foreach (IOption<T> o in _options.Get().Where(v => v.Selected))
-            {
-                o.Selected = false;
-            }
+            // foreach (IOption<T> o in _options.Get().Where(v => v.Selected))
+            // {
+                // o.Selected = false;
+            // }
 
             _selected = null;
 
@@ -288,7 +288,7 @@ namespace Integrant.Element.Components.Combobox
                     }
                     else if (!_focused.Value.Equals(first.Value))
                     {
-                        int previousIndex = Array.FindIndex(users, v => v.Value.Equals(_focused.Value));
+                        int previousIndex = Array.FindIndex(users, v => v.Value.Equals(_focused.Value)) - 1;
                         // int previousIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) - 1;
                         Focus(users[previousIndex]);
                     }

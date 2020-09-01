@@ -86,9 +86,9 @@ namespace Integrant.Web.Components
                 () => "Color changing button",
                 _ =>
                 {
-                    _colorChangingButtonColor =
-                        (Button.Color) (((int) _colorChangingButtonColor + 1) %
-                                        Enum.GetNames(typeof(Button.Color)).Length);
+                    _colorChangingButtonColor++;
+                    if (_colorChangingButtonColor > Button.Color.Yellow)
+                        _colorChangingButtonColor = Button.Color.Default;
                     StateHasChanged();
                 },
                 () => _colorChangingButtonColor,
