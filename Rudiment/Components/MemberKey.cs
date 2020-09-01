@@ -17,7 +17,7 @@ namespace Integrant.Rudiment.Components
         public string ID { get; set; } = null!;
 
         // private readonly Restrictor _restrictor = new Restrictor();
-        
+
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             Member<TS, TM> member = StructureInstance.Structure.GetMember<TM>(ID);

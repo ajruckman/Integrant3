@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Integrant.Element.Bits;
@@ -62,10 +63,11 @@ namespace Integrant.Element.Constructs
 
         public void Add(IBit bit)
         {
-            if (!_doHighlight) return;
+
             if (bit is Link link)
             {
-                link.Spec.IsHighlighted ??= () => link.Spec.URL!.Invoke() == _highlightedURL;
+                if (_doHighlight)
+                    link.Spec.IsHighlighted ??= () => link.Spec.URL!.Invoke() == _highlightedURL;
                 _layout.Contents.Add(link);
             }
             else
@@ -73,6 +75,7 @@ namespace Integrant.Element.Constructs
                 _layout.Contents.Add(bit);
             }
         }
+
 
         public RenderFragment Render() => builder =>
         {

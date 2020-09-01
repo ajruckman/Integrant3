@@ -20,10 +20,23 @@ div[class~="Integrant.Element.Bit.Spinner"] {
     stroke-dasharray: 400, 400;
     stroke-dashoffset: -250px; } }
 
+[class~="Integrant.Element.Bit"][hidden] {
+  display: none !important; }
+
 div[class~="Integrant.Element.Bit.Arrow"] {
   box-sizing: border-box;
   vertical-align: middle;
   display: inline-block; }
+
+section[class~="Integrant.Element.Bit.BitGroup"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: contents; }
+
+section[class~="Integrant.Element.Bit.Icon"] {
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: contents; }
 
 div[class~="Integrant.Element.Bit.Checkbox"] {
   box-sizing: border-box;

@@ -20,7 +20,7 @@ namespace Integrant.Element
             builder.AddAttribute(++seq, "class", bitBase.Class(false, additionalClasses));
 
             ++seq;
-            if (bitBase.Spec.IsDisabled?.Invoke() == true)
+            if (bitBase.Spec.IsVisible?.Invoke() == false)
                 builder.AddAttribute(seq, "hidden", "hidden");
         }
 

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Integrant.Resources.Icons.MaterialIcons
 {
-    public sealed class Icon : ComponentBase
+    public sealed class Icon : ComponentBase, IIcon
     {
         [Parameter]
         public string ID { get; set; } = null!;

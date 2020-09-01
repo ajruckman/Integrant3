@@ -1,5 +1,11 @@
 @import 'Bits.Spinner.scss';
 
+[class~="Integrant.Element.Bit"] {
+    &[hidden] {
+        display: none !important;
+    }
+}
+
 @mixin _Bit {
     box-sizing:     border-box;
     vertical-align: middle;
@@ -9,6 +15,18 @@ div[class~="Integrant.Element.Bit.Arrow"] {
     @include _Bit();
 
     display: inline-block;
+}
+
+section[class~="Integrant.Element.Bit.BitGroup"] {
+    @include _Bit();
+
+    display: contents;
+}
+
+section[class~="Integrant.Element.Bit.Icon"] {
+    @include _Bit();
+
+    display: contents;
 }
 
 div[class~="Integrant.Element.Bit.Checkbox"] {
