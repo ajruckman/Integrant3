@@ -53,16 +53,11 @@ namespace Integrant.Element.Bits
         {
             int seq = -1;
 
-            builder.OpenElement(++seq, "div");
-            builder.AddAttribute(++seq, "style", Style(false));
-            builder.AddAttribute(++seq, "class", Class(false));
-
-            ++seq;
-            if (Spec.IsVisible?.Invoke() == false)
-                builder.AddAttribute(seq, "hidden", "hidden");
+            BitBuilder.OpenElement(builder, ref seq, "div", this, null, null);
 
             builder.AddContent(++seq, Spec.Content!.Invoke().Fragment);
-            builder.CloseElement();
+            
+            BitBuilder.CloseElement(builder);
         };
     }
 }

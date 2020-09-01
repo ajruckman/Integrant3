@@ -140,18 +140,13 @@ namespace Integrant.Element.Bits
         {
             int seq = -1;
 
-            builder.OpenElement(++seq, "button");
-            builder.AddAttribute(++seq, "style", Style(false));
-            builder.AddAttribute(++seq, "class", Class(false, LocalClasses()));
-
-            ++seq;
-            if (Spec.IsVisible?.Invoke() == false)
-                builder.AddAttribute(seq, "hidden", "hidden");
+            BitBuilder.OpenElement(builder, ref seq, "button", this, null, LocalClasses());
 
             builder.AddAttribute(++seq, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, Click));
 
             builder.AddContent(++seq, Spec.Content!.Invoke().Fragment);
-            builder.CloseElement();
+            
+            BitBuilder.CloseElement(builder);
         };
 
         private async Task Click(MouseEventArgs args)

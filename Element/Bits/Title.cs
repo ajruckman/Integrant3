@@ -60,23 +60,18 @@ namespace Integrant.Element.Bits
 
             if (Spec.URL == null)
             {
-                builder.OpenElement(++seq, "div");
+                BitBuilder.OpenElement(builder, ref seq, "div", this, null, null);
             }
             else
             {
-                builder.OpenElement(++seq, "a");
+                BitBuilder.OpenElement(builder, ref seq, "a", this, null, null);
+
                 builder.AddAttribute(++seq, "href", Spec.URL.Invoke());
             }
 
-            builder.AddAttribute(++seq, "style", Style(false));
-            builder.AddAttribute(++seq, "class", Class(false));
-
-            ++seq;
-            if (Spec.IsVisible?.Invoke() == false)
-                builder.AddAttribute(seq, "hidden", "hidden");
-
             builder.AddContent(++seq, Spec.Content!.Invoke().Fragment);
-            builder.CloseElement();
+            
+            BitBuilder.CloseElement(builder);
         };
     }
 }

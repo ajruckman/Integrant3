@@ -46,11 +46,11 @@
 
 <br>
 
-@(new Checkbox(c => { }).Render())
-@(new Checkbox(async c => await Console.Out.WriteLineAsync("async " + c), isChecked: () => true).Render())
-@(new Checkbox(c => { }, isDisabled: () => true).Render())
-@(new Checkbox(c => { }, isDisabled: () => true, isChecked: () => true).Render())
-@(new Checkbox(c => { }, isRequired: () => true).Render())
+@checkbox1.Render()
+@checkbox2.Render()
+@checkbox3.Render()
+@checkbox4.Render()
+@checkbox5.Render()
 
 <br>
 

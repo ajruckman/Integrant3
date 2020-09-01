@@ -3,15 +3,14 @@ using System.Threading.Tasks;
 using Integrant.Fundament;
 using Integrant.Resources.Icons.MaterialIcons;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
-using Superset.Web.State;
 
 namespace Integrant.Element.Bits
 {
     public class Checkbox : BitBase
     {
         private readonly Func<bool, Task> _onToggle;
-        private readonly UpdateTrigger    _trigger = new UpdateTrigger();
 
         public Checkbox
         (
@@ -117,22 +116,37 @@ namespace Integrant.Element.Bits
         {
             int seq = -1;
 
-            builder.OpenComponent<TriggerWrapper>(++seq);
-            builder.AddAttribute(++seq, "Trigger", _trigger);
-            builder.AddAttribute(++seq, "ChildContent", new RenderFragment(builder2 =>
-            {
-                builder2.OpenElement(++seq, "div");
-                builder2.AddAttribute(++seq, "style",   Style(false));
-                builder2.AddAttribute(++seq, "class",   Class(false, AdditionalClasses()));
-                builder2.AddAttribute(++seq, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClick));
-                builder2.AddAttribute(++seq, "hidden",  Spec.IsVisible?.Invoke() == false);
-                builder2.OpenComponent<Icon>(++seq);
-                builder2.AddAttribute(++seq, "ID", !Checked ? "check_box_outline_blank" : "check_box");
-                builder2.CloseComponent();
-                builder2.CloseElement();
-            }));
+            builder.OpenComponent<Component>(++seq);
+            builder.AddAttribute(++seq, "Checkbox", this);
             builder.CloseComponent();
         };
+
+        private Action? StateHasChanged;
+
+        private class Component : ComponentBase
+        {
+            [Parameter] public Checkbox Checkbox { get; set; } = null!;
+
+            protected override void OnInitialized()
+            {
+                Checkbox.StateHasChanged = () => InvokeAsync(StateHasChanged);
+            }
+
+            protected override void BuildRenderTree(RenderTreeBuilder builder)
+            {
+                int seq = -1;
+
+                BitBuilder.OpenElement(builder, ref seq, "div", Checkbox, null, Checkbox.AdditionalClasses());
+
+                builder.AddAttribute(++seq, "onclick",
+                    EventCallback.Factory.Create<MouseEventArgs>(this, Checkbox.OnClick));
+                builder.OpenComponent<Icon>(++seq);
+                builder.AddAttribute(++seq, "ID", !Checkbox.Checked ? "check_box_outline_blank" : "check_box");
+                builder.CloseComponent();
+                
+                BitBuilder.CloseElement(builder);
+            }
+        }
 
         private async Task OnClick(MouseEventArgs obj)
         {
@@ -140,24 +154,15 @@ namespace Integrant.Element.Bits
                 return;
 
             Checked = !Checked;
-            _trigger.Trigger();
+            (StateHasChanged ?? throw ReconstructedException).Invoke();
 
             await _onToggle.Invoke(Checked);
-
-            // bool? now = Spec.IsChecked?.Invoke();
-            // if (now == null) return;
-            //
-            // if (_checked != now.Value)
-            // {
-            //     _checked = now.Value;
-            //     _onToggle.Invoke(_checked);
-            // } 
         }
 
         public void Reset()
         {
             Checked = Spec.IsChecked?.Invoke() ?? false;
-            _trigger.Trigger();
+            (StateHasChanged ?? throw ReconstructedException).Invoke();
         }
     }
 }

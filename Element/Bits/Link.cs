@@ -65,17 +65,12 @@ namespace Integrant.Element.Bits
         {
             int seq = -1;
 
-            builder.OpenElement(++seq, "a");
-            builder.AddAttribute(++seq, "style", Style(false));
-            builder.AddAttribute(++seq, "class", Class(false, LocalClasses()));
-
-            ++seq;
-            if (Spec.IsVisible?.Invoke() == false)
-                builder.AddAttribute(seq, "hidden", "hidden");
+            BitBuilder.OpenElement(builder, ref seq, "a", this, null, LocalClasses());
 
             builder.AddAttribute(++seq, "href", Spec.URL!.Invoke());
             builder.AddContent(++seq, Spec.Content!.Invoke().Fragment);
-            builder.CloseElement();
+            
+            BitBuilder.CloseElement(builder);
         };
     }
 }

@@ -60,20 +60,14 @@ namespace Integrant.Element.Bits
             // Define these in HTML instead of CSS.
             uint? height = _pixelsHeight?.Invoke() ?? null;
             uint? width  = _pixelsWidth?.Invoke()  ?? null;
-
-            builder.OpenElement(++seq, "img");
-            builder.AddAttribute(++seq, "style", Style(false));
-            builder.AddAttribute(++seq, "class", Class(false));
-
-            ++seq;
-            if (Spec.IsVisible?.Invoke() == false)
-                builder.AddAttribute(seq, "hidden", "hidden");
+            
+            BitBuilder.OpenElement(builder, ref seq, "img", this, null, null);
 
             builder.AddAttribute(++seq, "src",    Spec.URL!.Invoke());
             builder.AddAttribute(++seq, "height", height);
             builder.AddAttribute(++seq, "width",  width);
 
-            builder.CloseElement();
+            BitBuilder.CloseElement(builder);
         };
     }
 }

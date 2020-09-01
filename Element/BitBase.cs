@@ -1,3 +1,4 @@
+using System;
 using Integrant.Fundament;
 using Integrant.Fundament.Element;
 using Microsoft.AspNetCore.Components;
@@ -26,7 +27,7 @@ namespace Integrant.Element
             }
         }
 
-        protected string? Style(bool initial, string[]? additional = null)
+        protected internal string? Style(bool initial, string[]? additional = null)
         {
             if (Spec.IsStatic && !initial)
                 return CachedStyle;
@@ -39,7 +40,7 @@ namespace Integrant.Element
             return r;
         }
 
-        protected string Class(bool initial, string[]? additional = null)
+        protected internal string Class(bool initial, string[]? additional = null)
         {
             ClassSet c = ConstantClasses.Clone();
 
@@ -54,5 +55,12 @@ namespace Integrant.Element
 
             return c.ToString();
         }
+
+        protected static readonly Exception ReconstructedException = new Exception
+        (
+            "This Bit was reconstructed in the render tree. "                                        +
+            "Construct and assign and instance of this Bit once outside of the render tree builder " +
+            "and call its '.Render()' method to render it into the tree."
+        );
     }
 }

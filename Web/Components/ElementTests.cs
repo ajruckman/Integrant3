@@ -132,7 +132,19 @@ namespace Integrant.Web.Components
             (
                 JSRuntime, () => _options
             );
+
+            checkbox1 = new Checkbox(c => { });
+            checkbox2 = new Checkbox(async c => await Console.Out.WriteLineAsync("async " + c), isChecked: () => true);
+            checkbox3 = new Checkbox(c => { }, isDisabled: () => true);
+            checkbox4 = new Checkbox(c => { }, isDisabled: () => true, isChecked: () => true);
+            checkbox5 = new Checkbox(c => { }, isRequired: () => true);
         }
+
+        Checkbox checkbox1 = null!;
+        Checkbox checkbox2 = null!;
+        Checkbox checkbox3 = null!;
+        Checkbox checkbox4 = null!;
+        Checkbox checkbox5 = null!;
 
         List<PopperTests.User> _users;
 

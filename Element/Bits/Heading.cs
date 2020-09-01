@@ -62,17 +62,12 @@ namespace Integrant.Element.Bits
         public override RenderFragment Render() => builder =>
         {
             int seq = -1;
-
-            builder.OpenElement(++seq, _element);
-            builder.AddAttribute(++seq, "style", Style(false));
-            builder.AddAttribute(++seq, "class", Class(false));
-
-            ++seq;
-            if (Spec.IsVisible?.Invoke() == false)
-                builder.AddAttribute(seq, "hidden", "hidden");
-
+            
+            BitBuilder.OpenElement(builder, ref seq, _element, this, null, null);
+            
             builder.AddContent(++seq, Spec.Content!.Invoke().Fragment);
-            builder.CloseElement();
+
+            BitBuilder.CloseElement(builder);
         };
     }
 }

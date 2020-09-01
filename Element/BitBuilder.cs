@@ -1,9 +1,31 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Integrant.Element
 {
     internal static class BitBuilder
     {
+        internal static void OpenElement
+        (
+            RenderTreeBuilder builder,
+            ref int           seq,
+            string            element,
+            BitBase           bitBase,
+            string[]?         additionalStyle,
+            string[]?         additionalClasses
+        )
+        {
+            builder.OpenElement(++seq, element);
+            builder.AddAttribute(++seq, "style", bitBase.Style(false, additionalStyle));
+            builder.AddAttribute(++seq, "class", bitBase.Class(false, additionalClasses));
+
+            ++seq;
+            if (bitBase.Spec.IsDisabled?.Invoke() == true)
+                builder.AddAttribute(seq, "hidden", "hidden");
+        }
+
+        internal static void CloseElement(RenderTreeBuilder builder) => builder.CloseElement();
+        
         internal static string? StyleAttribute(BitSpec spec, string[]? additional = null)
         {
             List<string> result = new List<string>();
@@ -49,12 +71,12 @@ namespace Integrant.Element
             {
                 result.Add($"font-weight: {spec.FontWeight.Invoke()};");
             }
-  
+
             if (spec.Display != null)
             {
                 result.Add($"display: {spec.Display.Invoke()};");
             }
-            
+
             if (additional != null)
                 result.AddRange(additional);
 

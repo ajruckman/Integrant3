@@ -51,13 +51,7 @@ namespace Integrant.Element.Bits
             string color     = _color?.Invoke()      ?? Constants.Accent_4;
             uint   thickness = _thickness?.Invoke()  ?? 4;
 
-            builder.OpenElement(++seq, "div");
-            builder.AddAttribute(++seq, "style", Style(false));
-            builder.AddAttribute(++seq, "class", Class(false));
-
-            ++seq;
-            if (Spec.IsVisible?.Invoke() == false)
-                builder.AddAttribute(seq, "hidden", "hidden");
+            BitBuilder.OpenElement(builder, ref seq, "div", this, null, null);
 
             builder.OpenElement(++seq, "svg");
 
@@ -83,7 +77,8 @@ namespace Integrant.Element.Bits
             //
 
             builder.CloseElement();
-            builder.CloseElement();
+            
+            BitBuilder.CloseElement(builder);
         };
     }
 }
