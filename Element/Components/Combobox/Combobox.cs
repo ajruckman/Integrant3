@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -24,21 +25,26 @@ namespace Integrant.Element.Components.Combobox
 
         public delegate string Placeholder();
 
-        private readonly IJSRuntime                        _jsRuntime;
-        private readonly IsDisabled?                       _isDisabled;
-        private readonly IsRequired?                       _isRequired;
-        private readonly Placeholder?                      _placeholder;
-        private readonly ThreadSafeCache<List<IOption<T>>> _options         = new ThreadSafeCache<List<IOption<T>>>();
-        private readonly ThreadSafeCache<List<IOption<T>>> _optionsFiltered = new ThreadSafeCache<List<IOption<T>>>();
-        private          OptionGetter                      _optionGetter;
-        private          ElementReference                  _elementRef;
+        private readonly IJSRuntime                    _jsRuntime;
+        private readonly IsDisabled?                   _isDisabled;
+        private readonly IsRequired?                   _isRequired;
+        private readonly Placeholder?                  _placeholder;
+        private readonly ThreadSafeCache<IOption<T>[]> _options         = new ThreadSafeCache<IOption<T>[]>();
+        private readonly ThreadSafeCache<IOption<T>[]> _optionsFiltered = new ThreadSafeCache<IOption<T>[]>();
+        private          OptionGetter                  _optionGetter;
+        private          ElementReference              _elementRef;
 
-        private bool        _shown;
-        private bool        _justSelected;
-        private string?     _searchTerm;
+        private bool _shown;
+        private bool _justSelected;
+
+        private string? _searchTerm;
+
         private IOption<T>? _selected;
         private IOption<T>? _focused;
         private Action      _stateHasChanged = null!;
+        private bool        _shouldRender    = true;
+
+        private readonly Debouncer<string?> _debouncer;
 
         public Combobox
         (
@@ -55,6 +61,22 @@ namespace Integrant.Element.Components.Combobox
             _isDisabled   = isDisabled;
             _isRequired   = isRequired;
             _placeholder  = placeholder;
+
+            _debouncer = new Debouncer<string?>(s =>
+            {
+                SetSearchTerm(s);
+                Show();
+                Deselect();
+
+                // TODO: keep this?
+                _focused = null;
+
+                _shouldRender = true;
+                _stateHasChanged.Invoke();
+            }, null);
+
+            // Cache this so we find any selected option.
+            Options();
         }
 
         public event Action<IOption<T>?>? OnSelect;
@@ -84,23 +106,40 @@ namespace Integrant.Element.Components.Combobox
         private string InputValue()
         {
             return _shown
-                ? _focused?.SelectionText  ?? _selected?.SelectionText ?? (_searchTerm ?? "")
-                : _selected?.SelectionText ?? (_searchTerm ?? "");
+                ? _focused?.SelectionText  ?? _selected?.SelectionText ?? _searchTerm ?? ""
+                : _selected?.SelectionText ?? _searchTerm              ?? "";
         }
 
-        private List<IOption<T>> Options() =>
-            _options.SetIf(() => _optionGetter.Invoke().ToList());
+        private IOption<T>[] Options() =>
+            _options.SetIf(() =>
+            {
+                IOption<T>[] r = _optionGetter.Invoke().ToArray();
 
-        private List<IOption<T>> OptionsFiltered()
+                IOption<T>? selected = r.FirstOrDefault(v => v.Selected);
+                if (selected != null)
+                    _selected = selected;
+
+                return r;
+            });
+
+        private IOption<T>[] OptionsFiltered()
         {
-            if (_searchTerm == null) return Options();
+            if (_searchTerm == null) return Options().ToArray();
 
-            return _optionsFiltered.SetIf(() => Options().Where(Matches).ToList());
+            return _optionsFiltered.SetIf(() => Options().Where(Matches).ToArray());
         }
 
+        // private List<IOption<T>> OptionsFiltered()
+        // {
+        //     if (_searchTerm == null) return Options();
+        //
+        //     return _optionsFiltered.SetIf(() => Options().Where(Matches).ToList());
+        // }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool Matches(IOption<T> o)
         {
-            return _searchTerm == null || o.OptionText.IndexOf(_searchTerm, StringComparison.OrdinalIgnoreCase) >= 0;
+            return _searchTerm == null || o.OptionText.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase);
         }
 
         public void Show()
@@ -124,7 +163,11 @@ namespace Integrant.Element.Components.Combobox
 
         public void Select(IOption<T> o, bool update = true, bool focus = true)
         {
-            _selected = o;
+            if (_selected != null) _selected.Selected = false;
+
+            // o.Selected = true;
+            _selected  = o;
+
             SetSearchTerm(null);
             _justSelected = true;
 
@@ -145,22 +188,40 @@ namespace Integrant.Element.Components.Combobox
         //     Select(Options().Single(v => v.Key == key), update);
         // }
 
-        public void Select(T value, bool update = true, bool focus = true)
-        {
-            Select(Options().Single(v => v.Value.Equals(value)), update, focus);
-        }
+        // public void Select(T value, bool update = true, bool focus = true)
+        // {
+        //     Select(Options().Single(v => v.Value.Equals(value)), update, focus);
+        // }
 
-        public void SelectIfExists(T value, bool update = true, bool focus = true)
-        {
-            IOption<T>? match = Options().SingleOrDefault(v => v.Value.Equals(value));
-            if (match != null)
-                Select(match, update, focus);
-            else
-                Deselect(update);
-        }
+        // public void SelectIfExists(T value, bool update = true, bool focus = true)
+        // {
+        //     IOption<T>? match = Options().SingleOrDefault(v => v.Value.Equals(value));
+        //     if (match != null)
+        //         Select(match, update, focus);
+        //     else
+        //         Deselect(update);
+        // }
+
+        // public void Deselect(bool update = true)
+        // {
+        //     foreach (IOption<T> o in _options.Get().Where(v => v.Selected))
+        //     {
+        //         o.Selected = false;
+        //     }
+        //
+        //     _selected = null;
+        //
+        //     if (update)
+        //         OnSelect?.Invoke(null);
+        // }
 
         public void Deselect(bool update = true)
         {
+            // foreach (IOption<T> o in _options.Get().Where(v => v.Selected))
+            // {
+                // o.Selected = false;
+            // }
+
             _selected = null;
 
             if (update)
@@ -210,7 +271,7 @@ namespace Integrant.Element.Components.Combobox
                 Show();
             }
 
-            List<IOption<T>> users = OptionsFiltered();
+            IOption<T>[] users = OptionsFiltered();
 
             IOption<T>? first = users.FirstOrDefault();
             if (first == null)
@@ -227,7 +288,8 @@ namespace Integrant.Element.Components.Combobox
                     }
                     else if (!_focused.Value.Equals(first.Value))
                     {
-                        int previousIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) - 1;
+                        int previousIndex = Array.FindIndex(users, v => v.Value.Equals(_focused.Value)) - 1;
+                        // int previousIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) - 1;
                         Focus(users[previousIndex]);
                     }
 
@@ -240,8 +302,9 @@ namespace Integrant.Element.Components.Combobox
                     }
                     else
                     {
-                        int nextIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) + 1;
-                        if (nextIndex < users.Count)
+                        int nextIndex = Array.FindIndex(users, v => v.Value.Equals(_focused.Value)) + 1;
+                        // int nextIndex = users.FindIndex(v => v.Value.Equals(_focused.Value)) + 1;
+                        if (nextIndex < users.Length)
                         {
                             Focus(users[nextIndex]);
                         }
@@ -269,9 +332,8 @@ namespace Integrant.Element.Components.Combobox
         private void OnInputInput(ChangeEventArgs args)
         {
             var v = args.Value?.ToString();
-            SetSearchTerm(string.IsNullOrEmpty(v) ? null : v);
-            Show();
-            Deselect();
+            _shouldRender = false;
+            _debouncer.Reset(string.IsNullOrEmpty(v) ? null : v);
         }
 
         //
@@ -308,7 +370,7 @@ namespace Integrant.Element.Components.Combobox
 
             protected override void OnParametersSet()
             {
-                Combobox._stateHasChanged = StateHasChanged;
+                Combobox._stateHasChanged = () => InvokeAsync(StateHasChanged);
             }
 
             protected override void OnInitialized()
@@ -342,6 +404,8 @@ namespace Integrant.Element.Components.Combobox
                     }
                 }
             }
+
+            protected override bool ShouldRender() => Combobox._shouldRender;
 
             protected override void BuildRenderTree(RenderTreeBuilder b)
             {
@@ -405,7 +469,7 @@ namespace Integrant.Element.Components.Combobox
 
                 int seq2 = -1;
 
-                for (var i = 0; i < Combobox.Options().Count; i++)
+                for (var i = 0; i < Combobox.Options().Length; i++)
                 {
                     IOption<T> o        = Combobox.Options()[i];
                     bool       selected = Combobox._selected?.Value.Equals(o.Value) == true;

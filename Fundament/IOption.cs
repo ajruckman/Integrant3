@@ -25,10 +25,15 @@ namespace Integrant.Fundament
         string SelectionText { get; }
 
         /// <summary>
+        /// Whether or not this option is selected.
+        /// </summary>
+        bool Selected { get; set; }
+
+        /// <summary>
         /// Whether or not this option is disabled and cannot be selected.
         /// </summary>
-        bool Disabled { get; }
-        
+        bool Disabled { get; set; }
+
         int? SerialID { get; }
     }
 }

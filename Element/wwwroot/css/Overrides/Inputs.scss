@@ -23,7 +23,10 @@ div[class~="Integrant.Element.Override.Input"] {
     }
 
     input[type="text"], textarea {
-        width: calc(100% - 2px);
+        //width: calc(100% - 2px);
+        
+        // TODO: why did I do -2px?
+        width: calc(100%);
     }
 
     &[class~="Integrant.Element.Override.Input:Disabled"] {

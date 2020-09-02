@@ -79,14 +79,14 @@ namespace Integrant.Rudiment.Inputs
             // TODO: Same for other getters
             _combobox!.SetOptionGetter(() => _options.Invoke(value, member.Member));
 
-            if (v is TID vt)
-            {
-                _combobox.Select(vt, false);
-            }
-            else
-            {
-                _combobox.Deselect(false);
-            }
+            // if (v is TID vt)
+            // {
+            //     _combobox.Select(vt, false);
+            // }
+            // else
+            // {
+            //     _combobox.Deselect(false);
+            // }
 
             //
 

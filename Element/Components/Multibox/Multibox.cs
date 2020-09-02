@@ -33,6 +33,8 @@ namespace Integrant.Element.Components.Multibox
         )
         {
             _optionGetter = optionGetter;
+            _options      = new ThreadSafeCache<List<Option<T>>>();
+
             _combobox = new Combobox<T>
             (
                 jsRuntime,
@@ -43,8 +45,8 @@ namespace Integrant.Element.Components.Multibox
             );
 
             _combobox.OnSelect += o => Select(o);
-
-            _options = new ThreadSafeCache<List<Option<T>>>();
+            
+            SetSelectedOptions();
         }
 
         public event Action<List<IOption<T>>?>? OnSelect;
@@ -63,6 +65,7 @@ namespace Integrant.Element.Components.Multibox
                     v.Value,
                     v.OptionText,
                     v.SelectionText,
+                    v.Selected,
                     v.Disabled || _selectedSet.Contains(v.Value),
                     i
                 ));
@@ -74,41 +77,70 @@ namespace Integrant.Element.Components.Multibox
         public void InvalidateOptions()
         {
             _options.Invalidate();
+            SetSelectedOptions();
+        }
+
+        private void SetSelectedOptions()
+        {
+            _selected.Clear();
+            _selectedSet.Clear();
+            
+            foreach (Option<T> o in Options())
+            {
+                if (o.Selected)
+                {
+                    _selected.Add(o);
+                    _selectedSet.Add(o.Value);
+                }
+            }
         }
 
         public void Select(IOption<T>? o, bool update = true)
         {
             if (o == null || _selectedSet.Contains(o.Value)) return;
+            
+            _combobox.Deselect();
 
+            // o.Selected = true;
             _selected.Add(o);
             _selectedSet.Add(o.Value);
-            InvalidateOptions();
-            _combobox.InvalidateOptions();
-            _combobox.Deselect(false);
+
+            // o.Disabled = true;
+            
+            // InvalidateOptions();
+            // _options.Invalidate();
+            // _combobox.InvalidateOptions();
+            // _combobox.Deselect(false);
+            
+            
             _stateHasChanged.Invoke();
 
             if (update)
                 OnSelect?.Invoke(_selected);
         }
 
-        public void Select(T value, bool update = true)
-        {
-            Select(Options().Single(v => v.Value.Equals(value)), update);
-        }
+        // public void Select(T value, bool update = true)
+        // {
+        //     Select(Options().Single(v => v.Value.Equals(value)), update);
+        // }
 
         private static string DefaultPlaceholderGetter()
         {
             return "Click or tab to add selection";
         }
 
-        private void Remove(IOption<T> option)
+        private void Remove(IOption<T> o)
         {
-            _selected.Remove(option);
-            _selectedSet.Remove(option.Value);
-            InvalidateOptions();
-            _combobox.InvalidateOptions();
+            // o.Selected = false;
+            _selected.RemoveAll(v => v.Value.Equals(o.Value));
+            _selectedSet.Remove(o.Value);
+
+            // o.Disabled = false;
 
             OnSelect?.Invoke(_selected.Count != 0 ? _selected : null);
+            
+            // InvalidateOptions();
+            _combobox.InvalidateOptions();
         }
 
         public RenderFragment Render() => b =>
