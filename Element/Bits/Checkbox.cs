@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Integrant.Fundament;
-using Integrant.Resources.Icons.MaterialIcons;
+using Integrant.Resources.Icons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -140,7 +140,7 @@ namespace Integrant.Element.Bits
 
                 builder.AddAttribute(++seq, "onclick",
                     EventCallback.Factory.Create<MouseEventArgs>(this, Checkbox.OnClick));
-                builder.OpenComponent<Icon>(++seq);
+                builder.OpenComponent<MaterialIcon>(++seq);
                 builder.AddAttribute(++seq, "ID", !Checkbox.Checked ? "check_box_outline_blank" : "check_box");
                 builder.CloseComponent();
                 

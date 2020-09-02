@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
-using Integrant.Resources.Icons.MaterialIcons;
+using Integrant.Resources.Icons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -72,7 +72,7 @@ namespace Integrant.Rudiment
             // // builder.AddAttribute(++seq, "style", "width: 7px; height: 7px;");
             // builder.CloseElement();
 
-            builder.OpenComponent<Icon>(++seq);
+            builder.OpenComponent<MaterialIcon>(++seq);
 
             switch (validation.ResultType)
             {

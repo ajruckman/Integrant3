@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Integrant.Element.Components.Combobox;
 using Integrant.Fundament;
-using Integrant.Resources.Icons.MaterialIcons;
+using Integrant.Resources.Icons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -178,7 +178,7 @@ namespace Integrant.Element.Components.Multibox
                     b.OpenElement(++seq2, "div");
                     b.AddContent(++seq2, o.SelectionText);
 
-                    b.OpenComponent<Icon>(++seq2);
+                    b.OpenComponent<MaterialIcon>(++seq2);
                     b.AddAttribute(++seq2, "ID",   "close");
                     b.AddAttribute(++seq2, "Size", (ushort) 16);
                     b.AddAttribute(++seq2, "onclick",

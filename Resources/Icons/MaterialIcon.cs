@@ -1,20 +1,19 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Integrant.Resources.Icons.MaterialIcons
+namespace Integrant.Resources.Icons
 {
-    public sealed class Icon : ComponentBase, IIcon
+    public sealed class MaterialIcon : ComponentBase, IIcon
     {
         [Parameter]
         public string ID { get; set; } = null!;
 
         [Parameter]
         public ushort Size { get; set; } = 24;
-        
+
         [Parameter(CaptureUnmatchedValues = true)]
-        public Dictionary<string, object> Additional { get; set; }
+        public Dictionary<string, object>? Additional { get; set; }
 
         // public Icon() { }
         //
@@ -29,7 +28,7 @@ namespace Integrant.Resources.Icons.MaterialIcons
         //     ID   = id;
         //     Size = size;
         // }
-        
+
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             int seq = -1;

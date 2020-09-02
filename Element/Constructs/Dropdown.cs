@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Integrant.Element.Layouts;
 using Integrant.Fundament.Element;
-using Integrant.Resources.Icons.MaterialIcons;
+using Integrant.Resources.Icons;
 using Microsoft.AspNetCore.Components;
 
 namespace Integrant.Element.Constructs
@@ -47,7 +47,7 @@ namespace Integrant.Element.Constructs
             builder.OpenElement(++seq, "div");
             builder.AddAttribute(++seq, "class", "Integrant.Element.Construct.Dropdown.Top");
             builder.AddContent(++seq, _top.Render());
-            builder.OpenComponent<Icon>(++seq);
+            builder.OpenComponent<MaterialIcon>(++seq);
             builder.AddAttribute(++seq, "ID",   !_left ? "expand_more" : "chevron_right");
             builder.AddAttribute(++seq, "Size", (ushort) 24);
             builder.CloseComponent();
