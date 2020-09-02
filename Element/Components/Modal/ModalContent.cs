@@ -1,5 +1,5 @@
 using System;
-using Integrant.Resources.Icons.MaterialIcons;
+using Integrant.Resources.Icons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -59,7 +59,7 @@ namespace Integrant.Element.Components.Modal
             builder.AddAttribute(++seq, "class", "Integrant.Element.Component.Modal.CloseButton");
             builder.AddAttribute(++seq, "onclick",
                 EventCallback.Factory.Create<MouseEventArgs>(this, OnCloseButtonClick));
-            builder.OpenComponent<Icon>(++seq);
+            builder.OpenComponent<MaterialIcon>(++seq);
             builder.AddAttribute(++seq, "ID", "close");
             builder.CloseComponent();
             builder.CloseElement();
