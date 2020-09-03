@@ -12,6 +12,7 @@ using Integrant.Element.Constructs;
 using Integrant.Element.Layouts;
 using Integrant.Fundament;
 using Integrant.Fundament.Element;
+using Integrant.Resources.Icons;
 using Integrant.Rudiment.Inputs;
 using Integrant.Web.Pages;
 using Microsoft.AspNetCore.Components;
@@ -97,7 +98,12 @@ namespace Integrant.Web.Components
 
             _buttonGroup = new ButtonGroup(new List<Button>
             {
-                new Button(() => "Modal button!", _ => _modal1.Show()),
+                
+                new Button(() =>
+                {
+                    var arrowLeft = new Icon<MaterialIcon>("keyboard_arrow_left"); 
+                    return "Select resources " + arrowLeft.Render().Content();
+                }, _ => _modal1.Show()),
                 new Button(() => "Button blue!", async _ => await Console.Out.WriteLineAsync("async"),
                     () => Button.Color.Blue),
                 new Button(() => "Button green!",  _ => { }, () => Button.Color.Green, isDisabled: () => true),
