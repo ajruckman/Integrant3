@@ -19,7 +19,7 @@ namespace Integrant.Element.Constructs
             BitGetters.BitContent        content,
             Func<bool, Task>             onToggle,
             BitGetters.BitIsChecked?     isToggled       = null,
-            bool?                        isStatic        = null,
+            bool                         isStatic        = false,
             BitGetters.BitIsVisible?     isVisible       = null,
             BitGetters.BitIsDisabled?    isDisabled      = null,
             BitGetters.BitClasses?       classes         = null,
