@@ -30,7 +30,7 @@ namespace Integrant.Element
 
         public delegate double BitREM();
 
-        public delegate uint BitPixels();
+        public delegate double BitPixels();
 
         public delegate ushort BitWeight();
 

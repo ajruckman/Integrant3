@@ -49,7 +49,7 @@ namespace Integrant.Element.Bits
                 "Integrant.Element.Bit",
                 "Integrant.Element.Bit." + nameof(Image)
             );
-            
+
             Cache();
         }
 
@@ -58,9 +58,9 @@ namespace Integrant.Element.Bits
             int seq = -1;
 
             // Define these in HTML instead of CSS.
-            uint? height = _pixelsHeight?.Invoke() ?? null;
-            uint? width  = _pixelsWidth?.Invoke()  ?? null;
-            
+            double? height = _pixelsHeight?.Invoke() ?? null;
+            double? width  = _pixelsWidth?.Invoke()  ?? null;
+
             BitBuilder.OpenElement(builder, ref seq, "img", this, null, null);
 
             builder.AddAttribute(++seq, "src",    Spec.URL!.Invoke());

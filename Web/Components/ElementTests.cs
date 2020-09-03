@@ -101,9 +101,9 @@ namespace Integrant.Web.Components
                 
                 new Button(() =>
                 {
-                    var arrowLeft = new Icon<MaterialIcon>("keyboard_arrow_left"); 
-                    return "Select resources " + arrowLeft.Render().Content();
-                }, _ => _modal1.Show()),
+                    var arrowLeft = new Icon<MaterialIcon>("keyboard_arrow_right"); 
+                    return "Button with content " + arrowLeft.Render().Content();
+                }, _ => _modal1.Show(), pixelsHeight: () => 21.5, padding: () => new Size(2, 0, 2, 6)),
                 new Button(() => "Button blue!", async _ => await Console.Out.WriteLineAsync("async"),
                     () => Button.Color.Blue),
                 new Button(() => "Button green!",  _ => { }, () => Button.Color.Green, isDisabled: () => true),

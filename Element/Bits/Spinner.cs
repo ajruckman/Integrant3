@@ -49,7 +49,7 @@ namespace Integrant.Element.Bits
             // Define this in HTML instead of CSS.
             double size      = _pixelsSize?.Invoke() ?? 64;
             string color     = _color?.Invoke()      ?? Constants.Accent_4;
-            uint   thickness = _thickness?.Invoke()  ?? 4;
+            double thickness = _thickness?.Invoke()  ?? 4;
 
             BitBuilder.OpenElement(builder, ref seq, "div", this, null, null);
 
@@ -62,11 +62,11 @@ namespace Integrant.Element.Bits
             //
 
             builder.AddMarkupContent(++seq,
-                $"<circle "                    +
-                $"cx='50' "                    +
-                $"cy='50' "                    +
-                $"r='40' "                     +
-                $"fill='none' "                +
+                $"<circle "     +
+                $"cx='50' "     +
+                $"cy='50' "     +
+                $"r='40' "      +
+                $"fill='none' " +
                 // $"stroke-dasharray='200, 400' "  +
                 $"stroke-dashoffset='0' "      +
                 $"stroke-linecap='round' "     +
@@ -77,7 +77,7 @@ namespace Integrant.Element.Bits
             //
 
             builder.CloseElement();
-            
+
             BitBuilder.CloseElement(builder);
         };
     }

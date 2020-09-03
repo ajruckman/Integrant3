@@ -24,5 +24,13 @@ namespace Integrant.Element
             Right  = Left = horizontal;
             Bottom = bottom;
         }
+
+        public Size(byte top, byte horizontal, byte bottom, byte left)
+        {
+            Top    = top;
+            Right  = Left = horizontal;
+            Bottom = bottom;
+            Left   = left;
+        }
     }
 }

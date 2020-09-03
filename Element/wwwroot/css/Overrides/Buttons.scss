@@ -1,6 +1,8 @@
 %_ButtonBase {
+    align-items:   center;
     border-radius: 3px;
     cursor:        pointer;
+    display:       inline-flex;
     font-family:   var(--Integrant_SansSerifFont);
     font-weight:   500;
     outline:       none;

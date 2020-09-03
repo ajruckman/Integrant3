@@ -1,7 +1,9 @@
 button[class~="Integrant.Element.Override.Button:Yellow"], button[class~="Integrant.Element.Override.Button:Red"], button[class~="Integrant.Element.Override.Button:Purple"], button[class~="Integrant.Element.Override.Button:Orange"], button[class~="Integrant.Element.Override.Button:Green"], button[class~="Integrant.Element.Override.Button:Blue"], button[class~="Integrant.Element.Override.Button:Default"],
 button[class~="Integrant.Element.Override.Button"]:not([class~="Integrant.Element.Override.Button:Blue"]):not([class~="Integrant.Element.Override.Button:Green"]):not([class~="Integrant.Element.Override.Button:Orange"]):not([class~="Integrant.Element.Override.Button:Purple"]):not([class~="Integrant.Element.Override.Button:Red"]):not([class~="Integrant.Element.Override.Button:Yellow"]) {
+  align-items: center;
   border-radius: 3px;
   cursor: pointer;
+  display: inline-flex;
   font-family: var(--Integrant_SansSerifFont);
   font-weight: 500;
   outline: none;
