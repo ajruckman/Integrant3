@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Integrant.Element.Bits;
 using Integrant.Fundament.Element;
 using Microsoft.AspNetCore.Components;
@@ -8,8 +7,9 @@ namespace Integrant.Element.Constructs
 {
     public class ButtonGroup : IConstruct
     {
+        private const string Classes = "Integrant.Element.Construct Integrant.Element.Construct.ButtonGroup";
+
         private readonly List<Button> _buttons;
-        private readonly string       _classes;
 
         public ButtonGroup
         (
@@ -17,8 +17,22 @@ namespace Integrant.Element.Constructs
         )
         {
             _buttons = buttons ?? new List<Button>();
-            _classes = "Integrant.Element.Construct Integrant.Element.Construct.ButtonGroup";
         }
+
+        public RenderFragment Render() => builder =>
+        {
+            int seq = -1;
+
+            builder.OpenElement(++seq, "div");
+            builder.AddAttribute(++seq, "class", Classes);
+
+            foreach (Button button in _buttons)
+            {
+                builder.AddContent(++seq, button.Render());
+            }
+
+            builder.CloseElement();
+        };
 
         // public ButtonGroup
         // (
@@ -30,20 +44,5 @@ namespace Integrant.Element.Constructs
         // }
 
         public void Add(Button button) => _buttons.Add(button);
-
-        public RenderFragment Render() => builder =>
-        {
-            int seq = -1;
-            
-            builder.OpenElement(++seq, "div");
-            builder.AddAttribute(++seq, "class", _classes);
-
-            foreach (Button button in _buttons)
-            {
-                builder.AddContent(++seq, button.Render());
-            }
-            
-            builder.CloseElement();
-        };
     }
 }

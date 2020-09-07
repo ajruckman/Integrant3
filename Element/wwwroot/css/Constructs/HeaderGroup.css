@@ -1,0 +1,8 @@
+div[class~="Integrant.Element.Construct.HeaderGroup"] {
+  border: 1px solid var(--Colorant_Default_Border_14);
+  box-sizing: border-box;
+  width: 100%; }
+  div[class~="Integrant.Element.Construct.HeaderGroup"] div[class~="Integrant.Element.Construct.Header"]:last-child {
+    border-bottom: none; }
+
+/*# sourceMappingURL=HeaderGroup.css.map */

@@ -11,7 +11,6 @@ namespace Integrant.Element
             stylesheets: new[]
             {
                 "css/Arrangements/Arrangements.css",
-                // "css/Arrangements/Arrangements.css.map",
             }
         );
 
@@ -22,7 +21,6 @@ namespace Integrant.Element
             stylesheets: new[]
             {
                 "css/Bits/Bits.css",
-                // "css/Bits/Bits.css.map",
             }
         );
 
@@ -33,9 +31,7 @@ namespace Integrant.Element
             stylesheets: new[]
             {
                 "css/Components/Components.css",
-                // "css/Components/Components.css.map",
                 "css/Components/TabbedPanel.css",
-                // "css/Components/TabbedPanel.css.map",
                 "css/Components/Combobox.css",
                 "css/Components/Modal.css",
                 "css/Components/Multibox.css",
@@ -44,7 +40,7 @@ namespace Integrant.Element
             {
                 "js/Components/Combobox.js",
             },
-            dependencies: new []
+            dependencies: new[]
             {
                 Resources.ResourceSets.Libraries.Popper,
             }
@@ -57,11 +53,9 @@ namespace Integrant.Element
             stylesheets: new[]
             {
                 "css/Constructs/ButtonGroup.css",
-                // "css/Constructs/ButtonGroup.css.map",
                 "css/Constructs/Dropdown.css",
-                // "css/Constructs/Dropdown.css.map",
-                "css/Constructs/Headers.css",
-                // "css/Constructs/Headers.css.map",
+                "css/Constructs/HeaderGroup.css",
+                "css/Constructs/Header.css",
             }
         );
 
@@ -72,9 +66,7 @@ namespace Integrant.Element
             stylesheets: new[]
             {
                 "css/Layouts/LinearLayout.css",
-                // "css/Layouts/LinearLayout.css.map",
                 "css/Layouts/VerticalLayout.css",
-                // "css/Layouts/VerticalLayout.css.map",
             }
         );
 

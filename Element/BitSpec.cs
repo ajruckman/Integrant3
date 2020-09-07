@@ -18,6 +18,7 @@ namespace Integrant.Element
         internal BitGetters.BitColor?         ForegroundColor;
         internal BitGetters.BitPixels?        PixelsHeight;
         internal BitGetters.BitPixels?        PixelsWidth;
+        internal BitGetters.BitPixels?        PixelsWidthMax;
         internal BitGetters.BitREM?           FontSize;
         internal BitGetters.BitWeight?        FontWeight;
         internal BitGetters.BitDisplay?       Display;

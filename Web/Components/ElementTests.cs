@@ -37,6 +37,8 @@ namespace Integrant.Web.Components
 
         private Multibox<PopperTests.User> _multibox1 = null!;
 
+        private HeaderGroup _headerGroup = null!;
+
         protected override void OnInitialized()
         {
             _childLayer = new Layer(Layer);
@@ -98,10 +100,9 @@ namespace Integrant.Web.Components
 
             _buttonGroup = new ButtonGroup(new List<Button>
             {
-                
                 new Button(() =>
                 {
-                    var arrowLeft = new Icon<MaterialIcon>("keyboard_arrow_right"); 
+                    var arrowLeft = new Icon<MaterialIcon>("keyboard_arrow_right");
                     return "Button with content " + arrowLeft.Render().Content();
                 }, _ => _modal1.Show(), pixelsHeight: () => 21.5, padding: () => new Size(2, 0, 2, 6)),
                 new Button(() => "Button blue!", async _ => await Console.Out.WriteLineAsync("async"),
@@ -145,6 +146,22 @@ namespace Integrant.Web.Components
             checkbox3 = new Checkbox(c => { }, isDisabled: () => true);
             checkbox4 = new Checkbox(c => { }, isDisabled: () => true, isChecked: () => true);
             checkbox5 = new Checkbox(c => { }, isRequired: () => true);
+
+            _headerGroup = new HeaderGroup(new List<Header>
+            {
+                new Header(new List<IBit>
+                {
+                    new Title(() => "Title of primary header"),
+                    new Filler(),
+                    new Chip(() => "Chip 1"),
+                }),
+                new Header(new List<IBit>
+                {
+                    new TextLine(() => "TextLine of secondary header"),
+                    new Filler(),
+                    new Chip(() => "Chip 2"),
+                }, Header.HeaderType.Secondary),
+            }, () => 500);
         }
 
         Checkbox checkbox1 = null!;

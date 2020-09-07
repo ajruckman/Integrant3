@@ -14,8 +14,7 @@ namespace Integrant.Element.Constructs
         private readonly LinearLayout _layout;
         private readonly bool         _doHighlight;
         private readonly string       _classes;
-
-        private string? _highlightedURL = null;
+        private          string?      _highlightedURL;
 
         public enum HeaderType
         {
@@ -63,7 +62,6 @@ namespace Integrant.Element.Constructs
 
         public void Add(IBit bit)
         {
-
             if (bit is Link link)
             {
                 if (_doHighlight)
@@ -75,7 +73,6 @@ namespace Integrant.Element.Constructs
                 _layout.Contents.Add(bit);
             }
         }
-
 
         public RenderFragment Render() => builder =>
         {

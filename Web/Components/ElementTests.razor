@@ -121,6 +121,13 @@
 @(new MonoBlock(() => "MonoBlock content").Render())
 @(new MonoBlock(() => "MonoBlock content", fontWeight: () => 600, fontSize: () => 1.5, padding: () => new Size(10, 0)).Render())
 
+<br>
+<br>
+
+<div style="margin: 10px;">
+    @_headerGroup.Render()
+</div>
+
 <ModalContent Modal="@_modal1">
     <ModalHeading>Modal 1 content!</ModalHeading>
     <p>asdf</p>
