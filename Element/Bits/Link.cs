@@ -1,4 +1,3 @@
-using System.Linq;
 using Integrant.Fundament;
 using Microsoft.AspNetCore.Components;
 
@@ -8,6 +7,8 @@ namespace Integrant.Element.Bits
 {
     public class Link : BitBase
     {
+        // public event Action? OnClick;
+        
         public Link
         (
             BitGetters.BitContent        content,
@@ -68,9 +69,15 @@ namespace Integrant.Element.Bits
             BitBuilder.OpenElement(builder, ref seq, "a", this, null, LocalClasses());
 
             builder.AddAttribute(++seq, "href", Spec.URL!.Invoke());
+            // builder.AddAttribute(++seq, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, HandleClick));
             builder.AddContent(++seq, Spec.Content!.Invoke().Fragment);
             
             BitBuilder.CloseElement(builder);
         };
+
+        // private void HandleClick()
+        // {
+        //     OnClick?.Invoke();
+        // }
     }
 }
