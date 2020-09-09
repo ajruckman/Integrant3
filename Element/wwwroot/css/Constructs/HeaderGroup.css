@@ -1,8 +1,17 @@
 div[class~="Integrant.Element.Construct.HeaderGroup"] {
-  border: 1px solid var(--Colorant_Default_Border_14);
   box-sizing: border-box;
   width: 100%; }
-  div[class~="Integrant.Element.Construct.HeaderGroup"] div[class~="Integrant.Element.Construct.Header"]:last-child {
+  div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"]:first-child {
+    border-top: none; }
+  div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"]:last-child {
     border-bottom: none; }
+  div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] {
+    border: 1px solid var(--Colorant_Default_Border_14); }
+    div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"]:not(:first-child) {
+      border-top: none; }
+  div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] {
+    border: 1px solid var(--Colorant_Default_Border_11); }
+    div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"]:not(:first-child) {
+      border-top: none; }
 
 /*# sourceMappingURL=HeaderGroup.css.map */

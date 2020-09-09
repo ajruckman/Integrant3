@@ -1,5 +1,7 @@
 div[class~="Integrant.Element.Construct.Header"] {
-  padding: 5px 10px; }
+  box-sizing: border-box;
+  padding: 5px 10px;
+  width: 100%; }
   div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] {
     background-color: var(--Colorant_Default_Background_11);
     font-size: 1.5rem; }
@@ -20,9 +22,15 @@ div[class~="Integrant.Element.Construct.Header"] {
   div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] div[class~="Integrant.Element.Bit.Title"], div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] a[class~="Integrant.Element.Bit.Title:Linked"] {
     font-size: 1.6rem;
     font-weight: 700; }
+  div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] a[class~="Integrant.Element.Bit.Link"] {
+    font-size: 1.35rem;
+    font-weight: 600; }
   div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] div[class~="Integrant.Element.Bit.Title"], div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] a[class~="Integrant.Element.Bit.Title:Linked"] {
     font-size: 1.35rem;
     font-weight: 600; }
+  div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] a[class~="Integrant.Element.Bit.Link"] {
+    font-size: 1.1rem;
+    font-weight: 500; }
   div[class~="Integrant.Element.Construct.Header"] a[class~="Integrant.Element.Bit.Link"]:last-child {
     margin-right: 5px; }
 

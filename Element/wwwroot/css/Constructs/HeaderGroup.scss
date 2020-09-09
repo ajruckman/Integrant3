@@ -1,9 +1,30 @@
 div[class~="Integrant.Element.Construct.HeaderGroup"] {
-    border:     1px solid var(--Colorant_Default_Border_14);
     box-sizing: border-box;
     width:      100%;
 
-    div[class~="Integrant.Element.Construct.Header"]:last-child {
-        border-bottom: none;
+    > div[class~="Integrant.Element.Construct.Header"] {
+        &:first-child {
+            border-top: none;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &[class~="Integrant.Element.Construct.Header:Primary"] {
+            border: 1px solid var(--Colorant_Default_Border_14);
+
+            &:not(:first-child) {
+                border-top: none;
+            }
+        }
+
+        &[class~="Integrant.Element.Construct.Header:Secondary"] {
+            border: 1px solid var(--Colorant_Default_Border_11);
+
+            &:not(:first-child) {
+                border-top: none;
+            }
+        }
     }
 }

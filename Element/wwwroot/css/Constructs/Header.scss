@@ -1,5 +1,7 @@
 div[class~="Integrant.Element.Construct.Header"] {
-    padding: 5px 10px;
+    box-sizing: border-box;
+    padding:    5px 10px;
+    width:      100%;
 
     &[class~="Integrant.Element.Construct.Header:Primary"] {
         background-color: var(--Colorant_Default_Background_11);
@@ -39,12 +41,23 @@ div[class~="Integrant.Element.Construct.Header"] {
             font-size:   1.6rem;
             font-weight: 700;
         }
+        
+        a[class~="Integrant.Element.Bit.Link"] {
+            font-size:   1.35rem;
+            font-weight: 600;
+        }
     }
 
     &[class~="Integrant.Element.Construct.Header:Secondary"] {
         div[class~="Integrant.Element.Bit.Title"], a[class~="Integrant.Element.Bit.Title:Linked"] {
             font-size:   1.35rem;
             font-weight: 600;
+        }
+
+
+        a[class~="Integrant.Element.Bit.Link"] {
+            font-size:   1.1rem;
+            font-weight: 500;
         }
     }
 

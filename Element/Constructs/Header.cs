@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Integrant.Element.Bits;
 using Integrant.Element.Layouts;
-using Integrant.Fundament;
 using Integrant.Fundament.Element;
 using Microsoft.AspNetCore.Components;
 
@@ -11,10 +9,11 @@ namespace Integrant.Element.Constructs
 {
     public class Header : IConstruct
     {
-        private readonly LinearLayout _layout;
-        private readonly bool         _doHighlight;
-        private readonly string       _classes;
-        private          string?      _highlightedURL;
+        private readonly LinearLayout          _layout;
+        private readonly bool                  _doHighlight;
+        private readonly BitGetters.BitPixels? _maxWidth;
+        private readonly string                _classes;
+        private          string?               _highlightedURL;
 
         public enum HeaderType
         {
@@ -24,14 +23,17 @@ namespace Integrant.Element.Constructs
 
         public Header
         (
-            List<IBit>? contents     = null,
-            HeaderType  type         = HeaderType.Primary,
-            bool        borderTop    = false,
-            bool        borderBottom = true,
-            bool        doHighlight  = false
+            List<IBit>?           contents     = null,
+            HeaderType            type         = HeaderType.Primary,
+            bool                  borderTop    = false,
+            bool                  borderBottom = true,
+            bool                  doHighlight  = false,
+            BitGetters.BitPixels? maxWidth     = null
         )
         {
             _doHighlight = doHighlight;
+            _maxWidth    = maxWidth;
+            
             if (doHighlight && contents != null)
             {
                 foreach (IBit content in contents)
@@ -80,6 +82,11 @@ namespace Integrant.Element.Constructs
 
             builder.OpenElement(++seq, "div");
             builder.AddAttribute(++seq, "class", _classes);
+            
+            ++seq;
+            if (_maxWidth != null)
+                builder.AddAttribute(seq, "style", $"max-width: {_maxWidth.Invoke()}px;");
+
             builder.AddContent(++seq, _layout.Render());
             builder.CloseElement();
         };

@@ -157,9 +157,21 @@ namespace Integrant.Web.Components
                 }),
                 new Header(new List<IBit>
                 {
-                    new TextLine(() => "TextLine of secondary header"),
+                    new Title(() => "Title of primary header 2"),
                     new Filler(),
                     new Chip(() => "Chip 2"),
+                }),
+                new Header(new List<IBit>
+                {
+                    new TextLine(() => "TextLine of secondary header"),
+                    new Filler(),
+                    new Chip(() => "Chip 3"),
+                }, Header.HeaderType.Secondary),
+                new Header(new List<IBit>
+                {
+                    new TextLine(() => "TextLine of secondary header 2"),
+                    new Filler(),
+                    new Chip(() => "Chip 4"),
                 }, Header.HeaderType.Secondary),
             }, () => 500);
         }
