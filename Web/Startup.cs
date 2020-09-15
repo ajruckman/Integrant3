@@ -23,6 +23,8 @@ namespace Integrant.Web
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            services.AddHttpContextAccessor();
+            
             services.AddBlazoredLocalStorage();
         }
 
