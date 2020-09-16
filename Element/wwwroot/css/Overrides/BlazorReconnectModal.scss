@@ -2,20 +2,27 @@
     background: rgba(0, 0, 0, 0.8) !important;
     font-size:  15pt;
     opacity:    1 !important;
-    
+
     h5 {
-        background:    rgba(0, 0, 255, 0.8);
+        background:    var(--Colorant_Default_Accent_4);
         border-radius: 5px;
         box-shadow:    0 0 3px 1px var(--Colorant_Default_Shadow_0);
         color:         white;
         display:       inline-block;
         margin:        20px 0 5px 0;
+        //opacity:       0.8;
         padding:       5px 10px;
 
         a {
             color:     #dddddd;
             font-size: 12pt;
         }
+    }
+
+    div {
+        border-color: var(--Colorant_Default_Accent_4) var(--Colorant_Default_Border_0) var(--Colorant_Default_Border_0) !important;
+        display:      block !important;
+        margin:       0 auto;
     }
 
     button {

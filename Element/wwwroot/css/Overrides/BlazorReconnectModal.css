@@ -3,7 +3,7 @@
   font-size: 15pt;
   opacity: 1 !important; }
   #components-reconnect-modal h5 {
-    background: rgba(0, 0, 255, 0.8);
+    background: var(--Colorant_Default_Accent_4);
     border-radius: 5px;
     box-shadow: 0 0 3px 1px var(--Colorant_Default_Shadow_0);
     color: white;
@@ -13,6 +13,10 @@
     #components-reconnect-modal h5 a {
       color: #dddddd;
       font-size: 12pt; }
+  #components-reconnect-modal div {
+    border-color: var(--Colorant_Default_Accent_4) var(--Colorant_Default_Border_0) var(--Colorant_Default_Border_0) !important;
+    display: block !important;
+    margin: 0 auto; }
   #components-reconnect-modal button {
     background-color: var(--Colorant_Default_Background_6);
     border: 1px solid var(--Colorant_Default_Border_6);
