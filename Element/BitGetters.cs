@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Integrant.Element.Bits;
 using Integrant.Fundament;
 
 namespace Integrant.Element
@@ -44,5 +43,7 @@ namespace Integrant.Element
         public delegate string? DataValue();
 
         public delegate IDictionary<string, DataValue> BitData();
+
+        public delegate string? BitTooltip();
     }
 }

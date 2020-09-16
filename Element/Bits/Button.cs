@@ -46,7 +46,8 @@ namespace Integrant.Element.Bits
             BitGetters.BitWeight?        fontWeight      = null,
             BitGetters.BitDisplay?       display         = null,
             BitGetters.BitIsHighlighted? isHighlighted   = null,
-            BitGetters.BitData?          data            = null
+            BitGetters.BitData?          data            = null,
+            BitGetters.BitTooltip?       tooltip         = null
         )
         {
             Spec = new BitSpec
@@ -67,6 +68,7 @@ namespace Integrant.Element.Bits
                 Display         = display,
                 IsHighlighted   = isHighlighted,
                 Data            = data,
+                Tooltip         = tooltip,
             };
 
             _onClick = onClick;
@@ -102,7 +104,8 @@ namespace Integrant.Element.Bits
             BitGetters.BitWeight?        fontWeight      = null,
             BitGetters.BitDisplay?       display         = null,
             BitGetters.BitIsHighlighted? isHighlighted   = null,
-            BitGetters.BitData?          data            = null
+            BitGetters.BitData?          data            = null,
+            BitGetters.BitTooltip?       tooltip         = null
         ) : this(
             content,
             async v =>
@@ -125,7 +128,8 @@ namespace Integrant.Element.Bits
             fontWeight,
             display,
             isHighlighted,
-            data
+            data,
+            tooltip
         ) { }
 
         private static Color DefaultColorGetter() => Color.Default;

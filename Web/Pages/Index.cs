@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FlareSelect;
+using Integrant.Element;
 using Integrant.Element.Bits;
 using Integrant.Element.Constructs;
 using Integrant.Fundament.Element;
@@ -71,9 +72,9 @@ namespace Integrant.Web.Pages
             _tagsSelector = new FlareSelector<string>
             (() => new List<IOption<string>>
                 {
-                    new Option<string> {ID = "A", OptionText = "A",},
-                    new Option<string> {ID = "B", OptionText = "B",},
-                    new Option<string> {ID = "C", OptionText = "C",},
+                    new FlareSelect.Option<string> {ID = "A", OptionText = "A",},
+                    new FlareSelect.Option<string> {ID = "B", OptionText = "B",},
+                    new FlareSelect.Option<string> {ID           = "C", OptionText = "C",},
                 },
                 true
             );
@@ -128,6 +129,10 @@ namespace Integrant.Web.Pages
 
         protected override void OnAfterRender(bool firstRender)
         {
+            if (firstRender)
+            {
+                Interop.CreateBitTooltips(JSRuntime);
+            }
             // throw new Exception();
             if (!firstRender) { }
         }

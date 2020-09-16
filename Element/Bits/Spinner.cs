@@ -18,7 +18,8 @@ namespace Integrant.Element.Bits
             bool                     isStatic   = true,
             BitGetters.BitIsVisible? isVisible  = null,
             BitGetters.BitDisplay?   display    = null,
-            BitGetters.BitData?      data       = null
+            BitGetters.BitData?      data       = null,
+            BitGetters.BitTooltip?   tooltip    = null
         )
         {
             Spec = new BitSpec
@@ -27,6 +28,7 @@ namespace Integrant.Element.Bits
                 IsVisible = isVisible,
                 Display   = display,
                 Data      = data,
+                Tooltip   = tooltip,
             };
 
             _pixelsSize = pixelsSize;

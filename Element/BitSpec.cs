@@ -24,5 +24,6 @@ namespace Integrant.Element
         internal BitGetters.BitDisplay?       Display;
         internal BitGetters.BitIsHighlighted? IsHighlighted;
         internal BitGetters.BitData?          Data;
+        internal BitGetters.BitTooltip?       Tooltip;
     }
 }

@@ -21,6 +21,14 @@ namespace Integrant.Element
             stylesheets: new[]
             {
                 "css/Bits/Bits.css",
+            },
+            scripts: new[]
+            {
+                "js/Bits/Tooltip.js",
+            },
+            dependencies: new[]
+            {
+                Superset.Web.ResourceSets.Tooltip,
             }
         );
 

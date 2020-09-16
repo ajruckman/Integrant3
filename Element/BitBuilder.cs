@@ -19,9 +19,9 @@ namespace Integrant.Element
             builder.AddAttribute(++seq, "style", bitBase.Style(false, additionalStyle));
             builder.AddAttribute(++seq, "class", bitBase.Class(false, additionalClasses));
 
-            ++seq;
-            if (bitBase.Spec.IsVisible?.Invoke() == false)
-                builder.AddAttribute(seq, "hidden", "hidden");
+            builder.AddAttribute(++seq, "hidden", bitBase.Spec.IsVisible?.Invoke() == false);
+            
+            builder.AddAttribute(++seq, "data-integrant.element.bit.tooltip", bitBase.Spec.Tooltip?.Invoke());
 
             IDictionary<string, BitGetters.DataValue>? data = bitBase.Spec.Data?.Invoke();
             if (data != null)

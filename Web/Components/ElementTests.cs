@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Bogus;
 using Integrant.Colorant.Themes.Solids;
 using Integrant.Element;
@@ -86,7 +87,7 @@ namespace Integrant.Web.Components
             {
                 return current == Button.Color.Yellow ? Button.Color.Default : current + 1;
             }
-            
+
             _colorChangingButton = new Button
             (
                 () => "Color changing button",
@@ -115,7 +116,8 @@ namespace Integrant.Web.Components
                 new Button(() => "Button green!",  _ => { }, () => Button.Color.Green, isDisabled: () => true),
                 new Button(() => "Button orange!", _ => { }, () => Button.Color.Orange),
                 new Button(() => "Button purple!", _ => { }, () => Button.Color.Purple, isHighlighted: () => true),
-                new Button(() => "Button red!",    _ => { }, () => Button.Color.Default),
+                new Button(() => "Button red!", _ => { }, () => Button.Color.Default,
+                    tooltip: () => RandomNumberGenerator.GetInt32(100).ToString()),
                 new Button(() => "Button yellow!", _ => { }, () => Button.Color.Default),
             });
 
@@ -146,7 +148,10 @@ namespace Integrant.Web.Components
                 JSRuntime, () => _options
             );
 
-            checkbox1 = new Checkbox(c => { });
+            var checkbox1Value = false;
+
+            checkbox1 = new Checkbox(c => checkbox1Value = c, isChecked: () => checkbox1Value,
+                tooltip: () => checkbox1Value ? "Checkbox is checked" : null);
             checkbox2 = new Checkbox(async c => await Console.Out.WriteLineAsync("async " + c), isChecked: () => true);
             checkbox3 = new Checkbox(c => { }, isDisabled: () => true);
             checkbox4 = new Checkbox(c => { }, isDisabled: () => true, isChecked: () => true);
@@ -179,7 +184,7 @@ namespace Integrant.Web.Components
                     new Chip(() => "Chip 4"),
                 }, Header.HeaderType.Secondary),
             }, () => 500);
-            
+
             _combobox = new Combobox<PopperTests.User>(JSRuntime, () => _options);
 
             _combobox.OnSelect += selected =>
