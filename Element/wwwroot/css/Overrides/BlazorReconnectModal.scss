@@ -21,20 +21,24 @@
 
     div {
         border-color: var(--Colorant_Default_Accent_4) var(--Colorant_Default_Border_0) var(--Colorant_Default_Border_0) !important;
-        display:      block !important;
         margin:       0 auto;
+
+        &[style*="display: inline-block;"] {
+            display: block !important;
+        }
     }
 
     button {
         background-color: var(--Colorant_Default_Background_6);
         border:           1px solid var(--Colorant_Default_Border_6);
-        border-radius:    3px;
+        border-radius:    4px;
         box-shadow:       0 0 3px 1px var(--Colorant_Default_Shadow_0);
         color:            var(--Colorant_Default_Text_7);
         cursor:           pointer;
+        font-family:      var(--Integrant_SansSerifFont);
         font-weight:      500;
         outline:          none;
-        padding:          2px 6px;
+        padding:          3px 6px;
 
         &:hover:not(:disabled), &:focus:not(:disabled) {
             background-color: var(--Colorant_Default_Background_9);
