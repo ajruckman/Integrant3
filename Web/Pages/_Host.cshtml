@@ -1,6 +1,11 @@
 ﻿@page "/"
+@using Integrant.Element.Overrides
+@using Microsoft.AspNetCore.Http
 @namespace Integrant.Web.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@inject IHttpContextAccessor HttpContextAccessor
+
 @{
     Layout = null;
 }
@@ -26,6 +31,8 @@
     @* <script src="_content/Integrant.Resources/Libraries/Popper/popper.min.js"></script> *@
     @* <script src="_content/Integrant.Resources/Libraries/Popper/popper.interop.js" type="module"></script> *@
 
+    <link rel="stylesheet" href="@InternetExplorerNotice.StylesheetURL"/>
+    
     <style>
         #blazor-error-ui {
             display: none;
@@ -33,9 +40,24 @@
     </style>
 </head>
 <body>
-<app>
-    <component type="typeof(App)" render-mode="ServerPrerendered"/>
-</app>
+
+@if (InternetExplorerNotice.IsIE(HttpContextAccessor.HttpContext.Request))
+{
+    <div class="Integrant.Element.Override.InternetExplorerNotice">
+        <div>
+            <h1>Internet Explorer detected!</h1>
+            <p>This app cannot run in your browser.</p>
+            <p>Please use a supported browser, like Google Chrome, which may already be installed on your computer.</p>
+            <p>If you need more help, please contact the Help Desk.</p>
+        </div>
+    </div>
+}
+else
+{
+    <app>
+        <component type="typeof(App)" render-mode="ServerPrerendered"/>
+    </app>
+}
 
 <div id="blazor-error-ui">
     <div class="Background"></div>

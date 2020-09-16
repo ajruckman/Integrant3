@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Integrant.Element.Bits;
 using Integrant.Fundament;
 
 namespace Integrant.Element
@@ -17,7 +16,7 @@ namespace Integrant.Element
         public delegate bool BitIsChecked();
 
         public delegate bool BitIsDisabled();
-        
+
         public delegate bool BitIsRequired();
 
         public delegate IEnumerable<string> BitClasses();
@@ -38,5 +37,13 @@ namespace Integrant.Element
 
         // TODO: Implement style
         public delegate bool BitIsHighlighted();
+
+        // Dynamic getters
+
+        public delegate string? DataValue();
+
+        public delegate IDictionary<string, DataValue> BitData();
+
+        public delegate string? BitTooltip();
     }
 }

@@ -55,7 +55,6 @@ namespace Integrant.Element.Components.Combobox
             Placeholder? placeholder = null
         )
         {
-            Console.WriteLine("<- CONSTRUCTED ->");
             _jsRuntime    = jsRuntime;
             _optionGetter = optionGetter;
             _isDisabled   = isDisabled;
@@ -129,13 +128,6 @@ namespace Integrant.Element.Components.Combobox
             return _optionsFiltered.SetIf(() => Options().Where(Matches).ToArray());
         }
 
-        // private List<IOption<T>> OptionsFiltered()
-        // {
-        //     if (_searchTerm == null) return Options();
-        //
-        //     return _optionsFiltered.SetIf(() => Options().Where(Matches).ToList());
-        // }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool Matches(IOption<T> o)
         {
@@ -165,8 +157,7 @@ namespace Integrant.Element.Components.Combobox
         {
             if (_selected != null) _selected.Selected = false;
 
-            // o.Selected = true;
-            _selected  = o;
+            _selected = o;
 
             SetSearchTerm(null);
             _justSelected = true;
@@ -183,45 +174,8 @@ namespace Integrant.Element.Components.Combobox
             }
         }
 
-        // public void Select(string key, bool update = true)
-        // {
-        //     Select(Options().Single(v => v.Key == key), update);
-        // }
-
-        // public void Select(T value, bool update = true, bool focus = true)
-        // {
-        //     Select(Options().Single(v => v.Value.Equals(value)), update, focus);
-        // }
-
-        // public void SelectIfExists(T value, bool update = true, bool focus = true)
-        // {
-        //     IOption<T>? match = Options().SingleOrDefault(v => v.Value.Equals(value));
-        //     if (match != null)
-        //         Select(match, update, focus);
-        //     else
-        //         Deselect(update);
-        // }
-
-        // public void Deselect(bool update = true)
-        // {
-        //     foreach (IOption<T> o in _options.Get().Where(v => v.Selected))
-        //     {
-        //         o.Selected = false;
-        //     }
-        //
-        //     _selected = null;
-        //
-        //     if (update)
-        //         OnSelect?.Invoke(null);
-        // }
-
         public void Deselect(bool update = true)
         {
-            // foreach (IOption<T> o in _options.Get().Where(v => v.Selected))
-            // {
-                // o.Selected = false;
-            // }
-
             _selected = null;
 
             if (update)
@@ -260,7 +214,6 @@ namespace Integrant.Element.Components.Combobox
 
         private void OnInputBlur(FocusEventArgs args)
         {
-            Console.WriteLine("BLUR");
             Hide();
         }
 
@@ -350,11 +303,6 @@ namespace Integrant.Element.Components.Combobox
             }
         }
 
-        // private void OnOptionKeyDown(KeyboardEventArgs args, IOption<T> o)
-        // {
-        //     
-        // }
-
         //
 
         [JSInvokable]
@@ -373,11 +321,6 @@ namespace Integrant.Element.Components.Combobox
                 Combobox._stateHasChanged = () => InvokeAsync(StateHasChanged);
             }
 
-            protected override void OnInitialized()
-            {
-                Console.WriteLine("<- INITIALIZED ->");
-            }
-
             protected override void OnAfterRender(bool firstRender)
             {
                 if (firstRender)
@@ -387,9 +330,6 @@ namespace Integrant.Element.Components.Combobox
                         "Integrant.Element.CreateCombobox",
                         Combobox._elementRef
                     );
-
-                    // Popper.Create(Combobox._jsRuntime, DotNetObjectReference.Create(Combobox), Combobox._inputRef,
-                    // Combobox._dropdownRef);
                 }
 
                 if (Combobox._shown) { }
@@ -451,7 +391,6 @@ namespace Integrant.Element.Components.Combobox
                     EventCallback.Factory.Create<FocusEventArgs>(this, Combobox.OnInputBlur));
                 b.AddAttribute(++seq, "onkeydown",
                     EventCallback.Factory.Create<KeyboardEventArgs>(this, Combobox.OnInputKeyDown));
-                // b.AddAttribute(++seq, "onkeyup",   EventCallback.Factory.Create<KeyboardEventArgs>(this, OnInputKeyUp));
                 b.AddAttribute(++seq, "oninput",
                     EventCallback.Factory.Create<ChangeEventArgs>(this, Combobox.OnInputInput));
 
@@ -463,7 +402,6 @@ namespace Integrant.Element.Components.Combobox
                 b.OpenElement(++seq, "div");
                 b.AddAttribute(++seq, "class",      "Integrant.Element.Component.Combobox.Dropdown");
                 b.AddAttribute(++seq, "data-shown", Combobox._shown);
-                Console.WriteLine($"Shown: {Combobox._shown,-6} | Search term: {Combobox._searchTerm}");
 
                 b.OpenRegion(++seq);
 
@@ -491,9 +429,6 @@ namespace Integrant.Element.Components.Combobox
                     b.AddAttribute(++seq2, "onclick",
                         EventCallback.Factory.Create<MouseEventArgs>(this,
                             args => Combobox.OnOptionClick(args, o)));
-
-                    // b.AddAttribute(++seq2, "onkeydown",
-                    // EventCallback.Factory.Create<KeyboardEventArgs>(this, args => OnOptionKeyDown(args, o)));
 
                     b.AddContent(++seq2, o.OptionText);
 

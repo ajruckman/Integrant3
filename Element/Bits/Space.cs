@@ -9,10 +9,11 @@ namespace Integrant.Element.Bits
     {
         public Space
         (
-            BitGetters.BitPixels?    pixelsWidth     = null,
-            bool                     isStatic        = true,
-            BitGetters.BitIsVisible? isVisible       = null,
-            BitGetters.BitDisplay?   display         = null
+            BitGetters.BitPixels?    pixelsWidth = null,
+            bool                     isStatic    = true,
+            BitGetters.BitIsVisible? isVisible   = null,
+            BitGetters.BitDisplay?   display     = null,
+            BitGetters.BitData?      data        = null
         )
         {
             Spec = new BitSpec
@@ -21,6 +22,7 @@ namespace Integrant.Element.Bits
                 IsVisible       = isVisible,
                 PixelsWidth     = pixelsWidth,
                 Display         = display,
+                Data            = data,
             };
 
             ConstantClasses = new ClassSet(

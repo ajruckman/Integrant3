@@ -1,19 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Cryptography;
 using Bogus;
 using Integrant.Colorant.Themes.Solids;
 using Integrant.Element;
 using Integrant.Element.Bits;
+using Integrant.Element.Components.Combobox;
 using Integrant.Element.Components.Modal;
 using Integrant.Element.Components.Multibox;
 using Integrant.Element.Constructs;
-using Integrant.Element.Layouts;
 using Integrant.Fundament;
 using Integrant.Fundament.Element;
 using Integrant.Resources.Icons;
-using Integrant.Rudiment.Inputs;
 using Integrant.Web.Pages;
 using Microsoft.AspNetCore.Components;
 
@@ -84,18 +83,25 @@ namespace Integrant.Web.Components
                 }
             );
 
+            Button.Color NextColor(Button.Color current)
+            {
+                return current == Button.Color.Yellow ? Button.Color.Default : current + 1;
+            }
+
             _colorChangingButton = new Button
             (
                 () => "Color changing button",
                 _ =>
                 {
-                    _colorChangingButtonColor++;
-                    if (_colorChangingButtonColor > Button.Color.Yellow)
-                        _colorChangingButtonColor = Button.Color.Default;
+                    _colorChangingButtonColor = NextColor(_colorChangingButtonColor);
                     StateHasChanged();
                 },
                 () => _colorChangingButtonColor,
-                isStatic: false
+                isStatic: false,
+                data: () => new Dictionary<string, BitGetters.DataValue>
+                {
+                    {"next-color", () => NextColor(_colorChangingButtonColor).ToString()},
+                }
             );
 
             _buttonGroup = new ButtonGroup(new List<Button>
@@ -110,7 +116,8 @@ namespace Integrant.Web.Components
                 new Button(() => "Button green!",  _ => { }, () => Button.Color.Green, isDisabled: () => true),
                 new Button(() => "Button orange!", _ => { }, () => Button.Color.Orange),
                 new Button(() => "Button purple!", _ => { }, () => Button.Color.Purple, isHighlighted: () => true),
-                new Button(() => "Button red!",    _ => { }, () => Button.Color.Default),
+                new Button(() => "Button red!", _ => { }, () => Button.Color.Default,
+                    tooltip: () => RandomNumberGenerator.GetInt32(100).ToString()),
                 new Button(() => "Button yellow!", _ => { }, () => Button.Color.Default),
             });
 
@@ -141,7 +148,10 @@ namespace Integrant.Web.Components
                 JSRuntime, () => _options
             );
 
-            checkbox1 = new Checkbox(c => { });
+            var checkbox1Value = false;
+
+            checkbox1 = new Checkbox(c => checkbox1Value = c, isChecked: () => checkbox1Value,
+                tooltip: () => checkbox1Value ? "Checkbox is checked" : null);
             checkbox2 = new Checkbox(async c => await Console.Out.WriteLineAsync("async " + c), isChecked: () => true);
             checkbox3 = new Checkbox(c => { }, isDisabled: () => true);
             checkbox4 = new Checkbox(c => { }, isDisabled: () => true, isChecked: () => true);
@@ -174,6 +184,13 @@ namespace Integrant.Web.Components
                     new Chip(() => "Chip 4"),
                 }, Header.HeaderType.Secondary),
             }, () => 500);
+
+            _combobox = new Combobox<PopperTests.User>(JSRuntime, () => _options);
+
+            _combobox.OnSelect += selected =>
+            {
+                if (selected != null) { }
+            };
         }
 
         Checkbox checkbox1 = null!;
@@ -185,6 +202,8 @@ namespace Integrant.Web.Components
         List<PopperTests.User> _users;
 
         List<PopperTests.Option> _options;
+
+        private Combobox<PopperTests.User> _combobox = null!;
 
         protected override void OnAfterRender(bool firstRender)
         {

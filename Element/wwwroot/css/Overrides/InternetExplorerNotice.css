@@ -1,0 +1,15 @@
+div[class~="Integrant.Element.Override.InternetExplorerNotice"] {
+  font-family: sans-serif;
+  margin: 0 auto;
+  max-width: 800px;
+  width: 100%; }
+  div[class~="Integrant.Element.Override.InternetExplorerNotice"] > div {
+    background-color: pink;
+    border: 3px solid red;
+    padding: 15px; }
+    div[class~="Integrant.Element.Override.InternetExplorerNotice"] > div > h1 {
+      margin: 0; }
+    div[class~="Integrant.Element.Override.InternetExplorerNotice"] > div > p:last-child {
+      margin-bottom: 0; }
+
+/*# sourceMappingURL=InternetExplorerNotice.css.map */

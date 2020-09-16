@@ -29,7 +29,9 @@ namespace Integrant.Element.Bits
             BitGetters.BitPixels?     pixelsWidth     = null,
             BitGetters.BitREM?        fontSize        = null,
             BitGetters.BitWeight?     fontWeight      = null,
-            BitGetters.BitDisplay?    display         = null
+            BitGetters.BitDisplay?    display         = null,
+            BitGetters.BitData?       data            = null,
+            BitGetters.BitTooltip?    tooltip         = null
         )
         {
             Spec = new BitSpec
@@ -49,6 +51,8 @@ namespace Integrant.Element.Bits
                 FontSize        = fontSize,
                 FontWeight      = fontWeight,
                 Display         = display,
+                Data            = data,
+                Tooltip         = tooltip,
             };
 
             ConstantClasses = new ClassSet(
@@ -79,7 +83,9 @@ namespace Integrant.Element.Bits
             BitGetters.BitPixels?     pixelsWidth     = null,
             BitGetters.BitREM?        fontSize        = null,
             BitGetters.BitWeight?     fontWeight      = null,
-            BitGetters.BitDisplay?    display         = null
+            BitGetters.BitDisplay?    display         = null,
+            BitGetters.BitData?       data            = null,
+            BitGetters.BitTooltip?    tooltip         = null
         ) : this(
             async v =>
             {
@@ -100,7 +106,9 @@ namespace Integrant.Element.Bits
             pixelsWidth,
             fontSize,
             fontWeight,
-            display
+            display,
+            data,
+            tooltip
         ) { }
 
         public bool Checked { get; private set; }
@@ -143,7 +151,7 @@ namespace Integrant.Element.Bits
                 builder.OpenComponent<MaterialIcon>(++seq);
                 builder.AddAttribute(++seq, "ID", !Checkbox.Checked ? "check_box_outline_blank" : "check_box");
                 builder.CloseComponent();
-                
+
                 BitBuilder.CloseElement(builder);
             }
         }

@@ -26,7 +26,7 @@ namespace Integrant.Element.Bits
 
         private readonly Func<ClickArgs, Task> _onClick;
         private readonly ColorGetter           _color;
-        
+
         public Button
         (
             BitGetters.BitContent        content,
@@ -45,7 +45,9 @@ namespace Integrant.Element.Bits
             BitGetters.BitREM?           fontSize        = null,
             BitGetters.BitWeight?        fontWeight      = null,
             BitGetters.BitDisplay?       display         = null,
-            BitGetters.BitIsHighlighted? isHighlighted   = null
+            BitGetters.BitIsHighlighted? isHighlighted   = null,
+            BitGetters.BitData?          data            = null,
+            BitGetters.BitTooltip?       tooltip         = null
         )
         {
             Spec = new BitSpec
@@ -65,6 +67,8 @@ namespace Integrant.Element.Bits
                 FontWeight      = fontWeight,
                 Display         = display,
                 IsHighlighted   = isHighlighted,
+                Data            = data,
+                Tooltip         = tooltip,
             };
 
             _onClick = onClick;
@@ -99,7 +103,9 @@ namespace Integrant.Element.Bits
             BitGetters.BitREM?           fontSize        = null,
             BitGetters.BitWeight?        fontWeight      = null,
             BitGetters.BitDisplay?       display         = null,
-            BitGetters.BitIsHighlighted? isHighlighted   = null
+            BitGetters.BitIsHighlighted? isHighlighted   = null,
+            BitGetters.BitData?          data            = null,
+            BitGetters.BitTooltip?       tooltip         = null
         ) : this(
             content,
             async v =>
@@ -121,7 +127,9 @@ namespace Integrant.Element.Bits
             fontSize,
             fontWeight,
             display,
-            isHighlighted
+            isHighlighted,
+            data,
+            tooltip
         ) { }
 
         private static Color DefaultColorGetter() => Color.Default;
@@ -145,7 +153,7 @@ namespace Integrant.Element.Bits
             builder.AddAttribute(++seq, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, Click));
 
             builder.AddContent(++seq, Spec.Content!.Invoke().Fragment);
-            
+
             BitBuilder.CloseElement(builder);
         };
 

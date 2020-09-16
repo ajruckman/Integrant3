@@ -20,7 +20,9 @@ namespace Integrant.Element.Bits
             BitGetters.BitPixels?    pixelsWidth     = null,
             BitGetters.BitREM?       fontSize        = null,
             BitGetters.BitWeight?    fontWeight      = null,
-            BitGetters.BitDisplay?   display         = null
+            BitGetters.BitDisplay?   display         = null,
+            BitGetters.BitData?      data            = null,
+            BitGetters.BitTooltip?   tooltip         = null
         )
         {
             Spec = new BitSpec
@@ -37,6 +39,8 @@ namespace Integrant.Element.Bits
                 FontSize        = fontSize,
                 FontWeight      = fontWeight,
                 Display         = display,
+                Data            = data,
+                Tooltip         = tooltip,
             };
 
             ConstantClasses = new ClassSet(
@@ -50,11 +54,11 @@ namespace Integrant.Element.Bits
         public override RenderFragment Render() => builder =>
         {
             int seq = -1;
-            
+
             BitBuilder.OpenElement(builder, ref seq, "div", this, null, null);
 
             builder.AddContent(++seq, "⮞");
-            
+
             BitBuilder.CloseElement(builder);
         };
     }
