@@ -22,7 +22,8 @@ namespace Integrant.Element.Bits
             BitGetters.BitPixels?    pixelsWidth     = null,
             BitGetters.BitREM?       fontSize        = null,
             BitGetters.BitWeight?    fontWeight      = null,
-            BitGetters.BitDisplay?   display         = null
+            BitGetters.BitDisplay?   display         = null,
+            BitGetters.BitData?      data            = null
         )
         {
             Spec = new BitSpec
@@ -41,6 +42,7 @@ namespace Integrant.Element.Bits
                 FontSize        = fontSize,
                 FontWeight      = fontWeight,
                 Display         = display,
+                Data            = data,
             };
 
             ConstantClasses = new ClassSet(

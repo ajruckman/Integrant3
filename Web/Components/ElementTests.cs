@@ -1,19 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Bogus;
 using Integrant.Colorant.Themes.Solids;
 using Integrant.Element;
 using Integrant.Element.Bits;
+using Integrant.Element.Components.Combobox;
 using Integrant.Element.Components.Modal;
 using Integrant.Element.Components.Multibox;
 using Integrant.Element.Constructs;
-using Integrant.Element.Layouts;
 using Integrant.Fundament;
 using Integrant.Fundament.Element;
 using Integrant.Resources.Icons;
-using Integrant.Rudiment.Inputs;
 using Integrant.Web.Pages;
 using Microsoft.AspNetCore.Components;
 
@@ -84,18 +82,25 @@ namespace Integrant.Web.Components
                 }
             );
 
+            Button.Color NextColor(Button.Color current)
+            {
+                return current == Button.Color.Yellow ? Button.Color.Default : current + 1;
+            }
+            
             _colorChangingButton = new Button
             (
                 () => "Color changing button",
                 _ =>
                 {
-                    _colorChangingButtonColor++;
-                    if (_colorChangingButtonColor > Button.Color.Yellow)
-                        _colorChangingButtonColor = Button.Color.Default;
+                    _colorChangingButtonColor = NextColor(_colorChangingButtonColor);
                     StateHasChanged();
                 },
                 () => _colorChangingButtonColor,
-                isStatic: false
+                isStatic: false,
+                data: () => new Dictionary<string, BitGetters.DataValue>
+                {
+                    {"next-color", () => NextColor(_colorChangingButtonColor).ToString()},
+                }
             );
 
             _buttonGroup = new ButtonGroup(new List<Button>
@@ -174,6 +179,13 @@ namespace Integrant.Web.Components
                     new Chip(() => "Chip 4"),
                 }, Header.HeaderType.Secondary),
             }, () => 500);
+            
+            _combobox = new Combobox<PopperTests.User>(JSRuntime, () => _options);
+
+            _combobox.OnSelect += selected =>
+            {
+                if (selected != null) { }
+            };
         }
 
         Checkbox checkbox1 = null!;
@@ -185,6 +197,8 @@ namespace Integrant.Web.Components
         List<PopperTests.User> _users;
 
         List<PopperTests.Option> _options;
+
+        private Combobox<PopperTests.User> _combobox = null!;
 
         protected override void OnAfterRender(bool firstRender)
         {

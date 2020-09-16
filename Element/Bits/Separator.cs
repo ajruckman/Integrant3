@@ -19,7 +19,8 @@ namespace Integrant.Element.Bits
             BitGetters.BitSize?      margin          = null,
             BitGetters.BitSize?      padding         = null,
             BitGetters.BitPixels?    pixelsHeight    = null,
-            BitGetters.BitDisplay?   display         = null
+            BitGetters.BitDisplay?   display         = null,
+            BitGetters.BitData?      data            = null
 
             // byte pxHeight = 16, byte pxWidth = 5, byte pxThickness = 1, string color = Colors.HeaderVerticalLine
         )
@@ -36,6 +37,7 @@ namespace Integrant.Element.Bits
                 Padding      = padding,
                 PixelsHeight = pixelsHeight,
                 Display      = display,
+                Data         = data,
             };
 
             ConstantClasses = new ClassSet(

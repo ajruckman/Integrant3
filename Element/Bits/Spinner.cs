@@ -17,7 +17,8 @@ namespace Integrant.Element.Bits
             BitGetters.BitPixels?    thickness  = null,
             bool                     isStatic   = true,
             BitGetters.BitIsVisible? isVisible  = null,
-            BitGetters.BitDisplay?   display    = null
+            BitGetters.BitDisplay?   display    = null,
+            BitGetters.BitData?      data       = null
         )
         {
             Spec = new BitSpec
@@ -25,6 +26,7 @@ namespace Integrant.Element.Bits
                 IsStatic  = isStatic,
                 IsVisible = isVisible,
                 Display   = display,
+                Data      = data,
             };
 
             _pixelsSize = pixelsSize;

@@ -29,7 +29,8 @@ namespace Integrant.Element.Bits
             BitGetters.BitPixels?     pixelsWidth     = null,
             BitGetters.BitREM?        fontSize        = null,
             BitGetters.BitWeight?     fontWeight      = null,
-            BitGetters.BitDisplay?    display         = null
+            BitGetters.BitDisplay?    display         = null,
+            BitGetters.BitData?       data            = null
         )
         {
             Spec = new BitSpec
@@ -49,6 +50,7 @@ namespace Integrant.Element.Bits
                 FontSize        = fontSize,
                 FontWeight      = fontWeight,
                 Display         = display,
+                Data            = data,
             };
 
             ConstantClasses = new ClassSet(
@@ -79,7 +81,8 @@ namespace Integrant.Element.Bits
             BitGetters.BitPixels?     pixelsWidth     = null,
             BitGetters.BitREM?        fontSize        = null,
             BitGetters.BitWeight?     fontWeight      = null,
-            BitGetters.BitDisplay?    display         = null
+            BitGetters.BitDisplay?    display         = null,
+            BitGetters.BitData?       data            = null
         ) : this(
             async v =>
             {
@@ -100,7 +103,8 @@ namespace Integrant.Element.Bits
             pixelsWidth,
             fontSize,
             fontWeight,
-            display
+            display,
+            data
         ) { }
 
         public bool Checked { get; private set; }

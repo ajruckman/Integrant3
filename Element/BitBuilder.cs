@@ -22,10 +22,19 @@ namespace Integrant.Element
             ++seq;
             if (bitBase.Spec.IsVisible?.Invoke() == false)
                 builder.AddAttribute(seq, "hidden", "hidden");
+
+            IDictionary<string, BitGetters.DataValue>? data = bitBase.Spec.Data?.Invoke();
+            if (data != null)
+            {
+                foreach ((string name, BitGetters.DataValue getter) in data)
+                {
+                    builder.AddAttribute(++seq, "data-" + name, getter.Invoke());
+                }
+            }
         }
 
         internal static void CloseElement(RenderTreeBuilder builder) => builder.CloseElement();
-        
+
         internal static string? StyleAttribute(BitSpec spec, string[]? additional = null)
         {
             List<string> result = new List<string>();
