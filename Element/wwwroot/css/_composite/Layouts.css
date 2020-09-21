@@ -1,0 +1,11 @@
+div[class~="Integrant.Element.Layout.LinearLayout"] {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%; }
+
+div[class~="Integrant.Element.Layout.DropdownLayout"] {
+  display: inline-block;
+  position: relative; }
+
+/*# sourceMappingURL=Layouts.css.map */

@@ -1,0 +1,11 @@
+{
+	"version": 3,
+	"file": "Layouts.css",
+	"sources": [
+		"Layouts.scss",
+		"../Layouts/LinearLayout.scss",
+		"../Layouts/VerticalLayout.scss"
+	],
+	"names": [],
+	"mappings": "ACAA,AAAA,GAAG,CAAA,AAAA,KAAC,EAAO,uCAAuC,AAA9C,EAAgD;EAChD,WAAW,EAAE,MAAM;EACnB,OAAO,EAAM,IAAI;EACjB,SAAS,EAAI,IAAI;EACjB,KAAK,EAAQ,IAAI,GACpB;;ACLD,AAAA,GAAG,CAAA,AAAA,KAAC,EAAO,yCAAyC,AAAhD,EAAkD;EAClD,OAAO,EAAG,YAAY;EACtB,QAAQ,EAAE,QAAQ,GACrB"
+}

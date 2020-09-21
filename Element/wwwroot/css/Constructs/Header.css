@@ -1,10 +1,13 @@
 div[class~="Integrant.Element.Construct.Header"] {
+  align-items: center;
   box-sizing: border-box;
-  padding: 5px 10px;
+  display: flex;
+  padding: 0 5px 0 10px;
   width: 100%; }
   div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] {
     background-color: var(--Colorant_Default_Background_11);
-    font-size: 1.5rem; }
+    font-size: 1.5rem;
+    min-height: 43px; }
     div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"][class~="Integrant.Element.Construct.Header:BorderTop"] {
       border-top: 1px solid var(--Colorant_Default_Border_14); }
     div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"][class~="Integrant.Element.Construct.Header:BorderBottom"] {
@@ -12,7 +15,8 @@ div[class~="Integrant.Element.Construct.Header"] {
   div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] {
     background-color: var(--Colorant_Default_Background_0);
     box-shadow: 0 0 3px var(--Colorant_Default_Shadow_0) inset;
-    font-size: 1.25rem; }
+    font-size: 1.25rem;
+    min-height: 35px; }
     div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"][class~="Integrant.Element.Construct.Header:BorderTop"] {
       border-top: 1px solid var(--Colorant_Default_Border_11); }
     div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"][class~="Integrant.Element.Construct.Header:BorderBottom"] {

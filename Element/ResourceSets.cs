@@ -20,7 +20,7 @@ namespace Integrant.Element
             nameof(Bits),
             stylesheets: new[]
             {
-                "css/Bits/Bits.css",
+                "css/_composite/Bits.css",
             },
             scripts: new[]
             {
@@ -38,15 +38,12 @@ namespace Integrant.Element
             nameof(Components),
             stylesheets: new[]
             {
-                "css/Components/Components.css",
-                "css/Components/TabbedPanel.css",
-                "css/Components/Combobox.css",
-                "css/Components/Modal.css",
-                "css/Components/Multibox.css",
+                "css/_composite/Components.css",
             },
             scripts: new[]
             {
                 "js/Components/Combobox.js",
+                "js/Components/Modal.js",
             },
             dependencies: new[]
             {
@@ -60,10 +57,7 @@ namespace Integrant.Element
             nameof(Constructs),
             stylesheets: new[]
             {
-                "css/Constructs/ButtonGroup.css",
-                "css/Constructs/Dropdown.css",
-                "css/Constructs/HeaderGroup.css",
-                "css/Constructs/Header.css",
+                "css/_composite/Constructs.css",
             }
         );
 
@@ -73,8 +67,7 @@ namespace Integrant.Element
             nameof(Layouts),
             stylesheets: new[]
             {
-                "css/Layouts/LinearLayout.css",
-                "css/Layouts/VerticalLayout.css",
+                "css/_composite/Layouts.css",
             }
         );
 

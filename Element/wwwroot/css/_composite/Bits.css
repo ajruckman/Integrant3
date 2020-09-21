@@ -112,4 +112,26 @@ div[class~="Integrant.Element.Bit.Title"], a[class~="Integrant.Element.Bit.Title
   font-weight: 500;
   text-decoration: none; }
 
+div[class~="Integrant.Element.Bit.Spinner"] {
+  display: inline-block;
+  vertical-align: middle; }
+  div[class~="Integrant.Element.Bit.Spinner"] svg {
+    animation: rotate 2s linear infinite; }
+    div[class~="Integrant.Element.Bit.Spinner"] svg circle {
+      animation: dash 1.5s ease-in-out infinite; }
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 0, 400;
+    stroke-dashoffset: 0; }
+  50% {
+    stroke-dasharray: 200, 400; }
+  100% {
+    stroke-dasharray: 400, 400;
+    stroke-dashoffset: -250px; } }
+
 /*# sourceMappingURL=Bits.css.map */

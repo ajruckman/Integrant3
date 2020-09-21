@@ -113,6 +113,8 @@ namespace Integrant.Web.Pages
                     new Link(() => "Link 2!", () => "/url2", isHighlighted: () => true),
                     new Space(),
                     new Link(() => "Link 3!", () => "/url3"),
+                    new Space(),
+                    new Button(() => "Button yellow!", _ => { }, () => Button.Color.Yellow),
                 },
                 Header.HeaderType.Secondary
             );

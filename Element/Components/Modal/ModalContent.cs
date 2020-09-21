@@ -8,18 +8,21 @@ using Superset.Web.Markup;
 
 namespace Integrant.Element.Components.Modal
 {
-    public sealed class ModalContent : ComponentBase
+    public sealed class ModalContent : ComponentBase, IDisposable
     {
         private ElementReference _elemRef;
 
         [Parameter] public Modal?         Modal        { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; } = null!;
 
+        [InjectAttribute] public IJSRuntime JSRuntime { get; set; } = null!;
+
         protected override void OnParametersSet()
         {
             if (Modal == null)
                 throw new ArgumentNullException(nameof(Modal), "No Modal was passed to ModalContent component.");
-            Modal.StateHasChanged = StateHasChanged;
+            Modal.StateHasChanged =  StateHasChanged;
+            Modal.OnShow          += Focus;
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -34,10 +37,13 @@ namespace Integrant.Element.Components.Modal
             // -> Container
 
             builder.OpenElement(++seq, "div");
-            builder.AddAttribute(++seq, "hidden", !Modal!.Shown);
-            builder.AddAttribute(++seq, "class",  rootClasses.ToString());
+            builder.AddAttribute(++seq, "hidden",   !Modal!.Shown);
+            builder.AddAttribute(++seq, "class",    rootClasses.ToString());
+            builder.AddAttribute(++seq, "tabindex", 0);
             builder.AddAttribute(++seq, "onclick",
                 EventCallback.Factory.Create<MouseEventArgs>(this, OnBackgroundClick));
+            builder.AddAttribute(++seq, "onkeyup",
+                EventCallback.Factory.Create<KeyboardEventArgs>(this, OnBackgroundKeyUp));
             builder.AddElementReferenceCapture(++seq, elemRef => _elemRef = elemRef);
 
             // - -> Constrainer
@@ -77,6 +83,19 @@ namespace Integrant.Element.Components.Modal
             builder.CloseElement();
         }
 
+        private void Focus()
+        {
+            JSRuntime.InvokeVoidAsync("Integrant.Element.FocusModal", _elemRef);
+        }
+
+        private void OnBackgroundKeyUp(KeyboardEventArgs args)
+        {
+            if (args.Key == "Escape")
+            {
+                Modal!.Hide();
+            }
+        }
+
         private void OnBackgroundClick(MouseEventArgs args)
         {
             Modal!.Hide();
@@ -88,6 +107,11 @@ namespace Integrant.Element.Components.Modal
         private void OnCloseButtonClick()
         {
             Modal!.Hide();
+        }
+
+        public void Dispose()
+        {
+            if (Modal != null) Modal.OnShow -= Focus;
         }
     }
 }

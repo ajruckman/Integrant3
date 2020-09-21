@@ -1,0 +1,119 @@
+div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"],
+div[class~="Integrant.Element.Construct.ButtonGroup"] button[class*="Integrant.Element.Override.Button:"],
+div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:not([class~="Integrant.Element.Override.Button:Blue"]):not([class~="Integrant.Element.Override.Button:Green"]):not([class~="Integrant.Element.Override.Button:Orange"]):not([class~="Integrant.Element.Override.Button:Purple"]):not([class~="Integrant.Element.Override.Button:Red"]):not([class~="Integrant.Element.Override.Button:Yellow"]) {
+  border-radius: 0; }
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:first-child,
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class*="Integrant.Element.Override.Button:"]:first-child,
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:not([class~="Integrant.Element.Override.Button:Blue"]):not([class~="Integrant.Element.Override.Button:Green"]):not([class~="Integrant.Element.Override.Button:Orange"]):not([class~="Integrant.Element.Override.Button:Purple"]):not([class~="Integrant.Element.Override.Button:Red"]):not([class~="Integrant.Element.Override.Button:Yellow"]):first-child {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px; }
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:last-child,
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class*="Integrant.Element.Override.Button:"]:last-child,
+  div[class~="Integrant.Element.Construct.ButtonGroup"] button[class~="Integrant.Element.Override.Button"]:not([class~="Integrant.Element.Override.Button:Blue"]):not([class~="Integrant.Element.Override.Button:Green"]):not([class~="Integrant.Element.Override.Button:Orange"]):not([class~="Integrant.Element.Override.Button:Purple"]):not([class~="Integrant.Element.Override.Button:Red"]):not([class~="Integrant.Element.Override.Button:Yellow"]):last-child {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px; }
+
+div[class~="Integrant.Element.Construct.Dropdown"] {
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle; }
+  div[class~="Integrant.Element.Construct.Dropdown"]:hover > div[class~="Integrant.Element.Construct.Dropdown.Top"] i[class~="Integrant.Resources.Icon"] {
+    color: var(--Colorant_Default_Accent_6);
+    content: 'expand_less'; }
+  div[class~="Integrant.Element.Construct.Dropdown"]:hover > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+    display: block; }
+  div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Top"] {
+    align-items: center;
+    display: flex;
+    justify-content: center; }
+    div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Top"] > i[class~="Integrant.Resources.Icon"] {
+      color: var(--Colorant_Default_Text_1);
+      width: 24px; }
+  div[class~="Integrant.Element.Construct.Dropdown"][class~="Integrant.Element.Construct.Dropdown:Left"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+    left: 100%;
+    top: -0.2rem; }
+  div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+    background-color: var(--Colorant_Default_Background_2);
+    border: 1px solid var(--Colorant_Default_Border_15);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px 2px var(--Colorant_Default_Shadow_0);
+    display: none;
+    position: absolute;
+    z-index: 1; }
+    div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"] {
+      box-sizing: border-box;
+      padding: 3px;
+      position: relative;
+      text-align: center;
+      white-space: nowrap; }
+      div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"] > a[class~="Integrant.Element.Bit.Link"] {
+        width: 100%; }
+        div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"] > a[class~="Integrant.Element.Bit.Link"]::after {
+          bottom: -4px;
+          left: -1px;
+          width: calc(100% + 2px); }
+      div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"]:hover {
+        background-color: var(--Colorant_Default_Background_4);
+        box-shadow: 0 0 4px -1px var(--Colorant_Default_Shadow_0) inset; }
+        div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"]:hover > div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+          display: block; }
+      div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"]:not(:last-child) {
+        border-bottom: 1px solid var(--Colorant_Default_Border_5); }
+
+div[class~="Integrant.Element.Construct.Header"] {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  padding: 0 5px 0 10px;
+  width: 100%; }
+  div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] {
+    background-color: var(--Colorant_Default_Background_11);
+    font-size: 1.5rem;
+    min-height: 43px; }
+    div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"][class~="Integrant.Element.Construct.Header:BorderTop"] {
+      border-top: 1px solid var(--Colorant_Default_Border_14); }
+    div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"][class~="Integrant.Element.Construct.Header:BorderBottom"] {
+      border-bottom: 1px solid var(--Colorant_Default_Border_14); }
+  div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] {
+    background-color: var(--Colorant_Default_Background_0);
+    box-shadow: 0 0 3px var(--Colorant_Default_Shadow_0) inset;
+    font-size: 1.25rem;
+    min-height: 35px; }
+    div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"][class~="Integrant.Element.Construct.Header:BorderTop"] {
+      border-top: 1px solid var(--Colorant_Default_Border_11); }
+    div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"][class~="Integrant.Element.Construct.Header:BorderBottom"] {
+      border-bottom: 1px solid var(--Colorant_Default_Border_11); }
+  div[class~="Integrant.Element.Construct.Header"] div[class~="Integrant.Element.Bit.Title"] {
+    padding-right: 15px; }
+  div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] div[class~="Integrant.Element.Bit.Title"], div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] a[class~="Integrant.Element.Bit.Title:Linked"] {
+    font-size: 1.6rem;
+    font-weight: 700; }
+  div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] a[class~="Integrant.Element.Bit.Link"] {
+    font-size: 1.35rem;
+    font-weight: 600; }
+  div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] div[class~="Integrant.Element.Bit.Title"], div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] a[class~="Integrant.Element.Bit.Title:Linked"] {
+    font-size: 1.35rem;
+    font-weight: 600; }
+  div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] a[class~="Integrant.Element.Bit.Link"] {
+    font-size: 1.1rem;
+    font-weight: 500; }
+  div[class~="Integrant.Element.Construct.Header"] a[class~="Integrant.Element.Bit.Link"]:last-child {
+    margin-right: 5px; }
+
+div[class~="Integrant.Element.Construct.HeaderGroup"] {
+  box-sizing: border-box;
+  width: 100%; }
+  div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"]:first-child {
+    border-top: none; }
+  div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"]:last-child {
+    border-bottom: none; }
+  div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"] {
+    border: 1px solid var(--Colorant_Default_Border_14); }
+    div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Primary"]:not(:first-child) {
+      border-top: none; }
+  div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"] {
+    border: 1px solid var(--Colorant_Default_Border_11); }
+    div[class~="Integrant.Element.Construct.HeaderGroup"] > div[class~="Integrant.Element.Construct.Header"][class~="Integrant.Element.Construct.Header:Secondary"]:not(:first-child) {
+      border-top: none; }
+
+/*# sourceMappingURL=Constructs.css.map */
