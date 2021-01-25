@@ -9,7 +9,7 @@
 
     <PropertyGroup>
         <PackageId>Integrant.Resources</PackageId>
-        <VersionPrefix>3.0.2</VersionPrefix>
+        <VersionPrefix>3.0.4</VersionPrefix>
         <VersionSuffix>alpha</VersionSuffix>
     </PropertyGroup>
 

@@ -68,7 +68,7 @@ namespace Integrant.Element.Components.Combobox
                 Deselect();
 
                 // TODO: keep this?
-                _focused = null;
+                // _focused = null;
 
                 _shouldRender = true;
                 _stateHasChanged.Invoke();

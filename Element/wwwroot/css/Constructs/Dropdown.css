@@ -17,6 +17,11 @@ div[class~="Integrant.Element.Construct.Dropdown"] {
   div[class~="Integrant.Element.Construct.Dropdown"][class~="Integrant.Element.Construct.Dropdown:Left"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
     left: 100%;
     top: -0.2rem; }
+  div[class~="Integrant.Element.Construct.Dropdown"][class~="Integrant.Element.Construct.Dropdown:FullWidthChildren"] {
+    position: relative; }
+    div[class~="Integrant.Element.Construct.Dropdown"][class~="Integrant.Element.Construct.Dropdown:FullWidthChildren"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+      left: 0;
+      right: 0; }
   div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
     background-color: var(--Colorant_Default_Background_2);
     border: 1px solid var(--Colorant_Default_Border_15);

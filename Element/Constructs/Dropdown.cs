@@ -12,18 +12,21 @@ namespace Integrant.Element.Constructs
         private readonly IBit       _top;
         private readonly List<IBit> _contents;
         private readonly bool       _left;
+        private readonly bool       _fullWidthChildren;
         private readonly string     _classes;
 
         public Dropdown
         (
             IBit        top,
-            List<IBit>? contents = null,
-            bool        left     = false
+            List<IBit>? contents          = null,
+            bool        left              = false,
+            bool        fullWidthChildren = false
         )
         {
-            _top      = top;
-            _contents = contents ?? new List<IBit>();
-            _left     = left;
+            _top               = top;
+            _contents          = contents ?? new List<IBit>();
+            _left              = left;
+            _fullWidthChildren = fullWidthChildren;
 
             IEnumerable<string> classes = new[]
             {
@@ -33,6 +36,9 @@ namespace Integrant.Element.Constructs
 
             if (_left)
                 classes = classes.Append("Integrant.Element.Construct.Dropdown:Left");
+            
+            if (_fullWidthChildren)
+                classes = classes.Append("Integrant.Element.Construct.Dropdown:FullWidthChildren");
 
             _classes = string.Join(' ', classes);
         }
@@ -47,10 +53,15 @@ namespace Integrant.Element.Constructs
             builder.OpenElement(++seq, "div");
             builder.AddAttribute(++seq, "class", "Integrant.Element.Construct.Dropdown.Top");
             builder.AddContent(++seq, _top.Render());
-            builder.OpenComponent<MaterialIcon>(++seq);
-            builder.AddAttribute(++seq, "ID",   !_left ? "expand_more" : "chevron_right");
-            builder.AddAttribute(++seq, "Size", (ushort) 24);
-            builder.CloseComponent();
+
+            if (_contents.Count > 0)
+            {
+                builder.OpenComponent<MaterialIcon>(++seq);
+                builder.AddAttribute(++seq, "ID",   !_left ? "expand_more" : "chevron_right");
+                builder.AddAttribute(++seq, "Size", (ushort) 24);
+                builder.CloseComponent();
+            }
+
             builder.CloseElement();
 
             builder.OpenElement(++seq, "div");

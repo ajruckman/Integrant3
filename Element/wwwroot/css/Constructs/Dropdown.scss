@@ -34,6 +34,15 @@ div[class~="Integrant.Element.Construct.Dropdown"] {
         }
     }
 
+    &[class~="Integrant.Element.Construct.Dropdown:FullWidthChildren"] {
+        position: relative;
+
+        > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
+            left:  0;
+            right: 0;
+        }
+    }
+
     > div[class~="Integrant.Element.Construct.Dropdown.Contents"] {
         background-color: var(--Colorant_Default_Background_2);
         border:           1px solid var(--Colorant_Default_Border_15);
@@ -44,11 +53,12 @@ div[class~="Integrant.Element.Construct.Dropdown"] {
         z-index:          1;
 
         > div[class~="Integrant.Element.Construct.Dropdown.Child"] {
-            box-sizing:  border-box;
-            padding:     3px;
-            position:    relative;
-            text-align:  center;
-            white-space: nowrap;
+            border-radius: 3px;
+            box-sizing:    border-box;
+            padding:       3px;
+            position:      relative;
+            text-align:    center;
+            white-space:   nowrap;
 
             > a[class~="Integrant.Element.Bit.Link"] {
                 width: 100%;

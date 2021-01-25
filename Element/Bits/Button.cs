@@ -159,6 +159,8 @@ namespace Integrant.Element.Bits
 
         private async Task Click(MouseEventArgs args)
         {
+            if (Spec.IsDisabled?.Invoke() == true) return;
+            
             await _onClick.Invoke(new ClickArgs
             (
                 (ushort) args.Button,
