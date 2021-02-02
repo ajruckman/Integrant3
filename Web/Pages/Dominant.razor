@@ -1,0 +1,15 @@
+@page "/dominant"
+@using System.Security.Cryptography
+
+@_textInput.Render()
+
+<button @onclick="@(() => _textInput.SetValue(RandomNumberGenerator.GetInt32(32).ToString()))">Set</button>
+<button @onclick="@(async () => Console.WriteLine(await _textInput.GetValue()))">Get</button>
+
+<br>
+<br>
+
+@_dateInput.Render()
+
+<button @onclick="@(() => _dateInput.SetValue(DateTime.Now))">Set</button>
+<button @onclick="@(async () => Console.WriteLine(await _dateInput.GetValue()))">Get</button>

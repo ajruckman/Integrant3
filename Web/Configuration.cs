@@ -12,6 +12,8 @@ namespace Integrant.Web
             ResourceSet = new ResourceSet(nameof(Integrant) + "." + nameof(Web), nameof(Configuration),
                 dependencies: new List<ResourceSet>
                 {
+                    Dominant.ResourceSets.Interop,
+                    
                     Resources.ResourceSets.Fonts.SansSerif.Inter,
                     Resources.ResourceSets.Fonts.Monospaced.JetBrainsMono,
 

@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colorant", "Colorant\Colora
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{7A84A613-DCD0-426A-B1F6-AD5315B0FBDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominant", "Dominant\Dominant.csproj", "{506ABC38-B43E-4D45-9C8C-FCE6CE247CE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{7A84A613-DCD0-426A-B1F6-AD5315B0FBDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A84A613-DCD0-426A-B1F6-AD5315B0FBDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A84A613-DCD0-426A-B1F6-AD5315B0FBDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{506ABC38-B43E-4D45-9C8C-FCE6CE247CE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{506ABC38-B43E-4D45-9C8C-FCE6CE247CE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{506ABC38-B43E-4D45-9C8C-FCE6CE247CE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{506ABC38-B43E-4D45-9C8C-FCE6CE247CE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

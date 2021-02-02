@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Colorant\Colorant.csproj" />
+      <ProjectReference Include="..\Dominant\Dominant.csproj" />
       <ProjectReference Include="..\Element\Element.csproj" />
       <ProjectReference Include="..\Fundament\Fundament.csproj" />
       <ProjectReference Include="..\Resources\Resources.csproj" />
