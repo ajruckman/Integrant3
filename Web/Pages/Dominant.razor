@@ -5,7 +5,8 @@
 
 <button @onclick="@(() => _textInput.SetValue(RandomNumberGenerator.GetInt32(32).ToString()))">Set</button>
 <button @onclick="@(async () => Console.WriteLine(await _textInput.GetValue()))">Get</button>
-
+<button @onclick="@(async () => await _textInput.Disable())">Disable</button>
+<button @onclick="@(async () => await _textInput.Enable())">Enable</button>
 <br>
 <br>
 

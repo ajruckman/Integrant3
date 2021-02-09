@@ -1,4 +1,5 @@
 using System;
+using Integrant.Dominant;
 using Integrant.Fundament;
 using Integrant.Fundament.Structure;
 using Microsoft.AspNetCore.Components;
@@ -40,7 +41,10 @@ namespace Integrant.Rudiment.Inputs
 
         public event Action<TStructure, string>? OnInput;
 
-        public void Reset(StructureInstance<TStructure> structure, TStructure value, MemberInstance<TStructure, string> member) { }
+        public void Reset(StructureInstance<TStructure> structure, TStructure value,
+            MemberInstance<TStructure, string>          member)
+        {
+        }
 
         public delegate int GetTextAreaDimension
         (
@@ -74,38 +78,51 @@ namespace Integrant.Rudiment.Inputs
 
             //
 
-            if (!TextArea)
-            {
-                InputBuilder.OpenInnerInput
-                (
-                    builder, ref seq,
-                    value, member.Member,
-                    "input", "text",
-                    "value", member.Member.InputValue.Invoke(value, member.Member),
-                    required, disabled,
-                    args => OnChange(value, args)
-                );
-                InputBuilder.CloseInnerInput(builder);
-            }
-            else
-            {
-                InputBuilder.OpenInnerInput
-                (
-                    builder, ref seq,
-                    value, member.Member,
-                    "textarea", null,
-                    "value", member.Member.InputValue.Invoke(value, member.Member),
-                    required, disabled,
-                    args => OnChange(value, args)
-                );
-                
-                if (TextAreaCols != null)
-                    builder.AddAttribute(++seq, "cols", TextAreaCols.Invoke(value, member.Member, this));
-                if (TextAreaRows != null)
-                    builder.AddAttribute(++seq, "rows", TextAreaRows.Invoke(value, member.Member, this));
-                
-                InputBuilder.CloseInnerInput(builder);
-            }
+            var input = new HTMLTextInput
+            (
+                structure.JSRuntime!,
+                member.Member.InputValue.Invoke(value, member.Member)?.ToString(),
+                disabled,
+                required,
+                member.Member.InputPlaceholder?.Invoke(value, member.Member)
+            );
+
+            input.OnChange += v => OnInput?.Invoke(value, v ?? "");
+
+            builder.AddContent(++seq, input.Render());
+
+            // if (!TextArea)
+            // {
+            //     InputBuilder.OpenInnerInput
+            //     (
+            //         builder, ref seq,
+            //         value, member.Member,
+            //         "input", "text",
+            //         "value", member.Member.InputValue.Invoke(value, member.Member),
+            //         required, disabled,
+            //         args => OnChange(value, args)
+            //     );
+            //     InputBuilder.CloseInnerInput(builder);
+            // }
+            // else
+            // {
+            //     InputBuilder.OpenInnerInput
+            //     (
+            //         builder, ref seq,
+            //         value, member.Member,
+            //         "textarea", null,
+            //         "value", member.Member.InputValue.Invoke(value, member.Member),
+            //         required, disabled,
+            //         args => OnChange(value, args)
+            //     );
+            //     
+            //     if (TextAreaCols != null)
+            //         builder.AddAttribute(++seq, "cols", TextAreaCols.Invoke(value, member.Member, this));
+            //     if (TextAreaRows != null)
+            //         builder.AddAttribute(++seq, "rows", TextAreaRows.Invoke(value, member.Member, this));
+            //     
+            //     InputBuilder.CloseInnerInput(builder);
+            // }
 
             builder.CloseElement();
         };

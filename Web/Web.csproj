@@ -28,7 +28,7 @@
     <ItemGroup>
       <PackageReference Include="FlareSelect" Version="3.8.2-alpha" />
       <PackageReference Include="FlareTables" Version="3.9.3-alpha" />
-      <PackageReference Include="Superset" Version="1.16.0-alpha" />
+      <PackageReference Include="Superset" Version="1.17.2-alpha" />
       <PackageReference Include="Bogus" Version="30.0.4" />
       <PackageReference Include="NaturalSort.Extension" Version="3.0.0" />
     </ItemGroup>

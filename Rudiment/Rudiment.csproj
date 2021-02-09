@@ -24,10 +24,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Superset" Version="1.16.0-alpha" />
+        <PackageReference Include="Superset" Version="1.17.2-alpha" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Dominant\Dominant.csproj" />
         <ProjectReference Include="..\Element\Element.csproj" />
         <ProjectReference Include="..\Fundament\Fundament.csproj" />
         <ProjectReference Include="..\Resources\Resources.csproj" />
