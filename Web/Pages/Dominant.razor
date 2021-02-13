@@ -14,3 +14,11 @@
 
 <button @onclick="@(() => _dateInput.SetValue(DateTime.Now))">Set</button>
 <button @onclick="@(async () => Console.WriteLine(await _dateInput.GetValue()))">Get</button>
+
+<br>
+<br>
+
+@_timeInput.Render()
+
+<button @onclick="@(() => _timeInput.SetValue(DateTime.Now))">Set</button>
+<button @onclick="@(async () => Console.WriteLine(await _timeInput.GetValue()))">Get</button>

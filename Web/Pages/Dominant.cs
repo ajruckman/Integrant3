@@ -10,6 +10,7 @@ namespace Integrant.Web.Pages
     {
         private HTMLTextInput _textInput = null!;
         private HTMLDateInput _dateInput = null!;
+        private HTMLTimeInput _timeInput = null!;
 
         [Inject] public IJSRuntime JSRuntime { get; set; } = null!;
 
@@ -23,10 +24,13 @@ namespace Integrant.Web.Pages
                 false,
                 "placeholder!"
             );
-            _textInput.OnChange += v => Console.WriteLine($"Value: {v}");
+            _textInput.OnChange += v => Console.WriteLine($"_textInput: {v}");
 
-            _dateInput          =  new HTMLDateInput(JSRuntime);
-            _dateInput.OnChange += v => Console.WriteLine($"Value: {v}");
+            _dateInput          =  new HTMLDateInput(JSRuntime, DateTime.Today, false, false);
+            _dateInput.OnChange += v => Console.WriteLine($"_dateInput: {v}");
+
+            _timeInput          =  new HTMLTimeInput(JSRuntime, DateTime.Now, false, false);
+            _timeInput.OnChange += v => Console.WriteLine($"_timeInput: {v}");
         }
     }
 }

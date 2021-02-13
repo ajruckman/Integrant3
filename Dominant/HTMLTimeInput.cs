@@ -9,13 +9,13 @@ using Microsoft.JSInterop;
 
 namespace Integrant.Dominant
 {
-    public partial class HTMLDateInput : IHTMLInput<DateTime?>, IInputRequirable, IInputDisableable
+    public partial class HTMLTimeInput : IHTMLInput<DateTime?>, IInputRequirable, IInputDisableable
     {
         private readonly IJSRuntime       _jsRuntime;
         private          ElementReference _reference;
         private          DateTime?        _value;
 
-        public HTMLDateInput(IJSRuntime jsRuntime, DateTime? value, bool disabled, bool required)
+        public HTMLTimeInput(IJSRuntime jsRuntime, DateTime? value, bool disabled, bool required)
         {
             _jsRuntime = jsRuntime;
 
@@ -32,8 +32,8 @@ namespace Integrant.Dominant
                 var seq = -1;
 
                 builder.OpenElement(++seq, "input");
-                builder.AddAttribute(++seq, "type", "date");
-                builder.AddAttribute(++seq, "value", _value?.ToString("yyyy-MM-dd"));
+                builder.AddAttribute(++seq, "type", "time");
+                builder.AddAttribute(++seq, "value", _value?.ToString("HH:mm"));
                 builder.AddAttribute(++seq, "oninput", EventCallback.Factory.Create(this, Change));
 
                 builder.AddElementReferenceCapture(++seq, r => _reference = r);
@@ -54,7 +54,7 @@ namespace Integrant.Dominant
         {
             _value = value == null || value == DateTime.MinValue ? null : value;
             await _jsRuntime.InvokeVoidAsync("window.Integrant.Dominant.SetValue", _reference,
-                value?.ToString("yyyy-MM-dd") ?? "");
+                value?.ToString("HH:mm") ?? "");
             OnChange?.Invoke(_value);
         }
 
@@ -74,11 +74,11 @@ namespace Integrant.Dominant
                 return null;
             }
 
-            return DateTime.ParseExact(v, "yyyy-MM-dd", new DateTimeFormatInfo());
+            return DateTime.ParseExact(v, "HH:mm", new DateTimeFormatInfo());
         }
     }
 
-    public partial class HTMLDateInput
+    public partial class HTMLTimeInput
     {
         private readonly InputDisabledManager _inputDisabledManager;
 
@@ -87,7 +87,7 @@ namespace Integrant.Dominant
         public async Task       Enable()     => await _inputDisabledManager.Enable(_reference);
     }
 
-    public partial class HTMLDateInput
+    public partial class HTMLTimeInput
     {
         private readonly InputRequiredManager _inputRequiredManager;
 

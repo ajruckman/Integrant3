@@ -49,8 +49,8 @@ namespace Integrant.Dominant
 
         public async Task<string?> GetValue()
         {
-            var value = await _jsRuntime.InvokeAsync<string>("window.Integrant.Dominant.GetValue", _reference);
-            _value = string.IsNullOrEmpty(value) ? null : value;
+            var v = await _jsRuntime.InvokeAsync<string>("window.Integrant.Dominant.GetValue", _reference);
+            _value = string.IsNullOrEmpty(v) ? null : v;
             return _value;
         }
 
