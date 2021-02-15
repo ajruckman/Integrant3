@@ -31,6 +31,7 @@ div[class~="Integrant.Element.Construct.Dropdown"] {
     position: absolute;
     z-index: 1; }
     div[class~="Integrant.Element.Construct.Dropdown"] > div[class~="Integrant.Element.Construct.Dropdown.Contents"] > div[class~="Integrant.Element.Construct.Dropdown.Child"] {
+      border-radius: 3px;
       box-sizing: border-box;
       padding: 3px;
       position: relative;
